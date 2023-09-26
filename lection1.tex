@@ -1,0 +1,51 @@
+\chapter{Лекция 1 - 2023-09-06 - Основные распределения МС}
+
+  \section{Гамма-распределение}
+  \[
+    \gamma_{\alpha, \lambda} (x) = \begin{cases}
+      \dfrac{\alpha^\lambda}{\Gamma(\lambda)} x^{\lambda-1} e^{-\alpha x}, x>0 \\
+      0, x \leqslant 0
+    \end{cases}, \lambda > 0, \alpha > 0.
+  \]
+
+  \subsection{Гамма-функция $\Gamma(\lambda)$}
+  \begin{definition}
+    $$\Gamma(\lambda) = \int_0^{+\infty} x^{\lambda-1} e^{-x} \, dx, \lambda > 0.$$
+  \end{definition}
+
+  \begin{itemize}
+    \item $\Gamma(1) = \int_0^{+\infty} e^{-x} \, dx = 1$.
+    \item $\Gamma(\frac{1}{2}) = \int_0^{+\infty} x^{-1/2} e^{-x} \, dx = 2 \int_0^{+\infty} e^{-x} \, d\sqrt{x} = 2 \int_0^{+\infty} e^{-y^2} \, dy = \sqrt{\pi}$.
+    \item $\Gamma(\lambda+1) = \int_0^{+\infty} x^\lambda e^{-x} \, dx = 
+      \left. - x^\lambda e^{-x} \right|_0^{+\infty} 
+      + \int_0^{+\infty} \lambda x^{\lambda-1} e^{-x} dx 
+      = \lambda \Gamma(\lambda)$.
+
+    В частности, $\Gamma(n+1) = n!$. 
+  \end{itemize}
+
+  \begin{remark}
+    \[
+      \lambda = 1 \Rightarrow \Gamma_{\alpha, 1} = \begin{cases}
+        \alpha e^{-\alpha x}, x>0 \\
+        0, x\leqslant 0
+      \end{cases}
+    \]
+  \end{remark}
+
+  \section{Бета распределение}
+
+  \begin{definition}
+    $\beta_{m, n} = \begin{cases}
+      \dfrac{x^{m-1}  (1-x)^{n-1}}{B(m, n)}, 0 < x < 1 \\
+      0, x \notin (0, 1)
+    \end{cases}, m, n > 0$
+  \end{definition}
+
+  \begin{definition}
+    $B(m, n) = \int\limits_0^1 w^{m-1} (1-w)^{n-1} dw, m, n>0$.
+  \end{definition}
+
+  \begin{remark}
+    Частные случаи:
+
