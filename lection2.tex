@@ -1,0 +1,90 @@
+\chapter{Лекция 2 - 2023-09-13 - Виды сходимости случайных величин. Предельные теоремы
+теории вероятностей. Закон больших чисел}
+
+Пусть на $(\Omega, \cal A, P)$ задана случайная величина $\xi$ и последовательность случайных величин $\xi_1, \xi_2, \dots$.
+
+\section{Сходимость почти наверное}
+
+\begin{definition}
+  $\xi_n \toPN \xi$, если $P\left(\lim\limits_{n\to\infty} \xi_n = \xi \right) = 1$.
+\end{definition}
+
+\begin{ex}
+  Пусть $\Omega = [0, 1]$, $\cal A$ - $\sigma$-алгебра измеримых подмножеств, $P(A) = mes A$.
+
+  Определим $\xi_n(\omega) = \begin{cases} 1, 0\leqslant \omega < \frac{1}{n} \\ 0, \text{иначе} \end{cases}$
+  
+  Тогда $\forall \omega \neq 0, \xi_n(\omega) \to 0$, то есть $P\left(\lim\limits_{n\to\infty} \xi_n=0\right) = 1$.
+\end{ex}
+
+\begin{definition}
+  $\xi_n \toPN \xi$, если $\forall \varepsilon > 0: \lim\limits_{n\to\infty} P\left( \omega: \sup\limits_{m\geqslant n} |\xi_n-\xi| > \varepsilon \right) = 0$
+\end{definition}
+
+\begin{theorem}
+  Эти определения эквивалентны.
+\end{theorem}
+
+\begin{proof}
+  % TODO: proof
+\end{proof}
+
+
+\section{Сходимость по вероятности}
+
+\begin{definition}
+  $\xi_n \toP \xi$, если $\forall \varepsilon > 0, \lim\limits_{n\to\infty} P\left(\omega: |\xi_n-\xi|>\varepsilon\right) = 0$.
+\end{definition}
+
+\begin{theorem}
+  $\xi_n \toPN \xi \Rightarrow \xi_n \toP \xi$.
+\end{theorem}
+
+\begin{proof}
+  Очевидно.
+\end{proof}
+
+\begin{remark}
+  Обратное, вообще говоря, не верно.
+\end{remark}
+
+\begin{ex}
+  % TODO example
+\end{ex}
+
+\begin{theorem}
+  Если последовательность $\{ \xi_n \}$ монотонно возрастает (убывает) и $\xi_n \toP \xi$, то $\xi_n \toPN \xi$.
+\end{theorem}
+\begin{proof}
+  % TODO proof
+\end{proof}
+
+\begin{theorem}
+  Если $\xi_n \toP \xi$, то из последовательности $\{ \xi_n \}$ можно выбрать подпроследовательность $\{ \xi_{n_k} \}$ такую, что $\xi_{n_k} \toPN \xi$.
+\end{theorem}
+\begin{proof}
+  без доказательства.
+\end{proof}
+
+\section{Сходимость по распределению (слабая)}
+
+\begin{definition}
+  $\xi_n \toD \xi$, или $F_{\xi_n} (x) \Rightarrow F_\xi (x)$, если для любой непрерывной ограниченной функции $g(x)$ выполняется:
+  $$\int\limits_{-\infty}^{+\infty} g(x) \, dF_{\xi_n}(x) \xrightarrow[]{n\to\infty} \int\limits_{-\infty}^{+\infty} g(x) \, dF_\xi(x)$$
+\end{definition}
+
+\begin{definition}
+  $F_{\xi_n} (x) \Rightarrow F_\xi(x)$, если $F_{\xi_n}(x) \to F_\xi(x)$ в каждой точке непрерывности $F_\xi(x)$.
+\end{definition}
+
+\begin{theorem}
+  $P(\xi_n < x) \xrightarrow[]{n\to\infty} P(\xi<x)$.
+\end{theorem}
+
+\section{Сходимость в среднем порядка r}
+
+% TODO
+
+\section{Предельные теоремы}
+
+% TODO

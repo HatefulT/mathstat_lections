@@ -1,0 +1,152 @@
+\chapter{Лекция 3 - 2023-09-20}
+  
+\begin{definition}
+   $\widehat{\Theta_n} = f\left(x_1, x_2,\dots, x_n\right)$ - оценка параметра $\Theta$ (функция от выборки, статистика).
+\end{definition}
+
+%\begin{definition}
+%  Оценка параметра $\widehat{D_n} = f(x_1, x_2, \dots, x_n)$.
+%\end{definition}
+
+\section{Свойства оценок}
+
+\begin{definition}
+  Оценка $\widehat{D_n}$ называется несмещенной, если $M[\widehat{D_n}]$.
+\end{definition}
+
+\[
+  M f(\bar{x}) = \int\limits_{R_n} f(x_1, x_2, \dots, x_n) \prod\limits_{j=1}^{n} p_{x_i} (x_i) \, dx_1 dx_2 \dots dx_n.
+\]
+
+$$f(x_1, \dots, x_n) \toP 0, n \to \infty$$
+
+Если $f(x_1, \dots, x_n) \toPN 0$, то $\hat{D_n}$ - силнльно состоятельная.
+
+%Пусть $x_1, \dots, x_n$ - выборка.
+%$M X_i = a$.
+%$$\hat{a_n} = ?$$
+
+\section{Выборочное среднее}
+
+\begin{definition}
+  Выборочное среднее $\hat{a_n} = \bar{X} = \frac{1}{n} \sum\limits_{i=1}^{n} x_i$.
+\end{definition}
+
+\subsection{Свойства выборочного среднего}
+
+\begin{itemize}
+  \item $M \bar{X} = M(\frac{1}{n} \sum\limits_{i=1}^{n} x_i) = \dots$. Несмещенная
+  \item сильно состоятельная.
+\end{itemize}
+
+\section{Выборочная дисперсия}
+
+$$ S^2 = \frac{1}{n-1} \sum\limits_{i=1}^{n} \left(x_I-\bar{x}\right)^2 $$
+
+\begin{multline}
+  M S^2 = \frac{1}{n-1} M(\sum_{i=1}^{n} (X_i - a - (\bar{X} - a)^2)^2 ) = \\
+  = \frac{1}{n-1} \sum M (X_i-a)^2 - 2 M[ (\bar{X} - a) \sum (x_i - a) ] + M (\bar{x} -a)^2 = \\
+  = \frac{1}{n-1} \left[ n \sigma^2 - 2 n M(\bar{X}-a)^2 + n M (\bar{x}-a)^2 \right] = \\
+  = \frac{1}{n-1} \left[ n \sigma^2 - n \frac{\sigma^2}{n} \right] = \sigma^2.
+\end{multline}
+
+2. Состоятельность 
+
+\begin{multline*}
+  S_n^2 = \frac{1}{n-1} \sum (X_i - \bar{X})^2 = \frac{n}{n-1} \left[ \frac{1}{n} \sum X_i^2 - \bar{X}^2 \right] = \\
+  \text{В силу сильного ЗБЧ} \\
+  \to \sigma^2
+\end{multline*}
+
+3. Дисперсия
+
+ 
+$$D S^2 = \dfrac{\mu_4}{n} - \dfrac{\sigma^4 (n-3)}{n (n-1)} = O \left(\frac{1}{n} \right)$$
+$\mu_4 = M X_i^4$ - четвертый момент
+
+4. Теорема достаточное условие состоятельности
+
+Пусть $\hat{\Theta_n}$ асимптотически несмешщенная оценка $\Theta$ и $D \bar{\Theta_n} \to 0, n \to \infty$, тогда $\hat{\Theta_n}$ - состоятельная оценка $\Theta$.
+
+Доказательство
+\begin{multline*}
+  \forall \epsilon > 0: | \hat{\Theta_n} - \Theta| = |\Theta_n - M \Theta_n + M \Theta_n - \Theta| <= |\Theta_n - M\Theta_n| + | \Theta - M \Theta_n | \\
+  P( | \Theta_n - M \Theta_n| > \epsilon) \leqslant \dfrac{|\Theta_n - M \Theta_n| ^2} {\epsilon^2} =  \dfrac{D \Theta_n} {\epsilon^2} \to 0, n \to \infty
+\end{multline*}
+
+\section{Выборочная функция распределения}
+
+\begin{definition}
+\[
+  I(x) = 1, x>0, I(x) = 0 = x<=0.
+\]
+\end{definition}
+
+Индикатор непрерывен слева.
+
+\begin{definition}
+  Выборочная функция распределения $\hat{F_n} (x) = \frac{1}{n} \sum I(x-X_i)$
+\end{definition}
+
+\subsection{Свойства выборочной функции распределения}
+
+1. Несмещенность
+\begin{multline*}
+  M \hat{F_n} (x) = M \dfrac{1}{n} \sum I(x-X_i)
+\end{multline*}
+
+2. сильно состоянельна
+
+3.  Теорема гаовенко-канослли
+
+\begin{multline*}
+  sup_x |\hat{F_n} (x) - F(x)| \toPN 0.
+\end{multline*}
+
+4. Неравенство Дворецного-Кифери-Волфовица
+
+$$P(sup_x |\hat{F_n}(x) - F(x)| > \epsilon) \leqslant 2 e^{-2n \epsilon^2}$$
+
+Следствие. $P\left(sup_x |\hat{F_n} (x) - F(x)| <= \epsilon\right) >= 1 - 2 e^{-2n \epsilon^2} = 1-\alpha$.
+% $\epsilon = \sqrt{ \dfrac{ln \frac{2}{\alpha} }}{2n}$.
+
+$$\hat F_n$$
+
+5. $$0 \leqslant \hat F_n (x) \leqslant 1$$
+
+$$\lim_{x\to -\infty} \hat{F_n} (x) = 0$$
+
+$$F_n(+\infty) = 1$$
+
+$F_n(x)$ неубывает
+
+Теорема. Если выборка $x_1, \dots, x_n$ получена из закона распределения $F(x)$, то $F_n(x)$ - .. СВ
+
+\begin{multline*}
+  P(F_n(x) = k/n) = C_n^k F(x)^k (1-F(x))^{n-k}
+\end{multline*}
+
+схема бернулли
+
+Доказательство. 
+\[
+  \hat{F_n} \left(x\right) = \frac{1}{n} \sum I\left(x-X_i\right)
+\]
+
+Следствие
+1. $M \hat F_n (x) = \frac{1}{n} np = p = F(x)$
+2. $D \hat F_n (x) = \frac{1}{n^2} npq = \dfrac{F(X) (1 - F(x))}{n}$
+$\Leftrightarrow M (\hat F_n(x) - F(x))^2 \to 0$
+$\Leftrightarrow \hat F_n (x) \to^\text{ср.кв.} F(x)$
+
+4. Порядковая статистика
+
+$x_1, x_2, \dots, x_n$
+
+\begin{definition}
+  Выборка упорядоченная по возрастанию называется вариационным рядом $X_{(1)} \leqslant \dots X_{(n)}$.
+\end{definition}
+
+$min (X) = X_{(1)}$ - минимальный член вариационного ряда.
+
+$\omega = X_{(n)} - X_{(1)}$ - размах выборки
