@@ -1,4 +1,7 @@
-\chapter{Лекция 4 - 2023-09-27 - Порядковые статистики}
+\chapter{Лекция 4 - 2023-09-27 - Методы получения точечных оценок: моментов, максимального
+правдоподобия. Свойства точечных оценок.}
+
+\section{Вероятности для вариационного ряда}
 
 \begin{theorem}
   $X_1, X_2, \dots, X_n$ - независимыя выборка из з.р. $F(X)$
@@ -31,12 +34,12 @@
 \end{theorem}
 
 \begin{proof}
-  \begin{multline*}
+  \[
     P(x\leqslant X_{(k)} < x+\Delta x) = \dfrac{n!}{(k-1)! (n-k)!} (F(x))^{k-1} p(x) \Delta x (1-F(x+\Delta x))^{n-k}
-  \end{multline*}
+  \]
 \end{proof}
 
-\section{Методы построения точечных оценолк параметров}
+\section{Методы построения точечных оценок параметров}
 
 $X_1, X_2, \dots, X_n \sim F(x, \theta_1, \theta_2, \dots, \theta_n)$
 
@@ -73,34 +76,34 @@ $\mu_k = \int\limits_{-\infty}^{+\infty} x^k dF(x, \bar{\theta})$
 $X_1, X_2, \dots, X_n \sim p(x, \bar\theta) \text{или} P(\xi = X_k)$
 
 \begin{definition}
-  $\cal L (X_1, X_2, \dots, X_n, \hat\theta) = $
-  В случае непрерывной величины: $\cal{L} = \prod_{k=1}^n P(X_k, \hat \theta)$
-  В случае дискретной: $\cal L = P(\xi_1 = X_1, \xi_2 = X_2, \dots, \xi_n = X_n) = \prod P(\xi_k = X_k)$
+  $\mathcal{L} (X_1, X_2, \dots, X_n, \hat\theta) = $
+  В случае непрерывной величины: $\mathcal{L} = \prod_{k=1}^n P(X_k, \hat \theta)$
+  В случае дискретной: $\mathcal{L} = P(\xi_1 = X_1, \xi_2 = X_2, \dots, \xi_n = X_n) = \prod P(\xi_k = X_k)$
 
-  $\cal L$ исследуется на максимум по параметру $\theta$.
+  $\mathcal{L}$ исследуется на максимум по параметру $\theta$.
 \end{definition}
 
-$\dfrac{\partial \cal L}{\partial \theta} = 0 \Leftrightarrow \frac{1}{\cal L} \dfrac{\ln \cal L}{\partial \theta} = 0$
+$\dfrac{\partial \mathcal{L}}{\partial \theta} = 0 \Leftrightarrow \frac{1}{\mathcal{L}} \dfrac{\ln \mathcal{L}}{\partial \theta} = 0$
 
 \begin{ex}
   $X_1, X_2, \dots, X_n \sim Pois(\lambda)$
   $P(\xi=x_k) = \dfrac{\lambda^{X_k}}{(X_k)!} e^{-\lambda}$
 
-  $\cal L(X_1, \dots, X_n, \lambda) = \prod \dfrac{\lambda^{X_k}}{(X_k)!} e^{-\lambda}$
+  $\mathcal{L}(X_1, \dots, X_n, \lambda) = \prod \dfrac{\lambda^{X_k}}{(X_k)!} e^{-\lambda}$
 
-  $\ln \cal{L} = \sum X_k \ln\lambda - n \lambda - \ln \prod (X_k)!$
+  $\ln \mathcal{L} = \sum X_k \ln\lambda - n \lambda - \ln \prod (X_k)!$
 
-  $\dfrac{\partial \ln \cal{L}}{\partial \lambda} = \dfrac{\sum X-k}{\lambda} - n = 0 \Rightarrow \bar{\lambda_n} = \frac{1}{n} \sum X_k$
+  $\dfrac{\partial \ln \mathcal{L}}{\partial \lambda} = \dfrac{\sum X-k}{\lambda} - n = 0 \Rightarrow \bar{\lambda_n} = \frac{1}{n} \sum X_k$
 \end{ex}
 
 \begin{ex}
   $X_1, X_2, \dots, X_n \sim E(\alpha)$
 
-  $\cal{L}(X_1, \dots, X_n, \alpha) = \prod \alpha e^{-\alpha x_k} = \alpha^n e^{-\alpha \sum x_k}$
+  $\mathcal{L}(X_1, \dots, X_n, \alpha) = \prod \alpha e^{-\alpha x_k} = \alpha^n e^{-\alpha \sum x_k}$
 
-  $\ln \cal{L} = n \ln\alpha - \alpha \sum x_k$
+  $\ln \mathcal{L} = n \ln\alpha - \alpha \sum x_k$
 
-  $\dfrac{\partial \ln\cal{L}}{\partial \alpha} = \frac{n}{\alpha} - \sum x_k$
+  $\dfrac{\partial \ln\mathcal{L}}{\partial \alpha} = \frac{n}{\alpha} - \sum x_k$
 \end{ex}
 
 \subsection{Сравнение оценок}
@@ -126,7 +129,7 @@ $\dfrac{\partial \cal L}{\partial \theta} = 0 \Leftrightarrow \frac{1}{\cal L} \
   Если $X_1, X_2, \dots, X_n$ - выборка из закона распределения с плотностью $p(x, \theta)$ и $\int\limits_R p(x, \theta) \, dx = 1$ допускает дифференцирование по $\theta$.
   Тогда $\forall$ несмещенной оценки $\hat\theta_n$ имеет место:
   $$D\hat\theta_n \geqslant \frac{1}{I_n(\theta)} = \frac{1}{n I_1(\theta)},$$
-  где $I_n(\theta) = M\left( \dfrac{\partial \ln \cal{L}}{\partial \theta} \right)^2$ - информация Фишера,
+  где $I_n(\theta) = M\left( \dfrac{\partial \ln \mathcal{L}}{\partial \theta} \right)^2$ - информация Фишера,
     $I_1(\theta) = M\left( \dfrac{\partial\ln p(x, \theta)}{\partial\theta} \right)^2$
 \end{theorem}
 
@@ -139,7 +142,7 @@ $\dfrac{\partial \cal L}{\partial \theta} = 0 \Leftrightarrow \frac{1}{\cal L} \
 
   $1 \leqslant \int_{R^n} (\phi(x) - \theta)^2 p(x, \theta) \, dx \cdot \int_{R^n} (\dfrac{\partial\ln p(x, \theta)}{\partial\theta})^2 p(x, \theta) \, dx$
 
-  $I_n(\theta) = M (\dfrac{\partial\ln L(X_1, X_2, \dots, X_n, \theta)}{\partial\theta})^2 = D \dfrac{\partial \ln L}{\partial\theta} = \sum D\dfrac{\partial \ln p(x_k, \theta)}{\partial\theta} = n I_1(\theta)$
+  $I_n(\theta) = M \left(\dfrac{\partial\ln L(X_1, X_2, \dots, X_n, \theta)}{\partial\theta}\right)^2 = D \dfrac{\partial \ln L}{\partial\theta} = \sum D\dfrac{\partial \ln p(x_k, \theta)}{\partial\theta} = n I_1(\theta)$
 
   $\ln L(X, \theta) = \sum \ln p(x_k, \theta)$
 \end{proof}
@@ -167,3 +170,4 @@ $\dfrac{\partial \cal L}{\partial \theta} = 0 \Leftrightarrow \frac{1}{\cal L} \
 \end{ex}
 
 Вывод: $\forall$ несмещенной оценки $\hat\alpha_n$: $D \hat\alpha_n \geqslant \dfrac{1}{n \frac{1}{\alpha^2}} = \frac{\alpha^2}{n}$ 
+

@@ -1,0 +1,194 @@
+\chapter{Лекция 5 - 2023-10-04 - Достаточные статистики}
+
+$X_1, X_2, \dots, X_n \sim F(x, \theta)$, $\theta = (\theta_1, \theta_2, \dots, \theta_n)$.
+
+\begin{definition}
+  Функция $t(X_1, X_2, \dots, X_n)$ называется достаточной статистикой для оценки параметра $\bar{\theta}$, если $F_{\bar \xi} (X_1, X_2, \dots, X_n | \bar{t} (X_1, \dots, X_n) = \bar t)$ не зависит от $\theta$ 
+  $p_\bar{xi} (x_1, \dots, x_n | \bar{t}(X_1, X_2, \dots, X_n) = \bar{t})$ не зависит от $\bar{\theta}$
+\end{definition}
+
+\begin{ex}
+  $X_1, X_2, \dots, X_n \sim $ Бернулли с вероятностью успеха p. (последовательность 0 и 1).
+
+  $\sum X_k$ - достаточна для оценки p.
+
+  $p(\xi_1 = X_1, \dots, \xi_n = X_n | \sum \xi_k = t) = \dfrac{P(\xi_1 = X_1, \dots \xi_n = X_n, \sum \xi_k = t)}{P(\sum xi_k = t)}$
+
+  $t \neq \sum X_k \Rightarrow p = 0 $
+
+  $t = \sum X_k \Rightarrow \dfrac{ p^t (1-p)^{n-t} }{ C_n^t p^t (1-p)^{n-t} } = \dfrac{1}{C_n^t}$ - не зависит от p. 
+\end{ex}
+
+\begin{theorem}[Критерий факторизации]
+  Если $X_1, X_2, \dots, X_n \sim F(x, \bar\theta)$, то $\bar t = \bar t (X_1, \dots, X_n)$ - является достаточной статистикой для оценки $\bar\theta$ тогда и только тогда, когда 
+  \[
+    \mathcal{L}(X_1, X_2, \dots, X_n, \bar\theta) = h(X_1, \dots, X_n) g(\bar\theta, \bar t (X_1, X_2, \dots, X_n))
+  \]
+  $h$ не зависит от $\theta$, g - не зависит от $X_1, X_2, \dots, X_n$ (только через $\bar t$)
+\end{theorem}
+
+\begin{proof}
+  $\Leftarrow$ 
+  \begin{multline*}
+    P(\xi_1 = X-1, \dots, \xi_n = X_n | \bar t (\xi_1, \dots, \xi_n) = \bar t) = 
+    \dfrac{P(\xi_1=X_1, \dots, \xi_n = X_n, \bar t(X_1, \dots, X_n) = \bar t_0)}{P(\bar t(\xi_1, \dots, \xi_n) = \bar t_0)} = \\
+    = \begin{cases}
+      \bar t(X_1, \dots, X_n) \neq \bar t_0, 0 \\
+      \bar t(X_1, \dots, X_n) = \bar t_0, \dfrac{p(\xi_1 = X_1, \dots, \xi_n = X_n)}{\sum_{\bar t(Z_1, \dots, Z_n) = \bar t_0} P(\xi_1 = Z_1, \dots, \xi_n = Z_n)}
+    \end{cases} = \\
+  = \dfrac{h(X_1, \dots, X_n) g(\bar \theta, \bar t(X_1, \dots, X_n))}{\sum h(Z_1, \dots, Z_n) g(\bar\theta, \bar t(Z_1, \dots)} = \dfrac{h(X_1, \dots)}{\sum h(Z_1, \dots)}.
+  \end{multline*}
+
+  $\Rightarrow$
+  $P(\xi_1 = X_1, \dots, \xi_n = X_n | \bar t(\xi_1, \dots) = \bar t)$ - не зависит от $\bar \theta$
+  \begin{equation*}
+    \mathcal{L} (X_1, \dots, X_n, \bar\theta) = P_{\bar\theta} (\xi_1 = X_1, \dots, \xi_n = X_n) = P_{\bar\theta} (\xi_1 = X_1, \dots, \xi_n = X_n | \bar t(\bar\xi) = \bar t) \cdot P(\bar t(\bar\xi) = \bar t)
+  \end{equation*}
+  Первый множитель не зависит от $\bar\theta$, второй зависит от $X_1, \dots, X_n$ только через $\bar t(X_1, \dots)$
+\end{proof}
+
+\begin{remark}
+  \[
+    \mathcal{L} = h(X_1, \dots, X_n) g(\bar\theta, \bar t(X_1, \dots, X_n)
+  \]
+  \[
+    \ln \mathcal{L} = \ln h(X_1, \dots, X_n) + \ln g(\dots)
+  \]
+  \[
+    \dfrac{\partial \mathcal{L} (\bar\theta, \bar t(X_1, \dots, X_n))}{\partial \bar\theta}  
+  \]
+
+  $\Rightarrow$ ОМП функция от $\bar t(X_1, \dots, X_n)$
+\end{remark}
+
+\begin{ex}
+  $X_1, \dots X_n \sim Pois(\lambda)$
+
+  \[
+    P(X_1, \dots, X_n, \lambda) = P_\lambda (\xi_1=X_1, \dots, \xi_n=X_n) = \prod P(\xi_k = X_k) = \prod \dfrac{\lambda^{X_k}}{(X_k)!)} e^{-\lambda} = \dfrac{1}{\prod (X_k)!} \lambda^{\sum X_k} e^{-n\lambda}
+  \]
+
+  $\Rightarrow$ $\sum X_k$ - достаточная статистика для оценки $\lambda$ ($\bar x$ - тоже)
+\end{ex}
+
+\begin{ex}
+  $X_1, \dots, X_n \sim N(a, \sigma)$
+
+  \[
+    \mathcal{L} (X_1, \dots, X_n, a, \sigma) = \prod \dfrac{1}{\sqrt{2\pi} \sigma} e^{-\dfrac{(X_k-a)^2}{2\sigma^2}} = \dfrac{1}{\sqrt{2\pi}^n} \dfrac{1}{\sigma^n} e^{-\dfrac{1}{2\sigma^2} \sum (X_k-a)^2} = \dfrac{1}{\sqrt{2\pi}^n} \dfrac{1}{\sigma^n} e^{-\dfrac{1}{2\sigma^2} (\sum X_k^2 - 2a \sum X_k + na^2)}
+  \]
+
+  $(\sum X_k^2, \sum X_k)$ - достаточная статистика для $(a, \sigma)$
+
+  $\sum (X_k-a)^2 = \sum (X_k - \bar X + \bar X - a)^2 = \sum (X_k-\bar X)^2 + (\bar X - a)^2 n$
+  $(\bar X, S^2 = \dfrac{1}{n-1} \sum (X_k-\bar X)^2)$ - достаточная статистика
+\end{ex}
+
+\begin{ex}
+  $X_1, \dots, X_n \sim Par(\alpha, \theta)$
+
+  $p(x, \theta, \alpha) = \dfrac{\alpha}{\theta} (\dfrac{\theta}{x})^{\alpha+1}, x\geqslant 0$
+
+  \[
+    \mathcal{L} (X_1, \dots, X_n, \alpha, \theta) = \prod \dfrac{\alpha}{\theta} (\dfrac{\theta}{x})^{\alpha+1} I(X_k \geqslant 0) = \dfrac{\alpha^n \theta^{\alpha n}}{(\prod X_k)^{\alpha+1}} I(X_{(1)}\geqslant 0) \cdot 1
+  \]
+
+  $(X_{(1)}, \prod X_k)$ - достаточная статистика
+\end{ex}
+
+\section{Интервальные оценки}
+
+$X_1, \dots, X_n \sim p(x, \theta)$
+
+$1-\alpha$ - уровень доверия
+
+\begin{definition}
+  Если $p(\theta \in (\underline{t} = t(X_1, \dots, X_n), \bar t(X_1, \dots, X_n)) = 1-\alpha$, то $(\underline{t}, \bar t)$ - доверительный интервал.
+\end{definition}
+
+\subsection{Принцип построения доверительных интервалов}
+
+\begin{enumerate}
+  \item Находим статистику $\eta = \phi(X_1, \dots, X_n, \theta)$, закон распределения $F_\eta (x)$ которой известен точно или приближенно и не зависит от $\theta$.
+  \item Находим квантили $t_\dfrac{\alpha}{2}$ и $t_{1- \alpha/2}$, т.е.
+    $$ F_\eta(t_{\alpha/2})  = \alpha/2, F_\eta(t_{1-\alpha/2}) = 1 - \alpha/2$$
+
+    \[
+      P(t_\sfrac{\alpha}{2} < \phi(X_1, \dots, X_n, \theta) < t_{1- \sfrac{\alpha}{2}} = F_\eta (t_{1 - \sfrac{\alpha}{2}}) - F_\eta (t_\sfrac{\alpha}{2}) = 1- \alpha
+    \]
+  \item Разрешение неравенства относительно $\theta$
+    $$P(\underline{t} < \theta < \bar t) = 1-\alpha$$
+\end{enumerate}
+
+\begin{ex}
+  $X_1, \dots, X_n \sim N(a, \sigma_0)$, $\sigma_0$ - известна.
+
+  $\hat a = \bar x$
+
+  \[
+    \bar x = \dfrac{1}{n} \sum X_k \sim N(a, \dfrac{\sigma_0^2}{\sqrt{n}})
+  \]
+
+  $\dfrac{\bar x - a}{\sigma_0} \sqrt{n} \sim N(0, 1)$ - распределение не зависит от параметра a
+
+  $ - u_{1-\sfrac{\alpha}{2}} = u_\sfrac{\alpha}{2} < \dfrac{\bar x - a}{\sigma_0} \sqrt{n} < u_{1-  \sfrac{\alpha}{2}}$
+
+  $\bar x - \dfrac{u_{1-\sfrac{\alpha}{2}}}{\sqrt{n}} < a < \bar x + \dfrac{u_{1-\sfrac{\alpha}{2}}}{\sqrt{n}}$
+\end{ex}
+
+\begin{ex}
+  $X_1, \dots, X_n \sim N(a_0, \sigma)$
+
+  $\mathcal{L} (X_1, \dots, X_n, \sigma) = \prod \dfrac{1}{\sqrt{2\pi} \sigma} e^{-\dfrac{(X_k - a)^2}{2\sigma^2}} = \dfrac{1}{\sqrt{2\pi}^n} \dfrac{1}{\sigma^n} e^{-\dfrac{1}{2\sigma^2} \sum (X_k-a)^2}$
+
+  $\sum (X_k-a)^2$ - достаточная статистика
+
+  $\sum \dfrac{(X_k-a)^2}{\sigma^2} \sim \chi^2 (n)$
+
+  $\chi^2_{\dfrac{\alpha}{2}} (n) < \sum \dfrac{(X_k - a_0)^2}{\sigma^2} < \chi^2_{1 - \dfrac{\alpha}{2}} (n) $
+
+  $\dfrac{\sum (X_k-a_0)^2}{\chi^2_{1 - \alpha/2} (n)} < \sigma^2 < \dfrac{\sum (X_k - a_0)^2}{\chi^2_{\alpha/2}(n)}$
+
+  $S_0^2 = \dfrac{1}{n} \sum (X_k-a_0)^2$
+\end{ex}
+
+\begin{ex}
+  Произведено $n=36$ измерений, $\bar X = 9.3 \text{кОм} (\sigma_0 = 2 \text{кОм})$.
+$1- \alpha = 0.95$
+
+\[
+  0.95 = P\left(\bar X - \dfrac{u_{0.975} \cdot 2}{\sqrt{36}} < a < \bar X + \dfrac{u_{0.975} \cdot 2}{\sqrt{36}}\right) \Leftrightarrow a \in (8.65, 9.95)
+\]
+\end{ex}
+
+\begin{ex}
+  $X_1, \dots, X_n \sim E(\lambda)$
+
+  Достаточная статистика: $\hat \lambda = \dfrac{1}{\bar X}$
+
+  $$2\lambda \sum X_k$$
+
+  $X_k \sim \lambda e^{-\lambda x} \Rightarrow 2\lambda X_k \sim \dfrac{1}{2} e^{-\dfrac{x}{2}} \equiv \chi^2 (2)$
+
+  $$\lambda < \dfrac{\chi^2_{1-\alpha/2} (2n)}{2 \sum X_k} = \dfrac{\lambda^2_{1-\alpha/2} (2n)}{2n \bar X}$$
+\end{ex}
+
+  Приближенные доверительные интервалы:
+  $X_1, \dots, X_n \sim F(x, \theta), M_\theta X_i = a(\theta), D_\theta X_i = d(\theta)$, n - велико. 
+  $$\dfrac{\sum X_i - n a(\theta)}{\sqrt{n d(\theta)}} \approx N(0, 1)$$
+
+  $$- u_{1 - \alpha/2} < \dfrac{\sum X_i - n a(\theta)}{\sqrt{n d(\theta)}}< u_{1-\alpha/2}$$
+
+\begin{ex}
+  $X_1, \dots, X_n \sim B(k, p)$, k - известно.
+
+  $M X_k = kp, D X_k = k p (1-p)$
+
+  $\dfrac{\sum X_k - n k p}{\sqrt{nkp(1-p)}} \in (-u_{1-\alpha/2}, u_{1-\alpha/2})$
+
+  p под корнем в знаменателе заменяем оценкой $\hat p = \dfrac{\bar X}{k}$
+
+  $-u_{1-\alpha/2} \sqrt{nk \dfrac{\bar X}{k} (1 - \dfrac{\bar X}{k})} < \sum X_k - nkp < u_{1-\alpha/2} \sqrt{nk \dfrac{\bar X}{k} (1 - \dfrac{\bar X}{k})}$
+
+  $\dfrac{\bar X}{k} - \dfrac{u_{1-\alpha/2} \sqrt{\dfrac{\bar X}{k} (1 - \dfrac{\bar X}{k})}}{\sqrt{nk}} < p < \dfrac{\bar X}{k} + \dfrac{u_{1-\alpha/2} \sqrt{\dfrac{\bar X}{k} (1 - \dfrac{\bar X}{k})}}{\sqrt{nk}}$
+\end{ex}
