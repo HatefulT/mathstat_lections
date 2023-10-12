@@ -1,0 +1,99 @@
+\chapter{Лекция 6 - 2023-10-11}
+
+\section{Доверительные интервалы для параметров нормального закона}
+
+$X_1, \dots, X_n \sim N(a, \sigma)$
+
+\begin{theorem}
+  Если $X_1, \dots, X_n \sim N(a, \sigma)$, то статистика $\bar X$ и $\dfrac{(n-1) S^2}{\sigma^2} = \dfrac{1}{\sigma^2} \sum\limits_{k=1}^n (X_k-\bar X)^2$ независимы и $\bar X \sim N(a, \dfrac{\sigma}{\sqrt{n}}$, $\dfrac{(n-1) S^2}{\sigma^2} \sim \chi^2(n-1)$
+\end{theorem}
+
+\begin{theorem}[Лемма]
+  $n = 1, \eta = a \xi, p_\eta(y) = \dfrac{1}{|a|} p_\xi(y/a)$.
+  Если $p_{\bar \xi} (\bar x)$ - плотность СВ $\bar\xi$, СВ \bar\eta = A\xi$, $\exists A^{-1}$
+  p_{\bar\eta} (\bar y) = |det A|^{-1} p_{\bar\xi} (A^{-1} \bar y)
+\end{theorem}
+\begin{proof}
+  $$p(\bar\xi \in B) = p(A\xi \in AB) = p(\eta \in AB)$$
+  $$p(\xi \in B) = \int_B p_\xi (\bar x) \, d\bar x = \left|\, \begin{aligned} \bar x = A^{-1} \bar y \\ \bar y = A \bar x \\ d\bar x = |det(A^{-1})| d\bar y \end{aligned} \,\right| = \int_{AB} p_\xi(A^{-1} \bar y) |det A_{-1}| d\bar y \Rightarrow p_{\bar \eta} (\bar y) = p_\bar \xi(A^{-1} \bar y) |det A^{-1}|$$
+\end{proof}
+
+
+\begin{proof}[доказательство первой теоремы]
+  $X_1, \dots, X_n \rightarrow X_1', \dots, X_n'$
+  $$\bar X' = \dfrac{1}{n} \sum\limits_{k=1}^n X_k' = \dfrac{1}{n} \sum \dfrac{(X_k - a)}{\sigma} = \dfrac{\bar X - a}{\sigma}$$
+  $$\vec{X}' = (X_1', \dots, X_n')^T$$
+  $$p_{\bar X'} (x) = \dfrac{1}{(\sqrt{2\pi})^n} e^{-\dfrac{1}{2} \bar x^T \bar x}$$
+  $$\bar Y = C \bar X', C - \text{ортог}$$
+  $$Y_1 = \dfrac{1}{\sqrt{n}} \sum X_k' = \sqrt{n} \bar X' = \dfrac{\bar X - a}{\sigma} \sqrt{n}$$
+  $$Y_1^2 = n (\bar X')^2$$
+  $$p_{\bar Y} (y) = |det C|^{-1} p_{\bar X} (C^{-1} \bar y) = \dfrac{1}{(\sqrt{2\pi})^n} e^{-\dfrac{1}{2} (C^{-1} \bar y)^T C^{-1} \bar y} = \dfrac{1}{(\sqrt{2\pi})^2} e^{-\dfrac{1}{2} \bar y^T \bar y}$$
+  
+  \begin{multline*}
+    ? \bar X и \dfrac{(n-1) S^2}{\sigma^2}; \\
+    \dfrac{(n-1) S^2}{\sigma^2} \dfrac{1}{\sigma^2} \sum (X_k-\bar X)^2 = \dfrac{1}{\sigma^2} \sum ((X_k - a) - (\bar X - a))^2 =\\
+    \sum \dfrac{(X_k-a)^2}{\sigma^2}-2 \dfrac{\bar X - a}{\sigma^2} \sum (X_k-a) + \dfrac{n}{\sigma^2} (\bar X - a)^2 = \\
+    \sum \dfrac{(X_k-a)^2}{\sigma^2} - n \left(\dfrac{\bar X-a}{\sigma}\right)^2  = \sum (X_k')^2 - n (\bar X')^2 = \sum Y_k^2 - Y_1^2 = \\ 
+    \sum\limits_{k=2}^n Y_k^2 \sim \chi^2(n-1)
+  \end{multline*}
+  $$\bar X = \sigma (\bar X' + a) = \sigma \left(\sqrt{\dfrac{Y_1}{n}} + a\right)$$
+\end{proof}
+
+\section{Доверительные интервалы}
+
+Для $\sigma$ при неизвестном a:
+\begin{align*}
+  \dfrac{(n-1) S^2}{ \sigma^2 } &\sim \chi^2(n-1) \\
+  \chi^2_{\alpha/2} (n-1) < \dfrac{(n-1) S^2}{\sigma^2}& < \chi^2_{1 - \alpha/2} (n-1) \\
+  \sqrt{\dfrac{(n-1) S^2}{\chi^2_{1 - \alpha/2}(n-1)}} < \sigma& < \sqrt{\dfrac{(n-1) S^2}{\chi^2_{\alpha/2} (n-1)}}
+\end{align*}
+
+2. Дов. инт для а при неизвестном $\sigma$
+\begin{align*}
+  \sqrt{n} \dfrac{\bar X - a}{S} &= \sqrt{n} \dfrac{\dfrac{\bar X - a}{\sigma}}{\dfrac{S}{\sigma}} = \sqrt{n} \dfrac{\dfrac{\bar X - a}{\sigma}}{\sqrt{\dfrac{1}{n-1} \dfrac{(n-1) S^2}{\sigma^2}}} \sim t(n-1) \\
+  S &= \sqrt{S^2} \\
+  -t_{1 - \alpha/2} (n-1) &= t_{\alpha/2} (n-1) < \sqrt{n} \dfrac{\bar X - a}{\sigma}& < t_{1-\alpha/2} (n-1) \\
+  \bar X - \dfrac{t_{1-\alpha/2}(n-1) S}{\sqrt{n}} < a& < \bar X + \dfrac{t_{1-\alpha/2}(n-1) S}{\sqrt{n}}
+\end{align*}
+
+3. Доверительный интервал для разности мат ожиданий при известной дисперсии
+$X_1, \dots, X_n \sim N(a, \sigma_x)$, $Y_1, \dots, Y_m \sim N(b, \sigma_y)$, $\sigma_x, \sigma_y$ - независимы.
+? $a-b$
+
+\begin{multline*}
+  \dfrac{\bar X - \bar Y - (a-b)}{\sqrt{\dfrac{\sigma_x^2}{n} + \dfrac{\sigma_y^2}{n}}} \sim N(0, 1) \\
+  M(\bar X - \bar Y - (a-b)) = (a-b) - (a-b) = 0 \\
+  D(\dfrac{\bar X - \bar Y - (a-b)}{\sqrt{\dfrac{\sigma_x^2}{n} + \dfrac{\sigma_y^2}{n}}} = \dfrac{D \bar X + D \bar Y}{\sigma_x^2 / n + \sigma_y^2 / m} = \dfrac{\sigma_x^2 / n + \sigma_y^2 / m}{\sigma_x^2 / n + \sigma_y^2 / m} = 1 \\
+  - u_{1-\alpha/2} < \dfrac{\bar X - \bar Y - (a-b)}{\sqrt{\sigma_x^2 / n + \sigma_y^2 / m}} < u_{1-\alpha/2} \\
+  \bar X - \bar Y - u_{1-\alpha/2} \sqrt{\sigma_x^2 / n + \sigma_y^2 / m}< a-b < \bar X - \bar Y + u_{1-\alpha/2} \sqrt{\sigma_x^2 / n + \sigma_y^2 / m} 
+\end{multline*}
+
+4. Для разности матожиланий при неизв диспресия
+$X_1, \dots, X_n \sim N(a, \sigma)$, $Y_1, \dots, Y_m \sim N(b, \sigma)$, $\sigma$ - неизвестн.
+\begin{multline*}
+  \dfrac{\bar X - \bar Y - (a-b)}{\sigma \sqrt{1/n + 1/m}} \sim N(0, 1) \text{и не зависит от $\dfrac{(n-1)S_x^2}{\sigma^2} + \dfrac{(m_1) S_y^2}{\sigma^2}$} \\
+  \dfrac{\bar X - \bar Y - (a-b)}{\sqrt{1/n + 1/m} \sqrt{\dfrac{1}{n+m-2} \dfrac{(n-1) S_x^2 + (m-1)S_y^2}{\sigma^2}}} \sim t(n+m-2)\\
+\dfrac{\bar X - \bar Y - (a-b)}{\sqrt{1/n + 1/m}} \sim N(0, 1) \\
+\dfrac{(n-1) S_x^2 + (m-1)S_y^2}{\sigma^2} \sim \chi^2(n+m-2) \\
+(a-b) \in (\bar X - \bar Y - \delta, \bar X - \bar Y + \delta), где \\
+\delta = t_{1-\alpha/2} (n+m-2) \sqrt{\dfrac{n+m}{nm(n+m-2)}} \sqrt{(n-1)S_x^2 + (m-1) S_y^2}
+\end{multline*}
+
+5. доверительный интервал для отношения дисперсий
+$X_1, \dots, X_n \sim N(a, \sigma_x)$, $Y_1, \dots, Y_m \sim N(b, \sigma_y)$
+
+\begin{multline*}
+  \dfrac{\sigma_y^2}{\sigma_x^2} \dfrac{S_x^2}{S_y^2} = \dfrac{(n-1) S_x^2 / \sigma_x^2}{(m-1) S_y^2 / \sigma_y^2} \dfrac{m-1}{n-1} \sim F(n-1, m-1) \\
+(m-1) S_y^2 / \sigma_y^2 \sim \chi^2(m-1), (n-1) S_x^2 / \sigma_x^2 \sim \chi^2(n-1) \\
+f_{\alpha/2} (n-1, m-1) < \dfrac{\sigma_y^2 s_x^2}{\sigma_x^2 s_y^2} < f_{1-\alpha/2} (n-1, m-1) \\
+\dfrac{S_x^2}{S_y^2 f_{1-\alpha/2} (n-1, m-1)} < \dfrac{\sigma_x^2}{\sigma_y^2} < \dfrac{s_x^2}{s_y^2 f_{\alpha/2} (n-1, m-1)}
+\end{multline*}
+
+6. Дов интервал для отношения дисперсий при изв a, b
+
+\begin{multine*}
+  \dfrac{S_{x0}^2}{\sigma_x^2} = \dfrac{1}{n}\sum \dfrac{(X_k-a)^2}{\sigma_x^2}\sim \chi^2(n) \\
+  \dfrac{S_{y0}}{\sigma_y^2} = \dfrac{1}{m} \sum \dfrac{(Y_k - b)^2}{\sigma_y^2} \sim \chi^2 (m)
+\end{multine*}
+
+% TODO дописать 6 
