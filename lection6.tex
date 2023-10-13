@@ -10,12 +10,20 @@ $X_1, \dots, X_n \sim N(a, \sigma)$
 
 \begin{theorem}[Лемма]
   $n = 1, \eta = a \xi, p_\eta(y) = \dfrac{1}{|a|} p_\xi(y/a)$.
-  Если $p_{\bar \xi} (\bar x)$ - плотность СВ $\bar\xi$, СВ \bar\eta = A\xi$, $\exists A^{-1}$
-  p_{\bar\eta} (\bar y) = |det A|^{-1} p_{\bar\xi} (A^{-1} \bar y)
+  Если $p_{\bar \xi} (\bar x)$ - плотность СВ $\bar\xi$, СВ $\bar\eta = A\xi$, $\exists A^{-1}$
+  $p_{\bar\eta} (\bar y) = |det A|^{-1} p_{\bar\xi} (A^{-1} \bar y)$
 \end{theorem}
 \begin{proof}
   $$p(\bar\xi \in B) = p(A\xi \in AB) = p(\eta \in AB)$$
-  $$p(\xi \in B) = \int_B p_\xi (\bar x) \, d\bar x = \left|\, \begin{aligned} \bar x = A^{-1} \bar y \\ \bar y = A \bar x \\ d\bar x = |det(A^{-1})| d\bar y \end{aligned} \,\right| = \int_{AB} p_\xi(A^{-1} \bar y) |det A_{-1}| d\bar y \Rightarrow p_{\bar \eta} (\bar y) = p_\bar \xi(A^{-1} \bar y) |det A^{-1}|$$
+  $$ p(\xi \in B) = \int_B p_\xi (\bar x) \, d\bar x
+  = \left|\, \begin{aligned}
+    \bar x &= A^{-1} \bar y \\
+    \bar y &= A \bar x \\
+    d\bar x &= |det(A^{-1})| d\bar y
+  \end{aligned} \,\right| 
+  = \int_{AB} p_\xi(A^{-1} \bar y) |det A_{-1}| d\bar y 
+  \Rightarrow p_{\bar \eta} (\bar y)
+  = p_{\bar\xi} (A^{-1} \bar y) |det A^{-1}|$$
 \end{proof}
 
 
@@ -91,9 +99,9 @@ f_{\alpha/2} (n-1, m-1) < \dfrac{\sigma_y^2 s_x^2}{\sigma_x^2 s_y^2} < f_{1-\alp
 
 6. Дов интервал для отношения дисперсий при изв a, b
 
-\begin{multine*}
+\begin{multline*}
   \dfrac{S_{x0}^2}{\sigma_x^2} = \dfrac{1}{n}\sum \dfrac{(X_k-a)^2}{\sigma_x^2}\sim \chi^2(n) \\
   \dfrac{S_{y0}}{\sigma_y^2} = \dfrac{1}{m} \sum \dfrac{(Y_k - b)^2}{\sigma_y^2} \sim \chi^2 (m)
-\end{multine*}
+\end{multline*}
 
 % TODO дописать 6 
