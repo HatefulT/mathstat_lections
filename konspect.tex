@@ -14,19 +14,55 @@
 %\usepackage{showframe}
 
 \usepackage[colorlinks=true, linkcolor=black, urlcolor=black]{hyperref}
+\newtheoremstyle{example}% name
+{0.7cm}% Space above
+{0.7cm}% Space below
+{\small}% Body font
+{}% Indent amount
+{\small\scshape}% Theorem head font
+{.}% Punctuation after theorem head
+{.5em}% Space after theorem head
+{}% Theorem head spec (can be left empty, meaning ‘normal’)
+\theoremstyle{example}
+\newtheorem{ex}{Пример}
+\numberwithin{ex}{chapter}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Теорема}
+\newenvironment{thmbis}[1]
+  {\renewcommand{\thetheorem}{\ref{#1}$'$}%
+   \addtocounter{thm}{-1}%
+   \begin{theorem}}
+  {\end{theorem}}
+\newtheorem{corollary}{Следствие}
+\newtheorem*{corollary*}{Следствие}
+\newtheorem{lemma}{Лемма}
+\newtheorem{utv}{Утверждение}
+\newtheorem*{utv*}{Утверждение}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Определение}
+\newenvironment{dfnbis}[1]
+  {\renewcommand{\thedefinition}{\ref{#1}$'$}%
+   \addtocounter{definition}{-1}%
+   \begin{definition}}
+  {\end{definition}}
+\newtheorem*{definition*}{Определение}
+\newtheorem{question}{Вопрос}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Замечание}
+\newtheorem*{remark*}{Замечание}
+\numberwithin{remark}{section}
 
 \author{Кортенко~A.~М.}
 \title{Конспект курса}
 \date{\today}
 
-\newtheorem{definition}{Определение}[section]
-\newtheorem{theorem}{Теорема}[section]
-\newtheorem{ex}{Пример}[section]
-\newtheorem*{remark}{Замечание}
-
-\newcommand{\toP}{\xrightarrow[]{P}} % сходимость по вероятности
+\newcommand{\toP}{\xrightarrow[]{\mathsf P}} % сходимость по вероятности
 \newcommand{\toPN}{\xrightarrow[]{\text{п.н.}}} % сходимость почти наверное
-\newcommand{\toD}{\xrightarrow[]{\text{d}}} % сходимость по распределению (слабая)
+\newcommand{\toD}{\xrightarrow[]{d}} % сходимость по распределению (слабая)
+\newcommand{\toR}{\xrightarrow[]{r}} % сходимость по распределению (слабая)
 
 \begin{document}
   \pagestyle{plain}
