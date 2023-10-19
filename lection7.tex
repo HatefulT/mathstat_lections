@@ -1,0 +1,203 @@
+\chapter{Лекция 7 - 2023-10-18}
+
+\[
+P(A|D) = \dfrac{P(D|A) P(A)}{P(D)}
+\]
+
+\begin{ex}
+  Пусть имеется монета с вероятностью выпадения решки x ($x \sim R[0, 1]$).
+  $D_{hk} = $ монета подброшена n раз и в k опытах выпала решка.
+  
+  H_k задают дискретный закон:
+  $$P(\xi = x_j | D) = \dfrac{P(D|\xi=x_j) P(\xi=x_j)}{P(D)}$$
+
+  $H_\theta$ - набор 
+
+  $$P(H_\theta | D) = \dfrac{P(D|H_\theta) P(H_\theta)}{P(D)}$$
+
+  Терминология:
+  \begin{itemize}
+    \item $P(H_\theta |D)$ - апостериорная вероятность ($\dots$)
+    \item $P(D|H_\theta)$ - likelihood правдоподобия
+  \end{itemize}
+\end{ex}
+
+\begin{ex}
+  \begin{tabular}{|c|c|c|}
+    & успех & неудача \\
+    $H_1$ & 1/3 & 2/3 \\
+    $H_2$ & 1/2 & 1/2
+  \end{tabular}
+
+   % TODO: дописать этот пример
+   % в лекциях Облаковой описано всё текстом, а на лекции было много формул
+
+\end{ex}
+
+Если $H_\theta$ - набор абсолютно-непрерывных законов.
+
+\[
+  p(x|D) = \dfrac{P(D|x) p(x)}{P(D)} \propto P(D|x) p(x)
+\]
+
+$p(x)$ - априорная плотность
+
+$P(D|x)$ - функция правдоподобия
+
+\begin{ex}
+  x - вер успеха, $x \sim R[0, 1]$
+
+  $D_{nk}$
+
+  \begin{multline*}
+    p(x|D_{nk}) \propto P(D_{nk} | x) p(x) \\
+    P(D_{nk} | x) = x^k (1-k)^{n-k} \\
+    \sum X_j = k \\
+    p(x|D_{nk}) = \dfrac{x^k (1-k)^{n-k}}{B(k+1, n-k+1)} - \text{бета распределение}
+  \end{multline*}
+
+  \begin{align*}
+    D_{11} &\Rightarrow p(x|D_{11}) = \dfrac{x}{B(2, 1)} = 2x \\
+    D_{22} &\Rightarrow p(x|D_{22}) = \dfrac{x^2}{B(3, 1)} = 3x^2 \\
+    D_{21} &\Rightarrow p(x|D_{21}) = \dfrac{x (1-x)}{B(2, 2)} = 6x(1-x)
+  \end{align*}
+\end{ex}
+
+\begin{theorem}[Колмогорова-Блэкуэлла]
+  Пусть $X_1, \dots, X_n \sim p(x, \theta)$ и $\bar t = \bar t(X_1, \dots, X_n)$ - достаточная статистика для оценки $\theta$.
+  Если $\tilde \theta_n$ - любая несмещенная оценка $\theta$. $\hat \theta_n = M(\tilde \theta_n | \bar t(X_1, \dots, X_n))$ - также несмещенная оценка и $D\hat \theta _n \leqslant D \tilde \theta_n$.
+\end{theorem}
+
+Свойства условного МО (как СВ)
+$M(\xi|\eta) = M(\xi | \eta = y) |_{y=\eta}$ (то есть рассматриваем как будто y зафиксировано, а потом подставляем вместо y какую-то СВ)
+\begin{enumerate}
+  \item $MM(\xi | \eta) = M\xi$ 
+  \item $M(\xi \cdot g(\eta) | \eta) = g(\eta) \cdot M(\xi)$
+  $\item в частности $M\left(g(\eta) | \eta\right) = g(\eta)$
+  \item $M(\xi - M(\xi | \eta))^2 = \min_g M(\xi - g(\eta))^2$
+\end{enumerate}
+
+\begin{proof}
+  \begin{multline*}
+    M\hat\theta_n = MM(\tilde \theta_n | \bar t(X_1, \dots, X_n)) = M(\tilde \theta_n) = \theta \\
+    M\tilde \theta_n 
+    = M(\tilde \theta_n - \theta)^2
+    = M(\tilde\theta_n - \hat\theta_n + \hat\theta_n - \theta)^2
+    = M(\tilde\theta_n - \hat\theta_n)^2 + M(\hat\theta_n-\theta)^2 + 2 M(\tilde\theta_n - \hat\theta_n)(\hat\theta_n - \theta) =\\
+    = M(\tilde\theta_n - \hat\theta_n)^2 + D\tilde\theta_n \leqslant 0 \\
+  \end{multline*}
+
+  Доказательство того, что последнее слагаемое действительно 0:
+  \begin{multline*}
+    M((\tilde\theta_n - \hat\theta_n)(\hat\theta_n-\theta) | \bar t(X_1, \dots, X_n))
+    = |\text{$(\hat\theta_n - \theta)$ - функция от $\bar t$}| = \\
+    = (\hat\theta_n - \theta) \left[ M(\tilde\theta_n|\bar t) - M(\har\theta_n | \bar t) \right]
+    = \dots
+    = 0
+  \end{multline*}
+  % TODO возможно нужно получше расписать
+\end{proof}
+
+\begin{ex}
+  Пусть $X_1, \dots, X_n \sim N(a, 1)$
+  $\tilde a_n = X_1$, $M\tilde a_n = MX_1 = a$, $D\tilde a_n = D X_1 = 1$
+
+  $\hat a_n = \bar X$, $M \hat a_n = M\bar X = a$, $D \hat a_n = 1/n$
+
+  Достаточная статистика:
+  \begin{multline*}
+    \mathcal{L}(X_1, \dots, X_n, a)
+    = \dfrac{1}{(\sqrt{2\pi})^n} e^{-\dfrac{1}{2} \sum (X_k - a)^2}
+    = \dfrac{1}{(\sqrt{2\pi})^n} e^{-\dfrac{1}{2} (\sum X_k^2 + a \sum X_k - na^2 / 2)} \\
+    \bar t = \sum X_k
+  \end{multline*}
+
+  \begin{multline*}
+    M(X_1 | \sum X_k) = M(X_2 | \sum X_k) = \dots = M(X_n | \sum X_k) \\
+    \sum X_k = M(\sum X_k | \sum X_k) = n M(X_1 | \sum X_k) \Rightarrow \\
+    \Rightarrow M(X_k) = \dfrac{1}{n} \sum X_k
+  \end{multline*}
+
+  \begin{multline*}
+    p_{X_1} (x | \bar x = y) = \dfrac{p_{X_1, \bar X} (x, y)}{p_{\bar X} (y)} \\
+    (X_1, \bar X) - \text{нормальный вектор} \\
+    MX_1 = a, DX_1 = 1, M\bar X = a, D\bar X = \dfrac{1}{n} \\
+    \operatorname{cov} (X_1, \bar X) = \dfrac{1}{n} \sum_{k=1}^n \operatorname{cov} (X_1, X_k) = \dfrac{1}{n} (1 + 0 + \dots + 0) = \dfrac{1}{n} \\
+    \Sigma = \begin{pmatrix}
+      1 & 1/n \\
+      1/n & 1/n
+    \end{pmatrix},
+    |\Sigma| = (n-1) / n^2,
+    \Sigma^{-1} = \dfrac{1}{|\Sigma|} \begin{pmatrix}
+      1/n & - 1/n \\
+      -1/n & 1
+    \end{pmatrix} \\
+    p_{X_1, \bar X} (x, y)
+    = \dfrac{1}{2\pi \sqrt{(n-1) / n^2}} e^{- \dfrac{n^2}{2(n-1)} \left( \dfrac{1}{n}(x-a)^2 - \dfrac{2}{n} (x-a)(y-a) + (y-a)^2 \right) } \\
+    p_{X_1} (x | \bar X = y) = \dfrac{N}{N} \sim N() 
+    % TODO дописать последнюю строчку
+  \end{multline*}
+\end{ex}
+
+\section{Эффективные оценки}
+
+Неравенство Рао-Крамера: $D\hat \theta_n \geqslant 1 / (n I_1(\theta))$
+
+\begin{def}
+  $e(\hat \theta_n) = \dfrac{1}{n I_1(\theta) D(\hat\theta_n)} \leqslant 1$ - эффективность.
+  Оценка называется эффективной, если $e(\hat\theta_n) = 1$
+\end{def}
+
+\begin{ex}
+  Пусть $X_1, \dots, X_n \sim N(a, \sigma_0)$, $\sigma_0$ - известно.
+  
+  $\hat a_n = \bar X$, $D\hat\theta_n = \dfrac{\sigma_0^2}{n}$
+
+  \begin{multline*}
+    \mathcal{L} (X_1, \dots, X_n, a)
+    = \dfrac{1}{(\sqrt{2\pi})^n \sigma_0^n} e^{-\dfrac{1}{2\sigma_0} \sum (X_k-a)^2 } \\
+    \ln \mathcal{L} = -\dfrac{n}{2} \ln 2n - n \ln \sigma_0 - \dfrac{1}{2\sigma_0^2} \\
+    \dfrac{\partial \ln \mathcal{L}}{\partial a} = - \dfrac{1}{\sigma_0^2}\sum (X_k-a) \\
+    \dfrac{\partial \ln \mathcal{L}_1}{\partial a} = - \dfrac{1}{\sigma_0^2} \\
+    I_1(a) = M( \dfrac{\partial \ln \mathcal{L}_1}{\partial a}  )^2
+    = M \dfrac{1}{\sigma_0^4} (X_1-a)^2
+    = \dfrac{1}{\sigma_0^4} \sigma_0^2 = \dfrac{1}{\sigma_0^2} \\
+    e(\bar X) = \dfrac{1}{n I_1 D\bar X} = \dots = 1
+  \end{multline*}
+  $\Rightarrow$ $\bar X$ - эффективная оценка.
+\end{ex}
+
+\begin{theorem}[о связи эффективных оценок и достаточных статистик]
+  Если $\hat\theta_n = \bar t(X_1, \dots, X_n)$ - несмещенная и эффективная оценка $\theta$, построенная по выборке $X_1, \dots, X_n \sim p(x, \theta)$. $p(x, \theta)$ - удовлетворяет условиям регулярности, то $\bar t(X_1, \dots, X_n)$ - достаточная статистика.
+\end{theorem}
+\begin{proof}
+  $1 = \int_{R^n} p(\bar X, \theta) \, d\bar X$ - можно дифф по параметру.
+  $$0 = \int_{R^n} \dfrac{\partial \ln \mathcal{L}}{\partial \theta} p(\bar X, \theta) \, d\bar X$$
+  
+  Из несмещенности $\theta = \int_{R^n} t(X_1, \dots, X_n) p(\bar X, \theta) \, d\bar x$.
+  
+  дифф по параметру: $1 = \int_{R_n} t(X_1, \dots, X_n) \dfrac{\partial \ln \mathcal{L}}{\partial \theta} p(\bar X, \theta) \, d\bar x$
+
+  $t(X_1, \dots, X_n) - \theta = \xi, \dfrac{\partial \ln \mathcal{L}}{\partial \theta} = \eta$, $M\xi = M\eta = 0, D\eta = I_n(\theta) = n I_1(\theta), D\xi = D\hat\theta_n$ 
+
+  $1 = \int_{R_n} (t-\theta) \dfrac{\partial \ln \mathcal{L}}{\partial \theta} p(\bar X, \theta) \, d\bar x = cov(\xi, \eta)$
+
+   % TODO поработать над доказательством
+
+   $D\xi D\eta = 1$
+
+  $\dots \Rightarrow \rho_{\xi\eta} = \pm 1, \xi = \alpha\eta \rightarrow D\xi = \alpha^2 D\eta $
+  
+  $\dots \alpha^2 = \dots = 1 / (n^2 I_1^2(\theta))$
+
+  $t(X_1, \dots, X_n) = \alpha \dfrac{\partial \ln \mathcal{L}}{\partial \theta} = \pm 1 / (n I_1(\theta)) \dfrac{\partial \ln \mathcal{L}}{\partial \theta}$
+
+  $\Rightarrow \dfrac{\partial \ln \mathcal{L}}{\partial \theta} = \pm n I_1(\theta) (t-\theta)$
+
+  $\ln \mathcal{L} = \int n I_1 (\theta) (t-x) d \theta + C(X_1, \dots, X_n)$
+
+  $\dots \Rightarrow$ t - достаточная статистика.
+  \begin{multline}
+    
+  \end{multline}
+\end{proof}
