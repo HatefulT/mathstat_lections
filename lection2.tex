@@ -120,18 +120,38 @@
 %\begin{remark*}
 %  Обратное, вообще говоря, не верно.
 %\end{remark*}
-\begin{ex} Обратное, вообще говоря, неверно. Действительно, 
-  % TODO example
+\begin{ex} Обратное, вообще говоря, неверно. Действительно, пусть $ \Omega = [0,
+	1]$, $ \mathscr A $ --- $ \sigma $-алгебра измеримых подмножеств, $ \mathsf
+	P(A) = \operatorname{mes} A $. Для $ 2^k \leqslant n < 2^{k+1} $ определим
+	последовательность 
+	\[
+		\xi_n(\omega) = \begin{cases}
+			1, & \frac{n-2^k}{2^k} < \omega < \frac{n+1-2^k}{2^k},\\
+			0, & \text{иначе}.
+		\end{cases}
+	\]
+Для любого $ \varepsilon \in (0, 1) $ в этом случае имеем 
+\[
+	P(|\xi_n| > \varepsilon ) = \frac{1}{2^k} \to 0 \quad \text{при } n\to\infty,
+\]
+при этом $ \xi_n(\omega) \not\to 0 $ ($ \mathsf P $-п. н.).	
 \end{ex}
 
 \begin{theorem}
-  Если последовательность $\{ \xi_n \}$ монотонно возрастает (убывает) и $\xi_n \toP \xi$, то
+  Если последовательность $\{ \xi_n \}$ монотонно убывает (возрастает) и $\xi_n \toP \xi$, то
 	\[
 		\xi_n \toPN \xi.
 	\]
 \end{theorem}
 \begin{proof}
-  % TODO proof
+Пусть $ \{\xi_n\} $ монотонно убывает и $ \xi_n \toP 0 $ (в случае возрастания
+рассматривается последовательность $ \{\xi_n - \xi\} $). Тогда 
+\[
+	\left( \sup_{m\geqslant n}|\xi_m - \xi| > \varepsilon \right) = \left(
+	\sup_{m\geqslant n} |\xi_m| > \varepsilon \right) = \left( \sup_{m\geqslant}
+\xi_m > \varepsilon \right) = (\xi_n > \varepsilon). 
+\]
+
 \end{proof}
 
 \begin{theorem}
@@ -142,7 +162,7 @@
 	\]
 \end{theorem}
 \begin{proof}
-  Без доказательства.
+  Без доказательства. %TODO: (proof)
 \end{proof}
 
 \section{Сходимость по распределению (слабая)}
@@ -261,9 +281,9 @@
 \end{corollary}
 
 \begin{theorem}[закон больших чисел Чебышёва]
-	Пусть $ \xi_1, \xi_2, \ldots $ --- независимые случайные величины и существует
+	Пусть $ \{\xi_n\} $ --- независимые случайные величины и существует
 	такая константа $ c > 0 $, что все $\mathsf D \xi_i \leqslant c$,
-	$i=\overline{1,2,\ldots}$. Тогда при любом $ \varepsilon > 0 $  
+	$i=\overline{1,2,\ldots, n}$. Тогда при любом $ \varepsilon > 0 $  
 	\[
 		\lim_{N\to\infty} P_\xi \left( \left| \frac{\xi_1 + \xi_2 + \ldots +
 		\xi_N}{N} - \frac{\mathsf M \xi_1 + \mathsf M\xi_2 + \ldots + \mathsf
@@ -271,8 +291,26 @@
 	\]
 \end{theorem}
 \begin{proof}
-%TODO: proof
+  Пусть  
+  \[
+  		\zeta_N = \frac{\xi_1 + \xi_2 + \ldots + \xi_N}{N}.
+  \]
+  Тогда
+	\begin{align*}
+		\mathsf M \zeta_N &= \frac{1}{N}\sum_{k=1}^N \mathsf M\xi_k,\\
+		\mathsf D\zeta_N &= \frac{1}{N^2}\sum_{k=1}^N \mathsf D \xi_k \leqslant
+		\frac{c}{N}.
 \end{proof}
+Следовательно, 
+\[
+		P(|\zeta_N - \mathsf M\zeta_N| < x) \geqslant 1 - \frac{c}{x^2N} \to 1
+\]
+при $ N \to \infty $. Здесь используется сходимость по вероятности 
+\[
+	\frac{1}{N}\sum_{k=1}^N \xi_k -\frac{1}{N} \sum_{k=1}^N \mathsf M\xi_k \toP 0.
+\]
+
+
 
 \begin{theorem}[центральная предельная теорема]
 	Если случайные величины $ \{\xi_n\} $ независимы, одинаково распределены и
