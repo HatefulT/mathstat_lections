@@ -1,14 +1,31 @@
 \chapter{Лекция 3 - 2023-09-20}
-  
+\section{Постановка задачи}
+Пусть $ X = X_1, X_2, \ldots, X_n $ есть выборка (реализация случайной величины
+$ \xi $, причём $ \{\xi_n\} $ независимы) из \textsl{известного}
+распределения $ F(x, \theta) $, зависящего от \textsl{неизвестного} параметра $
+\theta$.
+
+\textsc{Задача}. Оценить значение параметра $ \theta $.
+
 \begin{definition}
-   $\widehat{\Theta_n} = f\left(x_1, x_2,\dots, x_n\right)$ - оценка параметра $\Theta$ (функция от выборки, статистика).
+   Назовём функцию от выборки
+	 \[
+		 \widehat \Theta_n = f\left(x_1, x_2,\dots, x_n\right)
+	 \]
+	 \emph{оценкой параметра $\Theta$}, или \emph{статистикой}.
+\end{definition}
+
+Перечислим некоторые \textbf{свойства оценок}.
+\begin{definition}
+Оценку $ \widehat \Theta_n $ параметра назовём несмещённой, если 
+\[
+		\mathsf M \widehat \Theta_n = \theta.
+\]
 \end{definition}
 
 %\begin{definition}
 %  Оценка параметра $\widehat{D_n} = f(x_1, x_2, \dots, x_n)$.
 %\end{definition}
-
-\section{Свойства оценок}
 
 \begin{definition}
   Оценка $\widehat{D_n}$ называется несмещенной, если $M[\widehat{D_n}]$.
@@ -22,6 +39,31 @@ $$f(x_1, \dots, x_n) \toP 0, n \to \infty$$
 
 Если $f(x_1, \dots, x_n) \toPN 0$, то $\hat{D_n}$ - силнльно состоятельная.
 
+\begin{definition}
+	Оценка $ \widehat \Theta_n $ называется \emph{асимптотически несмещённой},
+	если  
+	\[
+		\mathsf M \widehat \Theta_n \to \theta \quad \text{при } n\to\infty.
+	\]
+\end{definition}
+
+\begin{definition}
+	Оценка $\widehat \Theta_n$ называется \emph{состоятельной}, если  
+	\[
+		\widehat \Theta_n \to \theta \quad \text{при } n\to\infty.
+	\]
+\end{definition}
+
+\begin{definition}
+Наконец, если  
+\[
+	\widehat \Theta_n \toPN \theta \quad \text{при } n\to\infty,
+\]
+то оценку $ \widehat \Theta_n $ называют \emph{сильно состоятельной}.
+\end{definition}
+
+
+
 %Пусть $x_1, \dots, x_n$ - выборка.
 %$M X_i = a$.
 %$$\hat{a_n} = ?$$
@@ -29,124 +71,360 @@ $$f(x_1, \dots, x_n) \toP 0, n \to \infty$$
 \section{Выборочное среднее}
 
 \begin{definition}
-  Выборочное среднее $\hat{a_n} = \bar{X} = \frac{1}{n} \sum\limits_{i=1}^{n} x_i$.
+	\emph{Выборочным средним} называют величину
+	\[
+		\hat a_n = \bar{X} = \frac{1}{n} \sum\limits_{i=1}^{n} x_i.
+	\]
+\end{definition}
+Будем рассматривать $ \hat a_n $ как некоторую оценку математического ожидания
+$ \mathsf M X_i = a $ рассматриваемой случайной величины. Обозначим кроме того
+$ \mathsf D X_i = \sigma^2 $.
+
+Перечислим \textbf{свойства выборочного среднего}.
+\begin{enumerate}
+	\item \textsc{Несмещённость}.
+		\[
+			M \bar{X} = M\left(\frac{1}{n} \sum\limits_{i=1}^{n} x_i\right) =
+			\frac{na}{n} = a.
+		\]
+	\item \textsc{Сильная состоятельность}.
+	\item \textsc{Дисперсия}. Дисперсия выборочного среднего стремится к нулю при увеличении $ n $.
+		Действительно,  
+		\[
+			\mathsf D\bar X = \frac{1}{n^2} \sum_{i=1}^n \mathsf D X_i =
+			\frac{\sigma^2}{n}.
+		\]
+		
+\end{enumerate}
+
+\section{Выборочная дисперсия (исправленная)}
+\begin{definition} 
+	\emph{Выборочной дисперсией} будем называть величину
+\[ 
+	S^2 = \frac{1}{n-1} \sum\limits_{i=1}^{n} \left( X_i-\bar{X}\right)^2.
+\]
 \end{definition}
 
-\subsection{Свойства выборочного среднего}
-
-\begin{itemize}
-  \item $M \bar{X} = M(\frac{1}{n} \sum\limits_{i=1}^{n} x_i) = \dots$. Несмещенная
-  \item сильно состоятельная.
-\end{itemize}
-
-\section{Выборочная дисперсия}
-
-$$ S^2 = \frac{1}{n-1} \sum\limits_{i=1}^{n} \left(x_I-\bar{x}\right)^2 $$
-
-\begin{multline}
-  M S^2 = \frac{1}{n-1} M(\sum_{i=1}^{n} (X_i - a - (\bar{X} - a)^2)^2 ) = \\
-  = \frac{1}{n-1} \sum M (X_i-a)^2 - 2 M[ (\bar{X} - a) \sum (x_i - a) ] + M (\bar{x} -a)^2 = \\
-  = \frac{1}{n-1} \left[ n \sigma^2 - 2 n M(\bar{X}-a)^2 + n M (\bar{x}-a)^2 \right] = \\
+Перечислим \textbf{свойства выборочной дисперсии}.
+\begin{enumerate}
+	\item Математическое ожидание выборочной дисперсии $ \mathsf M S^2 = \sigma^2
+		$ равно истинной дисперсии. 
+	\begin{multline*}
+  \mathsf M S^2 = \frac{1}{n-1} \mathsf M\left[\sum_{i=1}^{n} \left(X_i - a - \left(\bar{X} - a\right)^2\right)^2 \right] = \\
+  = \frac{1}{n-1} \sum \mathsf M (X_i-a)^2 - 2 \mathsf M\left[ \left(\bar{X} - a\right) \sum
+	(X_i - a) \right] + \mathsf M (\bar{X} -a)^2 = \\
+  = \frac{1}{n-1} \left[ n \sigma^2 - 2 n \mathsf M(\bar{X}-a)^2 + n \mathsf M (\bar{X}-a)^2 \right] = \\
   = \frac{1}{n-1} \left[ n \sigma^2 - n \frac{\sigma^2}{n} \right] = \sigma^2.
-\end{multline}
-
-2. Состоятельность 
-
-\begin{multline*}
-  S_n^2 = \frac{1}{n-1} \sum (X_i - \bar{X})^2 = \frac{n}{n-1} \left[ \frac{1}{n} \sum X_i^2 - \bar{X}^2 \right] = \\
-  \text{В силу сильного ЗБЧ} \\
-  \to \sigma^2
 \end{multline*}
+\item \textsc{Состоятельность}. 
+\[
+	S_n^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})^2 = \frac{n}{n-1} \left[
+\frac{1}{n} \sum_{i=1}^n X_i^2 - \bar{X}^2 \right] \toPN \sigma^2 \quad
+\text{при } n \to \infty.
+\]
+Действительно,
+\[
+	\frac{n}{n-1} \to 1, \qquad \bar X^2 \to a^2, 
+\]
+и, наконец,
+\[
+	\frac{1}{n} \sum_{i=1}^n X^2_i \toPN \sigma^2 + a^2
+\]
+в силу усиленного закона больших чисел.
+\item \textsc{Дисперсия}.
+\[
+\mathsf D S^2 = \dfrac{\mu_4}{n} - \frac{\sigma^4 (n-3)}{n (n-1)} = O \left(\frac{1}{n}
+\right),
+\]
+где $\mu_4 = \mathsf M X_i^4$ --- четвертый момент.
+\end{enumerate}
 
-3. Дисперсия
+\begin{theorem}[достаточное условие состоятельности]
 
- 
-$$D S^2 = \dfrac{\mu_4}{n} - \dfrac{\sigma^4 (n-3)}{n (n-1)} = O \left(\frac{1}{n} \right)$$
-$\mu_4 = M X_i^4$ - четвертый момент
+Пусть $\widehat\Theta_n$ --- асимптотически несмешщенная оценка $\Theta$ и
+$\mathsf D \bar\Theta_n \to 0$ при $ n \to \infty$.
 
-4. Теорема достаточное условие состоятельности
+Тогда $\widehat\Theta_n$ --- состоятельная оценка $\Theta$.
+\end{theorem}
+\begin{proof}
+	Запишем условие состоятельности оценки $ \widehat\Theta_n $ в следующем виде:
+\[
+  | \widehat\Theta_n - \Theta| = |\widehat \Theta_n - \mathsf M \widehat\Theta_n
+	+ \mathsf M \widehat\Theta_n
+	- \Theta| \leqslant
+	|\widehat\Theta_n - \mathsf M\widehat\Theta_n| + | \mathsf M\widehat\Theta_n -
+	\Theta| \toP 0,
+\]
+где второе слагаемое стремится к нулю ввиду ассимптотической несмещённости $
+\widehat\Theta_n $. Для сколь угодно малого $ \varepsilon > 0 $ имеем кроме того
+\[
+  P( | \widehat\Theta_n - \mathsf M \widehat\Theta_n| > \varepsilon) \leqslant
+	\frac{|\widehat\Theta_n - \mathsf M
+	\widehat\Theta_n| ^2} {\varepsilon^2} =  \frac{\mathsf D \widehat\Theta_n}
+	{\varepsilon^2} \to 0 \quad \text{при } n \to\infty,
+\]
+что и доказывает утверждение.
 
-Пусть $\hat{\Theta_n}$ асимптотически несмешщенная оценка $\Theta$ и $D \bar{\Theta_n} \to 0, n \to \infty$, тогда $\hat{\Theta_n}$ - состоятельная оценка $\Theta$.
+\end{proof}
 
-Доказательство
-\begin{multline*}
-  \forall \epsilon > 0: | \hat{\Theta_n} - \Theta| = |\Theta_n - M \Theta_n + M \Theta_n - \Theta| <= |\Theta_n - M\Theta_n| + | \Theta - M \Theta_n | \\
-  P( | \Theta_n - M \Theta_n| > \epsilon) \leqslant \dfrac{|\Theta_n - M \Theta_n| ^2} {\epsilon^2} =  \dfrac{D \Theta_n} {\epsilon^2} \to 0, n \to \infty
-\end{multline*}
+
 
 \section{Выборочная функция распределения}
+\begin{definition}
+	Назовём \emph{индикатором} функцию
+\[
+	I(x) = \begin{cases}1, &x>0,\\
+	0, &x\leqslant 0.\end{cases}
+\]
+\end{definition}
+Видно, что индикатор непрерывен слева.
 
 \begin{definition}
+	Назовём \emph{выборочной функцией распределения} функцию
+	\[
+		\widehat F_n (x) = \frac{1}{n} \sum_{i=1}^n I(x-X_i).
+	\]
+\end{definition}
+
+\noindent Назовём некоторые из \textbf{свойств выборочной функции распределения}.
+\begin{enumerate}
+	\item \textsc{Несмещенность}.
 \[
-  I(x) = 1, x>0, I(x) = 0 = x<=0.
+  \mathsf M \widehat F_n (x) = \mathsf M \frac{1}{n} \sum I(x-X_i)
+\]
+
+\item \textsc{Сильная состоятельность}.
+
+\item \textsc{Теорема Гливенко -- Кантелли}.
+	\begin{theorem}[Гливенко -- Кантелли] 
+
+		\[
+			\sup_x |\widehat F_n (x) - F(x)| \toPN 0.
+		\]
+	\end{theorem}
+\begin{proof}
+	б/д
+	%TODO: (proof)
+
+\end{proof}
+
+\item \textsc{Неравенство Дворецкого -- Кифера -- Волфовица}.
+
+\[
+	P(\sup_x |\widehat F_n(x) - F(x)| > \varepsilon) \leqslant 2 e^{-2n
+	\varepsilon^2}.
+\]
+\begin{proof}
+	б/д
+	%TODO: (proof)
+
+\end{proof}
+\begin{corollary*} 
+	Возьмём для некоторого $ \alpha > 0 $
+\[
+		\varepsilon = \sqrt{ \frac{\ln 2/\alpha }{2n}}.
+	\]
+	Тогда
+	\[
+		P\left(\sup_x |\widehat F_n (x) - F(x)| \leqslant \varepsilon\right)
+		\geqslant 1 - 2 e^{-2n \varepsilon^2} = 1-\alpha.
+	\]
+\end{corollary*}
+Таким образом, с вероятностью $ 1 - \alpha $ имеем
+\[
+		\widehat F_n (x) - \varepsilon \leqslant F(x) \leqslant \widehat F_n(x) +
+		\varepsilon,
+\]
+или более точно,
+\begin{gather*}
+	L(x) \leqslant F(x) \leqslant R(x), \quad \text{где}\\
+		L(x) = \max \{ \widehat F_n(x) - \varepsilon,\, 0 \}, \qquad R(x) =
+		\min \{ \widehat F_n(x) + \varepsilon, \,1 \}.
+	\end{gather*}
+
+\item \textsc{Общие свойства}:
+	\begin{enumerate}
+	\item Пределы  выборочной функции распределения при $ x \to \pm\infty $ равны
+		соответственно
+		\[
+		\widehat F_n(+\infty) = 1, \qquad \widehat F_n(-\infty) = 0.
+	\]
+	\item Выборосная функция функция распределения $\widehat F_n(x)$ не убывает.
+	\item Из первых двух свойств легко получаем 
+	\[
+			0 \leqslant \widehat F_n(x) \leqslant 1.
+	\]
+	
+	\end{enumerate}
+\end{enumerate}
+
+\begin{theorem} Если выборка $x_1, \dots, x_n$ получена из закона распределения
+	$F(x)$, то $\widehat F_n(x)$ есть дискретная случайная величина с распределением
+\[
+	P(\widehat F_n(x) = k/n) = C_n^k F(x)^k (1-F(x))^{n-k} 
+\]
+\end{theorem}
+\begin{proof} 
+	Из определения выборочной функции распределения
+\[
+	\widehat F_n \left(x\right) = \frac{1}{n} \sum_{i=1}^n I\left(x-X_i\right)
+\]
+сразу виден закон распределения Бернулли с вероятностью успеха $ p = F(x) $.
+
+\end{proof}
+
+\begin{corollary}
+	\[
+		\mathsf M \widehat F_n (x) = \frac{np}{n} = p = F(x).
+	\]
+\end{corollary}
+\begin{corollary}
+	\begin{multline*}
+		\mathsf D \widehat F_n (x) = \frac{npq}{n^2} = \frac{F(x) (1 - F(x))}{n}
+		\Leftrightarrow\\\Leftrightarrow
+ \mathsf M (\widehat F_n(x) - F(x))^2 \to 0\Leftrightarrow\\
+\Leftrightarrow \widehat F_n (x) \to F(x) \quad \text{(среднеквадратично при $
+n\to\infty $)}.
+\end{multline*}
+\end{corollary}
+\setcounter{corollary}{0}
+
+
+\section{Порядковая статистика}
+\begin{definition}
+	Выборка, упорядоченная по возрастанию
+	\[
+		X_{(1)} \leqslant \dots \leqslant X_{(n)},
+	\]
+	 называется \emph{вариационным рядом}.
+\end{definition}
+\begin{definition}
+	Член  вариационного ряда $ X_{(k)} $ называют \emph{$ k $-ой порядковой статистикой}.
+\end{definition}
+
+\begin{definition}
+Назовём \emph{размахом выборки} число
+\[
+	\omega = X_{(n)} - X_{(1)}.
 \]
 \end{definition}
 
-Индикатор непрерывен слева.
-
-\begin{definition}
-  Выборочная функция распределения $\hat{F_n} (x) = \frac{1}{n} \sum I(x-X_i)$
-\end{definition}
-
-\subsection{Свойства выборочной функции распределения}
-
-1. Несмещенность
-\begin{multline*}
-  M \hat{F_n} (x) = M \dfrac{1}{n} \sum I(x-X_i)
-\end{multline*}
-
-2. сильно состоянельна
-
-3.  Теорема гаовенко-канослли
-
-\begin{multline*}
-  sup_x |\hat{F_n} (x) - F(x)| \toPN 0.
-\end{multline*}
-
-4. Неравенство Дворецного-Кифери-Волфовица
-
-$$P(sup_x |\hat{F_n}(x) - F(x)| > \epsilon) \leqslant 2 e^{-2n \epsilon^2}$$
-
-Следствие. $P\left(sup_x |\hat{F_n} (x) - F(x)| <= \epsilon\right) >= 1 - 2 e^{-2n \epsilon^2} = 1-\alpha$.
-% $\epsilon = \sqrt{ \dfrac{ln \frac{2}{\alpha} }}{2n}$.
-
-$$\hat F_n$$
-
-5. $$0 \leqslant \hat F_n (x) \leqslant 1$$
-
-$$\lim_{x\to -\infty} \hat{F_n} (x) = 0$$
-
-$$F_n(+\infty) = 1$$
-
-$F_n(x)$ неубывает
-
-Теорема. Если выборка $x_1, \dots, x_n$ получена из закона распределения $F(x)$, то $F_n(x)$ - .. СВ
-
-\begin{multline*}
-  P(F_n(x) = k/n) = C_n^k F(x)^k (1-F(x))^{n-k}
-\end{multline*}
-
-схема бернулли
-
-Доказательство. 
+\begin{theorem}
+	Если независимая выборка взята из генеральной совокупности с
+функцией распределения $F(x)$, то функции распределения крайних членов
+вариационного ряда и их совместная функция распределения имеют вид 
+\begin{align*}
+	\text{1. }F_{X_{(n)}}(x) &= [F(x)]^n,\\
+	\text{2. }F_{X_{(1)}}(x) &= 1 - [1 - F(x)]^n,\\
+	\text{3. }F_{X_{(1)}, X_{(n)}} (x, y) &= [F(y)]^n - [F(y)-F(x)]^n, \quad x < y.
+\end{align*}
+\end{theorem}
+\begin{proof} Проведём доказательсто по всем пунктам.
+	\begin{enumerate}
+		\item Из независимости случайных величин и равенства $ X_{(n)} = \max\limits_i X_i $ вытекает соотношение
+	\[
+		F_{X_{(n)}}(x) = P \left( X_{(n)} < x \right) = P \left( \bigcap_{k=1}^n (X_k <
+		x)\right) = \prod_{k=1}^n P(X_k < x) = [F(x)]^n.
+	\]
+\item Аналогично для $ X_{(1)} $ получим 
 \[
-  \hat{F_n} \left(x\right) = \frac{1}{n} \sum I\left(x-X_i\right)
+	F_{X_{(1)}}(x) = 1 - P(X_{(1)} \geqslant x) = 1 - \prod_{k=1}^n P(X_k \geqslant
+	x) = 1 - [1- F(x)]^n.
 \]
+\item В последнем случае 
+\begin{multline*}
+	F_{X_{(1)}, X_{(n)}}(x,y) = P(X_{(1)} < x, \, X_{(n)} < y) = \\ = P(X_{(n)} < y ) -
+	P\left(X_{(1)} \geqslant x, \, X_{(n)} < y \right) = \\ =
+	[F(y)]^n - P \left( \bigcap_{k=1}^n (x \leqslant X_k < y ) \right)  = \\ =
+	[F(y)]^n - \prod_{k=1}^n P(x \leqslant X_k < y) = \\ =
+	[F(y)]^n - [F(y) - F(x)]^n, \quad x < y.
+\end{multline*}
+\end{enumerate}
+\end{proof}
+\begin{corollary*}
+	Если выборка взята из абсолютно непрерывного закона $F(x)$ с 
+плотностью $p(x)$, то плотности распределения крайних членов вариационного ряда и их 
+совместная плотность имеют вид 
+\begin{align*}
+	p_{X_{(n)}}(x) &= n[F(x)]^{n-1}p(x),\\
+	p_{X_{(1)}}(x) &= n[1-F(x)]^{n-1}p(x),\\
+	p_{X_{(1)}, X_{(n)}}(x, y) &= n(n-1)[F(y)-F(x)]^{n-2}p(x)p(y), \quad x < y.
+\end{align*} %TODO: как получить последнее? (вписать формулу)
+\end{corollary*}
 
-Следствие
-1. $M \hat F_n (x) = \frac{1}{n} np = p = F(x)$
-2. $D \hat F_n (x) = \frac{1}{n^2} npq = \dfrac{F(X) (1 - F(x))}{n}$
-$\Leftrightarrow M (\hat F_n(x) - F(x))^2 \to 0$
-$\Leftrightarrow \hat F_n (x) \to^\text{ср.кв.} F(x)$
+\begin{theorem}
+	Если независимая выборка взята из генеральной совокупности с
+плотностью распределения $p(x)$, то плотность распределения $k$-ой порядковой
+статистики имеет вид 
+\[
+	p_{X_{(k)}}(x) = n C^{k-1}_{n-1} \left[ F(x) \right]^{k-1} [1 - F(x)]^{n-k}
+	p(x).
+\]
+\end{theorem}
+\begin{proof}
+Зафиксируем $ x \in \mathbb R $ и выберем столь малое $ \Delta x $, что в
+промежуток $ [x, x+ \Delta x) $ может попасть только один элемент выборки (закон
+абсолютно непрерывный!). Тогда согласно полиномиальной схеме событие 
+$(x \leqslant X(k) < x + \Delta x)$ означает, что какие-то $ k - 1 $ элементов
+выборки попали в промежуток $ (-\infty, x) $, 
+один элемент в промежуток $[x, x + \Delta x)$, а остальные в $[x + \Delta x,
++\infty)$. Поскольку вероятности 
+попаданий в эти множества равны $ F(x) $, $ p(x)\Delta x $ и $(1 − F(x + \Delta
+x))$ соответственно, то  
+\begin{multline*}
+	F_{X_{(k)}}(x+\Delta x) - F_{X_{(k)}} (x) = P(x \leqslant X_{(k)} < x + \Delta
+	x) = \\ =
+	\frac{n!}{(k-1)!1!(n-k)!} [F(x)]^{k-1} p(x) \Delta x [1 - F(x + \Delta
+	x)]^{n-k} = \\ =
+	n C^{k-1}_{n-1} [F(x)]^{k-1} [1 - F(x + \Delta x)]^{n-k} p(x)\Delta x.
+\end{multline*}
+Завершим доказательство делением на $ \Delta x $ и переходом к пределу при $
+\Delta x \to 0 $.
+\end{proof}
 
-4. Порядковая статистика
 
-$x_1, x_2, \dots, x_n$
 
-\begin{definition}
-  Выборка упорядоченная по возрастанию называется вариационным рядом $X_{(1)} \leqslant \dots X_{(n)}$.
-\end{definition}
+\section{Примеры}
+\begin{ex}
+	Пусть дана выборка объёма $ n $ из показательного закона с параметром $ \alpha
+	$. Тогда
+	\[
+		p_{X_{(1)}}(x) = n(1 - (1 - e^{-\alpha x}))^{n-1} \alpha e^{-\alpha
+		x} = n \alpha e^{-n\alpha x}.
+	\]
+\end{ex}
+\begin{ex}
+	Найдём математическое ожидание и дисперсию $ X_{(k)} $, если выборка получена
+	из равномерного распределения на $ [0, a] $. 
 
-$min (X) = X_{(1)}$ - минимальный член вариационного ряда.
+	Математическое ожидание минимального члена вариационного ряда равно
+	\begin{multline*}
+		\mathsf M X_{(1)} = \frac{n}{a }\int\limits_{0}^{a} x\cdot \left( 1 - \frac{x}{a}
+		\right)^{n-1}\,dx \to \left[ \begin{aligned} u &= 1 - x/a \\ dx &= -a\,du
+		\end{aligned}\right] \to an \int\limits_{0}^{1} \left( 1 - u \right) \cdot
+		u^{n-1}\,du =\\=
+		\frac{an}{n+1} \left. \left( 1 - \frac{x}{a} \right)^{n+1} \right|^a_0 - a
+			\left.\left( 1 - \frac{x}{a} \right)^n \right|^a_0 = - \frac{an}{n+1} + a
+				= \frac{a}{n+1}.
+	\end{multline*}
+	
+	Математическое ожидание максимального члена вариационного ряда равно 
+	\[
+	\mathsf M X_{(n)} = \frac{n}{a}\int\limits_{0}^{a} x
+	\left(\frac{x}{a}\right)^{n-1}\,dx = \frac{an}{n+1} \left.\left( \frac{x}{a}
+	\right)^{n+1} \right|^a_0 = \frac{an}{n+1}.
+	\]
+	Отсюда видно, что $ X_{(n)} $ --- асимптотически несмещённая оценка параметра
+	$ a $.
 
-$\omega = X_{(n)} - X_{(1)}$ - размах выборки
+	Наконец, 
+	\begin{multline*}
+		\mathsf M X_{(k)} = \frac{n}{a}\int\limits_{0}^{a} x\cdot C^{k-1}_{n-1}
+		\left(\frac{x}{a}\right)^{k-1} \left( 1 - \frac{x}{a} \right)^{n-k}\,dx = \\
+		= an C^{k-1}_{n-1} \int\limits_{0}^{1}
+		u^k(1-u)^{n-k}\,du = 
+		an C^{k-1}_{n-1} B(k+1, n-k+1)  = \\ = a \frac{(n-1)!n}{(k-1)! (n-k)!}
+		\frac{\Gamma(k+1) \Gamma(n-k+1)}{\Gamma(n+2)} = \frac{ak}{n+1},
+	\end{multline*}
+	где $ u = x/a $.
+\end{ex}

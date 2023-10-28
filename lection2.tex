@@ -274,11 +274,11 @@
 		\geqslant x).
 \end{proof}
 
-\begin{corollary} 
+\begin{corollary*} 
 \[
 		P(|\xi-\mathsf M\xi|< x) \geqslant 1 - \frac{\mathsf D\xi}{x^2}.
 \]
-\end{corollary}
+\end{corollary*}
 
 \begin{theorem}[закон больших чисел Чебышёва]
 	Пусть $ \{\xi_n\} $ --- независимые случайные величины и существует
@@ -320,7 +320,7 @@
 		na}{\sigma \sqrt n} < x \right)  = \Phi(x),
 	\]
 	где используется сходимость по распределению.
-
+\end{theorem}
 \begin{theorem}[Ляпунов]
 Пусть случайные величины $ \xi_1, \xi_2, \ldots $ --- независимы, имеют конечные
 моменты $ \mathsf M \xi_k = a_k $, $ \mathsf D\xi_k = b^2_k $, $ \mathsf
@@ -335,7 +335,7 @@ M|\xi_k-a_k|^3 = c^3_k $. Обозначим $ A_n = \sum^n_{k=1} a_k $, $ B^2_n
 \[
 		\frac{\xi_1+\xi_2+\ldots+\xi_n-A_n}{B_n} \toD \mathscr N(0,1).
 \]
-
+\end{theorem}
 \begin{theorem}[Хинчин] 
 	Пусть $ \xi_1,\xi_2,\ldots $ --- одинаково распределеннные случайные величины
 	с конечным математическим ожиданием $ a $.
@@ -349,7 +349,7 @@ M|\xi_k-a_k|^3 = c^3_k $. Обозначим $ A_n = \sum^n_{k=1} a_k $, $ B^2_n
 	\[
 			\frac{\xi_1+\xi_2+\ldots+\xi_N}{N} \toP a.
 	\]
-
+\end{theorem}
 \begin{theorem}[Марков]
 	Пусть $ \xi_1,\xi_2,\ldots $ --- последовательность случайных величин,
 	удовлетворяющая условию  
@@ -382,13 +382,13 @@ M|\xi_k-a_k|^3 = c^3_k $. Обозначим $ A_n = \sum^n_{k=1} a_k $, $ B^2_n
 		\frac{\xi_1 + \xi_2 + \ldots + \xi_N}{N} - \frac{\mathsf M \xi_1 + \mathsf
 		M\xi_2 + \ldots + \mathsf \xi_N}{N} \toP 0.
 \]
-	
+\end{theorem}	
 
 \begin{theorem}[усиленный закон больших чисел Колмогорова]
 	Пусть $ \xi_1, \xi_2, \ldots $ --- независимые и одинаково распределение
 	случайные величины. Для того чтобы  
 	\[
-			\frac{\xi_1 + \xi_2 + \ldots _ \xi_n}{n} \toPN a,
+			\frac{\xi_1 + \xi_2 + \ldots + \xi_n}{n} \toPN a,
 	\]
 	необходимо и достаточно, чтобы существовало конечное
 	\[
@@ -398,8 +398,7 @@ M|\xi_k-a_k|^3 = c^3_k $. Обозначим $ A_n = \sum^n_{k=1} a_k $, $ B^2_n
 	\[
 			\frac{\xi_1+\xi_2+\ldots+\xi-n}{n} \toPN a.
 	\]
-	
-
+\end{theorem}	
 
 \section{Резюме}
 \begin{figure}[h!]
