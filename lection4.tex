@@ -1,173 +1,296 @@
 \chapter{Лекция 4 - 2023-09-27 - Методы получения точечных оценок: моментов, максимального
 правдоподобия. Свойства точечных оценок.}
+%%\section{Вероятности для вариационного ряда}
+%%\begin{theorem}
+%%	$X_1, X_2, \dots, X_n$ - независимыя выборка из з.р. $F(X)$
 
-\section{Вероятности для вариационного ряда}
+%%	тогда $F_{X_{(n)}} = (F(x))^n$, $F_{X_{(1)}} = 1 - (1-F(x))^n$.
 
-\begin{theorem}
-  $X_1, X_2, \dots, X_n$ - независимыя выборка из з.р. $F(X)$
+%%	если имеется плотность $p(x)$, то $p_{X_{(n)}} = n (F(x))^{n-1} p(x)$, $p_{X_{(1)}} = n (1-F(x))^{n-1} p(x)$, $p_{X_{(1)}, X_{(n)}} = n (n-1) (F(y) - F(x))^{n-2} p(x) p(y)$.
+%%\end{theorem}
 
-  тогда $F_{X_{(n)}} = (F(x))^n$, $F_{X_{(1)}} = 1 - (1-F(x))^n$.
+%%\begin{proof}
+%%	\begin{multline}
+%%		F_{X_{(n)}} = P(X_{(n)} < x) = P\left(\bigcap_{k=1}^n (X_k < x)\right) = \prod_{k=1}^n P(X_k < x) = (F(x))^n\\
+%%		F_{X_{(1)}} (x) = P(X_{(1)} < x) = 1 - P(X_{(1)} \geqslant x) = \dots = 1 - (1-F(x+0))^n = 1 - (1-F(x))^n \\
+%%		F_{X_{(1)}, X_{(n)}} (x, y) = P(X_{(1)} < x, X_{(n)} < y) = P(X_{(n)} < y) - P(X_{(n)}, X_{(1)} \geqslant x) = \\
+%%		F_{X_{(n)}} (y) - P(\bigcap_{k=1}^n (x \leqslant X_k < y)) = (F(y))^n - (F(y) - F(x))^n
+%%		% \\
+%%		% TODO: доказательство PX(1) X(n) (x, y)
+%%	\end{multline}
+%%\end{proof}
 
-  если имеется плотность $p(x)$, то $p_{X_{(n)}} = n (F(x))^{n-1} p(x)$, $p_{X_{(1)}} = n (1-F(x))^{n-1} p(x)$, $p_{X_{(1)}, X_{(n)}} = n (n-1) (F(y) - F(x))^{n-2} p(x) p(y)$.
-\end{theorem}
+%%\begin{ex}
+%%	$X_1, X_2, \dots, X_n ~ E(\alpha)$
+%%	$F_{x_i} (x) = 1- e^{-\alpha x}, x\geqslant 0.$
+%%	$F_{X_{(1)}} (x) = 1 - (1-1+e^{-\alpha x})^n = 1 - e^{-\alpha x} \Rightarrow X_{(1)} \sim E(n\alpha)$
+%%\end{ex}
 
-\begin{proof}
-  \begin{multline}
-    F_{X_{(n)}} = P(X_{(n)} < x) = P\left(\bigcap_{k=1}^n (X_k < x)\right) = \prod_{k=1}^n P(X_k < x) = (F(x))^n\\
-    F_{X_{(1)}} (x) = P(X_{(1)} < x) = 1 - P(X_{(1)} \geqslant x) = \dots = 1 - (1-F(x+0))^n = 1 - (1-F(x))^n \\
-    F_{X_{(1)}, X_{(n)}} (x, y) = P(X_{(1)} < x, X_{(n)} < y) = P(X_{(n)} < y) - P(X_{(n)}, X_{(1)} \geqslant x) = \\
-    F_{X_{(n)}} (y) - P(\bigcap_{k=1}^n (x \leqslant X_k < y)) = (F(y))^n - (F(y) - F(x))^n
-    % \\
-    % TODO: доказательство PX(1) X(n) (x, y)
-  \end{multline}
-\end{proof}
+%%\begin{theorem}
+%%	$X_1, X_2, \dots, X_n$ - независимая выборка из з.р. с плотностью $p(x)$.
+%%	тогда $p_{X_{(k)}} = n C_{n-1}^{k-1} (F(x))^{k-1} (1-F(x))^{n-k} p(x)$.
+%%\end{theorem}
 
-\begin{ex}
-  $X_1, X_2, \dots, X_n ~ E(\alpha)$
-  $F_{x_i} (x) = 1- e^{-\alpha x}, x\geqslant 0.$
-  $F_{X_{(1)}} (x) = 1 - (1-1+e^{-\alpha x})^n = 1 - e^{-\alpha x} \Rightarrow X_{(1)} \sim E(n\alpha)$
-\end{ex}
-
-\begin{theorem}
-  $X_1, X_2, \dots, X_n$ - независимая выборка из з.р. с плотностью $p(x)$.
-  тогда $p_{X_{(k)}} = n C_{n-1}^{k-1} (F(x))^{k-1} (1-F(x))^{n-k} p(x)$.
-\end{theorem}
-
-\begin{proof}
-  \[
-    P(x\leqslant X_{(k)} < x+\Delta x) = \dfrac{n!}{(k-1)! (n-k)!} (F(x))^{k-1} p(x) \Delta x (1-F(x+\Delta x))^{n-k}
-  \]
-\end{proof}
+%%\begin{proof}
+%%	\[
+%%		P(x\leqslant X_{(k)} < x+\Delta x) = \dfrac{n!}{(k-1)! (n-k)!} (F(x))^{k-1} p(x) \Delta x (1-F(x+\Delta x))^{n-k}
+%%	\]
+%%\end{proof}
 
 \section{Методы построения точечных оценок параметров}
+\subsection{Мотивация}
+Пусть
+\[
+	X_1, X_2, \dots, X_n \sim F(x, \theta_1, \theta_2, \dots, \theta_n),
+\]
+то есть случайная величина выборки распределена по некоторому
+\textsl{неизвестному} закону, зависящему от \textsl{неизвестных} параметров
+$\bar \theta = (\theta_1, \theta_2, \ldots, \theta_n) $.
 
-$X_1, X_2, \dots, X_n \sim F(x, \theta_1, \theta_2, \dots, \theta_n)$
+\textsc{Задача}. Оценить значения неизвестных параметров.
+
 
 \subsection{Метод моментов}
+\begin{definition}
+Назовём величины
+\begin{align*}
+\hat{\mu}_k &= \frac{1}{n} \sum X_i^k, \\
+\mu_k &= \int\limits_{-\infty}^{+\infty} x^k dF(x, \bar{\theta}).
+\end{align*}
+соответственно \emph{эмпирическим} и \emph{теоретическим} моментом $ k $-го
+порядка.
+\end{definition}
 
-$\hat{\mu}_k = \frac{1}{n} \sum X_i^k$ - эмпирический момент k-го порядка.
-
-$\mu_k = \int\limits_{-\infty}^{+\infty} x^k dF(x, \bar{\theta})$
-
-По закону больших чисел: $\hat{\mu}_k \toPN \mu_k$
-
+По закону больших чисел $\hat{\mu}_k \toPN \mu_k$. Составим тогда систему
+уравнений
 \[
 \begin{cases}
   \hat{\mu}_1 = \mu_1(x, \bar{\theta}), \\
   \hat{\mu}_2 = \mu_2(x, \bar{\theta}), \\
-  \dots = \dots \\
-  \hat{\mu}_r = \mu_r(x, \bar{\theta})
+  \ldots = \ldots, \\
+  \hat{\mu}_r = \mu_r(x, \bar{\theta}).
 \end{cases}
 \]
+Её решением будет некоторая оценка параметра $ \bar \theta $.
 
 \begin{ex}
-  Пусть $X_1, \dots, X_n \sim E(\alpha)$.
+  Пусть выборка $X_1, \dots, X_n \sim E(\alpha)$ распределена по
+	экспоненциальному закону.
 
-  Тогда $\hat \mu_1 = \bar{X} = \frac{1}{\alpha} = \mu_1 \Rightarrow \alpha = \frac{1}{\bar{X}}$ - несмещённая.
+  Тогда
+	\[
+		\hat \mu_1 = \bar{X} = \frac{1}{\alpha} = \mu_1 \Rightarrow \alpha =
+		\frac{1}{\bar{X}},
+	\]
+	причём данная оценка является асимптотически несмещённой. % у всех почему-то
+	% "асимптотически"
   \begin{proof}
     $X_k \sim \alpha e^{-\alpha x} \equiv \gamma_{\alpha, 1}$
-    Тогда $\xi = \sum X_k \sim \gamma_{\alpha, n}$.
-    $M \hat \alpha_n = M \frac{n}{\xi} = \int\limits_0^{+\infty} \frac{n}{x} \dfrac{\alpha^n x^{n-1} e^{-\alpha x}}{\Gamma(n)} \, dx = \frac{n \alpha}{\Gamma(n)} \int\limits_0^{+\infty} (\alpha x)^{n-2} e^{-\alpha x} \, dx = \dfrac{n\alpha \Gamma(n-1}{\Gamma(n)} = \dfrac{n\alpha}{n-1} \to \alpha$
+		Тогда
+		\[
+			\xi = \sum_{k=1}^n X_k \sim \gamma_{\alpha, n}.
+		\]
+
+		Заметим, что $ \hat \alpha_n = 1/\bar X = n/\xi $, а значит,
+		\[
+			\mathsf M \hat \alpha_n = \mathsf M \frac{n}{\xi} = \int\limits_0^{+\infty} \frac{n}{x}
+			\frac{\alpha^n x^{n-1} e^{-\alpha x}}{\Gamma(n)} \, dx = \frac{n
+			\alpha}{\Gamma(n)} \int\limits_0^{+\infty} (\alpha x)^{n-2} e^{-\alpha x}
+			\, dx = \frac{n\alpha \Gamma(n-1}{\Gamma(n)} = \frac{n\alpha}{n-1},
+		\]
+		откуда сразу вытекает асимптотическая несмещённость полученной оценки.
+
   \end{proof}
 \end{ex}
 
+
 \subsection{Оценки максимального правдоподобия}
-
-$X_1, X_2, \dots, X_n \sim p(x, \bar\theta) \text{или} P(\xi = X_k)$
-
+Пусть выборка распределена одним из двух возможных способов
+\[
+	X_1, X_2, \dots, X_n \sim \begin{cases} p(x, \bar\theta)
+		&\text{(абсолютно непрерывный случай)}, \\
+		P_{\bar \theta}(\xi = X_k) &\text{(дискретный случай)}.
+\]
 \begin{definition}
-  $\mathcal{L} (X_1, X_2, \dots, X_n, \hat\theta) = $
-  В случае непрерывной величины: $\mathcal{L} = \prod_{k=1}^n P(X_k, \hat \theta)$
-  В случае дискретной: $\mathcal{L} = P(\xi_1 = X_1, \xi_2 = X_2, \dots, \xi_n = X_n) = \prod P(\xi_k = X_k)$
-
-  $\mathcal{L}$ исследуется на максимум по параметру $\theta$.
+	Назовём \emph{функцией правдоподобия} функцию, равную
+	\[
+		\mathscr{L} (X_1, X_2, \dots, X_n, \hat\theta) = 
+		\prod_{k=1}^n p(X_k, \hat \theta)
+	\]
+в непрерывном случае и  
+\[
+	\mathscr{L} (X_1, X_2, \dots, X_n, \hat\theta) = P_{\bar\theta}(\xi_1 =
+		X_1, \xi_2 = X_2, \dots, \xi_n = X_n) = \prod_{k=1}^n P_{\bar\theta}(\xi_k = X_k)
+\]
+в дискретном случае.
 \end{definition}
 
-$\dfrac{\partial \mathcal{L}}{\partial \theta} = 0 \Leftrightarrow \frac{1}{\mathcal{L}} \dfrac{\ln \mathcal{L}}{\partial \theta} = 0$
-
+  $\mathscr{L}$ исследуется на максимум по параметру $\theta$. При этом зачастую
+	удобнее рассматривать не саму функцию $ \mathscr L $, а её логарифм $ \ln
+	\mathscr L $, в связи с чем
+	заметим, что
+	\[
+		\frac{\partial \mathscr{L}}{\partial \theta} = 0 \Leftrightarrow
+		\frac{\partial \ln \mathscr L}{\partial \theta} = \frac{1}{\mathscr{L}}
+		\frac{\partial \mathscr{L}}{\partial \theta} = 0,
+	\]
+что ясно и без привлечения аппарата дифференцирования (функция $ \ln x $
+монотонно возрастающая).
 \begin{ex}
-  $X_1, X_2, \dots, X_n \sim Pois(\lambda)$
-  $P(\xi=x_k) = \dfrac{\lambda^{X_k}}{(X_k)!} e^{-\lambda}$
+	Пусть $ X_1, X_2, \dots, X_n \sim \operatorname{Pois}(\lambda) $.
 
-  $\mathcal{L}(X_1, \dots, X_n, \lambda) = \prod \dfrac{\lambda^{X_k}}{(X_k)!} e^{-\lambda}$
+	Тогда
+	\[
+		P(\xi=x_k) = \frac{\lambda^{X_k}}{(X_k)!} e^{-\lambda},
+	\]
+а значит,
+\[
+	\mathscr{L}(X_1, \dots, X_n, \lambda) = \prod_{k=1}^n \frac{\lambda^{X_k}}{(X_k)!}
+	e^{-\lambda} = \frac{\lambda^{\sum X_k}\cdot
+	e^{-n\lambda}}{\prod_{k=1}^n (X_k)!}
+\]
 
-  $\ln \mathcal{L} = \sum X_k \ln\lambda - n \lambda - \ln \prod (X_k)!$
-
-  $\dfrac{\partial \ln \mathcal{L}}{\partial \lambda} = \dfrac{\sum X-k}{\lambda} - n = 0 \Rightarrow \bar{\lambda_n} = \frac{1}{n} \sum X_k$
+Вычислим теперь
+\[
+	\ln \mathscr{L} = \sum_{k=1}^n X_k \ln\lambda - n \lambda - \ln \prod_{k=1}^n (X_k)!,
+\]
+откуда
+\[
+	\frac{\partial \ln \mathscr{L}}{\partial \lambda} = \frac{\sum_{k=1}^n X_k}{\lambda}
+	- n = 0 \Rightarrow \bar\lambda_n = \frac{1}{n} \sum_{k=1}^n X_k.
+\]
 \end{ex}
 
 \begin{ex}
-  $X_1, X_2, \dots, X_n \sim E(\alpha)$
+  Пусть $X_1, X_2, \dots, X_n \sim E(\alpha)$.
 
-  $\mathcal{L}(X_1, \dots, X_n, \alpha) = \prod \alpha e^{-\alpha x_k} = \alpha^n e^{-\alpha \sum x_k}$
-
-  $\ln \mathcal{L} = n \ln\alpha - \alpha \sum x_k$
-
-  $\dfrac{\partial \ln\mathcal{L}}{\partial \alpha} = \frac{n}{\alpha} - \sum x_k$
+	Имеем
+	\begin{align*}
+		\mathscr{L}(X_1, \dots, X_n, \alpha) &= \prod_{k=1}^n \alpha e^{-\alpha X_k}
+		= \alpha^n e^{-\alpha \sum x_k},\\
+		\ln \mathscr{L} &= n \ln\alpha - \alpha \sum_{k=1}^n X_k, \\
+		\frac{\partial \ln\mathscr{L}}{\partial \alpha} &= \frac{n}{\alpha} -
+		\sum_{k=1}^n
+		X_k = 0,\\
+		\alpha &= \frac{1}{\bar X}.
+	\end{align*}
+	Таким образом, \textsl{в данном случае} \boxed{\text{ОММ} = \text{ОМП}.}
 \end{ex}
+
 
 \subsection{Сравнение оценок}
-
 \begin{definition}
-  Если $\hat \theta_n$ и $\widehat{\widehat{\theta}}_n$ - две несмещенные оценки параметра $\theta$.
-  Если $D \hat\theta_n < D \hat\hat\theta_n$, то говорят, что $\hat\theta_n$ - более эффективна, чем $\hat\hat\theta_n$
+	Пусть $\hat \theta_n$ и $\hhat\theta_n$ --- две \textsl{несмещенные} оценки параметра $\theta$.
+	Если
+	\[
+		\mathsf D \hat\theta_n < \mathsf D \hhat\theta_n,
+	\]
+	то говорят, что $\hat\theta_n$
+	\emph{более эффективна}, чем $\hhat\theta_n$.
 \end{definition}
 
 \begin{ex}
-  $X_1, X_2, \dots, X_n \sim R[\theta-\frac{1}{2}, \theta+\frac{1}{2}]$
+  Пусть $X_1, X_2, \dots, X_n \sim R[\theta-\frac{1}{2}, \theta+\frac{1}{2}]$ и
+\[
+	\hat\theta_n = \frac{1}{2} (X_{(1)} + X_{(n)}), \qquad
+	\hhat\theta_n = \bar X,\\
+\]
 
-  $\hat\theta_n = \frac{1}{2} (X_{(1)} + X_{(n)})$
-  
-  $\Hat{\Hat{\theta}}_n = \bar X$
-
-  $D\hat\theta_n = \dots = \dfrac{1}{8 (n+1) (n+2)} \sim \dfrac{c}{n^2}$
-
-  $D\Hat{\Hat{\theta}}_n = \dfrac{1}{12n}$
+	Тогда
+	\begin{gather*}
+	\D\hat\theta_n = \frac{1}{4} \left[ \M X^2_{(1)} + \M X_{(n)}^2 + 2\M
+	X_{(1)}X_{(n)} \right] - \theta^2 = \frac{1}{8 (n+1) (n+2)} \sim \frac{c}{n^2},\\
+	\D\hhat\theta_n = \frac{\sigma^2}{n} = \frac{1}{12n}.
+\end{gather*}
 \end{ex}
 
-\begin{theorem}[Неравенство Рао-Крамера]
-  Если $X_1, X_2, \dots, X_n$ - выборка из закона распределения с плотностью $p(x, \theta)$ и $\int\limits_R p(x, \theta) \, dx = 1$ допускает дифференцирование по $\theta$.
-  Тогда $\forall$ несмещенной оценки $\hat\theta_n$ имеет место:
-  $$D\hat\theta_n \geqslant \frac{1}{I_n(\theta)} = \frac{1}{n I_1(\theta)},$$
-  где $I_n(\theta) = M\left( \dfrac{\partial \ln \mathcal{L}}{\partial \theta} \right)^2$ - информация Фишера,
-    $I_1(\theta) = M\left( \dfrac{\partial\ln p(x, \theta)}{\partial\theta} \right)^2$
+\begin{theorem}[неравенство Рао -- Крамера]
+  Пусть $X_1, X_2, \dots, X_n$ --- выборка из закона распределения с плотностью
+	$p(x, \theta)$ и интеграл $\int_{\mathbb R} p(x, \theta) \, dx = 1$ допускает дифференцирование
+	по $\theta$\footnote{Регулярное семейство}. 
+	%TODO: что значит регулярное семейство?
+  
+	Тогда для любой несмещенной оценки $\hat\theta_n$ имеет место неравенство
+  \[
+		D\hat\theta_n \geqslant \frac{1}{I_n(\theta)} = \frac{1}{n I_1(\theta)},
+	\]
+  где функцию
+	\[
+		I_n(\theta) = \M\left( \dfrac{\partial \ln \mathscr{L}}{\partial
+		\theta} \right)^2
+	\]
+	называют \emph{информацией Фишера}, а функция
+	\[
+		I_1(\theta) = M\left( \dfrac{\partial\ln p(x, \theta)}{\partial\theta}
+		\right)^2
+	\]
+	есть информация Фишера в одном наблюдении.
 \end{theorem}
-
 \begin{proof}
-  $1 = \int\limits_{R^n} p(x, \theta) \, dx \Rightarrow 0 = \int\limits_{R^n} \dfrac{\partial p(x, \theta)}{\partial\theta} \, dx = \int\limits_{R^n} \dfrac{\ln p(x, \theta)}{\partial\theta} p(x, \theta) \, dx$
+	\[
+		1 = \int\limits_{\mathbb R^n} p(x, \theta) \, d\bar x \Rightarrow 0 =
+		\int\limits_{\mathbb R^n} \frac{\partial p(x, \theta)}{\partial\theta} \,
+		d\bar x = \int\limits_{\mathbb R^n} \frac{\ln p(x, \theta)}{\partial\theta} p(x,
+		\theta) \, d\bar x.
+	\]
+	Пусть
+	\[
+		\hat\theta_n = \varphi(X_1, X_2, \dots, X_n).
+	\]
+	Тогда
+	\[
+		\theta = \int\limits_{\mathbb R^n} \varphi(x)
+		p(x, \theta) \, dx \Rightarrow 1 = \int\limits_{\mathbb R^n} \varphi(x) \frac{\partial \ln
+		p(x, \theta)}{\partial\theta} p(x, \theta) \, d\bar x.
+	\]
 
-  $\hat\theta_n = \phi(X_1, X_2, \dots, X_n), \theta = \int_{R^n} \phi(x) p(x, \theta) \, dx \Rightarrow 1 = \int_{R^n} \phi(x) \dfrac{\partial \ln p(x, \theta)}{\partial\theta} p(x, \theta) \, dx$
-
-  $\Rightarrow 1 = \int_{R^n} (\phi(x)-\theta) \dfrac{\partial \ln p(x, \theta)}{\partial \theta} p(x, \theta) \, dx$
-
-  $1 \leqslant \int_{R^n} (\phi(x) - \theta)^2 p(x, \theta) \, dx \cdot \int_{R^n} (\dfrac{\partial\ln p(x, \theta)}{\partial\theta})^2 p(x, \theta) \, dx$
-
-  $I_n(\theta) = M \left(\dfrac{\partial\ln L(X_1, X_2, \dots, X_n, \theta)}{\partial\theta}\right)^2 = D \dfrac{\partial \ln L}{\partial\theta} = \sum D\dfrac{\partial \ln p(x_k, \theta)}{\partial\theta} = n I_1(\theta)$
-
-  $\ln L(X, \theta) = \sum \ln p(x_k, \theta)$
+	Отсюда следует, что
+	\begin{gather*}
+		1 = \int\limits_{\mathbb R^n} (\varphi(x)-\theta) \frac{\partial \ln p(x, \theta)}{\partial
+		\theta} p(x, \theta) \, dx,\\
+		1 \leqslant \int\limits_{\mathbb R^n} (\varphi(x) - \theta)^2 p(x, \theta) \, dx \cdot
+		\int\limits_{\mathbb R^n} \left(\frac{\partial\ln p(x, \theta)}{\partial\theta}\right)^2 p(x, \theta)
+		\, dx,\\
+		I_n(\theta) = \M \left(\frac{\partial\ln L(X_1, X_2, \dots, X_n,
+		\theta)}{\partial\theta}\right)^2 = \D \frac{\partial \ln \mathscr L}{\partial\theta}
+		= \sum_{k=1}^n \D\frac{\partial \ln p(X_k, \theta)}{\partial\theta} = n
+		I_1(\theta),
+	\end{gather*}
+	поскольку
+	\[
+		\ln \mathscr L(X, \theta) = \sum_{k=1}^n \ln p(X_k, \theta).
+	\]
 \end{proof}
 
 \begin{ex}
-  $X_1, \dots, X_n \sim R[\theta-1/2, \theta+1/2]$
+  Пусть $X_1, \dots, X_n \sim R[\theta-1/2, \theta+1/2]$.
 
-  $p(x, \theta) = I(\theta-1/2 \leqslant x \leqslant \theta+1/2)$
-
-  $1 = \int\limits_{-\infty}^{+\infty} I \, dx$ - не допускает дифференцирование по параметру.
+	Тогда
+	\[
+		p(x, \theta) = I(\theta-1/2 \leqslant x \leqslant \theta+1/2).
+	\]
+При этом интеграл
+\[
+	1 = \int\limits_{-\infty}^{+\infty} I(x) \, dx
+\]
+не допускает дифференцирования по параметру.
 \end{ex}
 
 \begin{ex}
-  $X_1, X_2, \dots, X_n \sim E(\alpha)$
+	Пусть  $X_1, X_2, \dots, X_n \sim E(\alpha)$.
 
-  $p(x, \alpha) = \alpha e^{-\alpha x}$
-
-  $I_1(\alpha) = M (\dfrac{\partial\ln p(X_1, \alpha)}{\partial\alpha})^2$
-
-  $\ln p(X_1, \alpha) = \ln \alpha - \alpha X_1$
-
-  $\dfrac{\partial \ln p}{\partial\alpha} = \frac{1}{\alpha} - X_1$
-
-  $I_1(\alpha) = M (\frac{1}{\alpha} - X_1)^2 = D X_1 = \dfrac{1}{\alpha^2}$
+	Тогда
+	\begin{align*}
+		p(x, \alpha) &= \alpha e^{-\alpha x},\\
+		I_1(\alpha) &= \M \left(\frac{\partial\ln p(X_1, \alpha)}{\partial\alpha}\right)^2,\\
+		\ln p(X_1, \alpha) &= \ln \alpha - \alpha X_1,\\
+		\frac{\partial \ln p}{\partial\alpha} &= \frac{1}{\alpha} - X_1,\\
+		I_1(\alpha) &= \M (\frac{1}{\alpha} - X_1)^2 = \D X_1 = \dfrac{1}{\alpha^2}.
+\end{align*}
+\textsc{Вывод}. Для любой несмещенной оценки $\hat\alpha_n$
+\[
+	\D \hat\alpha_n \geqslant \frac{1}{n/\alpha^2} = \frac{\alpha^2}{n}.
+\]
 \end{ex}
 
-Вывод: $\forall$ несмещенной оценки $\hat\alpha_n$: $D \hat\alpha_n \geqslant \dfrac{1}{n \frac{1}{\alpha^2}} = \frac{\alpha^2}{n}$ 
 

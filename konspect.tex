@@ -13,6 +13,14 @@
 
 %\usepackage{showframe}
 
+\usepackage{accents}
+\newlength{\dhatheight}
+\newcommand{\hhat}[1]{%
+    \settoheight{\dhatheight}{\ensuremath{\hat{#1}}}%
+    \addtolength{\dhatheight}{-0.35ex}%
+    \hat{\vphantom{\rule{1pt}{\dhatheight}}%
+    \smash{\hat{#1}}}}
+
 \usepackage[colorlinks=true, linkcolor=black, urlcolor=black]{hyperref}
 \newtheoremstyle{example}% name
 {0.7cm}% Space above
@@ -63,6 +71,10 @@
 \newcommand{\toPN}{\xrightarrow[]{\text{п.н.}}} % сходимость почти наверное
 \newcommand{\toD}{\xrightarrow[]{d}} % сходимость по распределению (слабая)
 \newcommand{\toR}{\xrightarrow[]{r}} % сходимость по распределению (слабая)
+\newcommand{\P}{\mathsf P} 
+\newcommand{\D}{\mathsf D} 
+\newcommand{\M}{\mathsf M} 
+
 
 \begin{document}
   \pagestyle{plain}
