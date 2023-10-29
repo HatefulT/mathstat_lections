@@ -2,7 +2,7 @@
 теории вероятностей. Закон больших чисел}
 
 Пусть на $(\Omega, \mathscr A, \mathsf P)$ задана случайная величина $\xi$ и
-последовательность случайных величин $\xi_1, \xi_2, \dots$. Поскольку случайная
+последовательность случайных величин $\{\xi_n\}$. Поскольку случайная
 величина есть \textsl{функция} от элементарных исходов, имеет смысл говорить о
 разных видах сходимости. Рассмотрим их.
 
@@ -26,9 +26,9 @@
 	  0, &\text{иначе}. 
     \end{cases}
 	\]
-  Тогда
+  Тогда для любого $ \omega \neq 0 $
 	\[
-		\forall \omega \neq 0\quad \xi_n(\omega) \to 0,
+		\xi_n(\omega) \to 0,
 	\]
 	то есть
 	\[
@@ -52,7 +52,7 @@
 \begin{proof}
   Первое утверждение эквивалентно следующему:
   \[
-  		\mathsf P \left( \xi_n \not\to \xi \right) = 0.
+  		 P \left( \xi_n \not\to \xi \right) = 0.
   \]
  
 	По оперделению пердела 
@@ -97,9 +97,10 @@
 \section{Сходимость по вероятности}
 \begin{definition}
 	Говорят, что последовательность случайных величин $ \{\xi_n \}$ \emph{сходится
-	по вероятности} и пишут $\xi_n \toP \xi$, если
+	по вероятности} и пишут $\xi_n \toP \xi$, если для сколь угодно малого $
+	\varepsilon > 0 $
 	\[
-		\forall \varepsilon > 0 \quad \lim_{n\to\infty}
+		\lim_{n\to\infty}
 		\mathsf P\left\{\omega \colon|\xi_n-\xi|>\varepsilon\right\} = 0.
 	\]
 \end{definition}
@@ -147,9 +148,9 @@
 Пусть $ \{\xi_n\} $ монотонно убывает и $ \xi_n \toP 0 $ (в случае возрастания
 рассматривается последовательность $ \{\xi_n - \xi\} $). Тогда 
 \[
-	\left( \sup_{m\geqslant n}|\xi_m - \xi| > \varepsilon \right) = \left(
-	\sup_{m\geqslant n} |\xi_m| > \varepsilon \right) = \left( \sup_{m\geqslant}
-\xi_m > \varepsilon \right) = (\xi_n > \varepsilon). 
+	 \sup_{m\geqslant n}|\xi_m - \xi| > \varepsilon  = 
+	\sup_{m\geqslant n} |\xi_m| > \varepsilon  =  \sup_{m\geqslant n}
+\xi_m > \varepsilon  = \xi_n > \varepsilon. 
 \]
 
 \end{proof}
@@ -196,6 +197,61 @@
 	Без доказательства. %TODO: (proof)
 \end{proof}
 
+\begin{utv}
+	Из сходимости по вероятности следует 
+	\[
+			\xi_n \toP \xi \implies \xi_n \toD \xi
+	\]
+	сходимость по распределению.
+\end{utv}
+\begin{proof}
+	Обозначим $ A_n = (|\xi_n - \xi| \leqslant \varepsilon) $. Если $ \omega \in
+	A_n $, то $ \xi -\varepsilon \leqslant \xi_n \leqslant \xi + \varepsilon $.
+	Следовательно, для любого $ x \in \mathbb R $ 
+	\[
+		(\xi_n < x) \subset (\xi < x + \varepsilon) \cup \bar A_n \implies
+		P(\xi_n < x) \leqslant P(\xi < x + \varepsilon) + P(\bar A_n).
+	\]
+	Далее, 
+	\[
+		(\xi < x - \varepsilon) \subset (\xi_n < x) \cup \bar A_n \implies P(\xi <
+		x - \varepsilon) \leqslant P(\xi_n < x) + P(\bar A_n).
+	\]
+
+	Поэтому
+	\begin{gather*}
+	P(\xi < x -\varepsilon) - P(\bar A_n) \leqslant P(\xi_n < x) \leqslant P(\xi
+	< x + \varepsilon) + P(\bar A_n),\\
+	F_\xi(x-0) \leqslant \varliminf_{n\to\infty} P(\xi_n < x) \leqslant
+	\varlimsup_{n\to\infty} P(\xi_n < x) \leqslant F_\xi (x + 0).
+	\end{gather*}
+При этом в каждой точке непрерывности $ F_\xi(x-0) = F_\xi(x+0) $.
+
+\end{proof}
+
+\begin{utv}
+	Из сходимости по распределению к константе следует
+	\[
+			\xi_n \toD c \implies \xi_n \toP c
+	\]
+сходимость к этой же константе по вероятности.	
+\end{utv}
+\begin{proof}
+	По условию при сколь угодно малом $ \varepsilon > 0 $ при $ n \to \infty $ выполняется 
+	\[
+		F_{\xi_n}(x + \varepsilon) \to 1, \qquad F_{\xi_n}(c - \varepsilon) \to 0.
+	\]
+Значит, 
+\[
+		P(c - \varepsilon \leqslant \xi_n < c + \varepsilon) \to 1.
+\]
+Таким образом,  
+\[
+		P(|\xi_n - c| > \varepsilon) \to 0.
+\]
+	
+\end{proof}
+
 
 
 \section{Сходимость в среднем порядка r}
@@ -227,14 +283,13 @@
 \begin{ex}[факультативно]
 	Пусть $ \{\xi_n\} $ --- последовательность независимых случайных величин,
 	распределённых по закону
-	\begin{table}[h!]
-		\centering
+  
+	{\centering
 	\begin{tabular}{|c|c|c|}
 		\hline
 		$ \xi_n , x_n $ &0 &1 \\\hline
 		$ P_\xi(\xi_n = x_n) $ & $ 1 - 1/n $ & $ 1/n $\\\hline
-	\end{tabular}.
-\end{table}
+\end{tabular}.}
 
 Тогда  
 \[
@@ -257,7 +312,7 @@
 
 
 \section{Предельные теоремы}
-\begin{theorem}[неравенства Чебышёва]
+\begin{theorem}[неравенство Чебышёва]
 Для любого $ x > 0 $ имеют место неравенства 
 \[
 		P(|\xi|\geqslant x) \leqslant \frac{\mathsf M |\xi|}{x}, \qquad
@@ -266,7 +321,7 @@
 \end{theorem}
 \begin{proof}
 	\begin{gather*}
-		|\xi| = |\xi|\cdot I_{(|xi| \geqslant x)} + |\xi| \cdot I_{(|\xi|<x)}
+		|\xi| = |\xi|\cdot I_{(|\xi| \geqslant x)} + |\xi| \cdot I_{(|\xi|<x)}
 		\geqslant |\xi| \cdot I_{(|\xi|\geqslant x)} \geqslant x \cdot I_{(|\xi|
 		\geqslant x)},\\
 		\mathsf M|\xi| \geqslant \mathsf M \left[ x\cdot I_{(|\xi|\geqslant x)}
@@ -285,9 +340,9 @@
 	такая константа $ c > 0 $, что все $\mathsf D \xi_i \leqslant c$,
 	$i=\overline{1,2,\ldots, n}$. Тогда при любом $ \varepsilon > 0 $  
 	\[
-		\lim_{N\to\infty} P_\xi \left( \left| \frac{\xi_1 + \xi_2 + \ldots +
+		\lim_{N\to\infty} P \left( \left| \frac{\xi_1 + \xi_2 + \ldots +
 		\xi_N}{N} - \frac{\mathsf M \xi_1 + \mathsf M\xi_2 + \ldots + \mathsf
-	M\xi_N}{n} \right| < \varepsilon \right) = 1.
+	M\xi_N}{N} \right| < \varepsilon \right) = 1.
 	\]
 \end{theorem}
 \begin{proof}
@@ -305,7 +360,9 @@
 \[
 		P(|\zeta_N - \mathsf M\zeta_N| < x) \geqslant 1 - \frac{c}{x^2N} \to 1
 \]
-при $ N \to \infty $. Здесь используется сходимость по вероятности 
+при $ N \to \infty $. 
+
+Здесь используется сходимость по вероятности 
 \[
 	\frac{1}{N}\sum_{k=1}^N \xi_k -\frac{1}{N} \sum_{k=1}^N \mathsf M\xi_k \toP 0.
 \]
@@ -316,36 +373,39 @@
 	Если случайные величины $ \{\xi_n\} $ независимы, одинаково распределены и
 	имеют конечные $ \mathsf M\xi_i = a $, $ \mathsf D\xi_i = \sigma^2 > 0 $, то 
 	\[
-		\lim_{n\to\infty} P_\xi \left( \frac{\xi_1 + \xi_2 + \ldots + \xi_n -
-		na}{\sigma \sqrt n} < x \right)  = \Phi(x),
+		\lim_{n\to\infty} P \left( \frac{\xi_1 + \xi_2 + \ldots + \xi_n -
+		na}{\sigma \sqrt n} < x \right)  = \Phi(x).
 	\]
-	где используется сходимость по распределению.
+	
+	Здесь используется сходимость по распределению.
 \end{theorem}
 \begin{theorem}[Ляпунов]
 Пусть случайные величины $ \xi_1, \xi_2, \ldots $ --- независимы, имеют конечные
 моменты $ \mathsf M \xi_k = a_k $, $ \mathsf D\xi_k = b^2_k $, $ \mathsf
 M|\xi_k-a_k|^3 = c^3_k $. Обозначим $ A_n = \sum^n_{k=1} a_k $, $ B^2_n =
-\sum^n_{k=1} b^2_k $, $ C^3_n = \sum^n_{k=1}c^3_k $, причём $ c_n/B_n \to 0 $.
+\sum^n_{k=1} b^2_k $, $ C^3_n = \sum^n_{k=1}c^3_k $, причём $ C_n/B_n \to 0 $.
 Тогда 
 \[
 	\lim_{n\to\infty} P \left( \frac{\xi_1+\xi_2+\ldots+\xi_n-A_n}{B_n} < x
-		\right) = \Phi(x),
+		\right) = \Phi(x).
 \]
-где используется сходимость по распределению 
+
+Здесь используется сходимость по распределению 
 \[
 		\frac{\xi_1+\xi_2+\ldots+\xi_n-A_n}{B_n} \toD \mathscr N(0,1).
 \]
 \end{theorem}
 \begin{theorem}[Хинчин] 
 	Пусть $ \xi_1,\xi_2,\ldots $ --- одинаково распределеннные случайные величины
-	с конечным математическим ожиданием $ a $.
+	с конечным математическим ожиданием $ \M \xi_k = a < \infty$.
 
 	Тогда при любом $ \varepsilon > 0 $ имеем  
 	\[
 		\lim_{N\to\infty} P \left( \left| \frac{\xi_1+\xi_2+\ldots+\xi_N}{N} - a
-		\right| < \varepsilon \right)  = 1,
+		\right| < \varepsilon \right)  = 1.
 	\]
-	где используется сходимость по вероятности  
+	
+	Здесь используется сходимость по вероятности  
 	\[
 			\frac{\xi_1+\xi_2+\ldots+\xi_N}{N} \toP a.
 	\]
@@ -360,9 +420,10 @@ M|\xi_k-a_k|^3 = c^3_k $. Обозначим $ A_n = \sum^n_{k=1} a_k $, $ B^2_n
 	\[
 		\lim_{N\to\infty} P \left( \left| \frac{\xi_1 + \xi_2 + \ldots + \xi_N}{N} -
 		\frac{\mathsf M \xi_1 + \mathsf M\xi_2 + \ldots + \mathsf M \xi_N}{N}\right|
-	< \varepsilon \right) = 1,
+	< \varepsilon \right) = 1.
 	\]
-где используется сходимость по вероятности  
+
+Здесь используется сходимость по вероятности  
 \[
 		\frac{\xi_1 + \xi_2 + \ldots + \xi_n}{N} - \frac{\mathsf M\xi_1 + \mathsf
 		M\xi_2 + \ldots + \mathsf M\xi_N}{N} \toP 0.
@@ -371,13 +432,19 @@ M|\xi_k-a_k|^3 = c^3_k $. Обозначим $ A_n = \sum^n_{k=1} a_k $, $ B^2_n
 
 \begin{theorem}[необходимое и достаточное условие]
 	Пусть $\{\xi_n\}$ --- последовательность случайных величин с $ \mathsf M\xi_k
-	= a_k$. Тогда закон больших чисел имеет место тогда и только тогда, когда  
+	= a_k$. Тогда закон больших чисел Чебышёва имеет место тогда и только тогда, когда  
+	\[
+		\lim_{n\to\infty} \M \left[\frac{ \left( 1/n \sum_{k=1}^n (\xi_k - a_k)
+		\right)^2}{1+ \left( 1/n \sum_{k=1}^n (\xi_k - a_k) \right)^2}\right] = 0.
+	\]
+Тогда при любом $ \varepsilon > 0 $	
 	\[
 			\lim_{N\to\infty} P \left( \left| \frac{\xi_1 + \xi_2 + \ldots + \xi_N}{N} -
 		\frac{\mathsf M \xi_1 + \mathsf M\xi_2 + \ldots + \mathsf M \xi_N}{N}\right|
-	< \varepsilon \right) = 1,
+	< \varepsilon \right) = 1.
 	\]
-где используется сходимость по вероятности  
+
+	Здесь используется сходимость по вероятности  
 \[
 		\frac{\xi_1 + \xi_2 + \ldots + \xi_N}{N} - \frac{\mathsf M \xi_1 + \mathsf
 		M\xi_2 + \ldots + \mathsf \xi_N}{N} \toP 0.
@@ -392,9 +459,10 @@ M|\xi_k-a_k|^3 = c^3_k $. Обозначим $ A_n = \sum^n_{k=1} a_k $, $ B^2_n
 	\]
 	необходимо и достаточно, чтобы существовало конечное
 	\[
-		\mathsf M\xi_k = a < \infty,
+		\mathsf M\xi_k = a < \infty.
 	\]
-	где используется сходимость почти наверное: 
+
+	Здесь используется сходимость почти наверное
 	\[
 			\frac{\xi_1+\xi_2+\ldots+\xi_n}{n} \toPN a.
 	\]
