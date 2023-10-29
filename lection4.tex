@@ -206,13 +206,14 @@ $\bar \theta = (\theta_1, \theta_2, \ldots, \theta_n) $.
 
 \begin{theorem}[неравенство Рао -- Крамера]
   Пусть $X_1, X_2, \dots, X_n$ --- выборка из закона распределения с плотностью
-	$p(x, \theta)$ и интеграл $\int_{\mathbb R} p(x, \theta) \, dx = 1$ допускает дифференцирование
+	$p(x, \theta)$ и интеграл $\int_{\mathbb R^n} p(x, \theta) \, d\bar x = 1$ допускает дифференцирование
 	по $\theta$\footnote{Регулярное семейство}. 
 	%TODO: что значит регулярное семейство?
   
-	Тогда для любой несмещенной оценки $\hat\theta_n$ имеет место неравенство
+	Тогда для любой несмещенной оценки $\hat\theta_n = \varphi(X_1, X_2, \ldots,
+	X_n)$ имеет место неравенство
   \[
-		D\hat\theta_n \geqslant \frac{1}{I_n(\theta)} = \frac{1}{n I_1(\theta)},
+		\D\hat\theta_n \geqslant \frac{1}{I_n(\theta)} = \frac{1}{n I_1(\theta)},
 	\]
   где функцию
 	\[
@@ -222,36 +223,45 @@ $\bar \theta = (\theta_1, \theta_2, \ldots, \theta_n) $.
 	называют \emph{информацией Фишера}, а функция
 	\[
 		I_1(\theta) = M\left( \dfrac{\partial\ln p(x, \theta)}{\partial\theta}
-		\right)^2
+		\right)^2 = \int\limits_{-\infty}^{+\infty} \left( \frac{\partial \ln p(x,
+		\theta)}{\partial \theta} \right)^2 p(x, \theta) \,dx
 	\]
 	есть информация Фишера в одном наблюдении.
 \end{theorem}
+\begin{remark*}
+	Для дискретной модели следует заменить плотность $ p(x,\theta) $ на
+	вероятность $ P(X = x_k) $.
 \begin{proof}
-	\[
-		1 = \int\limits_{\mathbb R^n} p(x, \theta) \, d\bar x \Rightarrow 0 =
-		\int\limits_{\mathbb R^n} \frac{\partial p(x, \theta)}{\partial\theta} \,
-		d\bar x = \int\limits_{\mathbb R^n} \frac{\ln p(x, \theta)}{\partial\theta} p(x,
-		\theta) \, d\bar x.
-	\]
-	Пусть
-	\[
-		\hat\theta_n = \varphi(X_1, X_2, \dots, X_n).
-	\]
+	Продифференцируем по параметру очевидные интегральные соотношения
+	\begin{multline*}
+		1 = \int\limits_{\mathbb R^n} p(\bar x, \theta) \, d\bar x \Rightarrow 0 =
+		\int\limits_{\mathbb R^n} \frac{\partial p(\bar x, \theta)}{\partial\theta} \,
+		d\bar x = \\ = \int\limits_{\mathbb R^n} \frac{\partial \ln p(\bar x,
+		\theta)}{\partial\theta} p(\bar x, \theta) \, d\bar x = \M \left( \frac{\partial
+		\ln p(X_1, X_2, \ldots, X_n, \theta)}{\partial \theta} \right).
+	\end{multline*}
 	Тогда
 	\[
-		\theta = \int\limits_{\mathbb R^n} \varphi(x)
-		p(x, \theta) \, dx \Rightarrow 1 = \int\limits_{\mathbb R^n} \varphi(x) \frac{\partial \ln
-		p(x, \theta)}{\partial\theta} p(x, \theta) \, d\bar x.
+		\M \hat\theta_n = \theta = \int\limits_{\mathbb R^n} \varphi(\bar x)
+		p(\bar x, \theta) \, d\bar x \Rightarrow 1 = \int\limits_{\mathbb R^n}
+		\varphi(\bar x) \frac{\partial \ln
+		p(\bar x, \theta)}{\partial\theta} p(\bar x, \theta) \, d\bar x.
 	\]
 
 	Отсюда следует, что
-	\begin{gather*}
-		1 = \int\limits_{\mathbb R^n} (\varphi(x)-\theta) \frac{\partial \ln p(x, \theta)}{\partial
-		\theta} p(x, \theta) \, dx,\\
-		1 \leqslant \int\limits_{\mathbb R^n} (\varphi(x) - \theta)^2 p(x, \theta) \, dx \cdot
-		\int\limits_{\mathbb R^n} \left(\frac{\partial\ln p(x, \theta)}{\partial\theta}\right)^2 p(x, \theta)
-		\, dx,\\
-		I_n(\theta) = \M \left(\frac{\partial\ln L(X_1, X_2, \dots, X_n,
+	\[
+		1 = \int\limits_{\mathbb R^n} (\varphi(\bar x)-\theta) \frac{\partial \ln
+		p(\bar x, \theta)}{\partial
+		\theta} p(\bar x, \theta) \, d\bar x,
+	\]
+а значит, с учётом неравенства Коши -- Буняковского
+		\begin{gather*}
+		1 \leqslant \int\limits_{\mathbb R^n} (\varphi(\bar x) - \theta)^2 p(\bar x,
+		\theta) \, d\bar x \cdot
+		\int\limits_{\mathbb R^n} \left(\frac{\partial\ln p(\bar x,
+		\theta)}{\partial\theta}\right)^2 p(\bar x, \theta)
+		\, d\bar x = \D \hat \theta_n \cdot I_n(\theta),\\
+		I_n(\theta) = \M \left(\frac{\partial\ln \mathscr L(X_1, X_2, \dots, X_n,
 		\theta)}{\partial\theta}\right)^2 = \D \frac{\partial \ln \mathscr L}{\partial\theta}
 		= \sum_{k=1}^n \D\frac{\partial \ln p(X_k, \theta)}{\partial\theta} = n
 		I_1(\theta),

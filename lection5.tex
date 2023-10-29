@@ -1,67 +1,113 @@
 \chapter{Лекция 5 - 2023-10-04 - Достаточные статистики. Критерий факторизации}
-
 \section{Достаточные статистики}
-
-Пусть $X_1, X_2, \dots, X_n \sim F(x, \theta)$, $\bar\theta = (\theta_1, \theta_2, \dots, \theta_n)$.
+Пусть $ X_1, X_2, \ldots, X_n $ --- выборка из распределения, зависящего от
+параметра $ \bar \theta $ (реализация случайного вектора $ \bar \xi = (\xi_1,
+\xi_2, \ldots, \xi_n) $ с независимыми компонентами).
 
 \begin{definition}
-  Функция $t(X_1, X_2, \dots, X_n)$ называется достаточной статистикой для оценки параметра $\bar{\theta}$, если $F_{\bar \xi} (X_1, X_2, \dots, X_n | \bar{t} (X_1, \dots, X_n) = \bar t)$ не зависит от $\bar\theta$ при любых значениях $\bar \theta$. 
-  $p_{\bar{\xi}} (x_1, \dots, x_n | \bar{t}(X_1, X_2, \dots, X_n) = \bar{t})$ не зависит от $\bar{\theta}$
+  Вектор-функция $\bar t = \bar t(X_1, X_2, \dots, X_n)$ называется \emph{достаточной
+	статистикой} для оценки параметра $\bar{\theta}$, если условная функция
+	распределения
+	\[
+		F_{\bar \xi} (X_1, X_2, \dots, X_n\, | \,\bar{t} (X_1, \dots, X_n)
+		= \bar t)
+	\]
+	не зависит от $\bar\theta$ при любых значениях $\bar t$. 
 \end{definition}
 
+\begin{remark*}
+Статистика $ \bar t $ является достаточной для оценки параметра $ \theta $, если
+\begin{enumerate}
+	\item \textsc{Дискретный случай}. Условные вероятности 
+	\[
+			P(\xi_1 = X_1, \xi_2 = X_2, \ldots, \xi_n = X_n\, \mid \, \bar t(\bar \xi) = \bar
+			t)
+	\]
+	не зависят от $ \theta $ при любых значениях $ \bar t $.
+\item \textsc{Непрерывный случай}. Условные плотности  
+\[
+	p_{\bar \xi} (X_1, X_2, \ldots, X_n\, |\,\bar t(\bar \xi) = \bar t)
+\]
+не зависят от $ \theta $ при любых значениях $ \bar t $.
+\end{enumerate}
+
+\end{remark*}
+
 \begin{ex}
-  Пусть $X_1, X_2, \dots, X_n$ распределены по Бернулли с вероятностью успеха p. (последовательность 0 и 1).
+  Пусть $X_1, X_2, \dots, X_n$ распределены по Бернулли с вероятностью успеха $p$
+	(последовательность 0 и 1).
 
-  Докажем, что $\sum X_k$ - достаточна для оценки p.
-
+	Докажем, что статистика $\sum_{k=1}^n X_k$ достаточна для оценки параметра $p$.
+Найдём условные вероятности
   \begin{multline*}
-    p(\xi_1 = X_1, \dots, \xi_n = X_n | \sum \xi_k = t)
-    = \dfrac{P(\xi_1 = X_1, \dots \xi_n = X_n, \sum \xi_k = t)}{P(\sum xi_k = t)} = \\
+		P\left(\xi_1 = X_1, \dots, \xi_n = X_n\,\Big|\, \sum_{k=1}^n \xi_k =
+		t\right) = \\
+		= \frac{P(\xi_1 = X_1, \dots \xi_n = X_n, \sum \xi_k = t)}{P\left(\sum_{k=1}^n \xi_k = t\right)} = \\
     = \begin{cases}
-      p = 0, &t \neq \sum X_k \\
-      \dfrac{ p^t (1-p)^{n-t} }{ C_n^t p^t (1-p)^{n-t} } = \dfrac{1}{C_n^t}, &t = \sum X_k 
+			p = 0, &t \neq \sum_{k=1}^n X_k, \\
+      \frac{ p^t (1-p)^{n-t} }{ C_n^t p^t (1-p)^{n-t} } = \frac{1}{C_n^t}, &t
+			= \sum_{k=1}^n X_k.
     \end{cases}
   \end{multline*}
-  - не зависит от p. 
+	Действительно, знаменатель по теореме Бернулли равен $ C^t_n p^t(1-p)^{n-1} $.
+	Числитель равен нулю, если $ t \ne \sum_{k=1}^n $ и $ p^t(1-p)^{n-t} $ в ином
+	случае.
+
+	Таким образом, условная вероятность в любом случае не зависит от $ p $.
 \end{ex}
 
-\begin{theorem}[Критерий факторизации]
-  Если $X_1, X_2, \dots, X_n \sim F(x, \bar\theta)$, то $\bar t = \bar t (X_1, \dots, X_n)$ является достаточной статистикой для оценки $\bar\theta$ тогда и только тогда, когда 
+\begin{theorem}[критерий факторизации]
+  Если $X_1, X_2, \dots, X_n \sim F(x, \bar\theta)$, то $\bar t = \bar t (X_1,
+	\dots, X_n)$ является достаточной статистикой для оценки $\bar\theta$ тогда и
+	только тогда, когда 
   \[
-    \mathcal{L}(X_1, X_2, \dots, X_n, \bar\theta) = h(X_1, \dots, X_n) g(\bar\theta, \bar t (X_1, X_2, \dots, X_n)),
+    \mathscr{L}(X_1, X_2, \dots, X_n, \bar\theta) = h(X_1, \dots, X_n)
+		g(\bar\theta, \bar t (X_1, X_2, \dots, X_n)),
   \]
-  где $h$ не зависит от $\theta$, g - не зависит от $X_1, X_2, \dots, X_n$ (только через $\bar t$)
+  где $h$ не зависит от $\theta$, g - не зависит от $X_1, X_2, \dots, X_n$
+	(только через $\bar t$)
 \end{theorem}
 
 \begin{proof}
-  $\boxed{\Leftarrow}$ 
+	Проведём доказательство в обе стороны.
+	\begin{enumerate}
+		\item $\boxed{\Leftarrow}$
   \begin{multline*}
     P(\xi_1 = X-1, \dots, \xi_n = X_n | \bar t (\xi_1, \dots, \xi_n) = \bar t)
-    = \dfrac{P(\xi_1=X_1, \dots, \xi_n = X_n, \bar t(X_1, \dots, X_n) = \bar t_0)}{P(\bar t(\xi_1, \dots, \xi_n) = \bar t_0)} = \\
+    = \dfrac{P(\xi_1=X_1, \dots, \xi_n = X_n, \bar t(X_1, \dots, X_n) = \bar
+		t_0)}{P(\bar t(\xi_1, \dots, \xi_n) = \bar t_0)} = \\
     = \begin{cases}
       0, &\bar t(X_1, \dots, X_n) \neq \bar t_0 \\
-      \dfrac{p(\xi_1 = X_1, \dots, \xi_n = X_n)}{\sum_{\bar t(Z_1, \dots, Z_n) = \bar t_0} P(\xi_1 = Z_1, \dots, \xi_n = Z_n)}, &\bar t(X_1, \dots, X_n) = \bar t_0
+      \dfrac{p(\xi_1 = X_1, \dots, \xi_n = X_n)}{\sum_{\bar t(Z_1, \dots, Z_n) =
+	\bar t_0} P(\xi_1 = Z_1, \dots, \xi_n = Z_n)}, &\bar t(X_1, \dots, X_n) = \bar t_0
     \end{cases} \stackrel{\bar t(X_1, \dots, X_n) = \bar t_0}{=} \\
-    \stackrel{\bar t(X_1, \dots, X_n) = \bar t_0}{=} \dfrac{h(X_1, \dots, X_n) g(\bar \theta, \bar t(X_1, \dots, X_n))}{\sum h(Z_1, \dots, Z_n) g(\bar\theta, \bar t(Z_1, \dots)} = \dfrac{h(X_1, \dots)}{\sum h(Z_1, \dots)}.
+    \stackrel{\bar t(X_1, \dots, X_n) = \bar t_0}{=} \dfrac{h(X_1, \dots, X_n)
+		g(\bar \theta, \bar t(X_1, \dots, X_n))}{\sum h(Z_1, \dots, Z_n)
+		g(\bar\theta, \bar t(Z_1, \dots)} = \dfrac{h(X_1, \dots)}{\sum h(Z_1,
+		\dots)}.
   \end{multline*}
 
-  $\boxed{\Rightarrow}$
-  Доказываем, что если $P(\xi_1 = X_1, \dots, \xi_n = X_n | \bar t(\xi_1, \dots) = \bar t)$ - не зависит от $\bar \theta$, то $\mathcal{L}$ факторизуется.
+\item $\boxed{\Rightarrow}$
+  Доказываем, что если $P(\xi_1 = X_1, \dots, \xi_n = X_n | \bar t(\xi_1, \dots)
+	= \bar t)$ - не зависит от $\bar \theta$, то $\mathscr{L}$ факторизуется.
   \begin{equation*}
-    \mathcal{L} (X_1, \dots, X_n, \bar\theta) = P_{\bar\theta} (\xi_1 = X_1, \dots, \xi_n = X_n) = P_{\bar\theta} (\xi_1 = X_1, \dots, \xi_n = X_n | \bar t(\bar\xi) = \bar t) \cdot P(\bar t(\bar\xi) = \bar t)
+    \mathscr{L} (X_1, \dots, X_n, \bar\theta) = P_{\bar\theta} (\xi_1 = X_1,
+		\dots, \xi_n = X_n) = P_{\bar\theta} (\xi_1 = X_1, \dots, \xi_n = X_n | \bar
+		t(\bar\xi) = \bar t) \cdot P(\bar t(\bar\xi) = \bar t)
   \end{equation*}
-  Первый множитель не зависит от $\bar\theta$, второй зависит от $X_1, \dots, X_n$ только через $\bar t(X_1, \dots)$
+  Первый множитель не зависит от $\bar\theta$, второй зависит от $X_1, \dots,
+	X_n$ только через $\bar t(X_1, \dots)$
 \end{proof}
 
 \begin{remark}
   \[
-    \mathcal{L} = h(X_1, \dots, X_n) g(\bar\theta, \bar t(X_1, \dots, X_n)
+    \mathscr{L} = h(X_1, \dots, X_n) g(\bar\theta, \bar t(X_1, \dots, X_n)
   \]
   \[
-    \ln \mathcal{L} = \ln h(X_1, \dots, X_n) + \ln g(\dots)
+    \ln \mathscr{L} = \ln h(X_1, \dots, X_n) + \ln g(\dots)
   \]
   \[
-    \dfrac{\partial \mathcal{L} (\bar\theta, \bar t(X_1, \dots, X_n))}{\partial \bar\theta}  
+    \dfrac{\partial \mathscr{L} (\bar\theta, \bar t(X_1, \dots, X_n))}{\partial \bar\theta}  
   \]
 
   $\Rightarrow$ ОМП функция от $\bar t(X_1, \dots, X_n)$
@@ -83,7 +129,7 @@
   $X_1, \dots, X_n \sim N(a, \sigma)$
 
   \[
-    \mathcal{L} (X_1, \dots, X_n, a, \sigma) = \prod \dfrac{1}{\sqrt{2\pi} \sigma} e^{-\dfrac{(X_k-a)^2}{2\sigma^2}} = \dfrac{1}{\sqrt{2\pi}^n} \dfrac{1}{\sigma^n} e^{-\dfrac{1}{2\sigma^2} \sum (X_k-a)^2} = \dfrac{1}{\sqrt{2\pi}^n} \dfrac{1}{\sigma^n} e^{-\dfrac{1}{2\sigma^2} (\sum X_k^2 - 2a \sum X_k + na^2)}
+    \mathscr{L} (X_1, \dots, X_n, a, \sigma) = \prod \dfrac{1}{\sqrt{2\pi} \sigma} e^{-\dfrac{(X_k-a)^2}{2\sigma^2}} = \dfrac{1}{\sqrt{2\pi}^n} \dfrac{1}{\sigma^n} e^{-\dfrac{1}{2\sigma^2} \sum (X_k-a)^2} = \dfrac{1}{\sqrt{2\pi}^n} \dfrac{1}{\sigma^n} e^{-\dfrac{1}{2\sigma^2} (\sum X_k^2 - 2a \sum X_k + na^2)}
   \]
 
   $(\sum X_k^2, \sum X_k)$ - достаточная статистика для $(a, \sigma)$
@@ -97,7 +143,7 @@
   $p(x, \theta, \alpha) = \dfrac{\alpha}{\theta} \left(\dfrac{\theta}{x}\right)^{\alpha+1}, x\geqslant 0$
 
   \[
-    \mathcal{L} (X_1, \dots, X_n, \alpha, \theta) = \prod \dfrac{\alpha}{\theta} (\dfrac{\theta}{x})^{\alpha+1} I(X_k \geqslant 0) = \dfrac{\alpha^n \theta^{\alpha n}}{(\prod X_k)^{\alpha+1}} I(X_{(1)}\geqslant 0) \cdot 1
+    \mathscr{L} (X_1, \dots, X_n, \alpha, \theta) = \prod \dfrac{\alpha}{\theta} (\dfrac{\theta}{x})^{\alpha+1} I(X_k \geqslant 0) = \dfrac{\alpha^n \theta^{\alpha n}}{(\prod X_k)^{\alpha+1}} I(X_{(1)}\geqslant 0) \cdot 1
   \]
 
   $(X_{(1)}, \prod X_k)$ - достаточная статистика
@@ -145,7 +191,7 @@
 \begin{ex}
   Пусть $X_1, \dots, X_n \sim N(a_0, \sigma)$, $a_0$ - известна.
 
-  $\mathcal{L} (X_1, \dots, X_n, \sigma) = \prod\limits_{k=1}^n \dfrac{1}{\sqrt{2\pi} \sigma} e^{-\dfrac{(X_k - a)^2}{2\sigma^2}} = \dfrac{1}{(\sqrt{2\pi})^n} \dfrac{1}{\sigma^n} e^{-\dfrac{1}{2\sigma^2} \sum_{k=1}^n (X_k-a)^2}$
+  $\mathscr{L} (X_1, \dots, X_n, \sigma) = \prod\limits_{k=1}^n \dfrac{1}{\sqrt{2\pi} \sigma} e^{-\dfrac{(X_k - a)^2}{2\sigma^2}} = \dfrac{1}{(\sqrt{2\pi})^n} \dfrac{1}{\sigma^n} e^{-\dfrac{1}{2\sigma^2} \sum_{k=1}^n (X_k-a)^2}$
 
   Следовательно, $\sum (X_k-a)^2$ - достаточная статистика
 
@@ -156,7 +202,7 @@
     \dfrac{\sum (X_k-a_0)^2}{\chi^2_{1 - \alpha/2} (n)} < \sigma^2 < \dfrac{\sum (X_k - a_0)^2}{\chi^2_{\alpha/2}(n)} 
   \end{gather*}
 
-  $S_0^2 = \dfrac{1}{n} \sum (X_k-a_0)^2$ % TODO чтото тут надо дописать
+  $S_0^2 = \frac{1}{n} \sum (X_k-a_0)^2$ % TODO чтото тут надо дописать
 \end{ex}
 
 \begin{ex}
