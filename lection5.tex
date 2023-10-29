@@ -45,7 +45,7 @@
 		= \frac{P(\xi_1 = X_1, \dots \xi_n = X_n, \sum \xi_k = t)}{P\left(\sum_{k=1}^n \xi_k = t\right)} = \\
     = \begin{cases}
 			p = 0, &t \neq \sum_{k=1}^n X_k, \\
-      \frac{ p^t (1-p)^{n-t} }{ C_n^t p^t (1-p)^{n-t} } = \frac{1}{C_n^t}, &t
+      \frac{ p^t (1-p)^{n-t} }{ C_n^t p^t (1-p)^{n-t} } = 1/C_n^t, &t
 			= \sum_{k=1}^n X_k.
     \end{cases}
   \end{multline*}
@@ -64,39 +64,63 @@
     \mathscr{L}(X_1, X_2, \dots, X_n, \bar\theta) = h(X_1, \dots, X_n)
 		g(\bar\theta, \bar t (X_1, X_2, \dots, X_n)),
   \]
-  где $h$ не зависит от $\theta$, g - не зависит от $X_1, X_2, \dots, X_n$
-	(только через $\bar t$)
+  где $h$ не зависит от $\theta$, $g$ не зависит от $X_1, X_2, \dots, X_n$
+	(разве что $\bar t$)
 \end{theorem}
 
 \begin{proof}
 	Проведём доказательство в обе стороны.
 	\begin{enumerate}
-		\item $\boxed{\Leftarrow}$
+		\item $\boxed{\Leftarrow}$ Пусть
+			\[
+				\mathscr L(X_1, X_2, \ldots, X_n, \theta) = g\left(\bar \theta, \bar t(X_1,
+				X_2, \ldots, X_n) \right).
+			\]
+			Тогда
   \begin{multline*}
-    P(\xi_1 = X-1, \dots, \xi_n = X_n | \bar t (\xi_1, \dots, \xi_n) = \bar t)
-    = \dfrac{P(\xi_1=X_1, \dots, \xi_n = X_n, \bar t(X_1, \dots, X_n) = \bar
-		t_0)}{P(\bar t(\xi_1, \dots, \xi_n) = \bar t_0)} = \\
-    = \begin{cases}
-      0, &\bar t(X_1, \dots, X_n) \neq \bar t_0 \\
-      \dfrac{p(\xi_1 = X_1, \dots, \xi_n = X_n)}{\sum_{\bar t(Z_1, \dots, Z_n) =
-	\bar t_0} P(\xi_1 = Z_1, \dots, \xi_n = Z_n)}, &\bar t(X_1, \dots, X_n) = \bar t_0
-    \end{cases} \stackrel{\bar t(X_1, \dots, X_n) = \bar t_0}{=} \\
-    \stackrel{\bar t(X_1, \dots, X_n) = \bar t_0}{=} \dfrac{h(X_1, \dots, X_n)
-		g(\bar \theta, \bar t(X_1, \dots, X_n))}{\sum h(Z_1, \dots, Z_n)
-		g(\bar\theta, \bar t(Z_1, \dots)} = \dfrac{h(X_1, \dots)}{\sum h(Z_1,
-		\dots)}.
+    P(\xi_1 = X-1, \dots, \xi_n = X_n \, | \, \bar t (\xi_1, \dots, \xi_n) = \bar t)
+    = \\ = \frac{P(\xi_1=X_1, \dots, \xi_n = X_n, \bar t(X_1, \dots, X_n) = \bar
+		t_0)}{P(\bar t(\xi_1, \dots, \xi_n) = \bar t_0)}.
   \end{multline*}
+При $ \bar t(X_1, X_2, \ldots, X_n) \neq \bar t_0$ полученное выражение,
+очевидно, равно нулю. Рассмотрим случай $ \bar t(X_1, X_2, \ldots, X_n) = \bar
+t_0 $. Тогда числитель будет равен функции правдоподобия $ \mathscr L(X_1,
+\ldots , X_n, \bar \theta) $, а знаменатель 
+\[
+		P(\bar t(\xi_1, \ldots, \xi_n) = \bar t) = \sum_{\bar Z \colon \bar t(\bar
+		Z) = \bar t_0} P(\xi_1 = Z_1, \ldots, \xi_n = Z_n) = \sum_{\bar Z\colon \bar
+		t(\bar Z) = \bar t_0}\mathscr L(Z_1, \ldots, Z_n, \bar \theta). 
+\]
 
+Следовательно, для рассматриваемого случая имеем
+\begin{multline*}
+    P(\xi_1 = X-1, \dots, \xi_n = X_n \, | \, \bar t (\xi_1, \dots, \xi_n) =\\=
+		\frac{P(\xi_1 = X_1, \ldots, \xi_n = X_n)}{\sum P(\xi_1 = Z_1, \ldots, \xi_n = Z_n)} =\\= \frac{h(X_1, \dots, X_n)
+		g(\bar \theta, \bar t(X_1, \dots, X_n))}{\sum h(Z_1, \dots, Z_n)
+		g(\bar\theta, \bar t(Z_1, \dots, Z_n)} = \frac{h(X_1, \dots, X_n)}{\sum h(Z_1,
+		\dots, Z_n)},
+\end{multline*}
+где суммирование, как и прежде, производится по таким $ \bar Z $, что $ \bar
+t(\bar Z) = \bar t_0 $. Результат не зависит от $ \bar \theta $, что и
+требовалось доказать.
 \item $\boxed{\Rightarrow}$
-  Доказываем, что если $P(\xi_1 = X_1, \dots, \xi_n = X_n | \bar t(\xi_1, \dots)
-	= \bar t)$ - не зависит от $\bar \theta$, то $\mathscr{L}$ факторизуется.
-  \begin{equation*}
+  Докажем, обратно, что если вероятность
+	\[
+		P(\xi_1 = X_1, \dots, \xi_n = X_n \,| \,\bar
+		t(\xi_1, \dots, \xi_n)
+		= \bar t)
+	\]
+	не зависит от $\bar \theta$, то $\mathscr{L}$ факторизуется. Действительно, в
+	случае $ \bar t_0 = \bar t(X_1, \ldots, X_n) $
+  \begin{multline*}
     \mathscr{L} (X_1, \dots, X_n, \bar\theta) = P_{\bar\theta} (\xi_1 = X_1,
-		\dots, \xi_n = X_n) = P_{\bar\theta} (\xi_1 = X_1, \dots, \xi_n = X_n | \bar
-		t(\bar\xi) = \bar t) \cdot P(\bar t(\bar\xi) = \bar t)
-  \end{equation*}
+		\dots, \xi_n = X_n) =\\= P_{\bar\theta} (\xi_1 = X_1, \dots, \xi_n = X_n \,
+		|\, \bar
+		t(\bar\xi) = \bar t) \cdot P(\bar t(\bar\xi) = \bar t).
+  \end{multline*}
   Первый множитель не зависит от $\bar\theta$, второй зависит от $X_1, \dots,
-	X_n$ только через $\bar t(X_1, \dots)$
+	X_n$ только через $\bar t(X_1, \dots, X_n)$.
+
 \end{proof}
 
 \begin{remark}
@@ -107,7 +131,7 @@
     \ln \mathscr{L} = \ln h(X_1, \dots, X_n) + \ln g(\dots)
   \]
   \[
-    \dfrac{\partial \mathscr{L} (\bar\theta, \bar t(X_1, \dots, X_n))}{\partial \bar\theta}  
+    \frac{\partial \mathscr{L} (\bar\theta, \bar t(X_1, \dots, X_n))}{\partial \bar\theta}  
   \]
 
   $\Rightarrow$ ОМП функция от $\bar t(X_1, \dots, X_n)$
@@ -116,131 +140,226 @@
 \end{remark}
 
 \begin{ex}
-  Пусть $X_1, \dots X_n \sim Pois(\lambda)$, 
-
+	Пусть $X_1, \dots X_n \sim \operatorname{Pois}(\lambda)$, 
   \[
-    P(X_1, \dots, X_n, \lambda) = P_\lambda (\xi_1=X_1, \dots, \xi_n=X_n) = \prod P(\xi_k = X_k) = \prod \dfrac{\lambda^{X_k}}{(X_k)!)} e^{-\lambda} = \dfrac{1}{\prod (X_k)!} \lambda^{\sum X_k} e^{-n\lambda}
+    P(X_1, \dots, X_n, \lambda) = P_\lambda (\xi_1=X_1, \dots, \xi_n=X_n) =
+		\prod_{k=1}^n P(\xi_k = X_k) = \prod_{k=1}^n \frac{\lambda^{X_k}}{(X_k)!}
+		e^{-\lambda} =
+		\frac{\lambda^{\sum X_k}}{\prod_{k=1}^n (X_k)!}  e^{-n\lambda},
   \]
-
-  $\Rightarrow$ $\sum X_k$ - достаточная статистика для оценки $\lambda$ ($\bar x$ - тоже)
+	а значит, $\sum_{k=1}^n X_k$ --- достаточная статистика для оценки $\lambda$
+	(как и $\bar X$).
 \end{ex}
 
 \begin{ex}
-  $X_1, \dots, X_n \sim N(a, \sigma)$
+  Пусть $X_1, \dots, X_n \sim N(a, \sigma)$.
+  \begin{multline*}
+		\mathscr{L} (X_1, \dots, X_n, a, \sigma) = \prod_{k=1}^n \frac{1}{\sqrt{2\pi}
+		\sigma} \exp\left(-\frac{(X_k-a)^2}{2\sigma^2}\right) =\\= 
+		\left(\frac{1}{\sqrt{2\pi}\sigma} \right)^n
+		\exp\left(-\frac{1}{2\sigma^2} \sum_{k=1}^n (X_k-a)^2\right) = \\ =
+		\left(\frac{1}{\sqrt{2\pi}\sigma}\right)^n \exp\left(-\frac{1}{2\sigma^2}
+			\left(\sum_{k=1}^n
+		X_k^2 - 2a \sum_{k=1}^n X_k + na^2\right)\right).
+  \end{multline*}
+  Здесь достаточной статистикой для $ (a, \sigma) $ будет $(\sum X_k^2, \sum
+	X_k)$.
 
-  \[
-    \mathscr{L} (X_1, \dots, X_n, a, \sigma) = \prod \dfrac{1}{\sqrt{2\pi} \sigma} e^{-\dfrac{(X_k-a)^2}{2\sigma^2}} = \dfrac{1}{\sqrt{2\pi}^n} \dfrac{1}{\sigma^n} e^{-\dfrac{1}{2\sigma^2} \sum (X_k-a)^2} = \dfrac{1}{\sqrt{2\pi}^n} \dfrac{1}{\sigma^n} e^{-\dfrac{1}{2\sigma^2} (\sum X_k^2 - 2a \sum X_k + na^2)}
-  \]
-
-  $(\sum X_k^2, \sum X_k)$ - достаточная статистика для $(a, \sigma)$
-
-  $\sum (X_k-a)^2 = \sum (X_k - \bar X + \bar X - a)^2 = \sum (X_k-\bar X)^2 + (\bar X - a)^2 n$
-  $(\bar X, S^2 = \dfrac{1}{n-1} \sum (X_k-\bar X)^2)$ - достаточная статистика для $\sigma$ при известном $a$.
+  В то же время
+	\[
+		\sum_{k=1}^n (X_k-a)^2 = \sum_{k=1}^n (X_k - \bar X + \bar X - a)^2 =
+		\sum_{k=1}^n (X_k-\bar X)^2 + (\bar X - a)^2 n,
+	\]
+	поэтому пара
+	\[
+		\left(\bar X,\, S^2 = \frac{1}{n-1} \sum_{k=1}^n (X_k-\bar X)^2\right)
+	\]
+	является достаточной статистикой для $\sigma$ при известном $a$.
 \end{ex}
 
 \begin{ex}
-  Пусть $X_1, \dots, X_n \sim Par(\alpha, \theta)$,
-  $p(x, \theta, \alpha) = \dfrac{\alpha}{\theta} \left(\dfrac{\theta}{x}\right)^{\alpha+1}, x\geqslant 0$
+	Пусть $X_1, \dots, X_n \sim \operatorname{Par}(\alpha, \theta)$. Плотность
+	равна
+	\[
+		p(x, \theta, \alpha) = \frac{\alpha}{\theta}
+		\left(\frac{\theta}{x}\right)^{\alpha+1}, \quad x\geqslant 0.
+	\]
 
+	Найдём функцию правдоподобия и вычленим достаточную статистику:
   \[
-    \mathscr{L} (X_1, \dots, X_n, \alpha, \theta) = \prod \dfrac{\alpha}{\theta} (\dfrac{\theta}{x})^{\alpha+1} I(X_k \geqslant 0) = \dfrac{\alpha^n \theta^{\alpha n}}{(\prod X_k)^{\alpha+1}} I(X_{(1)}\geqslant 0) \cdot 1
+		\mathscr{L} (X_1, \dots, X_n, \alpha, \theta) = \prod_{k=1}^n \frac{\alpha}{\theta}
+		\left(\frac{\theta}{x}\right)^{\alpha+1} I(X_k \geqslant 0) = \frac{\alpha^n
+		\theta^{\alpha n}}{(\prod X_k)^{\alpha+1}} I(X_{(1)}\geqslant 0) \cdot 1.
   \]
-
-  $(X_{(1)}, \prod X_k)$ - достаточная статистика
+Следовательно, 
+  $(X_{(1)}, \prod X_k)$ --- достаточная статистика для закона Паретто.
 \end{ex}
 
-\section{Интервальные оценки}
-
-Пусть $X_1, \dots, X_n$ - выборка из распределения с плотностью $p(x, \theta)$; $1-\alpha$ - уровень доверия
+\section{Интервальные оценки (доверительные интервалы)}
+Пусть $X_1, \dots, X_n$ --- выборка из распределения с плотностью $p(x,
+\theta)$, а $1-\alpha$ --- \emph{уровень доверия}.
 
 \begin{definition}
-  Если $P(\theta \in (\underline{t} = t(X_1, \dots, X_n), \bar t(X_1, \dots, X_n)) = 1-\alpha$, то $(\underline{t}, \bar t)$ - доверительный интервал.
+	\emph{Доверительным интервалом} для одномерного параметра $\theta$ с 
+доверительной вероятностью $1  - \alpha$ называется любой интервал $(\theta_1, \theta_2)$, 
+содержащий истинное значение параметра с вероятностью $1 - \alpha$.  
 \end{definition}
 
+
 \subsection{Принцип построения доверительных интервалов}
-
 \begin{enumerate}
-  \item Находим статистику $\eta = \varphi(X_1, \dots, X_n, \theta)$, закон распределения $F_\eta (x)$ которой известен точно или приближенно и не зависит от $\theta$.
-  \item Находим квантили $t_{\alpha/2}$ и $t_{1-\alpha/2}$, т.е.
-    $$ F_\eta(t_{\alpha/2})  = \alpha/2, F_\eta(t_{1-\alpha/2}) = 1 - \alpha/2$$
-
+  \item Находим статистику $\eta = \varphi(X_1, \dots, X_n, \theta)$, закон
+		распределения  которой $F_\eta (x)$ известен точно или приближенно и не
+		зависит от $\theta$.
+  \item Находим квантили $t_{\alpha/2}$ и $t_{1-\alpha/2}$, то есть
+    \[ 
+			F_\eta(t_{\alpha/2})  = \alpha/2,\quad F_\eta(t_{1-\alpha/2}) = 1 -
+			\alpha/2.
+		\]
+При этом
     \[
-      P(t_{\alpha/2} < \varphi(X_1, \dots, X_n, \theta) < t_{1-{\alpha/2}}) = F_\eta (t_{1 - \alpha/2}) - F_\eta (t_{\alpha/2}) = 1- \alpha
+      P(t_{\alpha/2} < \varphi(X_1, \dots, X_n, \theta) < t_{1-{\alpha/2}}) =
+			F_\eta (t_{1 - \alpha/2}) - F_\eta (t_{\alpha/2}) = 1- \alpha
     \]
-  \item Разрешение неравенства относительно $\theta$
-    $$P(\underline{t} < \theta < \bar t) = 1-\alpha$$
+  \item Неравенство  
+  \[
+		t_{\alpha/2} < \varphi(X_1, \ldots, X_n, \theta) < t_{1-\alpha/2}
+  \]
+		разрешается относительно $\theta$: 
+		\[
+			\ubar \varphi(X_1, \ldots, X_n, \alpha) < \theta < \bar\varphi(X_1,
+			\ldots, X_n, \alpha).
+		\]
+		Обозначив $ \theta_1 = \ubar\varphi(X_1, \ldots, X_n, \alpha) $, $ \theta_2
+		= \bar\varphi(X_1, \ldots, X_n, \alpha)$, получаем доверительный интервал
+		уровня $ 1 - \alpha $.
 \end{enumerate}
 
-\begin{ex}
-  Пусть $X_1, \dots, X_n \sim N(a, \sigma_0)$, где $\sigma_0$ - известна.
+\begin{ex}[для неизвестного $ a $ при известном $ \sigma $]
+  Пусть $X_1, \dots, X_n \sim N(a, \sigma_0)$, где $\sigma_0$ известна.
 
-  Тогда по методу моментов $\hat a = \bar x$
-
+  Тогда по методу моментов $\hat a = \bar X$. Отсюда
   \[
-    \bar x = \dfrac{1}{n} \sum X_k \sim N(a, \dfrac{\sigma_0^2}{\sqrt{n}})
+		\bar X = \frac{1}{n} \sum_{k=1}^n X_k \sim N\left(a,
+		\frac{\sigma_0}{\sqrt{n}}\right).
   \]
 
-  $\dfrac{\bar x - a}{\sigma_0} \sqrt{n} \sim N(0, 1)$ - распределение не зависит от параметра a
+	Следовательно, распределение
+	\[
+		\frac{\bar X - a}{\sigma_0} \sqrt{n} \sim N(0, 1)
+	\]
+не зависит от параметра $a$.
 
-  \begin{align*}
-    -u_{1-\alpha/2} = u{\alpha/2} < &\dfrac{\bar x - a}{\sigma_0} \sqrt{n} < u_{1-\alpha/2} \\
-    \bar x - \dfrac{u_{1-\alpha/2}}{\sqrt{n}} < &a < \bar x + \dfrac{u_{1-\alpha/2}}{\sqrt{n}}
-  \end{align*} 
+Получили
+  \[
+		-u_{1-\alpha/2} = u_{\alpha/2} &< \frac{\bar X - a}{\sigma_0} \sqrt{n} <
+		u_{1-\alpha/2}, 
+	\]
+	или
+	\[
+		\bar x - \frac{u_{1-\alpha/2}}{\sqrt{n}} &< a < \bar X +
+		\frac{u_{1-\alpha/2}}{\sqrt{n}}.
+	\]
  \end{ex}
 
-\begin{ex}
-  Пусть $X_1, \dots, X_n \sim N(a_0, \sigma)$, $a_0$ - известна.
+ \begin{ex}[для неизвестного $ \sigma $ при известном $ a $]
+  Рассмотрим противоположный случай. Пусть $X_1, \dots, X_n \sim N(a_0,
+	\sigma)$,
+	и параметр $a_0$ известен.
 
-  $\mathscr{L} (X_1, \dots, X_n, \sigma) = \prod\limits_{k=1}^n \dfrac{1}{\sqrt{2\pi} \sigma} e^{-\dfrac{(X_k - a)^2}{2\sigma^2}} = \dfrac{1}{(\sqrt{2\pi})^n} \dfrac{1}{\sigma^n} e^{-\dfrac{1}{2\sigma^2} \sum_{k=1}^n (X_k-a)^2}$
+	В этом случае
+	\[
+		\mathscr{L} (X_1, \dots, X_n, \sigma) = \prod_{k=1}^n \frac{1}{\sqrt{2\pi}
+		\sigma} \exp\left(-\frac{(X_k - a)^2}{2\sigma^2}\right) =
+		\left(\frac{1}{\sqrt{2\pi}\sigma}\right)^n \exp\left(-\frac{1}{2\sigma^2}
+		\sum_{k=1}^n (X_k-a)^2\right).
+	\]
+  Следовательно, $\sum (X_k-a)^2$ (вместе с $ S_0^2 = 1/n \sum(X_k - a_0)^2 $) будет достаточной статистикой.
 
-  Следовательно, $\sum (X_k-a)^2$ - достаточная статистика
+	При этом, как легко заметить,
+	\[
+		\sum\limits_{k=1}^n \frac{(X_k-a)^2}{\sigma^2} = \frac{S^2_0 n}{\sigma^2}
+		\sim \chi^2 (n).
+	\]
 
-  $\sum\limits_{k=1}^n \dfrac{(X_k-a)^2}{\sigma^2} \sim \chi^2 (n)$ ()
-
+	Найдём квантили и разрешим неравенство:
   \begin{gather*} 
-    \chi^2_{\alpha/2} (n) < \sum \dfrac{(X_k - a_0)^2}{\sigma^2} < \chi^2_{1 - \alpha/2} (n) \\
-    \dfrac{\sum (X_k-a_0)^2}{\chi^2_{1 - \alpha/2} (n)} < \sigma^2 < \dfrac{\sum (X_k - a_0)^2}{\chi^2_{\alpha/2}(n)} 
+		\chi^2_{\alpha/2} (n) < \sum_{k=1}^n \frac{(X_k - a_0)^2}{\sigma^2} <
+		\chi^2_{1 - \alpha/2} (n), \\
+		\frac{\sum_{k=1}^n (X_k-a_0)^2}{\chi^2_{1 - \alpha/2} (n)} < \sigma^2 <
+		\frac{\sum_{k=1}^n (X_k - a_0)^2}{\chi^2_{\alpha/2}(n)}.
   \end{gather*}
-
-  $S_0^2 = \frac{1}{n} \sum (X_k-a_0)^2$ % TODO чтото тут надо дописать
 \end{ex}
 
 \begin{ex}
   Произведено $n=36$ измерений, $\bar X = 9.3 \text{кОм},  \sigma_0 = 2 \text{кОм}$. Найти доверительный интервал $1- \alpha = 0.95$ для оценки параметра a.
 
 \[
-  0.95 = P\left(\bar X - \dfrac{u_{0.975} \cdot 2}{\sqrt{36}} < a < \bar X + \dfrac{u_{0.975} \cdot 2}{\sqrt{36}}\right) \Leftrightarrow a \in (8.65, 9.95)
+  0.95 = P\left(\bar X - \frac{u_{0.975} \cdot 2}{\sqrt{36}} < a < \bar X + \frac{u_{0.975} \cdot 2}{\sqrt{36}}\right) \Leftrightarrow a \in (8.65, 9.95)
 \]
 \end{ex}
 
-\begin{ex}
-  $X_1, \dots, X_n \sim E(\lambda)$
+\begin{ex}[на показательный закон]
+	Пусть
+  $X_1, \dots, X_n \sim E(\lambda)$.
+  Достаточной статистикой  будет $\hat \lambda = \frac{1}{\bar X}$. Докажем
+	сначала, что
+  \[
+		2\lambda \sum_{k=1}^n X_k \sim \chi^2(2n).
+	\]
 
-  Достаточная статистика: $\hat \lambda = \dfrac{1}{\bar X}$
+	Действительно, имеем
+	\[
+		X_k \sim \lambda e^{-\lambda x} \Rightarrow \eta = 2\lambda X_k \sim \frac{1}{2}
+		e^{-\frac{x}{2}} \equiv \chi^2 (2).
+	\]
 
-  $$2\lambda \sum X_k$$
-
-  $X_k \sim \lambda e^{-\lambda x} \Rightarrow 2\lambda X_k \sim \dfrac{1}{2} e^{-\dfrac{x}{2}} \equiv \chi^2 (2)$
-
-  $$\lambda < \dfrac{\chi^2_{1-\alpha/2} (2n)}{2 \sum X_k} = \dfrac{\lambda^2_{1-\alpha/2} (2n)}{2n \bar X}$$
+	Найдём квантили и разрешим неравенство: 
+	\begin{gather*}
+		\chi^2_{\alpha/2}(2n) < 2\lambda\sum_{k=1}^n X_k <
+		\chi^2_{1-\alpha/2}(2n),\\
+	\frac{\chi^2_{\alpha/2}(2n)}{2 n\bar X } < \lambda <
+	\frac{\chi^2_{1-\alpha/2}(2n)}{2 n \bar X}.
+	\end{gather*}
 \end{ex}
 
-  Приближенные доверительные интервалы:
-  $X_1, \dots, X_n \sim F(x, \theta), M_\theta X_i = a(\theta), D_\theta X_i = d(\theta)$, n - велико. 
-  $$\dfrac{\sum X_i - n a(\theta)}{\sqrt{n d(\theta)}} \approx N(0, 1)$$
+\subsection{Приближенные доверительные интервалы}
+  Пусть $X_1, \dots, X_n \sim F(x, \theta), \M_\theta X_i = a(\theta), \D_\theta
+	X_i = d(\theta)$, и $n$ велико. 
 
-  $$- u_{1 - \alpha/2} < \dfrac{\sum X_i - n a(\theta)}{\sqrt{n d(\theta)}}< u_{1-\alpha/2}$$
+	Тогда согласно центральной предельной теореме статистика
+\[
+	\frac{\sum X_i - n a(\theta)}{\sqrt{n d(\theta)}} \approx N(0, 1)
+\]
+в пределе распределена по стандартному нормальному закону, что даёт приближённое
+равенство
+\[
+	P\left(u_{1 - \alpha/2} < \frac{\sum_{i=1}^n X_i - n a(\theta)}{\sqrt{n d(\theta)}}<
+	u_{1-\alpha/2}\right) \approx 1 - \alpha.
+\]
 
-\begin{ex}
-  $X_1, \dots, X_n \sim B(k, p)$, k - известно.
+\begin{ex}[на биномиальный закон, $ k $ известно]
+  Пусть $X_1, \dots, X_n \sim B(k, p)$, но $k$ известно, а $ p $ неизвестно.
 
-  $M X_k = kp, D X_k = k p (1-p)$
+	Известно, что 
+	\[
+		\M X_k = kp, \quad \D X_k = k p (1-p).
+	\]
+В этом случае
+\[
+	\frac{\sum_{k=1}^n X_k - n k p}{\sqrt{nkp(1-p)}} \in (-u_{1-\alpha/2}, u_{1-\alpha/2})
+\]
+с вероятностью, стремящейся к $ 1 - \alpha $. Чтобы не решать квадратные
+неравенства, заменим ещё $ p $ под корнем в
+знаменателе оценкой $\hat p = \frac{\bar X}{k}$ (потеря точности невелика). 
 
-  $\dfrac{\sum X_k - n k p}{\sqrt{nkp(1-p)}} \in (-u_{1-\alpha/2}, u_{1-\alpha/2})$
-
-  p под корнем в знаменателе заменяем оценкой $\hat p = \dfrac{\bar X}{k}$ хуй
-
-  $-u_{1-\alpha/2} \sqrt{nk \dfrac{\bar X}{k} (1 - \dfrac{\bar X}{k})} < \sum X_k - nkp < u_{1-\alpha/2} \sqrt{nk \dfrac{\bar X}{k} (1 - \dfrac{\bar X}{k})}$
-
-  $\dfrac{\bar X}{k} - \dfrac{u_{1-\alpha/2} \sqrt{\dfrac{\bar X}{k} (1 - \dfrac{\bar X}{k})}}{\sqrt{nk}} < p < \dfrac{\bar X}{k} + \dfrac{u_{1-\alpha/2} \sqrt{\dfrac{\bar X}{k} (1 - \dfrac{\bar X}{k})}}{\sqrt{nk}}$
+Найдём квантили и разрешим неравенство:
+\begin{gather*}
+	-u_{1-\alpha/2}\cdot \sqrt{nk \frac{\bar X}{k} \left(1 - \frac{\bar X}{k}\right)} <
+	\sum_{k=1}^n X_k -
+	nkp < u_{1-\alpha/2} \cdot \sqrt{nk \frac{\bar X}{k} \left(1 - \frac{\bar X}{k}\right)}, \\
+	\frac{\bar X}{k} - \frac{u_{1-\alpha/2}\cdot \sqrt{\frac{\bar X}{k} \left(1 - \frac{\bar
+	X}{k}\right)}}{\sqrt{nk}} < p < \frac{\bar X}{k} + \frac{u_{1-\alpha/2}
+\cdot \sqrt{\frac{\bar X}{k} \left(1 - \frac{\bar X}{k}\right)}}{\sqrt{nk}}.
+\end{gather*}
 \end{ex}
