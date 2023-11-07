@@ -57,18 +57,19 @@
 		a}{\sigma}.
 	\]
 
-	Компоненты вектора $ \bar X_n' $ независимы и распределены по стандартному
+	Компоненты вектора $ \vec X_n' $ независимы и распределены по стандартному
 	нормальному закону. Значит,  
 	\begin{gather*}
 		\bar X' = \frac{1}{n} \sum\limits_{k=1}^n X_k' = \frac{1}{n} \sum \frac{(X_k
 		- a)}{\sigma} = \frac{\bar X - a}{\sigma}, \\
-  p_{\bar X'} (\bar x) = \frac{1}{(\sqrt{2\pi})^n} \exp\left(-\frac{1}{2} \bar X^T \bar
-	X\right).
+  p_{\vec X'_n} (\bar x) = \frac{1}{(\sqrt{2\pi})^n} \exp\left(-\frac{1}{2} \bar
+		x^T \bar
+	x\right).
 \end{gather*}
 
 Произведём ортогональное преобразование 
 \[
-		\bar Y_n = C \bar X'_n,
+		\vec Y_n = C \vec X'_n,
 \]
 причём положим 
 \[
@@ -96,7 +97,7 @@
 Таким образом, вектор $ \bar Y_n $ также имеет независимые компоненты,
 распределённые по закону $ \mathscr N(0,1) $.
 
-Тогда статистика  
+Представим следующую статистику в следующем виде:  
 \begin{multline*}
 	\frac{S^2(n-1)}{\sigma^2} = \frac{1}{\sigma^2} \sum_{i=1}^n \left( X_i - \bar
 	X\right)^2 = 
@@ -112,11 +113,11 @@
 Отсюда следует независимость 
 \[
 		\frac{\bar X - a}{\sigma}\sqrt n = Y_1, \qquad \frac{S^2(n-1)}{\sigma^2} =
-		\sum_{k=1}^n Y^2_k,
+		\sum_{k=2}^n Y^2_k,
 \]
 а также вид распределения 
 \[
-	\frac{S^2(n-1)}{\sigma^2} = \sum_{k=1}^n Y^2_k \sim \chi^2(n-1).
+	\frac{S^2(n-1)}{\sigma^2} = \sum_{k=2}^n Y^2_k \sim \chi^2(n-1).
 \]
 
 Заметим, что

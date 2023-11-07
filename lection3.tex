@@ -25,8 +25,8 @@ $ \xi $, причём $ \{\xi_n\} $ независимы) из \textsl{изве�
 При этом математическим ожиданием здесь считаем %ничего не понял
 \begin{gather*}
   \M f(\bar{x}) = \int\limits_{R_n} f(x_1, x_2, \dots, x_n)
-	\prod\limits_{j=1}^{n} p_{x_i} (x_i) \, dx_1 dx_2 \dots dx_n, \\
-	f(x_1, \dots, x_n) \toP 0, \qquad n \to \infty.
+	\prod\limits_{j=1}^{n} p_{x_i} (x_i) \, dx_1 dx_2 \dots dx_n.
+%	f(x_1, \dots, x_n) \toP 0, \qquad n \to \infty. TODO: разобраться
 \end{gather*}
 
 \begin{definition}
@@ -40,7 +40,7 @@ $ \xi $, причём $ \{\xi_n\} $ независимы) из \textsl{изве�
 \begin{definition}
 	Оценка $\widehat \Theta_n$ называется \emph{состоятельной}, если  
 	\[
-		\widehat \Theta_n \to \theta \quad \text{при } n\to\infty.
+		\widehat \Theta_n \toP \theta \quad \text{при } n\to\infty.
 	\]
 \end{definition}
 
@@ -107,9 +107,9 @@ $ \mathsf D X_i = \sigma^2 $.
 	\item Математическое ожидание выборочной дисперсии $ \mathsf M S^2 = \sigma^2
 		$ равно истинной дисперсии. 
 	\begin{multline*}
-  \mathsf M S^2 = \frac{1}{n-1} \mathsf M\left[\sum_{i=1}^{n} \left(X_i - a - \left(\bar{X} - a\right)^2\right)^2 \right] = \\
-  = \frac{1}{n-1} \sum \mathsf M (X_i-a)^2 - 2 \mathsf M\left[ \left(\bar{X} - a\right) \sum
-	(X_i - a) \right] + \mathsf M (\bar{X} -a)^2 = \\
+  \mathsf M S^2 = \frac{1}{n-1} \mathsf M\left[\sum_{i=1}^{n} \left(X_i - a - \left(\bar{X} - a\right)\right)^2 \right] = \\
+  = \frac{1}{n-1} \left[\sum \mathsf M (X_i-a)^2 - 2 \mathsf M\left[ \left(\bar{X} - a\right) \sum
+	(X_i - a) \right] + \mathsf M (\bar{X} -a)^2\right] = \\
   = \frac{1}{n-1} \left[ n \sigma^2 - 2 n \mathsf M(\bar{X}-a)^2 + n \mathsf M (\bar{X}-a)^2 \right] = \\
   = \frac{1}{n-1} \left[ n \sigma^2 - n \frac{\sigma^2}{n} \right] = \sigma^2.
 \end{multline*}
@@ -133,7 +133,7 @@ $ \mathsf D X_i = \sigma^2 $.
 \mathsf D S^2 = \dfrac{\mu_4}{n} - \frac{\sigma^4 (n-3)}{n (n-1)} = O \left(\frac{1}{n}
 \right),
 \]
-где $\mu_4 = \mathsf M X_i^4$ --- четвертый момент.
+где $\mu_4 = \mathsf M (X_i-a)^4$ --- четвертый момент.
 \end{enumerate}
 
 \begin{theorem}[достаточное условие состоятельности]
@@ -281,6 +281,7 @@ $\mathsf D \bar\Theta_n \to 0$ при $ n \to \infty$.
 		P(I(x-X_k) = 0) &= 1 - F(x) = q.
 \end{align*}
 
+%TODO: дописать!
 \end{proof}
 
 \begin{corollary}[несмещённость]

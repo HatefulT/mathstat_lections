@@ -9,7 +9,7 @@
 	статистикой} для оценки параметра $\bar{\theta}$, если условная функция
 	распределения
 	\[
-		F_{\bar \xi} (X_1, X_2, \dots, X_n\, | \,\bar{t} (X_1, \dots, X_n)
+		F_{\bar \xi} (X_1, X_2, \dots, X_n\, | \,\bar{t} (\xi_1, \dots, \xi_n)
 		= \bar t)
 	\]
 	не зависит от $\bar\theta$ при любых значениях $\bar t$. 
@@ -45,7 +45,7 @@
 		= \frac{P(\xi_1 = X_1, \dots \xi_n = X_n, \sum \xi_k = t)}{P\left(\sum_{k=1}^n \xi_k = t\right)} = \\
     = \begin{cases}
 			p = 0, &t \neq \sum_{k=1}^n X_k, \\
-      \frac{ p^t (1-p)^{n-t} }{ C_n^t p^t (1-p)^{n-t} } = 1/C_n^t, &t
+			\frac{ p^t (1-p)^{n-t} }{ C_n^t p^t (1-p)^{n-t} } = \frac{1}{C_n^t}, &t
 			= \sum_{k=1}^n X_k.
     \end{cases}
   \end{multline*}
@@ -65,7 +65,7 @@
 		g(\bar\theta, \bar t (X_1, X_2, \dots, X_n)),
   \]
   где $h$ не зависит от $\theta$, $g$ не зависит от $X_1, X_2, \dots, X_n$
-	(разве что $\bar t$)
+	(разве что через $\bar t$)
 \end{theorem}
 
 \begin{proof}
@@ -74,11 +74,12 @@
 		\item $\boxed{\Leftarrow}$ Пусть
 			\[
 				\mathscr L(X_1, X_2, \ldots, X_n, \theta) = g\left(\bar \theta, \bar t(X_1,
-				X_2, \ldots, X_n) \right).
+				X_2, \ldots, X_n) \right)h(X_1, \ldots, X_n).
 			\]
-			Тогда
+
+			Имеем
   \begin{multline*}
-    P(\xi_1 = X-1, \dots, \xi_n = X_n \, | \, \bar t (\xi_1, \dots, \xi_n) = \bar t)
+    P(\xi_1 = X_1, \dots, \xi_n = X_n \, | \, \bar t (\xi_1, \dots, \xi_n) = \bar t)
     = \\ = \frac{P(\xi_1=X_1, \dots, \xi_n = X_n, \bar t(X_1, \dots, X_n) = \bar
 		t_0)}{P(\bar t(\xi_1, \dots, \xi_n) = \bar t_0)}.
   \end{multline*}
@@ -94,7 +95,7 @@ t_0 $. Тогда числитель будет равен функции пра
 
 Следовательно, для рассматриваемого случая имеем
 \begin{multline*}
-    P(\xi_1 = X-1, \dots, \xi_n = X_n \, | \, \bar t (\xi_1, \dots, \xi_n) =\\=
+    P(\xi_1 = X_1, \dots, \xi_n = X_n \, | \, \bar t (\xi_1, \dots, \xi_n) =\\=
 		\frac{P(\xi_1 = X_1, \ldots, \xi_n = X_n)}{\sum P(\xi_1 = Z_1, \ldots, \xi_n = Z_n)} =\\= \frac{h(X_1, \dots, X_n)
 		g(\bar \theta, \bar t(X_1, \dots, X_n))}{\sum h(Z_1, \dots, Z_n)
 		g(\bar\theta, \bar t(Z_1, \dots, Z_n)} = \frac{h(X_1, \dots, X_n)}{\sum h(Z_1,
@@ -124,18 +125,14 @@ t(\bar Z) = \bar t_0 $. Результат не зависит от $ \bar \thet
 \end{proof}
 
 \begin{remark}
-  \[
-    \mathscr{L} = h(X_1, \dots, X_n) g(\bar\theta, \bar t(X_1, \dots, X_n)
-  \]
-  \[
-    \ln \mathscr{L} = \ln h(X_1, \dots, X_n) + \ln g(\dots)
-  \]
-  \[
-    \frac{\partial \mathscr{L} (\bar\theta, \bar t(X_1, \dots, X_n))}{\partial \bar\theta}  
-  \]
-
+  \begin{align*}
+		\mathscr{L} &= h(X_1, \dots, X_n) g(\bar\theta, \bar t(X_1, \dots, X_n),\\
+		\ln \mathscr{L} &= \ln h + \ln g,\\
+		\frac{\partial \ln g}{\partial \bar \theta} &= \frac{\partial \ln \mathscr{L} (\bar\theta, \bar t(X_1, \dots,
+	X_n))}{\partial \bar\theta}.
+  \end{align*}
   $\Rightarrow$ ОМП функция от $\bar t(X_1, \dots, X_n)$
-
+  % что значит последняя строка?
   % TODO не понял о чём это замечание, скорее всего ошибка
 \end{remark}
 
@@ -211,12 +208,12 @@ t(\bar Z) = \bar t_0 $. Результат не зависит от $ \bar \thet
   \item Находим статистику $\eta = \varphi(X_1, \dots, X_n, \theta)$, закон
 		распределения  которой $F_\eta (x)$ известен точно или приближенно и не
 		зависит от $\theta$.
-  \item Находим квантили $t_{\alpha/2}$ и $t_{1-\alpha/2}$, то есть
+  \item Находим квантили $t_{\alpha/2}$ и $t_{1-\alpha/2}$, при этом
     \[ 
 			F_\eta(t_{\alpha/2})  = \alpha/2,\quad F_\eta(t_{1-\alpha/2}) = 1 -
 			\alpha/2.
 		\]
-При этом
+		Тогда
     \[
       P(t_{\alpha/2} < \varphi(X_1, \dots, X_n, \theta) < t_{1-{\alpha/2}}) =
 			F_\eta (t_{1 - \alpha/2}) - F_\eta (t_{\alpha/2}) = 1- \alpha
@@ -257,7 +254,7 @@ t(\bar Z) = \bar t_0 $. Результат не зависит от $ \bar \thet
 	\]
 	или
 	\[
-		\bar x - \frac{u_{1-\alpha/2}}{\sqrt{n}} &< a < \bar X +
+		\bar X - \frac{u_{1-\alpha/2}}{\sqrt{n}} &< a < \bar X +
 		\frac{u_{1-\alpha/2}}{\sqrt{n}}.
 	\]
  \end{ex}
@@ -274,7 +271,7 @@ t(\bar Z) = \bar t_0 $. Результат не зависит от $ \bar \thet
 		\left(\frac{1}{\sqrt{2\pi}\sigma}\right)^n \exp\left(-\frac{1}{2\sigma^2}
 		\sum_{k=1}^n (X_k-a)^2\right).
 	\]
-  Следовательно, $\sum (X_k-a)^2$ (вместе с $ S_0^2 = 1/n \sum(X_k - a_0)^2 $) будет достаточной статистикой.
+	Следовательно, $\sum_{k=1}^n (X_k-a)^2$ (вместе с $ S_0^2 = 1/n \sum_{k=1}^n(X_k - a_0)^2 $) будет достаточной статистикой.
 
 	При этом, как легко заметить,
 	\[
@@ -292,7 +289,9 @@ t(\bar Z) = \bar t_0 $. Результат не зависит от $ \bar \thet
 \end{ex}
 
 \begin{ex}
-  Произведено $n=36$ измерений, $\bar X = 9.3 \text{кОм},  \sigma_0 = 2 \text{кОм}$. Найти доверительный интервал $1- \alpha = 0.95$ для оценки параметра a.
+  Произведено $n=36$ измерений, $\bar X = 9.3 \text{кОм},  \sigma_0 = 2
+	\text{кОм}$. Найти доверительный интервал $1- \alpha = 0.95$ для оценки
+	параметра $a$.
 
 \[
   0.95 = P\left(\bar X - \frac{u_{0.975} \cdot 2}{\sqrt{36}} < a < \bar X + \frac{u_{0.975} \cdot 2}{\sqrt{36}}\right) \Leftrightarrow a \in (8.65, 9.95)
@@ -329,7 +328,7 @@ t(\bar Z) = \bar t_0 $. Результат не зависит от $ \bar \thet
 
 	Тогда согласно центральной предельной теореме статистика
 \[
-	\frac{\sum X_i - n a(\theta)}{\sqrt{n d(\theta)}} \approx N(0, 1)
+	\frac{\sum_{i=1}^n X_i - n a(\theta)}{\sqrt{n d(\theta)}} \approx N(0, 1)
 \]
 в пределе распределена по стандартному нормальному закону, что даёт приближённое
 равенство

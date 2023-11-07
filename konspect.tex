@@ -8,6 +8,8 @@
 \usepackage{amsthm, mathrsfs, mathtools, amssymb}
 \usepackage{enumitem}
 
+\usepackage{epigraph}
+
 \usepackage{geometry}
 \geometry{verbose,a4paper,tmargin=2cm,bmargin=2cm,lmargin=2.5cm,rmargin=1.5cm}
 
@@ -34,7 +36,7 @@
 {}% Theorem head spec (can be left empty, meaning ‘normal’)
 \theoremstyle{example}
 \newtheorem{ex}{Пример}
-\numberwithin{ex}{chapter}
+\numberwithin{ex}{section}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Теорема}
@@ -76,6 +78,16 @@
 \newcommand{\D}{\mathsf D} 
 \newcommand{\M}{\mathsf M} 
 
+\newenvironment{solution}
+{
+	\vspace{0.5em}
+	
+	\noindent\textsc{Решение.}
+}
+{
+	\par\hfill\blacksquare
+}
+
 
 \begin{document}
   \pagestyle{plain}
@@ -89,4 +101,7 @@
   \input{lection5}
   \input{lection6}
   \input{lection7}
+
+	\input{lection9}
+
 \end{document}
