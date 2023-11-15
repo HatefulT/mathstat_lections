@@ -1,0 +1,161 @@
+\section{Лекция 11 - 2023-11-15 - Непараметрические гипотезы. Критерий согласия $\chi^2$ Пирсона. Проверка гипотезы о виде распределения.}
+
+Рассмотрим гипотезу: $H_0: X_1, \dots, X_n \sim F(x)$,
+где $F(x)$ -- что-то очень конкретное, например $N(0, 1)$, $R[0, 2]$.
+И тотальную альтернатива к ней $H_1$ - выборка не подчиняется $F(x)$.
+
+Группированная выборка 
+\begin{center}
+  \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    группированная выборка & E_1 & E_2 & \dots & E_n \\
+    \hline 
+    Эмп. частоты & \nu_1 & \nu_2 & \dots & \nu_n \\
+    \hline 
+    При $H_0$ - теор. частоты & np_1 & np_2 & \dots & np_m \\
+    \hline
+  \end{tabular}
+\end{center}
+
+Соотвественно, надо проверять похожи ли две эти строчки друг на друга.
+
+Для оценки схожести вводятся различные метрики.
+Пирсон придумал очень удачную метрику:
+\[
+  \chi^2_B = \sum_{k=1}^m \dfrac{(\nu_k - np_k)^2}{np_k}
+\]
+
+\begin{theorem}{Пирсона (для простых гипотез)}
+  !! простая гипотеза означает, что закон распределения очень конкретный (без параметра)
+
+  Пусть $E$ - множество значений $X_i$ представлено в виде: $E = \cup_{i=1}^m E_i$ % TODO в оригинале там квадратный \cup
+  (объединение непересекающихся множеств $E_i \cap E_j = \emptyset$) 
+
+  Пусть $p_i = P_0 (X_i \in E_i)$, $\nu_i$ - частоты попадения в $E_i$. Тогда:
+  \[
+    \chi^2_B = \sum \dfrac{(\nu_i - np_i)^2}{np_i} \toD \chi^2 (m-1), n \to \infty
+  \]
+  
+\end{theorem}
+
+\begin{proof}
+  Напомним, что характеристическая функция это:
+  \[
+    f_\xi (t) = M e^{i t \xi}, f_{\bar \xi} = M e^{i \bar t^T \bar \xi} = M e^{i \sum t_k \xi_k}
+  \]
+
+  При 0-ой гипотезе:
+  \[
+    p_i = P_0 (\xi \in E_i)
+  \]
+
+  Ясно, что это распределено по полиномиальному закону:
+  \[
+    P(\bar \nu = (n_1, n_2, \dots, n_m)) = \dfrac{n!}{n_1! n_2! \dots n_m!} p_1^{n_1} p_2^{n_2} \dots p_m^{n_m}, \sum n_i = n
+  \]
+
+  \[
+    \sum \dfrac{n!}{n_1! n_2! \dots n_m!} p_1^{n_1} \dots p_m^{n_m} = 1
+  \]
+
+  \begin{multline*}
+    f_{\bar \nu} (\bar t) = M e^{i \bar t^T \bar \nu} =
+    \sum e^{i \sum t_k n_k} \dfrac{n!}{n_1! n_2! \dots n_m!} p_1^{n_1} \dots p_m^{n_m} = \\
+    = \sum \dfrac{n!}{n_1! n_2! \dots n_m!} (p_1 e^{i t_1})^{n_1} (p_2 e^{i t_2})^{n_2} \dots (p_m e^{i t_m})^{n_m} = 
+    (p_1 e^{i t_1} + p_2 e^{i t_2} + \dots + p_m e^{i t_m})^n = \\
+    = (1 + p_1 (e^{i t_1} - 1) + p_2 (e^{i t_2} - 1) + \dots + p_m (e^{i t_m} - 1))^n
+  \end{multline*}
+
+  \[
+    \ln f_{\bar \nu} (\bar t) = n \ln (1 + p_1 (e^{i t_1} - 1) + p_2 (e^{i t_2} - 1) + \dots + p_m (e^{i t_m} - 1))
+  \]
+
+  Обозначим: 
+  \[
+    \eta_k = \dfrac{\nu_k - np_k}{\sqrt{np_k}}, \chi^2_B = \sum_{k=1}^m \eta_k
+  \]
+
+  Тогда
+  \[
+    f_{\bar \eta} (\bar t) = M e^{i \bar t^T \bar \eta} =
+    M e^{i \sum t_k \dfrac{\nu_k - np_k}{\sqrt{np_k}}} = 
+    M e^{i \sum \dfrac{t_k}{\sqrt{np_k}} \nu_k} \cdot e^{i \sum t_k \sqrt{np_k}} = 
+    f_{\bar \nu} (\dfrac{t_1}{\sqrt{np_1}}, \dots, \dfrac{t_m}{\sqrt{np_m}}) e^{i \sum t_k \sqrt{np_k}}
+  \]
+
+  Тогда
+  \[
+    \ln f_{\bar \nu} (\bar t) = -i \sum t_k \sqrt{np_k} + n \ln (1+p_1 (e^{\dfrac{i t_1}{\sqrt{np_1}}} - 1)+ \dots + p_m (e^{\dfrac{i t_m}{\sqrt{np_m}}} - 1) )
+  \]
+
+  Используя эквивалентности:
+  \begin{multline*}
+    = -i \sum t_k \sqrt{np_k} + n \left( \sum p_k (e^{\dfrac{i t_k}{\sqrt{np_k}}} - 1) - \dfrac{1}{2} (\sum p_k(e^{\dfrac{i t_k}{\sqrt{np_k}}} - 1))^2 + o(\dfrac{1}{n}) \right) = \\
+    = -i \sum t_k \sqrt{np_k} + n \left( \sum p_k (\dfrac{i t_k}{\sqrt{np_k}} + \dfrac{1}{2} \sum \dfrac{i t_k}{\sqrt{np_k}})^2 - \dfrac{1}{2} (\sum p_k \dfrac{i t_k}{\sqrt{np_K}})^2 + o(\dfrac{1}{n}) \right) = \\
+    = - \dfrac{1}{2} \sum t_k^2 + \dfrac{1}{2} \left( \sum t_k \sqrt{p_k} \right)^2 + o\left(\dfrac{1}{n}\right)
+    = - \dfrac{1}{2} \bar t^T \bar t + \dfrac{1}{2} ((C \bar t)_1)^2 + o(1)
+  \end{multline*}
+  где $C$ - ортогональное преобразование $\bar \xi = C \eta$, с первой строчкой $(\sqrt{p_1}, \dots, \sqrt{p_m})$,
+    а индексом 1 в $(C \bar t)_1$ обозначено взятие первого элемента вектора.
+
+  Рассмотрим, что происходит с характеристической функцией при ортогональных преобразованиях:
+  \[
+    f_{\bar \xi} (\bar t) = M e^{i \bar t^T \bar t} = M e^{i \bar t^T C \eta} =
+    M e^{i (C^T \bar t)^T \bar \eta} = f_{\bar \eta} (C^T \bar t)
+  \]
+
+  \[
+    \ln f_{\bar \xi} (\bar t) = - \dfrac{1}{2} (C^T \bar t)^T C^T \bar t + \dfrac{1}{2} ((C C^T \bar t))^2 + o(1) = -\dfrac{1}{2} \bar t^T \bar t + \dfrac{1}{2} t_1^2 + o(1) = - \dfrac{1}{2} \sum_{k=2}^m t_k^2 + o(1)
+  \]
+
+  \[
+    \chi^2_B = \sum \dfrac{(\nu_k - np_k)^2}{np_k} = \sum \eta_k^2 = \bar \xi^T C^T C \bar \xi = \sum \xi_k^2
+  \]
+
+  Рассмотрим как распределен вектор $\bar \xi$:
+  
+  Если бы $\bar \xi \sim N(0, \Sigma)$, то:
+  \[
+    (\xi_1, \dots, \xi_m) \sim N(0, \Sigma) \Leftrightarrow f_{\bar \xi} (\bar t) = e^{-\dfrac{1}{2} \sum \sigma_k^2 t_k^2}
+  \]
+
+  В нашей ситуации выходит, что $\sigma_1 = 0$, следовательно, $\sum \xi_k^2 \sim \chi^2 (m-1)$.
+\end{proof}
+
+Применение: если $np_k$ достаточно большие (на практике $np_k \geqslant 5$). Тогда не выполняется предельные условия в теореме (как минимум условия ЦПТ). Иначе следует объединять $E_k$ с соседними.
+
+Соответственно, формулируем критерий:
+
+Если $\chi^2_B \geqslant \chi^2_{1-\alpha} (m-1)$, то $H_0$ отклоняем.
+
+Если $\chi^2_B < \chi^2_{1-\alpha}(m-1)$, то $H_0$ принимаем.
+
+\begin{ex}[Мендель]
+  556 горошин скрещивали во втором поколении.
+
+  В первом поколении все оказались желтыми.
+
+  Доминантный ген означает, что если от родителей достались два разных гена,
+  то проявляться будет именно доминантный.
+  
+  \begin{center}
+    \begin{tabular}{|c|c|c|c|c|}
+      \hline
+       & Круглые и желтые & кругл. зелен & морщинистые и желт & морщинис. и зел \\
+      \hline
+      частоты & 315 & 108 & 101 & 32 \\
+      \hline
+      $np_k$ & $\dfrac{9}{16} 556$ & $\dfrac{3}{16} 556$ & $\dfrac{3}{16} 556$ & $\dfrac{1}{16} 556$ \\
+      \hline
+    \end{tabular}
+  \end{center}
+
+  $H_0$ - гипотеза о том, что признаки цвета и формы независимы,
+  а круглая форма и желтный цвет - доминантные признаки.
+
+  Посчитаем $\chi^2_B$ и применим критерий:
+  \[
+    \chi^2_B = 0.47 < \chi^2_{0.9} (3) = 6.25
+  \]
+  получаем, что $H_0$ - верна.
+\end{ex}
