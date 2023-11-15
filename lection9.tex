@@ -107,65 +107,70 @@
 \]
 
 \begin{ex}
-	Пусть сопротивление резисторов $ \xi $ --- случайная величина, подчиняющаяся
-	нормальному закону. Произведено $ n = 36 $
-измерений, в результате чего оказалось, что $\bar X$ = 9.3\,кОм. 
+  Пусть сопротивление резисторов $ \xi $ --- случайная величина, подчиняющаяся
+  нормальному закону. Произведено $ n = 36 $
+  измерений, в результате чего оказалось, что $\bar X$ = 9.3\,кОм. 
 
-Требуется проверить на уровне значимости $ \alpha = 0.05 $ гипотезу $ H_0 $: $ a = 10
-$\,кОм против двусторонней альтернативы $ H_1 $: $ \theta \neq 10 $\,кОм в двух
-ситуациях: а) $ \sigma^2 = 4 $\,кОм^2; b) $ S^2 = 6.25 $\,кОм^2.
-\begin{solution}
-	\begin{enumerate}[label=\alph*)] %TODO: буквы
-	\item Как известно, статистика 
-	\[
-		\frac{\bar X - a}{\sigma}\cdot\sqrt{n}
-	\]
-	имеет стандартное нормальное распределение, то есть  
-	\[
-		P\left(u_{\alpha/2} \leqslant \frac{\bar X - a}{\sigma} \cdot \sqrt n \leqslant
-		u_{1-\alpha/2} \right) = 1 - \alpha,
-	\]
-	или с учётом симметричности $ u_{\alpha/2} = -u_{1 - \alpha/2} $ нормального
-	распределения  
-	\[
-			P \left( \left| \frac{\bar X - a}{\sigma}\cdot \sqrt n \right| \geqslant
-			u_{1-\alpha/2} \right) = \alpha.
-	\]
+  Требуется проверить на уровне значимости $ \alpha = 0.05 $ гипотезу $ H_0 $: $ a = 10
+  $\,кОм против двусторонней альтернативы $ H_1 $: $ a \neq 10 $\,кОм в двух
+  ситуациях: а) $ \sigma^2 = 4 $\,кОм^2; b) $ S^2 = 6.25 $\,кОм^2.
+  \begin{solution}
+    \begin{enumerate}[label=\alph*)] %TODO: буквы
+    \item Для двусторонней альтернативы, очевидно, критерий должен будет иметь вид
+      \[
+        S = \{ \bar X < C_1 \} \cup \{ \bar X > C_2 \}.
+      \]
+      Как известно, статистика 
+      \[
+        \frac{\bar X - a}{\sigma}\cdot\sqrt{n}
+      \]
+      имеет стандартное нормальное распределение, то есть  
+      \[
+        P\left(u_{\alpha/2} \leqslant \frac{\bar X - a}{\sigma} \cdot \sqrt n \leqslant
+        u_{1-\alpha/2} \right) = 1 - \alpha,
+      \]
+      или с учётом симметричности $ u_{\alpha/2} = -u_{1 - \alpha/2} $ нормального
+      распределения  
+      \[
+          P \left( \left| \frac{\bar X - a}{\sigma}\cdot \sqrt n \right| \geqslant
+          u_{1-\alpha/2} \right) = \alpha.
+      \]
 
-	Таким образом, поскольку $ u_{0.975} = 1.96 $, критическое множество в данном случае имеет вид
-\[
-		S = \left\{  \left| \frac{\bar X - a}{\sigma} \cdot \sqrt n \right| \geqslant
-		u_{1-\alpha/2}\right\} = \left\{ \left| \frac{\bar X - 10}{2} \cdot 6 \right|
-	\geqslant u_{0.975} \right\} = \{ \bar X \geqslant 10.65\} \cup \{\bar X
-\leqslant 9.35\}.
-\]
-Поскольку $ \bar X = 9.3 \in S $, то гипотеза $ H_0 $: $ a = 10 $\,кОм
-отклоняется на уровне значимости 0.05.
-\item В этом случае используем статистику	 
-\[
-		\frac{\bar X - a}{S}\sqrt n,
-\]
-распределённую по закону Стьюдента, который также симметричен. Тогда 
-\begin{align*}
-	1 - \alpha &= P \left( t_{\alpha/2}(n-1)\leqslant \frac{\bar X - a}{S}\sqrt n
-	\leqslant t_{1-\alpha/2}(n-1) \right),\\
-	\alpha &= P \left( \left| \frac{\bar X - a}{S}\sqrt n \right| \geqslant
-	t_{1-\alpha/2} (n-1) \right).
-\end{align*}
+      Таким образом, поскольку $ u_{0.975} = 1.96 $, критическое множество в данном случае имеет вид
+      \[
+          S = \left\{  \left| \frac{\bar X - a}{\sigma} \cdot \sqrt n \right| \geqslant
+          u_{1-\alpha/2}\right\} = \left\{ \left| \frac{\bar X - 10}{2} \cdot 6 \right|
+        \geqslant u_{0.975} \right\} = \{ \bar X \geqslant 10.65\} \cup \{\bar X
+      \leqslant 9.35\}.
+      \]
+      Поскольку $ \bar X = 9.3 \in S $, то гипотеза $ H_0 $: $ a = 10 $\,кОм
+      отклоняется на уровне значимости 0.05.
+    \item В этом случае используем статистику	 
+      \[
+          \frac{\bar X - a}{S}\sqrt n,
+      \]
+      распределённую по закону Стьюдента, который также симметричен. Тогда 
+      \begin{align*}
+        1 - \alpha &= P \left( t_{\alpha/2}(n-1)\leqslant \frac{\bar X - a}{S}\sqrt n
+        \leqslant t_{1-\alpha/2}(n-1) \right),\\
+        \alpha &= P \left( \left| \frac{\bar X - a}{S}\sqrt n \right| \geqslant
+        t_{1-\alpha/2} (n-1) \right).
+      \end{align*}
 
-Высчитав значение квантилли $ t_{0.975}(35) = 2.03 $, получим 
-\[
-		S = \left\{ \left| \frac{\bar X - a}{S}\sqrt n \right| \geqslant
-		t_{1-\alpha/2}(n-1) \right\} = \left\{ \left| \frac{\bar X - 10}{2.5}\cdot 6
-	\right| \geqslant 2.03 \right\} = \{\bar X \geqslant 10.84\} \cup \{\bar X
-	\leqslant 9.15\}.
-\]
-В этом случае гипотеза $ H_0 $: $ a = 10 $\,кОм принимается, поскольку $ \bar X
-= 9.3 \notin S$.
-\end{enumerate}
+      Высчитав значение квантилли $ t_{0.975}(35) = 2.03 $, получим 
+      \[
+          S = \left\{ \left| \frac{\bar X - a}{S}\sqrt n \right| \geqslant
+          t_{1-\alpha/2}(n-1) \right\} = \left\{ \left| \frac{\bar X - 10}{2.5}\cdot 6
+          \right| \geqslant 2.03 \right\} = \{\bar X \geqslant 10.84\} \cup \{\bar X
+          \leqslant 9.15\}.
+      \]
+      В этом случае гипотеза $ H_0 $: $ a = 10 $\,кОм принимается, поскольку $ \bar X
+      = 9.3 \notin S$.
+    \end{enumerate}
 
-\end{solution}
+  \end{solution}
 \end{ex}
+
 \begin{ex}\label{ex:2}
 	В условиях предыдущего примера требуется проверить на том же уровне значимости
 	гипотезу $ H_0 $: $ a = 10 $\,кОм против левосторонней альтернативы $ H_1 $:
@@ -336,8 +341,10 @@ $\,кОм против двусторонней альтернативы $ H_1 $
 \subsection{Оптимальный критерий Неймана -- Пирсона}
 	С каждым критерием $ S $ свяжем функцию  
 	\[
-		\varphi(\vec X_n) = \begin{cases} 1, &z(\vec X_n) \in S,\\
-		0, &z(\vec X_n) \notin S.\end{cases}
+    \varphi(\vec X_n) = \begin{cases}
+      1, &z(\vec X_n) \in S,\\
+		  0, &z(\vec X_n) \notin S.
+    \end{cases}
 	\]
 Тогда  
 \begin{gather*}
@@ -354,11 +361,13 @@ $\,кОм против двусторонней альтернативы $ H_1 $
 	существуют такие числа $ c \geqslant 0 $ и $ \varepsilon \in [0, 1] $, что
 	критерий с функцией  
 	\[
-	\varphi^\ast(\vec X_n) = \begin{cases} 1, & \frac{\mathscr L(\vec X_n,
-		\theta_1)}{\mathscr L(\vec X_n, \theta_0)} > c,\\[0.4em]
-		\varepsilon, & \frac{\mathscr L(\vec X_n, \theta_1)}{\mathscr L(\vec X_n, \theta_0)} =
-		c,\\[0.4em]
-		0, & \frac{\mathscr L(\vec X_n, \theta_1)}{\mathscr L(\vec X_n, \theta_0)} < c
+	\varphi^\ast(\vec X_n) = \begin{cases}
+    1, & \frac{\mathscr L(\vec X_n, \theta_1)}
+      {\mathscr L(\vec X_n, \theta_0)} > c,\\[0.4em]
+		\varepsilon, & \frac{\mathscr L(\vec X_n, \theta_1)}
+      {\mathscr L(\vec X_n, \theta_0)} = c,\\[0.4em]
+		0, & \frac{\mathscr L(\vec X_n, \theta_1)}
+      {\mathscr L(\vec X_n, \theta_0)} < c
 	\end{cases}
 	\]
 является оптимальным (наиболее мощным) во множестве критериев уровня $ \alpha $,
@@ -370,80 +379,80 @@ $ \alpha$ из
 следует, что ошибка $ \beta $ не больше у $ S^\ast $.
 \end{theorem}
 \begin{proof}
-$ z(\vec X_n) $ --- случайная величина. Рассмотрим её функцию распределения $
-F_z(x) $ и решения уравнения $ F_z(c) = 1-\alpha $ при $ 0 < \alpha < 1 $.
-\begin{enumerate}[label=(\roman*)]	
-	\item единственное решение,
-		%TODO: рисунок
+  $ z(\vec X_n) $ --- случайная величина. Рассмотрим её функцию распределения $
+  F_z(x) $ и решения уравнения $ F_z(c) = 1-\alpha $ при $ 0 < \alpha < 1 $.
+  \begin{enumerate}[label=(\roman*)]	
+    \item единственное решение,
+      %TODO: рисунок
 
-	\item бесконечно много решений,
-		%TODO: рисунок
+    \item бесконечно много решений,
+      %TODO: рисунок
 
-	\item нет решений.
-		%TODO: рисунок
-		В этом случае  
-		\begin{gather*}
-				F(c) < 1 - \alpha < F(c+0),
-				\varepsilon = \frac{F(c+0 - 1 + \alpha}{F(c+0) - F(c)}.
-		\end{gather*}
-\end{enumerate}
+    \item нет решений.
+      %TODO: рисунок
+      В этом случае  
+      \begin{gather*}
+          F(c) < 1 - \alpha < F(c+0), \\
+          \varepsilon = \frac{F(c+0) - 1 + \alpha}{F(c+0) - F(c)}.
+      \end{gather*}
+  \end{enumerate}
 
-Имеем уровни значимости для случаев (i-ii): 
-\[
-	P_{\theta_0} (z \geqslant c) = 1 - F(c) = 1 - (1 - \alpha) =
-	\alpha;
-\]
-и для случая (iii):
-\begin{multline*}
-	P_{\theta_0}(z\in S^\ast) = M_{\theta_0} \varphi^\ast(\vec
-	X_n) = 1 \cdot P(z > c) + \varepsilon \cdot P(z = c) =\\= 1 - F(c + 0) +
-	\frac{F(c+0) - 1 + \alpha}{F(c+0) - F(c)}\cdot \left[ F(c+0) - F(c) \right] =
-	\alpha.
-\end{multline*}
-Какой наиболее мощный (оптимальный)?
+  Имеем уровни значимости для случаев (i-ii): 
+  \[
+    P_{\theta_0} (z \geqslant c) = 1 - F(c) = 1 - (1 - \alpha) =
+    \alpha;
+  \]
+  и для случая (iii):
+  \begin{multline*}
+    P_{\theta_0}(z\in S^\ast) = M_{\theta_0} \varphi^\ast(\vec
+    X_n) = 1 \cdot P(z > c) + \varepsilon \cdot P(z = c) =\\= 1 - F(c + 0) +
+    \frac{F(c+0) - 1 + \alpha}{F(c+0) - F(c)}\cdot \left[ F(c+0) - F(c) \right] =
+    \alpha.
+  \end{multline*}
+  Какой наиболее мощный (оптимальный)?
 
-Проведём доказательство для случая, когда $ F_z(x\mid \theta_0) $ ---
-непрерывная функция. Тогда выберем $ c = t_{1-\alpha} $, в этом случае положим
-$ \varepsilon = 1 $.
+  Проведём доказательство для случая, когда $ F_z(x\mid \theta_0) $ ---
+  непрерывная функция. Тогда выберем $ c = t_{1-\alpha} $, в этом случае положим
+  $ \varepsilon = 1 $.
 
-Уровень значимости полученного критерия $ S^\ast $ будет равен $ \alpha $,
-поскольку  
-\[
-		P(z\in S^\ast \mid H_0) = \int\limits_{\frac{p(\mathbf x,
-		\theta_0)}{p(\mathbf x, \theta_0)} \geqslant t_{1-\alpha}} p(\mathbf x,
-		\theta_0) \,d\mathbf x = P(z \geqslant t_{1-\alpha} \mid \theta_0) = 1 -
-		F_z(t_{1-\alpha} \mid \theta_0) = \alpha.
-\]
+  Уровень значимости полученного критерия $ S^\ast $ будет равен $ \alpha $,
+  поскольку  
+  \[
+      P(z\in S^\ast \mid H_0) = \int\limits_{\frac{p(\mathbf x,
+      \theta_0)}{p(\mathbf x, \theta_0)} \geqslant t_{1-\alpha}} p(\mathbf x,
+      \theta_0) \,d\mathbf x = P(z \geqslant t_{1-\alpha} \mid \theta_0) = 1 -
+      F_z(t_{1-\alpha} \mid \theta_0) = \alpha.
+  \]
 
-Рассмотрим любой другой критерий $ \tilde \varphi(\vec X_n) $ с тем же уровнем
-значимости. Тогда интеграл  
-\begin{multline*}
-	\int\limits_{\mathbb R^n} (\varphi^\ast(\mathbf x) - \tilde \varphi(\mathbf
-	x))(p(\mathbf x, \theta_1) - cp(\mathbf x, \theta_0))\,d\mathbf x =\\=
-	\int\limits_{\varphi^\ast > \tilde \varphi}(\varphi^\ast(\mathbf x) - \tilde
-	\varphi(\mathbf x))(p(\mathbf x, \theta_1) - cp(\mathbf x,
-	\theta_0))\,d\mathbf x +\\+
-	\int\limits_{\varphi^\ast < \tilde
-	\varphi}(\varphi^\ast(\mathbf x) - \tilde \varphi(\mathbf x))(p(\mathbf x,
-	\theta_1) - cp(\mathbf x, \theta_0))\,d\mathbf x
-\end{multline*}
-будет неотрицательным. В самом деле, на множестве $ \varphi^\ast > \tilde
-\varphi $ значение $ \varphi^\ast > 0 $, а значит, и $ p(\vec X_n,
-\theta_1)/p(\vec X_n, \theta_0) \geqslant c $, откуда следует, что первое
-слагаемое отрицательно. Аналогично второй интеграл также неотрицателен,
-поскольку на множестве $ \varphi^\ast < \tilde \varphi $ получаем $ \varphi^\ast
-< 1$, что влечёт $ p(\vec X_n, \theta_1)/p(\vec X_n, \theta_0) \leqslant c$ и
-снова под интегралом неотрицательная функция.
+  Рассмотрим любой другой критерий $ \tilde \varphi(\vec X_n) $ с тем же уровнем
+  значимости. Тогда интеграл  
+  \begin{multline*}
+    \int\limits_{\mathbb R^n} (\varphi^\ast(\mathbf x) - \tilde \varphi(\mathbf
+    x))(p(\mathbf x, \theta_1) - cp(\mathbf x, \theta_0))\,d\mathbf x =\\=
+    \int\limits_{\varphi^\ast > \tilde \varphi}(\varphi^\ast(\mathbf x) - \tilde
+    \varphi(\mathbf x))(p(\mathbf x, \theta_1) - cp(\mathbf x,
+    \theta_0))\,d\mathbf x +\\+
+    \int\limits_{\varphi^\ast < \tilde
+    \varphi}(\varphi^\ast(\mathbf x) - \tilde \varphi(\mathbf x))(p(\mathbf x,
+    \theta_1) - cp(\mathbf x, \theta_0))\,d\mathbf x
+  \end{multline*}
+  будет неотрицательным. В самом деле, на множестве $ \varphi^\ast > \tilde
+  \varphi $ значение $ \varphi^\ast > 0 $, а значит, и $ p(\vec X_n,
+  \theta_1)/p(\vec X_n, \theta_0) \geqslant c $, откуда следует, что первое
+  слагаемое отрицательно. Аналогично второй интеграл также неотрицателен,
+  поскольку на множестве $ \varphi^\ast < \tilde \varphi $ получаем $ \varphi^\ast
+  < 1$, что влечёт $ p(\vec X_n, \theta_1)/p(\vec X_n, \theta_0) \leqslant c$ и
+  снова под интегралом неотрицательная функция.
 
-Следовательно,  
-\[
-	\int (\varphi^\ast(\mathbf x) - \tilde \varphi(\mathbf x)) p(\mathbf x,
-	\theta_1)\,d\mathbf x \geqslant c \int(\varphi^\ast(\mathbf x) - \tilde
-	\varphi(\mathbf x)) p(\mathbf x, \theta_0)\,d\mathbf x.
-\]
-В этом неравенстве интеграл слева равен $ W(S^\ast, \theta_1) - W(\tilde S,
-\theta_1) $, а интеграл в правой части равен $ W(S^\ast, \theta_0) - W(\tilde S,
-\theta_0) = \alpha - \alpha = 0$, откуда и следует утверждение теоремы.
+  Следовательно,  
+  \[
+    \int (\varphi^\ast(\mathbf x) - \tilde \varphi(\mathbf x)) p(\mathbf x,
+    \theta_1)\,d\mathbf x \geqslant c \int(\varphi^\ast(\mathbf x) - \tilde
+    \varphi(\mathbf x)) p(\mathbf x, \theta_0)\,d\mathbf x.
+  \]
+  В этом неравенстве интеграл слева равен $ W(S^\ast, \theta_1) - W(\tilde S,
+  \theta_1) $, а интеграл в правой части равен $ W(S^\ast, \theta_0) - W(\tilde S,
+  \theta_0) = \alpha - \alpha = 0$, откуда и следует утверждение теоремы.
 
 \end{proof}
 Если квантиль уровня $ 1 - \alpha $ функции $ F_z(x) $ не определена, то есть в
