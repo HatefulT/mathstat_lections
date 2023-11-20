@@ -1,0 +1,118 @@
+\section{Лекция 1. Типы распределений}
+\subsection{Гамма-распределение}
+\begin{definition}
+Пусть распределение случайной величины $ X $ задаётся плотностью вероятности,
+имеющей вид 
+\[
+	f_X(x) = \begin{cases} x^{k-1} \frac{e^{-x/\theta}}{\theta^k \Gamma(k)}, \quad
+			&x \geqslant 0 \\
+	0, \quad &x < 0 \end{cases}
+\]
+где $ \Gamma(k) $ --- гамма-функция Эйлера.
+
+Тогда говорят, что случайная величина $ X $ имеет \emph{гамма-распределение} c
+положительными параметрами $ \theta $ и $ k $, $ X \sim \Gamma(k, \theta) $.
+\end{definition}
+
+Перечислим некоторые свойства гамма-распределения
+
+
+
+\section{Лекция 3}
+...
+
+
+Начнём с 
+\[
+	\hat a_n = \bar X = \frac{1}{n} \sum_{i=1}^{n} X_i
+\]
+...
+Свойства: \begin{enumerate}
+\item $ M \bar X = M(\frac{1}{n} $
+\end{enumerate}
+
+Выборочная дисперсия: 
+\[
+	S^2 = \frac{1}{n-1} \sum^n_{i=1} (X_i - \bar X)^2
+\]
+
+Свойства: \begin{enumerate}
+	\item $ MS^2 = \sigma^2 $. Доказательство
+\end{enumerate}
+
+Индикатор  
+\[
+	I(x) = \begin{cases} 1, &x > 0 \\ 0, &x\leqslant0\end{cases}
+\]
+
+\begin{definition}
+	Выборочная функция распределения вычисляется по формуле 
+	\[
+		\hat F_n(x) = \frac{1}{n}\sum_{i=1}^n I(x-X_i)
+	\]
+Свойства \begin{enumerate}
+	\item M \hat F_n (x) = M(\frac{1}{n}\sum_{i=1}^n I(x-X_i)
+\end{enumerate}
+
+
+\section{Лекция}
+\subsection{Методы построения точечных оценок параметров}
+\textsc{Метод моментов}. Эмпирические моменты $ k $-го порядка. 
+\[
+\mu_k = \int\limits_{-\infty}^{\infty}x^k\,dF(x,\bar\theta)
+
+ 
+\[
+	\begin{cases}
+		\hat\mu_1 = \mu_1(\theta_1,\theta_2,\theta_3 \dots \theta_r)\\
+		\hat\mu_2 = \mu_2(\theta_1,\theta_2\dots\theta_r)\\
+		\hat\mu_r = \mu_r(\theta_1,\theta_2\dots\theta_r).\\
+	\end{cases}
+\]
+
+\begin{example} 
+\begin{gather*}
+		X_1\dots X_n \sym E(\alpha) \\
+    \hat\mu_1 = \bar x = 1/\alpha = \mu_1\\
+		1/\alpha = 1/\bar x
+    
+\end{gather*}
+\end{example}
+
+\subsection{Метод максимального правдоподобия}
+ 
+\[
+		X_1, X_2, \dots X_n
+\]
+Либо плотности даны $ p(x,\bar \theta) $ (абс. непр. слева), либо $ P_{\bar\theta}(\xi = X_k) $
+вероятность (дискретное слева).
+
+\begin{definition}
+\[
+	X_1, X_2,\dots, X_n, \bar \theta
+\]
+Либо сл вел нерп типа, либо сл в дискретного типа $ P(\xi_1 = X_1, \xi_2 =
+X_2,\dots,\xi_n = X_n) = \product_{k=1}^n = P_{\bar\theta}(\xi_k = x_k) $
+\end{definition}
+
+\subsection{Сравнение оценок}
+\begin{definition} Если $\hat\theta_n$ и $ \Hat{\Hat{\theta}_n} $ --- две
+	несмещённые оценки параметра $ \theta $, если $ D\hat\theta_n = D \hat \hat
+	\theta_n $, то говорят, что $ \hat \theta_n $ более эффективна, чем $ \Hat
+	\Hat \theta_n $.
+\end{definition}
+
+
+\section{Достаточные статистики}
+\begin{definition}
+	Пусть 
+	\[
+			X_1 X_2 \ldots X_n \sym F(x,\theta),
+	\]
+	где $ \bar \theta =(\theta_1, \theta_2, \ldots, \theta_n).$
+	Функция $ \bar t (X_1, \ldots, X_n) $ называется \emph{достаточной
+	статистикой} для оценки параметра $ \bar \theta $, если условная ф.р.
+	в случае дискретности $ P(\xi_1= X_1, \xi_2 = X_2, \ldots \xi_n = X_n) \bar t
+	(X_1, \ldots, X_n) = \bar t$; а в случае непрерывности $ p_{\bar\xi}(x_1,
+	\ldots, x_n| \bar t(x_1 \ldots x_n) = \bar t $ не зависит от $ \bar \theta $.
+

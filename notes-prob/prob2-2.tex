@@ -1,0 +1,94 @@
+\section{Измеримые пространства}
+\begin{lemma}
+  Пусть $ \mathscr E $ --- некоторая система подмножеств из $ \Omega $. Тогда
+  существуют наименьшая\footnote{то есть такая, содержащая все множества из $
+  \mathscr E $, алгебра, которая содержится в любой другой подобной.} алгебра $ \alpha(\mathscr E) $ и наименьшая $ \sigma
+  $-алгебра $ \sigma(\mathscr E) $, содержащие все множества из $ \mathscr E $.
+\end{lemma}
+\begin{proof}
+  Класс всех подмножеств $ \Omega $ содержит $ \mathscr E $ и при этом является
+  и алгеброй, и $ \sigma $-алгеброй, поэтому имеется как минимум один претендент
+  на искомое. Легко также видеть, что условия определяют $ \alpha(\mathscr E) $
+  и $ \sigma(\mathscr E) $ однозначно. 
+
+  Рассмотрим множество $ \widetilde \Omega = \bigcup\limits_{A\in\mathscr E} A $ и алгебру ($ \sigma
+  $-алгебру) всех его подмножеств. Оттуда вычленим систему $ \Sigma $ всех
+  алгебр ($ \sigma $-алгебр), содержащих все множества $ \mathscr E $.
+  Пересечение $ \bigcap\limits_{B\in\Sigma} B $, очевидно, и будет искомой алгеброй ($
+  \sigma $-алгеброй).
+\end{proof}
+
+Для эффективного пользования алгебрами хотелось бы научиться строить минимальную
+$ \sigma $-алгебру или хотя бы определять, является ли данная система таковой.
+Займёмся (обозримым) вторым вопросом и введём следующее
+\begin{definition}
+  Система $ \mathscr M $ подмножеств $ \Omega $ называется \emph{монотонным
+  классом}, если утверждения\footnote{по поводу обозначений см. сводку
+  обозначений на странице \pageref{sec:tos}.}
+  \begin{gather*}
+      A_n \in \mathscr M, \quad n=1,2,\ldots,\\
+      A_n \uparrow A \quad\text{или}\quad A_n \downarrow A
+  \end{gather*}
+  влекут $ A \in \mathscr M $.
+
+  Иными словами, монотонный класс замкнут относительно операций $ \uparrow $, $
+  \downarrow$.
+\end{definition}
+
+\begin{lemma}
+  Для того чтобы алгебра $ \mathscr A $ была в то же время и $ \sigma
+  $-алгеброй, необходимо и достаточно, чтобы она была монотонным классом.
+\end{lemma}
+\begin{proof}
+  Прямая импликация очевидна, проверим обратную. И вправду, алгебре не хватает замкнутости по бесконечным объединениям. Однако
+  любое бесконечное объединение можно считать монотонным. Например, положив $
+B_n = \bigcup\limits_{i=1}^n A_i \in \mathscr A $, получим $ B_n \subseteq B_{n+1} $,
+при этом $ B_n \uparrow \bigcup\limits_{i=1}^\infty A_i \in \mathscr A $.
+\end{proof}
+Обозначим минимальный монотонный класс, порождённый системой множеств $ \mathscr
+E$ символом $ \mu(\mathscr E) $. Доказательство существования проводится
+аналогично.
+
+\begin{theorem}
+  Пусть $ \mathscr A $ --- алгебра. Тогда 
+  \[
+      \mu(\mathscr A) = \sigma(\mathscr A).
+  \]
+\end{theorem}
+\begin{proof}
+  Из лемм выше видно, что достаточно доказать, что $\mathscr M = \mu(\mathscr A) $ есть
+  алгебра. Займёмся этим.
+
+  Возьмём $ A \in \mathscr M $ и покажем, что $ \bar A \in \mathscr M $.
+  Рассмотрим нетривиальный случай $ A \notin \mathscr A $. Тогда $ A_i \uparrow
+  A$ (случай $ A_i \downarrow A рассматривается аналогично) $ для некоторых $ A_i \in \mathscr A $, иначе была
+  бы потеряна минимальность. Но 
+  \[
+    \bar A =\overline{\bigcup_{i=1}^\infty A_i} = \bigcap_{i=1}^\infty \bar A_i
+    \in \mathscr M,
+  \]
+  поскольку $ \bar A_i \subseteq \bar A_{i-1} $, то есть система множеств $ \bar
+  A_i$ монотонно убывает.
+
+  Покажем, что из $ A \in \mathscr M $, $ B \in \mathscr M $ следует, что $ A
+  \cup B \in \mathscr M $. Опуская тривиальный случай, будем считать, что хотя
+  бы одно из множеств принадлежит системе $ \mathscr M \setminus \mathscr A $.
+  Пусть $ A_i \uparrow A $, $ A_i \in \mathscr A $, а $ B \in \mathscr A $. Но
+  тогда $ (A_i\cup B) \uparrow (A\cup B) \in \mathscr M $. 
+
+  Не упомянутые случаи
+  рассматриваются аналогично. Например, если положить $ A_i \downarrow A $, $
+  B_i \uparrow B $, то $ (\bar A \cup \bar B_i) \downarrow (\bar A
+  \cup \bar B) = \overline{A \cap B} \in \mathscr M $, поскольку для любого $ i
+  $ выполняется $ \bar A \cup \bar B_i \in \mathscr M $ (см. выше). Значит, и $ A \cap B \in
+  \mathscr M$.
+\end{proof}
+
+
+ 
+
+
+
+
+
+
