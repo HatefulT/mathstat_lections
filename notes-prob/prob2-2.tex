@@ -1,0 +1,242 @@
+\section{Измеримые пространства}
+\begin{lemma}
+  Пусть $ \mathscr E $ --- некоторая система подмножеств из $ \Omega $. Тогда
+  существуют наименьшая\footnote{то есть такая, содержащая все множества из $
+  \mathscr E $, алгебра, которая содержится в любой другой подобной.} алгебра $ \alpha(\mathscr E) $ и наименьшая $ \sigma
+  $-алгебра $ \sigma(\mathscr E) $, содержащие все множества из $ \mathscr E $.
+\end{lemma}
+\begin{proof}
+  Класс всех подмножеств $ \Omega $ содержит $ \mathscr E $ и при этом является
+  и алгеброй, и $ \sigma $-алгеброй, поэтому имеется как минимум один претендент
+  на искомое. Легко также видеть, что условия определяют $ \alpha(\mathscr E) $
+  и $ \sigma(\mathscr E) $ однозначно. 
+
+  Рассмотрим множество $ \widetilde \Omega = \bigcup\limits_{A\in\mathscr E} A $ и алгебру ($ \sigma
+  $-алгебру) всех его подмножеств. Оттуда вычленим систему $ \Sigma $ всех
+  алгебр ($ \sigma $-алгебр), содержащих все множества $ \mathscr E $.
+  Пересечение $ \bigcap\limits_{B\in\Sigma} B $, очевидно, и будет искомой алгеброй ($
+  \sigma $-алгеброй).
+\end{proof}
+
+Для эффективного пользования алгебрами хотелось бы научиться строить минимальную
+$ \sigma $-алгебру или хотя бы определять, является ли данная система таковой.
+Займёмся (обозримым) вторым вопросом и введём следующее
+\begin{definition}
+  Система $ \mathscr M $ подмножеств $ \Omega $ называется \emph{монотонным
+  классом}, если утверждения\footnote{по поводу обозначений см. сводку
+  обозначений на странице \pageref{sec:tos}.}
+  \begin{gather*}
+      A_n \in \mathscr M, \quad n=1,2,\ldots,\\
+      A_n \uparrow A \quad\text{или}\quad A_n \downarrow A
+  \end{gather*}
+  влекут $ A \in \mathscr M $.
+
+  Иными словами, монотонный класс замкнут относительно операций $ \uparrow $, $
+  \downarrow$.
+\end{definition}
+
+\begin{lemma}\label{the:monoton}
+  Для того чтобы алгебра $ \mathscr A $ была в то же время и $ \sigma
+  $-алгеброй, необходимо и достаточно, чтобы она была монотонным классом.
+\end{lemma}
+\begin{proof}
+  Прямая импликация очевидна, проверим обратную. И вправду, алгебре не хватает замкнутости по бесконечным объединениям. Однако
+  любое бесконечное объединение можно считать монотонным. Например, положив $
+B_n = \bigcup\limits_{i=1}^n A_i \in \mathscr A $, получим $ B_n \subseteq B_{n+1} $,
+при этом $ B_n \uparrow \bigcup\limits_{i=1}^\infty A_i \in \mathscr A $.
+\end{proof}
+Обозначим минимальный монотонный класс, порождённый системой множеств $ \mathscr
+E$ символом $ \mu(\mathscr E) $. Доказательство существования проводится
+аналогично.
+
+\begin{theorem}
+  Пусть $ \mathscr A $ --- алгебра. Тогда 
+  \[
+      \mu(\mathscr A) = \sigma(\mathscr A).
+  \]
+\end{theorem}
+\begin{proof}
+  Из лемм выше видно, что достаточно доказать, что $\mathscr M = \mu(\mathscr A) $ есть
+  алгебра. Займёмся этим.
+
+  Возьмём $ A \in \mathscr M $ и покажем, что $ \bar A \in \mathscr M $.
+  Рассмотрим нетривиальный случай $ A \notin \mathscr A $. Тогда $ A_i \uparrow
+  A$ (случай $ A_i \downarrow A рассматривается аналогично) $ для некоторых $ A_i \in \mathscr A $, иначе была
+  бы потеряна минимальность. Но 
+  \[
+    \bar A =\overline{\bigcup_{i=1}^\infty A_i} = \bigcap_{i=1}^\infty \bar A_i
+    \in \mathscr M,
+  \]
+  поскольку $ \bar A_i \subseteq \bar A_{i-1} $, то есть система множеств $ \bar
+  A_i$ монотонно убывает.
+
+  Покажем, что из $ A \in \mathscr M $, $ B \in \mathscr M $ следует, что $ A
+  \cup B \in \mathscr M $. Опуская тривиальный случай, будем считать, что хотя
+  бы одно из множеств принадлежит системе $ \mathscr M \setminus \mathscr A $.
+  Пусть $ A_i \uparrow A $, $ A_i \in \mathscr A $, а $ B \in \mathscr A $. Но
+  тогда $ (A_i\cup B) \uparrow (A\cup B) \in \mathscr M $. 
+
+  Не упомянутые случаи
+  рассматриваются аналогично. Например, если положить $ A_i \downarrow A $, $
+  B_i \uparrow B $, то $ (\bar A \cup \bar B_i) \downarrow (\bar A
+  \cup \bar B) = \overline{A \cap B} \in \mathscr M $, поскольку для любого $ i
+  $ выполняется $ \bar A \cup \bar B_i \in \mathscr M $ (см. выше). Значит, и $ A \cap B \in
+  \mathscr M$.
+\end{proof}
+
+\begin{definition}[<<$ \pi $-$ \lambda $-системы>>]
+  Пусть $ \Omega $ --- некоторое пространство. Система $ \mathscr P $
+  подмножеств $ \Omega $ называется \emph{$ \pi $-системой}, если она замкнута
+  относительно конечных пересечений.
+
+  Система $ \mathscr L $ подмножеств $ \Omega $ называется \emph{$ \lambda
+  $-системой}, если 
+  \begin{enumerate}[label=$ \lambda_\alph* $.]
+    \item $ \Omega \in \mathscr L $.
+    \item ($ A, B \in \mathscr L $ и $ A \subseteq B $) $ \Rightarrow $ ($ B
+      \setminus A \in \mathscr L$).
+    \item\label{enum:lam3} ($ A_n \in \mathscr L $, $ n \in \mathbb N $, и $ A_n \uparrow A $) $
+      \Rightarrow $ ($ A \in \mathscr L $).
+  \end{enumerate}
+
+  Наконец, система $ \mathscr D $ подмножеств $ \Omega $ называется \emph{$ d
+  $-системой Дынкина}, или просто $ \pi $-$ \lambda $-системой, если она
+  является одновременно и первой, и второй.
+\end{definition}
+\begin{remark*}
+  Условия $ \lambda_b $, $ \lambda_c $ в совокупности можно заменить
+  условиями
+  \begin{enumerate}
+    \item[$ \lambda'_b. $]\label{enum:lam2bis} $ A \in \mathscr L \Rightarrow \bar A\in\mathscr L $.
+    \item[\lambda'_c.] ($ A_n \in \mathscr L $, $ n\in\mathbb N $) $ \Rightarrow
+      $ $ \bigsqcup A_n \in \mathscr L $.
+  \end{enumerate}
+  \begin{proof}
+  $ \lambda'_b $. Дело в том,
+    что  
+    \[
+      B \setminus A = \overline{A\cup \overline B}.
+    \]
+    
+    $ \lambda'_c $. Пусть $ A = \bigsqcup A_n $. Положим $ B_n = \bigcup A_n $,
+    тогда $ B_n \uparrow A $. Аналогично проводится доказательство в обратную
+    сторону, где полагается $ B_n = A_n \setminus \bigcup\limits_{i=1}^{n-1} A_i $.
+  \end{proof}
+\end{remark*}
+Таким образом, $ \lambda $-система есть просто совокупность множеств с единицей,
+замкнутая относительно бесконечного объединения попарно непересекающихся множеств
+и операции дополнения.
+
+Обсудим эти понятия. И $ \pi $-система, и $ \lambda $-система могут даже не быть
+алгебрами. При этом очевидно, что любая алгебра (или $ \sigma $-алгебра) является $ \pi $-системой, а каждая
+$ \sigma $-алгебра (но не просто алгебра) является $ \lambda $-системой.
+Оказывается, что верна 
+
+\begin{theorem}[о $ \pi$-$ \lambda $-системах]\vphantom{I}
+  \begin{enumerate}
+    \item\label{enum:pl-the-1} Всякая $ d $-система $ \mathscr E $ является $ \sigma $-алгеброй.
+    \item\label{enum:pl-the-2} Пусть $ \mathscr E $ есть $ \pi $-система множеств. Тогда $
+      \lambda(\mathscr E) = d(\mathscr E) = \sigma(\mathscr E) $.
+  \end{enumerate}
+  \begin{proof}
+    \ref{enum:pl-the-1}. Система $ \mathscr E $, очевидно, является алгеброй. Докажем, что она
+     замкнута относительно бесконечных объединений. Для этого достаточно
+     вспомнить лемму \ref{the:monoton} и свойство \ref{enum:lam3} Действительно,
+     при $ A_n \downarrow A$ последнее множество также принадлежит $ \mathscr E
+     $, поскольку выполняется свойство $ \lambda'_b $, и $ \bar A_n
+     \uparrow \bar A $.
+
+     \ref{enum:pl-the-2}. Всякая $ \sigma $-алгебра, как уже отмечалось,
+     является $ \lambda $-системой. Из этого заключения вместе с пунктом
+     \ref{enum:pl-the-1} вытекает, что достаточно доказать, что система $
+     \lambda(\mathscr E) $ является $ \pi $-системой.
+
+     Ряды системы $ \mathscr E \supseteq A,\; B,\; C_i,\; D_i$ пополнили множества $ \bar A
+     $, $ \bar B $, а также $ C = \bigsqcup C_i $ и $ D = \bigsqcup D_i $.
+     Больше в $ \lambda(\mathscr E) $ никаких множеств нет, иначе потерялась бы
+     минимальность. При этом, например,
+     \[
+       \bar A \cap \bar B = \overline{A \cup B} = \overline{A \sqcup (B
+       \setminus (A\cap B))},
+     \]
+     а  
+     \[
+       (C_i \cap D_i) \uparrow (C \cap D).
+     \]
+       Остальное проверяется аналогично.
+  \end{proof}
+\end{theorem}
+
+\begin{lemma}
+  Пусть $ \Prob $ и $ \mathsf Q $ --- две вероятностные меры, заданные на
+  измеримом множестве $ (\Omega, \mathscr F) $. Пусть $ \mathscr E $ ---
+  некоторая $ \pi $-система множеств из $ \mathscr F $, на которой указанные
+  меры совпадают. Тогда они совпадают и на $ \sigma $-алгебре $ \sigma(\mathscr
+  E)$.
+\end{lemma}
+\begin{proof}
+  Достаточно доказать, что при данных условиях меры $ \mathsf P $ и $ \mathsf Q
+  $ совпадают на $ \lambda $-системе множеств $ \mathscr L $. В этом случае,
+  следует из теоремы выше, $ \sigma(\mathscr E) \subseteq \mathscr L $, что и
+  требовалось доказать.
+
+  Действительно, условия $ \lambda_a $, $ \lambda'_b $ и $ \lambda'_c $
+  выполняются на $ \mathscr L $. Например, 
+  \[
+    \mathsf P\left(\bigsqcup_{n=1}^\infty A_n\right) = \sum_{n=1}^\infty \mathsf P(A_n) =
+    \sum_{n=1}^\infty \mathsf Q(A_n) = \mathsf Q\left(\bigsqcup_{n=1}^\infty A_n\right).
+  \]
+  Остальные свойства очевидны. Поэтому $ \mathscr L $ является $ \lambda
+  $-системой.
+\end{proof}
+
+\begin{lemma}
+  Пусть $ \mathscr A_1,\, \mathscr A_2,\, \ldots,\, \mathscr A_n $ --- независимые
+  алгебры событий. Тогда независимыми будут и $ \sigma $-алгебры $ \sigma(\mathscr
+  A_1)$, $ \sigma(\mathscr A_2) $, $ \ldots $, $ \sigma(\mathscr A_n) $.
+\end{lemma}
+\begin{proof}
+  Пусть при $ n \neq k $
+  \begin{align*}
+    A &= \bigsqcup_{k=1}^\infty A_k, \quad A_k \in \mathscr A_1,\\
+    B &= \bigsqcup_{n=1}^\infty B_k, \quad B_k \in \mathscr A_2.
+  \end{align*}
+  Тогда
+  \begin{multline*}
+    \mathsf P(AB) = \mathsf P \left( \left(\bigsqcup_{i=1}^\infty
+      A_i\right) \cap \left( \bigsqcup_{j=1}^\infty B_j \right) 
+    \right) =\\= \mathsf P \left( \bigsqcup_{i, j} (A_i \cap B_j) \right) =
+    \sum_{i, j}^\infty \mathsf P(A_i)\mathsf P(B_j) =
+    \mathsf P(A) \Prob(B).
+  \end{multline*}
+  Аналогичная выкладка верна и для более, чем двух множителей.
+
+Кроме того, 
+\begin{align*}
+  \mathsf P(\bar A \bar B) = 1 - \mathsf P(A \cup B) &=\\&=
+    1 - \left( \mathsf P(B)
+    + \mathsf P(A) - \mathsf P(A\cap B)\right)  = \mathsf P(\bar A)
+    \mathsf P(\bar B)
+\end{align*}
+и 
+\[
+    \mathsf P(\bar A B) = \mathsf P(B\setminus (A\cap B)) =\mathsf P(B) -
+    \mathsf P(AB) = \mathsf P(\bar A)\mathsf P(B).
+\]
+
+Исходя из этого, становится ясно, что системы $ \lambda(\mathscr A_1),\,
+\lambda(\mathscr A_2),\, \ldots,\, \lambda(\mathscr A_n) $ также независимы.
+\end{proof} %TODO: проверить доказательство
+
+
+
+
+  
+
+ 
+
+
+
+
+
+

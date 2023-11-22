@@ -1,0 +1,48 @@
+\documentclass{book}
+\usepackage{myHead}
+\graphicspath{
+	  {images00-01/}{images00-02/}
+		  {images01-01/}{images01-02/}{images01-03/}
+		}
+\usepackage{showlabels}
+% будет показывать ссылки прямо в pdf. когда файл готов, лучше убрать
+\usepackage{booktabs}
+
+\renewcommand{\descriptionlabel}[1]{\hspace{\labelsep}\textsc{#1}}
+
+\newcommand{\Prob}{\mathsf P}
+\newcommand{\D}{\mathsf D}
+\newcommand{\M}{\mathsf M}
+
+\newenvironment{solution}
+{
+	\vspace{0.5em}
+
+	\noindent\textsc{Решение.}
+}
+{
+	\par\hfill\square
+}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+
+
+\begin{document}
+\title{Теория вероятностей -- 1}
+\maketitle
+\tableofcontents
+
+\include{tableofsymbols.tex}
+\part{Дискретный случай}
+\include{prob1.tex}
+\include{prob2.tex}
+
+\part{Непрерывный случай}
+\include{prob2-1.tex}
+\input{prob2-2.tex}
+
+
+
+\end{document}
+
+

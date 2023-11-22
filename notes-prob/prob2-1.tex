@@ -1,0 +1,232 @@
+\chapter{Математические основания}
+\section{Вероятностное пространство}
+\subsection{Мотивация и несколько важных определений}
+Рассмотрим эксперимент с подбрасыванием монеты \textsl{конечное} число раз $ n $ --- схему Бернулли $ (\Omega, \mathscr A, \mathsf P) $ , где, напомним,
+\begin{align*}
+	\Omega &= \{\omega\colon \omega = (a_1, \ldots, a_n),\; a_i = 0, 1\},\\
+	\mathscr A &= \{A \colon A \subseteq \Omega\},\\
+	\mathsf P(\{\omega\}) &= p^{\sum a_i}q^{n-\sum a_i}.
+\end{align*}
+
+Попытаемся обобщить эту вероятностную модель на случай $ n = \infty $.
+Пространство $ \Omega $ тогда имеет мощность континуум. Его можно отождествить с
+множеством точек $ \omega $ отрезка $ [0, 1) $. Возьмём наиболее простой
+случай <<правильной>> монеты $ p = q = 1/2 $. Интуитивно ясно, что все
+элементарные исходы $
+\omega \in [0, 1) $ должны быть равновероятными. Однако, будь они
+положительными, ввиду несчётности (даже бесконечности) $ \Omega $ мы получили бы противоречие $
+\mathsf P(\Omega) = \infty \neq 1 $, поэтому для любого $ \omega $ имеем $
+p(\omega) \equiv 0 $. Имея лишь такой результат, мы мало чего сможем достигнуть.
+Например, мы не сможем подтвердить интуитивно ясное равенство $ \mathsf P([0, 1/2))
+= 1/2$.
+
+Из этих рассуждений становится ясно, что вероятность здесь следует определять не
+только на точках, но на некоторых подмножествах $ \Omega $. Этот запас множеств
+должен быть, конечно, замкнут относительно операций взятия объединения,
+пересечения и дополнения, то есть должен быть
+
+\begin{definition}
+	\label{def:alg}
+Система $ \mathscr A $ подмножеств некоторого множества $ \Omega $ называется
+\emph{алгеброй}, если
+\begin{enumerate}
+\item $\Omega \in \mathscr A$ (единица),
+	\item\label{enum:zamk} $ A, B \in \mathscr A \Rightarrow A \cup B \in \mathscr A, A \cap B \in
+		\mathscr A$,
+	\item\label{enum:3} $ A \in \mathscr A \Leftrightarrow \bar A \in \mathscr A $.
+\end{enumerate}
+\begin{remark*}При этом в условии \ref{enum:zamk} можно обойтись замкнутостью лишь по одной из
+операций, а условие \ref{enum:3} можно заменить на условие
+$ A, B \in \mathscr A \Rightarrow A \setminus B
+\in \mathscr A $.
+\end{remark*}
+
+\end{definition}
+
+На самом деле для хорошей вероятностной
+модели лишь этих требований к $ \mathscr A $ недостаточно. 
+По индукции условие \ref{enum:zamk} распространяется на любое конечное
+объединение (пересечение) множеств. 
+
+\begin{definition}
+	К требованиям определения \ref{def:alg} добавим условиям
+\begin{enumerate}
+	\item[\ref{enum:zamk}'.] $ \forall i \; A_i \in \mathscr A \Rightarrow \bigcup\limits_{i=1}^\infty A_i \in
+		\mathscr A $.
+\end{enumerate}
+(которое опять можно заменить аналогом с пересечением) и получим так
+называемую \emph{$ \sigma $-алгебру}.
+\end{definition}
+
+\begin{definition}
+Пару $ (\Omega, \mathscr A) $, где $ \mathscr A $ --- некоторая $ \sigma
+$-алгебра, определённая на $ \Omega $, называют \emph{измеримым пространством}.
+\end{definition}
+
+
+Брать в качестве $ \mathscr A $ (как мы раньше это делали) систему подмножеств
+$ \Omega $, которая, конечно, является $ \sigma $-алгеброй, неоправданно --- пришлось
+бы определять значение меры $ \mathsf P $ на бесконечном числа множеств
+бесконечного числа типов.
+Оказывается, для того чтобы мера была определена (почти) на всех множествах,
+достаточно определить её лишь на одном типе множеств (вернёмся к этому позже). На остальные множества
+мера распространится самостоятельно, имея следущие важные \textbf{свойства
+вероятностной меры}.
+
+Во-первых, дадим само 
+\begin{definition}
+	Пусть дано измеримое пространство $ (\Omega, \mathscr A) $. Функцию множеств
+	$ \mu(A) $, $ A \in \mathscr A $ со значениями в $ [0, +\infty] $ будем называть \emph{конечно-аддитивной
+	мерой}, если для любых двух непересекающихся множеств $ A $ и $ B $ из $
+	\mathscr A $ 
+	\[
+			\mu(A+B) = \mu(A) + \mu(B).
+  \]
+\end{definition}
+\noindent Далее, однако, будет рассматриваться лишь
+	\begin{definition}
+	Конечно-аддитивная мера $ \mu $, заданная на алгебре $ \mathscr A $ называется
+	\emph{счётно-аддитивной} (\emph{$ \sigma $-аддитивной}), или просто
+	\emph{мерой}, если для любых попарно непересекающихся множеств $ A_i \in
+	\mathscr A $ таких, что $ \sum\limits_{i=1}^\infty A_i \in \mathscr A $ (для
+	$ \sigma $-алгебры выполняется всегда),\footnote{Здесь и далее символ $ \sum $
+		(против $ \bigcup $)
+	указывает на отсутствие пересечений у системы множеств}
+	\[
+		\mu \left( \sum_{i=1}^\infty A_i \right) = \sum_{i=1}^\infty \mu(A_n).
+	\]
+	
+	Мера $ \mu $ называется \emph{$ \sigma $-конечной}, если пространство $ \Omega
+	$ можно представить в виде 
+	\[
+		\Omega = \sum_{n=1}^\infty \Omega_n, \quad \Omega_n \in \mathscr A,
+	\]
+	где $ \mu(\Omega_n) < \infty $ для всех $ n $.
+
+	Наконец, счётно-аддитивную меру $ \mathsf P $ назовём \emph{вероятностной
+	мерой}, или \emph{вероятностью}, если $ \mathsf P(\Omega) = 1 $.
+	\end{definition}
+	
+	Теперь перечислим собственно свойства:
+	\begin{enumerate}
+		\item \textsc{Сохранение нуля}.
+			\[
+				\mathsf P (\varnothing) = 0.
+			\]
+		\item \textsc{Исключение}. 
+		\[
+				\mathsf P(A \cup B) = \mathsf P(A) + \mathsf P(B) - \mathsf P(A\cap B).
+		\]
+	\item \textsc{Монотонность}. Если $ B \subseteq A $,
+	\[
+			\mathsf P(B) \leqslant \mathsf P(A).
+	\]
+\item \textsc{Неравенство треугольника}.  
+\[
+		\mathsf P(A_1 \cup A_2 \cup \ldots) \leqslant \mathsf P(A_1) +
+		\mathsf P(A_2) + \ldots.
+\]
+\end{enumerate}
+Три свойства из списка очевидны. \emph{Докажем} последнее. Для этого достаточно
+заметить, что $ \bigcup_{n=1}^\infty A_n = \sum_{n=1}^\infty B_n $, где $ B_1 =
+A_1$, $ B_n = \bar A_1 \cap \ldots \cap \bar A_{n-1} \cap A_n $. Тогда 
+\[
+	\Prob \left( \bigcup_{i=1}^n A_i \right) = \Prob \left( \sum_{n=1}^\infty
+	B_n\right) = \sum_{n=1}^\infty \Prob(B_n) \leqslant \sum_{n=1}^\infty
+	\Prob(A_n).
+\]
+
+
+
+\subsection{Одна важная теорема и основное определение параграфа}
+\begin{theorem}
+	Пусть $ \mathsf P $ --- конечно-аддитивная функция множеств, заданная на
+	алгебре $ \mathscr A $, причём $ \mathsf P(\Omega) = 1 $. Тогда следующие
+	четыре свойсвта эквивалентны:
+	\begin{enumerate}[label={\rm\roman*)}]
+		\item $ \mathsf P $ $ \sigma $-аддитивна (то есть являтся вероятностью),
+		\item $ \mathsf P $ непрерывна сверху, то есть для любой системы множеств из
+			$ \mathscr A $ такой, что $ A_n \subseteq A_{n+1} $, $
+			\bigcup_{n=1}^\infty A_n \in \mathscr A $, 
+			\[
+				\lim_{n} \mathsf P(A_n) = \mathsf P \left( \bigcup_{n=1}^\infty A_n
+				\right),
+			\]
+		\item $ \mathsf P $ непрерывна снизу, то есть для любой системы множеств из
+			$ \mathscr A $ такой, что $ A_n \supseteq A_{n+1} $, $
+			\bigcup_{n=1}^\infty A_n \in \mathscr A $, 
+			\[
+				\lim_n \mathsf P(A_n) = \mathsf P \left( \bigcap_{n=1}^\infty A_n
+				\right),
+			\]
+		\item $ \mathsf P $ непрерывна в нуле, то есть для любой системы множеств из
+			$ \mathscr A $ такой, что $ A_{n} \supseteq A_{n+1} $, $
+			\bigcap_{n=1}^\infty A_n = \varnothing $, 
+			\[
+					\lim_n \mathsf P(A_n) = 0.
+			\]
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+i) $ \Rightarrow $ ii). Действительно, 
+\[
+	\bigcup_{n=1}^\infty A_n = \sum_{n=1}^\infty (A_n \setminus A_{n-1}),
+\]
+где $ A_0 $ положено пустым множеством. В этом случае 
+\begin{multline*}
+	\Prob \left( \bigcup_{n=1}^\infty A_n \right) = \sum_{n=1}^\infty \left[ \Prob(A_n) -
+	\Prob(A_{n-1}) \right] =\\= \lim_{k\to\infty} \sum_{n=1}^k \left[ \Prob(A_n) -
+\Prob(A_{n-1}) \right] = \lim_{k\to\infty} \Prob(A_k).
+\end{multline*}
+
+ii) $\Rightarrow$ iii). Заметим, что согласно правилам де Моргана
+\[
+	\bigcap_{n=1}^\infty A_n = A_1 \setminus \bigcup_{n=1}^\infty \left[ A_1 \setminus A_n
+	\right].
+\]
+Тогда 
+\[
+	\Prob \left( \bigcap_{n=1}^\infty A_n \right) = \Prob(A_1) - \lim_{n\to\infty}
+	\Prob(A_1 \setminus A_n) = \lim_{n\to\infty} \Prob(A_n).
+\]
+
+iii) $ \Rightarrow $ iv). Очевидным образом вытекает из предшествующих
+рассуждений.
+
+Наконец, iv) $ \Rightarrow $ i). Рассмотрим систему непересекающихся множеств $
+\{A_i\}$.  
+\[
+	\Prob\left(\sum_{n=1}^\infty A_n\right) = \Prob \left( \sum_{n=1}^k A_n
+	\right) + \Prob \left( \sum_{n=k+1}^\infty A_n \right).
+\]
+При этом $ \sum_{n=k+1}^\infty A_n $ монотонно убывает к пустому множеству при
+$ n \to\infty $. Поэтому 
+\begin{multline*}
+	\sum_{i=1}^\infty \Prob(A_i) = \lim_n \sum_{i=1}^n \Prob(A_i) = \lim_n \Prob
+	\left( \sum_{i=1}^\infty A_i \right) = \\ =
+	\lim_n \left[ \Prob \left( \sum_{i=1}^\infty A_i \right) - \Prob \left(
+	\sum_{i=n+1}^\infty A_i \right)  \right] =\\=
+	\Prob \left( \sum_{i=1}^\infty A_i \right)  -\lim_n \Prob \left(
+	\sum_{i=n+1}^\infty A_i \right) = \Prob \left( \sum_{i=1}^\infty A_i \right).
+\end{multline*}
+
+
+\end{proof}
+
+\begin{definition}[основное]
+	Набор объектов  
+	\[
+		(\Omega, \mathscr F, \Prob),
+	\]
+	где 
+	\begin{enumerate}[label=\alph*)]
+		\item $ \Omega $ --- множество точек $ \omega $,
+		\item $ \mathscr F $ --- $ \sigma $-алгебра $ \Omega $,
+		\item	$ \Prob $ --- вероятность на $ \mathscr F $,
+	\end{enumerate}
+	называется \emph{вероятностной моделью} (эксперимента), или
+	\emph{вероятностным пространством}. При этом пространство \emph{исходов}
+	$\Omega $ называется \emph{пространством элементарных событий}, множества $ A
+	$ из $ \mathscr F $ --- \emph{событиями}, а $ \Prob(A) $ --- вероятностью
+	события $ A $.
+\end{definition} 
