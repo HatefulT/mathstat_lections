@@ -1,0 +1,333 @@
+\section{Лекция 12 - 2023-11-22 - Непараметрические гипотезы}
+
+\subsection{Критерий Фишера для сложных гипотез}
+
+\begin{ex}
+  Случай сложной гипотезы
+  $X_1, X_2, \dots, X_n \sin F(x, \bar \theta)$, $\bar\theta = (\theta_1, \dots, \theta_r)$.
+
+  Гипотеза $H_0$ - выборка подчиняется закону $F$.
+\end{ex}
+
+\begin{theorem}[Теорема Фишера (критерий Фишера для сложных гипотез)]
+  Пусть проверятеся гипотеза $H_0$ - выборка из закона $F(x, \bar\theta)$.
+  
+  Пусть множество значений СВ $E = E_1 + \dots + E_l$.
+  
+  Пусть $p_l (\bar\theta) = p(\xi \in E_l) = \int_{E_l} dF(x, \bar\theta)$. 
+  $\hat\bar\theta$ - ОМП параметра $\bar\theta$.
+  Тогда если
+  \[
+    \exists \dfrac{\partial p_l(\bar\theta)}{\partial \theta_i}, \dfrac{\partial^2 p_l(\bar\theta)}{\partial \theta_i \partial \theta_j}, i, j = \overline{1, r}; k=\overline{1, l},
+  \]
+  А матрица $(\dfrac{\partial p}{\partial \bar\theta})$ - имеет ранг r, то
+  \[
+    \chi^2_B = \sum_{k=1}^l \dfrac{(\nu_k - np_k(\hat\bar\theta)}{np_k(\hat\bar\theta)} \toD \chi^2 (l-1-r)
+  \]
+\end{theorem}
+
+Замечание: условия теоремы не выполнены например для выборки $X_1, \dots, X_n \sim R[a, b]$.
+ОМП: $\hat a = X_{(1)}, \hat b = X_{(n)}$. $p_k (a, b) = \int_{E_k} \dfrac{1}{b-a} dx$ - не является дифф. (в точках a и b скачки).
+
+При использовании критерия считают $r = 0$.
+
+Критерий: $\chi^2_B \geqslant \chi^2_{1-\alpha} (l-1-r)$, то $H_0$ отклоняют, если $\chi^2_B < \chi^2_{1-\alpha} (l-1-r)$, то $H_0$ принимается.
+
+\begin{ex}
+  537 снарядов упало на Лондон. Территорию Лондона разделили на 576 участков по 0.25 км.
+
+  \begin{center}
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+      \hline
+      снаряды $k_j$ & 0 & 1 & 2 & 3 & 4 & 7 \\
+      \hline
+      участки $\nu_j$ & 229 & 211 & 93 & 35 & 7 & 1 \\
+      \hline
+      n \hat{p_j} & 226.74 & 211.39 & 98.54 & 30.62 & 8.71 \\ 
+      \hline
+    \end{tabular}
+  \end{center}
+
+  Гипотеза $H_0$ - число снарядов на 1 участок $\sim Pois$.
+
+  \[
+    p(\xi = k) = \dfrac{\lambda^k}{k!} e^{-\lambda}.
+  \]
+
+  ОМП $\hat \lambda = \bar X = \dfrac{537}{576}$. Считаем $\hat{p_0} = e^{-537 / 576}, \dots$.
+  Столбцы 4 и 7 пришлось объединить, так как $n\hat{p_4} < 5$.
+
+  \[
+    \chi^2_B \approx 1.5; \chi^2_{0.95} (5-1-r) = \chi^2_{0.95} (3) = 7.81,
+  \]
+
+  Критерий имеет вид: $S = \{ \chi^2_B > \chi^2_{0.95}(3) \}$, $\chi^2_B \notin S \Rightarrow H_0$ -- принимается.
+\end{ex}
+
+\begin{ex}
+  Проверка гипотезы о независимости признаков.
+
+  $X_1, \dots, X_n$ обладают признаками A и B.
+  Признак A имеет m градаций, а признак B имеет k градаций.
+
+  Таблица сопряженности признаков
+
+  \begin{center}
+    \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      A_i \ B_i & B_1 & B_2 & \dots & B_k \\
+      \hline
+      A_1 & \nu_{11} & & & \\
+      \hline
+      \dots & \dots & & & \\
+      \hline
+      A_m & & & & \\
+      \hline
+    \end{tabular}
+  \end{center}
+
+  $\nu_{ij}$ - кол-во элементов выборки, обладающие признаками $A_i, B_j$.
+
+  Гипотеза: $H_0$ признаки A и B независимы.
+  \[
+    P(A_i B_j) = P(A_i) P(B_j)
+  \]
+
+  \[
+    \dfrac{\nu_{ij}}{n} \approx \dfrac{\nu_i}{n} \dfrac{\nu_j}{n},
+  \]
+  где $\nu_i = \sum_j v_{ij}$, $\nu_j = \sum_i v_{ij}$.
+
+  \[
+    \chi^2_B = \sum_{i=1}^m \sum_{j=1}^k \dfrac{(\nu_{ij} - n \hat p_{ij})^2}{n \hat p_{ij}}
+  \]
+
+  Параметры: $P(A_1), P(A_2), \dots, P(A_m); \sum P(A_i) = 1$, следовательно, независимых параметров здесь $m-1$. $P(B_1), P(B_2), \dots, P(B_k); \dots$, следовательно, независимых параметров $k-1$. Вместе параметров $r = m+k-2$.
+
+  \[
+    \hat p_{i} = P(A_i) = \dfrac{\nu_i}{n}; \hat p_j = P(B_j) = \dfrac{\nu_j}{n}.
+  \]
+
+  При $H_0$:
+  \[
+    \hat p_{ij} = \hat p_i \cdot \hat p_h = \dfrac{\nu_i \nu_j}{n^2}
+  \]
+
+  \begin{multline*}
+    \chi^2_B
+    = \sum_{i=1}^m \sum_{j=1}^k \dfrac{(\nu_{ij} - n \hat p_{ij})^2}{n \hat p_{ij}}
+    = n \sum_{i=1}^m \sum_{j=1}^k \dfrac{\nu^2_{ij}}{\nu_i \nu_j} - 2 \sum_{i=1}^m \sum_{j=1}^k \nu_ij + n \sum_{i=1}^m \sum_{j=1}^k = \\
+    = n \sum_{i=1}^m \sum_{j=1}^k \dfrac{\nu^2_{ij}}{\nu_i \nu_j} - 2n + n
+    = n \left(\sum_{i=1}^m \sum_{j=1}^k \dfrac{\nu^2_{ij}}{\nu_i \nu_j} - 1\right)
+  \end{multline*}
+
+  Число степеней свободы
+
+  $l-1-r = k m - 1 - (m+k-2) = (k-1)(m-1)$
+
+  Критерий: $\chi^2_B \geqslant \chi^2_{1-\alpha} ( (k-1)(m-1) )$, то $H_0$ принимается;
+  если $\chi^2_B < \chi^2_{1-\alpha} ( (k-1)(m-1) )$.
+\end{ex}
+
+\begin{ex}
+  100 студентов проходили опрос мешает ли курение учёбе.
+  В зависимости от курса были получены данные:
+
+  \begin{center}
+    \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      ответ / курс & 1 курс & 2 курс & 3 курс & \\
+      \hline
+      нет & 15 & 10 & 0 & 25\\
+      \hline
+      не знают & 8 & 5 & 7 & 20 \\
+      \hline
+      да & 0 & 30 & 25 & 55 \\
+      \hline
+         & 23 & 45 & 32 & 100 \\
+      \hline
+    \end{tabular}
+  \end{center}
+
+  Проверить гипотезу $H_0$ о том, что мнение не зависит от курса.
+  \[
+  \chi^2_B = 100 (\dfrac{15^2}{25*23} + \dfrac{10^2}{45*25} + \dots + \dfrac{25^2}{55*32} - 1) = 44.2
+  \]
+
+  Не забываем про условие применимости: $\dfrac{\nu_i \nu_j}{n} \geqslant 4$.
+
+  $\chi^2_{0.95} = 13.3$ следовательно $H_0$ отклоняем.
+\end{ex}
+
+\subsection{Критерий согласия Колмогорова}
+
+\begin{theorem}
+  $X_1, \dots, X_n \sim F(x)$.
+
+  Выборочная функция распределения:
+  \[
+    \hat F_n(x) = \dfrac{1}{n} \sum_{k=1}^n I(x-X_k)
+  \]
+
+  Если $F(x)$ непрерывна, то закон распределения статистики Колмогорова $D_n = \sup_x |\hat F_n(x) - F(x)|$ - не зависит от вида $F(x)$.
+\end{theorem}
+
+\begin{proof}
+  Пусть $F(x)$ - строго монотонна. Перейдем от выборки $X_k$ к выборке $Y_k$ по правилу:
+  \[
+    X_1, \dots X_n \to Y_1, \dots, Y_n; Y_k = F(X_k)
+  \]
+
+  $\dfrac{1}{n} \sum_{k=1}^n I(X_k < F^{-x} (y)) = \dfrac{1}{n} \sum_{k=1}^n I(Y_k < y)$
+
+  \begin{multline*}
+    D_n = \sup_{-\infty < x < \infty} |\hat F_n(x) - F(x)|
+    = \left|\, \begin{aligned}
+      x = F^{-1} (y) \\
+      (-\infty, \infty) \to [0, 1]
+    \end{aligned} \,\right|\\ 
+    = \sup_{0 \leqslant y \leqslant 1} |\hat F_n (F^{-1} y) - F(F^{-1} (y))|
+    = \sup_{0\leqslant y \leqslant 1} |\hat F_n(y) - y|
+  \end{multline*}
+
+  Условие строгой монотонности можно опустить, потому что достижение супремума всё равно достигается на участках строгой монотонности.
+\end{proof}
+
+О вычислении $D_n$:
+\[
+  X_1, \dots, X_n \to Y_1, \dots, Y_n; Y_k = F(X_k).
+\]
+Построим вариационный ряд
+\[
+  Y_{(1)} \leqslant \dots \leqslant Y_{(n)}
+\]
+
+\[
+  D_n = \sup_{y \in [0, 1]} |\hat{\hat F_n(y)} - y|
+  = \max_{1\leqslant k \leqslant n} \max | |Y_{(k) - \dfrac{k}{n}}|, |Y_{(k)} - \dfrac{k-1}{n}| |
+  = \max_{1 \leqslant k \leqslant n} \{ |Y_{(k)} - \dfrac{2k-1}{2n}| + \dfrac{1}{2n} \}
+\]
+
+Потому что максимум разности $\hat{\hat F_n(y)} - y$ достигается в точках скачков ЭФР.
+
+Для критерия Колмогорова важно чему равен объем выборки: $n\leqslant 35$ (иначе используем предельные теоремы).
+
+Основная гипотеза: $H_0:$ выборка подчинается закону $F(x)$.
+
+Критерий: $D_n \geqslant K_{1-\alpha} (n)$ - $H_0$ отклоняем.
+  $D_n < K_{1-\alpha} (n)$ - $H_0$ принимаем. 
+
+$K_{1-\alpha} (n)$ - значения D-критерия Колмогорова-Смирнова.
+
+\begin{ex}
+  Пассажир замерял время ожидания автобуса в минутах: $X_k = \{ 5.1; 3.7; 1.2; 9.2; 4.8 \}$.
+  Проверить гипотезу $H_0$ о том, что время ожидания $\sim R[0, 10]$.
+ 
+  Упорядочим выборку:
+  \[
+    X_{(k)} = \{ 1.2, 3.7, 4.8, 5.1, 9.2 \}
+  \]
+
+  Для равномерного закона функция распределения:
+  \[
+    F(x) = \dfrac{x}{10}
+  \]
+
+  \begin{center}
+    \begin{tabular}{|c|c|c|c|}
+      \hline
+      $X_{(k)}$ & $Y_{(k)}$ & $\dfrac{2k-1}{2n}$ & $\left| Y_{(k)} - \dfrac{2k-1}{2n} \right| + \dfrac{1}{2n}$ \\
+      \hline
+      1.2 & 0.12 & 0.1 & 0.12 \\
+      3.7 & 0.37 & 0.3 & 0.17 \\
+      4.8 & 0.48 & 0.3 & 0.12 \\
+      5.1 & 0.51 & 0.7 & 0.29 \\
+      9.2 & 0.92 & 0.9 & 0.12 \\
+      \hline
+    \end{tabular}
+  \end{center}
+
+  \[
+    D_5 = 0.29
+  \]
+
+  Значение $K_{0.95} (5) = 0.56$, следовательно, $H_0$ принимаем.
+\end{ex}
+
+\subsection{Критерий Колмогорова для $k>35$}
+
+\begin{theorem}[Критерий Колмогорова для $k>35$]
+  Пусть $K(x) = \sum_{j=-\infty}^{\infty} (-1)^j e^{-2j^2 x^2}, x>0$.
+
+  $\forall F(x) \in C$ статистика $\sqrt{n} D_n$ при $n\to\infty$ сходится по распределению к $K(x)$:
+  \[
+    \lim_{n\to\infty} (\sqrt{n} D_n < x) = K(x)
+  \]
+
+  % TODO рисунок сени тут должен быть он обещал
+
+  Критерий: $\sqrt{n} D_n \geqslant \lambda_{1-\alpha}$, то $H_0$ отклоняется. Если $\sqrt{n} D_n < \lambda_{1-\alpha}$, то $H_0$ - принимается.
+
+  \begin{center}
+    \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      $1-\alpha$ & 0.9 & 0.95 & 0.98 & 0.99 \\
+      \hline
+      $\lambda_{1-\alpha}$ & 1.224 & 1.358 & 1.515 & 1.628 \\
+      \hline
+    \end{tabular}
+  \end{center}
+\end{theorem}
+
+\subsection{Проверка гипотезы об однородности выборки}
+
+$X_1, \dots, X_n \sim F(x)$, $Y_1, \dots, Y_m \sim G(x)$.
+
+Гипотеза $H_0: F(x) = G(x)$
+
+\begin{theorem}[Смирнов]
+  Пусть $\hat F_n(x) $ и $\hat G_m(x)$ - ЭФР выборок $X_k$, $Y_j$.
+  
+  Статистика Смирнова:
+  \[
+    D_{nm} = \sup_x |\hat F_n(x) - \hat G_m(x)|
+  \]
+  Если $F(x) = G(x)$ - непрерывны, то
+  \[
+    \lim_{n\to\infty, m\to\infty} P(\dfrac{nm}{m+n} D_{n,m} < x) = K(x)
+  \]
+
+  При $n, m \geqslant 35$:
+  Критерий: $\sqrt{\dfrac{nm}{n+m}} D_{nm} > \lambda_{1-\alpha}$, то $H_0$ отклоняем; $\sqrt{\dfrac{nm}{n+m}} D_{nm} < \lambda_{1-\alpha}$, то $H_0$ принимаем.
+\end{theorem}
+
+О вычислении $D_{nm}$:
+\begin{enumerate}
+  \item Составляем вариационный ряд объединенной выборки:
+  \[
+    z_{(1)} \leqslant z_{(2)} \leqslant \dots \leqslant z_{(n+m)}
+  \]
+  \item Составляем статистику:
+    \[
+      s_j = |\dfrac{jn}{n+m} - \sum_{k=1}^j \delta_k|
+    \]
+    где $\delta_k = \begin{cases}
+      1, &z_{(k)} \in X_1, \dots, X_n \\
+      0, &z_{(k)} \in Y_1, \dots, Y_m
+    \end{cases}$
+  
+  \item 
+    \[
+      \max_j \tilde S_j = \max_j |\dfrac{j}{m} - \dfrac{\sum_{k=1}^j \delta_k(n+m)}{nm}| = \max_j |\dfrac{jn - \sum_{k=1}^j \delta_k (n+m)}{nm}| =
+    \]
+    \[
+      j = \sum_{k=1}^j \delta_k + K_y = K_x + K_y
+    \]
+
+    \[
+      = \max_j |\dfrac{k_y n - k_x m}{nm}| = \max_j |\dfrac{k_y}{m} - \dfrac{k_x}{n}|
+      = \max_j |\hat G_m(z_{(j)}) - \hat F_n (z_{(j)})|
+    \]
+\end{enumerate}
+
+
