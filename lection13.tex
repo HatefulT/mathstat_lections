@@ -1,0 +1,256 @@
+\section{Лекция 13 - 2023-11-29 - }
+
+\subsection{Обработка двумерной выборки}
+
+Пусть $(X_1, Y_1), (X_2, Y_2), \dots, (X_n, Y_n)$, причем $X_i$ и $Y_i$ зависимы, $X_i$ и $X_j$ независимы при $i \neq j$.
+$M X_k = a_x$, $M Y_k = a_y$.
+
+Статистики: $\bar X, \bar Y, S_x^2 = \dfrac{1}{n-1} \sum (X_k - \bar X)^2, S_y^2 = \dfrac{1}{n-1} \sum (Y_k - \bar Y)^2$. 
+
+\[
+  S_{xy}^2 = \dfrac{1}{n-1} \sum (X_k - \bar X) (Y_k - \bar Y)
+\]
+
+Свойства:
+\begin{enumerate}
+  \item
+    % TODO вот здесь много было в доказательстве этого свойства
+    \begin{multline*}
+      M \sum (X_k - \bar X)(Y_k - \bar Y) = 
+      \dots
+      = (n-1) \sigma_{12}
+    \end{multline*}
+  \item
+    \begin{equation*}
+      S_{xy}^2 = \dfrac{n}{n-1} \left( \dfrac{1}{n} \sum (X_k - a_x)(Y_k - a_y) - n (\bar X - a_x)(\bar Y - a_y) \right)
+      \toPN \sigma_{12}.
+    \end{equation*}
+    оценка состоятельная
+  \item
+    \begin{equation*}
+      \cov (\bar X, \bar Y) = \cov \left( \dfrac{1}{n} \sum X_k, \dfrac{1}{n} \sum Y_k \right)
+      = \dfrac{1}{n^2} \left( \sum_{k=1}^n \cov (X_k, Y_k) + \sum_{k\neq j} \cov(X_k, Y_j) \right)
+      = \dfrac{\sigma_{12}}{n}
+    \end{equation*}
+\end{enumerate}
+
+$S_{xy}^2$ - (исправленная) выборочная ковариация.
+
+$\mu_{11} = \dfrac{1}{n} \sum (X_k - \bar X)^2$,
+$\mu_{12} = \dfrac{1}{n} \sum (X_k - \bar X)(Y_k - \bar Y)$, 
+$\mu_{22} = \dfrac{1}{n} \sum (Y_k - \bar Y)^2$ --
+оценки элементов ковариационной матрицы (смещенные).
+
+\begin{theorem}
+  Если $(X_1,Y_1), \dots, (X_n, Y_n)$ -- выборка из 
+  $N( (a_x, a_y), \begin{pmatrix} \sigma_{11} & \sigma_{12} \\ \sigma_{12} & \sigma_{22} \end{pmatrix} )$,
+  то $(\bar X, \bar Y)$ и $\bar \mu = (\mu_{11}, \mu_{12}, \mu_{22})$ независимы и
+  $(\bar X, \bar Y) \sim N( \bar a, \dfrac{1}{n} \dots )$
+  и плотность имеет вид:
+  \[
+    p_{\mu} (x, y, z) = \dfrac{n^{n-1}}{4\pi \Gamma(n-2)} \dfrac{(xz - y^2)^\dfrac{n-4}{2}}{|\Sigma|^\dfrac{n-1}{2}} e^{-\dfrac{n}{2 |\Sigma|} (\sigma_{22} x - 2 \sigma_{12}y + \sigma_{11} z) }, x>0, y>0, xz>y^2
+  \]
+\end{theorem}
+Без доказательства.
+
+\begin{theorem}[Следствие]
+  Пусть $r_B = \dfrac{\mu_{11}}{\sqrt{xz}}$ -- линейная замена $(y = \sqrt{xz} \rho)$, тогда $\bar \mu = (\mu_{11}, r_B, \mu_{22})$
+  \[
+    p_\mu (x, \rho, z) = 
+    \dfrac{n^{n-1}}{4\pi \Gamma(n-2)}
+    \dfrac{(xz)^\dfrac{n-3}{2} \cdot (1-\rho^2)^\dfrac{n-4}{2}}{|\Sigma|^\dfrac{n-1}{2}}
+    e^{-\dfrac{n}{2 |\Sigma|} (\sigma_{22} x - 2 \sigma_{12}y + \sigma_{11} z) }, x>0, y>0, xz>y^2
+  \]
+
+  Найдем $p_{r_B} (\rho)$:
+
+  Для этого разложим экспоненту в ряд:
+  \[
+    e^{ \dfrac{n}{|\Sigma|} \sigma_{12} \rho \sqrt{xz} }
+    = \sum_{\nu=0}^\infty \left(\dfrac{n \sigma_{12}}{|\Sigma|} \rho \sqrt{xz} \right)^\nu \dfrac{1}{\nu!}
+  \]
+
+  Теперь проинтегрируем по х:
+  \[
+    \int_0^{+\infty} x^{\dfrac{n-3}{2} + \dfrac{\nu}{2}} e^{-\dfrac{n \sigma_{22} x}{2 |\Sigma|}} \, dx = \dots % (\dfrac{2 }{})
+  \]
+
+  Без подробностей:
+  \[
+    p_{r_B} (\rho) = \dfrac{2^{n-2}}{\pi (n-3)!}
+    (1 - r^2)^{\dfrac{n-1}{2}}
+    (1-\rho^2)^{\dfrac{n-4}{2}}
+    \sum_{\nu=0}^\infty \Gamma^2\left(\dfrac{n+\nu-1}{2}\right) \dfrac{(2 r \rho)^\nu}{\nu!}
+  \]
+\end{theorem}
+
+Рассмотрим частный случай $r=0$:
+\[
+  p_{r_B} (\rho) = \dfrac{2^{n-2}}{\pi (n-3)!}
+  (1-\rho^2)^{\dfrac{n-4}{2}}
+  \Gamma^2\left(\dfrac{n-1}{2}\right)
+\]
+
+Какое-то свойство гамма-функции:
+\[
+  2^{2p-1} \dfrac{\Gamma(p+1/2)}{\Gamma(2p)} = \dfrac{\Gamma(1/2)}{\Gamma(p)}
+\]
+
+\[
+  p_{r_B} (\rho) = \dfrac{\Gamma(\dfrac{n-1}{2})}{\Gamma(\dfrac{n-2}{2}) \sqrt{\pi}} (1-\rho^2)^{\dfrac{n-4}{2}}.
+\]
+
+
+\begin{theorem}
+  При $r=0$ статистика $t_B = \dfrac{r_B \sqrt{n-2}}{\sqrt{1 - r_B^2}}$
+  распределена по закону $t(n-2)$.
+\end{theorem}
+
+\begin{proof}
+  \[
+    y = \dfrac{x \sqrt{n-2}}{\sqrt{1-x^2}}; y^2 (1-x^2) = x^2 (n-2)
+  \]
+
+  \[
+    x = \dfrac{y}{\sqrt{y^2+n-2}} = g^{-1} (y)
+  \]
+
+  \[
+    (g^{-1} (y))' = \dfrac{\sqrt{} - y \dfrac{2y}{\sqrt{} } }{\sqrt{}^2} = \dfrac{n-2}{(y^2 + n - 2)^{3/2}}
+  \]
+
+  \begin{multline*}
+    p_{t_B} (y) = p_{r_b} (g^{-1}(y)) (g^{-1}(y))'
+    = \dfrac{\Gamma(\dfrac{n-1}{2})}{\Gamma(\dfrac{n-2}{2}) \sqrt{\pi}}
+    (1-(\dfrac{y}{\sqrt{y^2+n-2}})^2)^{\dfrac{n-4}{2}} \cdot
+    \dfrac{n-2}{(y^2 + n - 2)^{3/2}} = \\
+    = \dfrac{\Gamma((n-1)/2)}{\Gamma((n-2)/2) \sqrt{\pi (n-2)}} (1 + \dfrac{y^2}{n-2})^{-\dfrac{n-1}{2}} \sim t(n-2)
+  \end{multline*}
+\end{proof}
+
+\begin{ex}
+  $n=67$ из нормального распределения. $r_B = -0.159$. Можно ли считать, что $X$ и $Y$ отрицательно коррелированы при $\alpha = 0.05$.
+
+  \begin{align*}
+    H_0 &: r = 0 \\
+    H_1 &: r < 0
+  \end{align*}
+
+  $t_B = \dfrac{r_B \sqrt{n-2}}{\sqrt{1-r_B^2}} \sim t(n-2)$ -- при выполнении гипотезы $H_0$.
+
+  $S = \{r_B < C\} = \{ t_B < C_1\}$
+
+  \[
+    \alpha = P(t_B < C_1 | H_0) \Rightarrow S = \{ t_B < t_\alpha (n-2) \} = 
+    \left\{ r_B < \dfrac{t_\alpha (n-2)}{\sqrt{ (t_\alpha(n-2))^2 + n-2 }}\right\}
+  \]
+
+  $r_B = -1.159 \notin S \Rightarrow H_0$ -- принимается (нельзя считать). 
+\end{ex}
+
+Если $r \neq 0$:
+\begin{theorem}[Фишера]
+  Если $(X_1, Y_1), \dots, (X_n, Y_n)$ -- выборка из нормального закона, то
+  $z = \operatorname{Arcth} (r_B) = \dfrac{1}{2} \ln \dfrac{1 + r_B}{1 - r_B}$
+  приближенно распределена ($n \geqslant 10$) по
+  $N\left(a_z, \dfrac{1}{\sqrt{n-3}}\right)$, где
+  $a_z = \operatorname{Arcth} (r) + \dfrac{r}{2(n-1)}$.
+\end{theorem}
+
+\subsubsection{Построение доверительного интервала для r}
+
+Закон распределения статистики $(z-a_z) \sqrt{n-3} \sim N(0, 1)$ не зависит от $r$, тогда:
+\[
+  \alpha = P(-u_{1-\alpha/2} < (z-a_z) \sqrt{n-3} < u_{1 - \alpha/2})
+\]
+
+\[
+  \dfrac{-u_{1-\alpha/2}}{\sqrt{n-3}} < \operatorname{Arcth} (r_B) - \operatorname{Arcth} (r) - \dfrac{r}{2(n-1)} < \dfrac{u_{1-\alpha/2}}{\sqrt{n-3}}
+\]
+
+Это уравнение является трансцендентным, поэтому заменим одну из r на $r_B$:
+\[
+  \dfrac{-u_{1-\alpha/2}}{\sqrt{n-3}} < \operatorname{Arcth} (r_B) - \operatorname{Arcth} (r) - \dfrac{r_B}{2(n-1)} < \dfrac{u_{1-\alpha/2}}{\sqrt{n-3}}
+\]
+
+Разрешая относительно r:
+\[
+  \th \left( \operatorname{Arcth}(r_B) - \dfrac{r_B}{2(n-1)} - \dfrac{u_{1-\alpha/2}}{\sqrt{n-3}} \right)
+  < r
+  < \th \left( \operatorname{Arcth}(r_B) - \dfrac{r_B}{2(n-1)} + \dfrac{u_{1-\alpha/2}}{\sqrt{n-3}} \right)
+\]
+
+\begin{ex}
+  В условиях прошлого примера $r_B = -0.159$.
+  \[
+    \dots \Rightarrow -0.383 < r < 0.086
+  \]
+\end{ex}
+
+\subsubsection{Задача регрессии}
+
+\begin{definition}
+  \emph{Регрессией} случайной величины $\eta$ на СВ $\xi$ называется $M(\eta | \xi)$.   
+\end{definition}
+
+\begin{ex}
+  $(\xi, \eta) \sim$ норм.
+
+  \[
+    p_\eta (y | \xi=x) = \dfrac{P_{\xi\eta} (x, y)}{P_\xi(x)} \dots \sim N\left(a_y+\dfrac{\sigma_{12}}{\sigma_{11}}(x-a_x), \sqrt{\sigma_{22} (1-r^2)}\right)
+  \]
+
+  \[
+    M(\eta | \xi=x) = a_y + \dfrac{\sigma_{12}}{\sigma_{11}} (x-a_x);
+    D(\eta | \xi=x) = \sqrt{\sigma_{22} (1-r^2) }
+  \]
+
+  $M(\eta | \xi) = M(\eta | \xi=x) |_{x=\xi} = f(\xi)$.
+  В гассовском случае:
+  $f(\xi) = a_y + \dfrac{\sigma_{12}}{\sigma_{11}} (\xi - a_x)$.
+
+  Для r-мерной выборки:
+  \[
+    Y_k = f(\vec{X_k}) = \sum_{j=0}^{r-1} \beta_j X_k^{(j)}.
+  \]
+\end{ex}
+
+Свойства регрессии:
+\begin{enumerate}
+  \item
+    \[
+      M M(\eta | \xi) = M \eta
+    \]
+  \item
+    \[
+      M (\eta g(\xi) | \xi) = g(\xi) M(\eta | \xi)
+    \]
+  \item
+    \[
+      \min_{h} M(\eta - h(\xi))^2 = M (\eta - f(\xi))^2 = M (\eta - M(\eta | \xi))^2
+    \]
+    \begin{proof}
+      \begin{multline*}
+        M(\eta - h(\xi))^2 = M( \eta - f(\xi) + f(\xi) - h(\xi) )^2 = \\
+        M( (\eta - f(\xi))^2 + 2 M(\eta - f(\xi))(\f(\xi) - h(xi)) + M (f(\xi) - h(\xi))^2 
+      \end{multline*}
+
+      Второе слагаемое равно нулю
+      \begin{multline*}
+        M(\eta - f(\xi))(f(\xi) - h(\xi)) = M M( (\eta - f(\xi))(f(\xi) - h(\xi)) |\xi ) = \\
+        = M( f(\xi) - h(\xi) ) M(\eta - f(\xi) | \xi) 
+        = M( f(\xi) - h(\xi) ) (f(\xi) - f(\xi)) = 0
+      \end{multline*}
+
+      А третье слагаемое больше или равно нуля.
+    \end{proof}
+
+  \item
+    \[
+      D \eta = D f(\xi) + \bar \sigma_\eta^2; \bar \sigma_n^2 = D(\eta - f(\xi))^2
+    \]
+
+    \[
+      \eta = f(\xi) + \eta - f(\xi)
+    \]
+\end{enumerate}
