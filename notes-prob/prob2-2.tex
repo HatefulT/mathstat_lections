@@ -59,9 +59,9 @@ E$ символом $ \mu(\mathscr E) $. Доказательство сущес
   Из лемм выше видно, что достаточно доказать, что $\mathscr M = \mu(\mathscr A) $ есть
   алгебра. Займёмся этим.
 
-  Возьмём $ A \in \mathscr M $ и покажем, что $ \bar A \in \mathscr M $.
+  Единица алгебры сохраняется. Возьмём $ A \in \mathscr M $ и покажем, что $ \bar A \in \mathscr M $.
   Рассмотрим нетривиальный случай $ A \notin \mathscr A $. Тогда $ A_i \uparrow
-  A$ (случай $ A_i \downarrow A рассматривается аналогично) $ для некоторых $ A_i \in \mathscr A $, иначе была
+  A$ (случай $ A_i \downarrow A $ рассматривается аналогично) для некоторых $ A_i \in \mathscr A $, иначе была
   бы потеряна минимальность. Но 
   \[
     \bar A =\overline{\bigcup_{i=1}^\infty A_i} = \bigcap_{i=1}^\infty \bar A_i
@@ -74,8 +74,10 @@ E$ символом $ \mu(\mathscr E) $. Доказательство сущес
   \cup B \in \mathscr M $. Опуская тривиальный случай, будем считать, что хотя
   бы одно из множеств принадлежит системе $ \mathscr M \setminus \mathscr A $.
   Пусть $ A_i \uparrow A $, $ A_i \in \mathscr A $, а $ B \in \mathscr A $. Но
-  тогда $ (A_i\cup B) \uparrow (A\cup B) \in \mathscr M $. 
-
+  тогда 
+  \[
+  (A_i\cup B) \uparrow (A\cup B) \Rightarrow (A\cup B) \in \mathscr M. 
+  \]
   Не упомянутые случаи
   рассматриваются аналогично. Например, если положить $ A_i \downarrow A $, $
   B_i \uparrow B $, то $ (\bar A \cup \bar B_i) \downarrow (\bar A
@@ -88,6 +90,10 @@ E$ символом $ \mu(\mathscr E) $. Доказательство сущес
   Пусть $ \Omega $ --- некоторое пространство. Система $ \mathscr P $
   подмножеств $ \Omega $ называется \emph{$ \pi $-системой}, если она замкнута
   относительно конечных пересечений.
+  \begin{enumerate}
+    \item[$\pi.$] ($ A, B \in \mathscr P) \Rightarrow (A \cap B) \in \mathscr P
+      $.
+  \end{enumerate}
 
   Система $ \mathscr L $ подмножеств $ \Omega $ называется \emph{$ \lambda
   $-системой}, если 
@@ -115,11 +121,13 @@ E$ символом $ \mu(\mathscr E) $. Доказательство сущес
   $ \lambda'_b $. Дело в том,
     что  
     \[
-      B \setminus A = \overline{A\cup \overline B}.
+      B \setminus A = \overline{A\sqcup \overline B}
     \]
+    при $ A \subseteq B $.
     
-    $ \lambda'_c $. Пусть $ A = \bigsqcup A_n $. Положим $ B_n = \bigcup A_n $,
-    тогда $ B_n \uparrow A $. Аналогично проводится доказательство в обратную
+    $ \lambda'_c $. Пусть $ A = \bigsqcup A_n $. Положим $ B_k =
+    \bigsqcup\limits_{n=1}^k A_n $,
+    тогда $ B_k \uparrow A $. Аналогично проводится доказательство в обратную
     сторону, где полагается $ B_n = A_n \setminus \bigcup\limits_{i=1}^{n-1} A_i $.
   \end{proof}
 \end{remark*}
@@ -151,7 +159,7 @@ $ \sigma $-алгебра (но не просто алгебра) являетс
      \ref{enum:pl-the-1} вытекает, что достаточно доказать, что система $
      \lambda(\mathscr E) $ является $ \pi $-системой.
 
-     Ряды системы $ \mathscr E \supseteq A,\; B,\; C_i,\; D_i$ пополнили множества $ \bar A
+     Ряды $ \pi $-системы $ \mathscr E \supseteq A,\; B,\; C_i,\; D_i$ пополнили множества $ \bar A
      $, $ \bar B $, а также $ C = \bigsqcup C_i $ и $ D = \bigsqcup D_i $.
      Больше в $ \lambda(\mathscr E) $ никаких множеств нет, иначе потерялась бы
      минимальность. При этом, например,
@@ -161,7 +169,7 @@ $ \sigma $-алгебра (но не просто алгебра) являетс
      \]
      а  
      \[
-       (C_i \cap D_i) \uparrow (C \cap D).
+       \left(\bigcup_{i=1}^k C_i \cap \bigcup_{i=1}^k D_i\right) \uparrow (C \cap D).
      \]
        Остальное проверяется аналогично.
   \end{proof}
@@ -175,8 +183,9 @@ $ \sigma $-алгебра (но не просто алгебра) являетс
   E)$.
 \end{lemma}
 \begin{proof}
-  Достаточно доказать, что при данных условиях меры $ \mathsf P $ и $ \mathsf Q
-  $ совпадают на $ \lambda $-системе множеств $ \mathscr L $. В этом случае,
+  Достаточно доказать, что при данных условиях система множеств $ \mathscr L $, на которой
+  совпадают меры $ \mathsf P $ и $ \mathsf Q $, является $ \lambda
+  $-системой. В этом случае,
   следует из теоремы выше, $ \sigma(\mathscr E) \subseteq \mathscr L $, что и
   требовалось доказать.
 
@@ -224,9 +233,277 @@ $ \sigma $-алгебра (но не просто алгебра) являетс
     \mathsf P(AB) = \mathsf P(\bar A)\mathsf P(B).
 \]
 
-Исходя из этого, становится ясно, что системы $ \lambda(\mathscr A_1),\,
+Исходя из этого, ясно, что системы $ \lambda(\mathscr A_1),\,
 \lambda(\mathscr A_2),\, \ldots,\, \lambda(\mathscr A_n) $ также независимы.
 \end{proof} %TODO: проверить доказательство
+
+\begin{theorem}
+  Пусть $ \mathscr E $ есть $ \pi $-система множеств из $ \mathscr F $ и $
+  \mathscr H $ --- совокупность тех действительнозначных $ \mathscr F
+  $-измеримых функций, для которых выполнены следующие свойства:
+  \begin{enumerate}
+    \item если $ A \in \mathscr E $, то функция $ I_A \in \mathscr H $;
+    \item если $ f \in \mathscr H $, $ h \in \mathscr H $, то $ f + h \in
+      \mathscr H $ и $ cf \in \mathscr H $ для всякого $ c \in \mathbb R $;
+    \item если функции $ h_n \in \mathscr H $, $ n \in \mathbb N $, $ 0
+      \leqslant h_n \uparrow h $, то $ h \in \mathscr H $.
+  \end{enumerate}
+      Тогда класс $ \mathscr H $ содержит и все ограниченные функции, являющиеся
+      измеримыми относительно $ \sigma $-алгебры $ \sigma(\mathscr E) $.
+\end{theorem} % FIXME: зачем?
+
+
+\subsection{Некоторые примеры}
+Всякое борелевское множество измеримо по Лебегу, но обратное неверно.
+
+\begin{lemma}
+Произвольный элемент системы $ \sigma(\mathscr A) $ может быть представлен в
+виде счётной последовательности операций взятия дополнения и объединения,
+применённой к множествам из $ \mathscr A $ вместе с пустым множеством. 
+\end{lemma}
+\begin{proof}
+От обратного. Изымем из $ \sigma(\mathscr A) $ все элементы, не удовлетворяющие
+указанному условию. Полученная система множеств в условиях минимальности должна
+потерять свойства $ \sigma $-алгебры. Но ни одно из её свойств быть потеряно не
+может, иначе получим противоречие.
+\end{proof}
+
+\begin{theorem}\label{th:5}
+ 
+\[
+  \mathscr B(R^n) = \bigotimes_{k=1}^n \mathscr B(R).
+\]
+
+\end{theorem}
+\begin{proof}
+    Проведём доказательство по индукции. Для $ n=1 $ результат очевиден. Докажем
+    для $ n=2 $.
+
+    Очевидно, $ \mathscr B(R^2) \subseteq \mathscr B \otimes \mathscr B $.
+    Докажем, что произвольный борелевский прямоугольник $ B = B_1 \times B_2 $
+    принадлежит $
+    \mathscr B(R^2) $, тем самым доказав всю теорему.
+
+    Пусть $ B'_1 = B_1 \times R $ есть прообраз множества $ B_1 $ при
+    проектировании на первую координату, а $ B'_2 = R \times B_2 $ --- прообраз
+    $ B_2 $ при проектировании на вторую координату. Тогда $ B = B'_1
+    \cap B'_2 $. Представим $ B_1 $, $ B_2 $ в виде счётного последовательного
+    применения операций объединения и дополнения к системе интервалов $ I_i $.
+    Эти операции по свойствам прообраза функции благополучно переносятся за прямое произведение, откуда и
+    получаем результат теоремы.
+\end{proof}
+
+\begin{align*}
+  \mathscr I(I_1 \times \ldots \times I_n) &= \{x\colon x = (x_1, x_2, \ldots),
+  x_1 \in I_1, \ldots, x_n \in I_n\},\\
+    \mathscr I(B_1 \times \ldots \times B_n) &= \{x\colon x = (x_1, x_2, \ldots),
+  x_1 \in B_1, \ldots, x_n \in B_n\},\\
+      \mathscr I(B^n) &= \{x\colon x=(x_1, x_2, \ldots), (x_1, \ldots, x_n) \in
+      B^n\},
+\end{align*}
+где $ B^n $ --- борелевское множество из $ \mathscr B(R^n) $. Назовём
+соответствующие минимальные $ \sigma $-алгебры $ \mathscr B(R^\infty) $, $
+\mathscr B_1(R^\infty) $, $ \mathscr B_2(R^\infty) $ и докажем поочерёдно, что $ \mathscr
+B(R^\infty) \subseteq \mathscr B_1(R^\infty) \subseteq \mathscr B_2(R^\infty)
+\subseteq \mathscr B(R^\infty) $.
+
+\begin{theorem}
+  Тем самым будет доказано, что  
+  \[
+      \mathscr B(R^\infty) = \mathscr B_1(R^\infty) = \mathscr B_2(R^\infty).
+  \]
+\end{theorem} 
+\begin{proof}
+  Первое отношение очевидно. Ход доказательства второго отношения в точности
+  повторяет ход доказательства теоремы \ref{th:5}, на который бесконечность
+  прямого произведения никак не влияет. 
+
+  Наконец, докажем последнюю из принадлежностей. Для этого докажем, что
+  произвольный цилиндр $ \mathscr I(B^n) $ окажется в $ \sigma $-алгебре $
+  \mathscr B(R^\infty) $. Спроектируем цилиндр на первые $ n $ координат и
+  представим полученную проекцию $ B^n $ в виде последовательности операций дополнения и
+  объединения, применённых к системе брусков $ I^n_i $. Прообраз при
+  проектировании данного множества и приведёт к ответу.
+\end{proof}
+
+
+\subsubsection{Измеримое пространство $( R^T, \mathscr B(R^T) )$}
+Здесь $ R^T $ мы называем совокупность действительнозначных функций,
+определённых на произвольном множестве $ T $. Введём также обозначение $ x_t :=
+x(t)$.
+
+В этих обозначениях назовём циллиндрами следующие множества:
+
+\begin{theorem}
+  Докажем, что  
+  \[
+      \mathscr B(R^T) = \mathscr B_1(R^T) = \mathscr B_2(R^T).
+  \]
+\end{theorem}
+\begin{proof}
+  Доказательство полностью повторяет доказательства выше.
+\end{proof}
+
+
+\subsubsection{Измеримое пространство $ (C, \mathscr B(C)) $}
+\begin{theorem}
+  Докажем, что  
+  \[
+      \mathscr B(C) = \mathscr B_0(C).
+  \]
+\end{theorem}
+\begin{proof}
+$ \mathscr B(C) \subseteq \mathscr B_0(C) $. Действительно, пусть $ B =
+\{x\colon x_{t_0} < b\} $ --- некоторое цилиндрическое множество. Оно, конечно,
+открыто. Тогда открыто и множество $ \{x\colon x_{t_1} < b_1, \ldots, x_{t_n} <
+b_n\} \in \mathscr B_0(C)$.
+
+$ \mathscr B_0(C) \subseteq \mathscr B(C) $. Докажем, что любой открытый шар $
+B_\rho $ будет принадлежать $ \mathscr B(C) $. 
+\begin{multline*}
+  B_\rho = \{y \in C\colon y \in S_\rho(x^0)\} = \left\{ y \in C\colon \max_t
+  |y_t - x_t^0| < \rho \right\} =\\=
+  \bigcap_{k} \left\{ y \in C\colon |y_{t_k} - x_{t_k}^0 | < \rho \right\} \in
+  \mathscr B(C),
+\end{multline*}
+где пересечение берётся по всем рациональным точкам $ T $.
+\end{proof}
+
+
+
+\section{Способы задания вероятностных мер на измеримых пространствах}
+Перед тем как ввести вероятностную меру на указанных выше измеримых
+пространствах сделаем несколько важных замечаний.
+
+\begin{theorem}[Каратеодори]\label{the:carath}
+  Пусть $ \Omega $ --- некоторое пространство, $ \mathscr A $ --- 
+алгебра его подмножеств и $ \mathscr B = \sigma(\mathscr A) $ --- наименьшая $
+\sigma $-алгебра, содержащая $ \mathscr A $. Пусть $ \mu_0 $ --- $ \sigma
+$-конечная мера (как $ \sigma $-аддитивная функция множеств) на $ (\Omega,
+\mathscr A) $. Тогда существует и притом единственная мера $ \mu $  на $ (\Omega, \mathscr B) $, являющаяся продолжением $ \mu_0
+$, то есть такая, что 
+\[
+    \mu(A) = \mu_0(A), \quad A \in \mathscr A.
+\]
+\end{theorem}
+\begin{proof}
+\end{proof}
+
+
+\subsection{Функция распределения}
+Рассмотрим простейшее измеримое пространство $ (R, \mathscr B(R)) $. 
+
+\begin{definition}
+  Назовём \emph{функцией распределения} функцию $ F\colon \mathbb R \to \mathbb
+  R $, удовлетворяющую следующим \textbf{свойствам функции распределения}:
+  \begin{enumerate}
+    \item \textsc{Неубывание}.
+    \item $F(-\infty) = 0$, $ F(\infty) = 1 $, где 
+    \[
+      F(-\infty) = \lim_{x\to-\infty} F(x), \quad F(\infty) = \lim_{x\to+\infty}
+      F(x).
+    \]
+  \item \textsc{Непрерывность справа}. Функция $ F(x) $ непрерывна справа и
+    имеет пределы слева в каждой точке $ x \in \mathbb R $.
+  \end{enumerate}
+\end{definition}
+
+Пусть $ \mathsf P = \mathsf P(A) $ --- вероятностная мера, определённая на
+борелевских множествах $ A \in \mathscr B(R) $ числовой прямой $ \mathbb R $. Положим 
+\[
+  F(x) = \mathsf P(-\infty, x], \quad x \in \mathbb R.
+\]
+\begin{proof}
+  1. Очевидно.
+
+  2. Рассмотрим, например, $\lim\limits_{x\to-\infty} \mathsf P(-\infty, x]$, а
+  точнее \textsl{произвольную} подпоследовательность $ \lim\limits_{n\to\infty}
+  \mathsf P(A_n)$, где $A_n := (-\infty, x(n)]$. Очевидно, $ A_n \downarrow
+  \varnothing $, и доказываемое следует из теоремы о непрерывности меры (см.
+  теорему \ref{the:nepr-P}).
+
+  3. Аналогично рассмотрим произвольную подпоследовательность $ x(n) \to a+ $ и множества $ A_n := (-\infty, x(n)] $. Снова $
+  A_n \downarrow A $, где $ A =  (-\infty, a] $ и снова доказательство
+  непрерывности справа
+  завершается ссылкой на теорему о непрерывности меры.
+
+  Положив, однако, $ x(n) \to a- $, получим $ A_n \uparrow (-\infty, a) \neq A
+  $. При этом мера одной точки может быть и не равной нулю $ \mathsf P(\{a\}) >
+  0$. 
+\end{proof}
+
+Итак, каждой вероятностной мере соответствует ровно одна функция распределения.
+Докажем, что верно и обратное. 
+\begin{theorem}
+  Пусть $ F = F(x) $ --- некоторая функция распределения. Тогда на $ (R,
+  \mathscr B(R) ) $ существует и притом единственная вероятностная мера $
+  \mathsf P $ такая, что для любых $ -\infty\leqslant a < b<\infty $ 
+  \[
+    \mathsf P(a, b] = F(b) - F(a).
+  \]
+\end{theorem}
+\begin{proof}
+Определим меру сначала на алгебре $ \mathscr A $ конечных сумм непересекающихся полуинтервалов
+$ (a, b] $ прямой. На ней, конечно, 
+\[
+  \mathsf P_0(A) = \sum_{k=1}^n[F(b_k) - F(a_k)], \quad A \in \mathscr A.
+\]
+На алгебре $ \mathscr A $ эта формула однозначно определяет конечно-аддитивную функцию
+множеств. Покажем, что $ \mathsf P_0(A) $ счётно-аддитивна и тем самым благодаря
+теореме Каратеодори (см. теорему \ref{the:carath}) завершим
+доказательство.
+
+Согласно теореме о непрерывности меры (см. теорему \ref{the:nepr-P}) для этого
+достаточно проверить непрерывность $ \mathsf P_0 $ в нуле, то есть показать,
+что 
+\[
+    \mathsf P_0(A_n) \to 0, \quad A_n\downarrow\varnothing.
+\]
+Будем для начала считать, что система $ A_n $ ограничена, то есть каждое из
+множеств принадлежит некоторому отрезку $ [-N, N] $. Заметим, что ввиду
+непрерывности справа функции распределения $ F(x) $ верно 
+\[
+  \mathsf P_0(a', b] = F(b) - F(a') \to F(b) - F(a) = \mathsf P_0(a, b]
+\]
+при $ a' \to a+ $. Значит, для любого множества $ A_n $ ($ = (a, b] $) существует множество $
+B_n $ ($ = (a', b] $) такое, что $ [B_n] \subseteq A_n $ и  
+\[
+  \mathsf P(A_n \setminus B_n) \leqslant \varepsilon 2^{-n}.
+\]
+
+По предположению $ \bigcap A_n = \varnothing $, а значит, и $ \bigcap [B_n] =
+\varnothing $. Более того, найдётся конечное число $ n_0 $, такое что 
+\[
+  \bigcap_{n=1}^{n_0} [B_n] = \varnothing.
+\]
+Это --- следствие теоремы Гейне -- Борелля, в которой компакт $ [-N, N] $
+покрывается системой открытых множеств $ [-N, N] \setminus [B_n] $.
+
+Учитывая теперь, что $ A_n $ есть убывающая система, находим 
+\begin{multline*}
+  \mathsf P_0(A_{n_0}) = \mathsf P_0\left(A_{n_0} \setminus \bigcap_{k=1}^{n_0}
+    B_k\right) \leqslant\\ \leqslant \mathsf P_0 \left( \bigcup_{k=1}^{n_0} (A_{n_0}
+      \setminus
+    B_k) \right) \leqslant \sum_{k=1}^{n_0} \mathsf P_0(A_k \setminus B_k)
+    \leqslant \sum_{k=1}^{n_0} \varepsilon 2^{-k} \leqslant \varepsilon.
+\end{multline*}
+
+Откажемся теперь от предположения, что все $ A_n \subseteq [-N, N] $ для
+некоторого $ N $. Зададим $ \varepsilon > 0 $ и выберем такое $ N $, что $
+\mathsf P_0[-N, N] > 1 - \varepsilon/2 $. Тогда 
+\[
+  \mathsf P_0(A_n) = \mathsf P_0(A_n \cap [-N, N]) + \mathsf P_0(A_n \cap
+  \overline{[-N, N]}) \leqslant \mathsf P_0(A_n \cap [-N, N]) + \varepsilon/2.
+\]
+Повторяя рассуждения выше, приходим к результату.
+\end{proof}
+
+\subsubsection{Три типа функций распределения и основные примеры}
+
+
+
+
+  
 
 
 
