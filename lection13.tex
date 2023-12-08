@@ -13,19 +13,23 @@ $M X_k = a_x$, $M Y_k = a_y$.
 
 Свойства:
 \begin{enumerate}
-  \item
+  \item $S_{XY}^2$ -- несмещенная оценка ковариации $\sigma_{12} = M(X_k - a_x)(Y_k - a_y)$,
+    где $a_x = MX_k$, $a_y = MY_k$.
     % TODO вот здесь много было в доказательстве этого свойства
-    \begin{multline*}
-      M \sum (X_k - \bar X)(Y_k - \bar Y) = 
-      \dots
+    \[
+      M \sum (X_k - \bar X)(Y_k - \bar Y)
+      = M \sum \left( (X_k - a_x) - (\bar X - a_x)\right)
+        \left( (Y_k-a_y) - (\bar Y - a_y) \right)
+      = \dots
       = (n-1) \sigma_{12}
-    \end{multline*}
-  \item
+    \]
+
+  \item Состоятельность оценки $S_{XY}^2$
     \begin{equation*}
       S_{xy}^2 = \dfrac{n}{n-1} \left( \dfrac{1}{n} \sum (X_k - a_x)(Y_k - a_y) - n (\bar X - a_x)(\bar Y - a_y) \right)
       \toPN \sigma_{12}.
     \end{equation*}
-    оценка состоятельная
+    
   \item
     \begin{equation*}
       \cov (\bar X, \bar Y) = \cov \left( \dfrac{1}{n} \sum X_k, \dfrac{1}{n} \sum Y_k \right)
@@ -34,27 +38,45 @@ $M X_k = a_x$, $M Y_k = a_y$.
     \end{equation*}
 \end{enumerate}
 
-$S_{xy}^2$ - (исправленная) выборочная ковариация.
+Таким образом, $S_{XY}^2$ - (исправленная) выборочная ковариация.
 
-$\mu_{11} = \dfrac{1}{n} \sum (X_k - \bar X)^2$,
-$\mu_{12} = \dfrac{1}{n} \sum (X_k - \bar X)(Y_k - \bar Y)$, 
-$\mu_{22} = \dfrac{1}{n} \sum (Y_k - \bar Y)^2$ --
-оценки элементов ковариационной матрицы (смещенные).
 
-\begin{theorem}
+\subsection{Оценка параметров двумерного нормального распределения}
+
+Оценки элементов ковариационной матрицы (смещенные):
+\[
+\begin{cases}
+  \mu_{11} &= \dfrac{1}{n} \sum (X_k - \bar X)^2, \\
+  \mu_{12} &= \dfrac{1}{n} \sum (X_k - \bar X)(Y_k - \bar Y), \\ 
+  \mu_{22} &= \dfrac{1}{n} \sum (Y_k - \bar Y)^2
+\end{cases}
+\]
+
+\begin{theorem}[Фишера]
   Если $(X_1,Y_1), \dots, (X_n, Y_n)$ -- выборка из 
-  $N( (a_x, a_y), \begin{pmatrix} \sigma_{11} & \sigma_{12} \\ \sigma_{12} & \sigma_{22} \end{pmatrix} )$,
+  $N(
+    \begin{pmatrix} a_x \\ a_y \end{pmatrix},
+    \begin{pmatrix}
+      \sigma_{11} & \sigma_{12} \\
+      \sigma_{12} & \sigma_{22}
+    \end{pmatrix} )$,
   то $(\bar X, \bar Y)$ и $\bar \mu = (\mu_{11}, \mu_{12}, \mu_{22})$ независимы и
   $(\bar X, \bar Y) \sim N( \bar a, \dfrac{1}{n} \dots )$
-  и плотность имеет вид:
+  и совместная плотность имеет вид:
   \[
     p_{\mu} (x, y, z) = \dfrac{n^{n-1}}{4\pi \Gamma(n-2)} \dfrac{(xz - y^2)^\dfrac{n-4}{2}}{|\Sigma|^\dfrac{n-1}{2}} e^{-\dfrac{n}{2 |\Sigma|} (\sigma_{22} x - 2 \sigma_{12}y + \sigma_{11} z) }, x>0, y>0, xz>y^2
   \]
 \end{theorem}
 Без доказательства.
 
+\begin{definition}
+  $r_B = \dfrac{\mu_{11}}{\sqrt{xz}}$ называется выборочным коэффициентом корреляции.
+\end{definition}
+
 \begin{theorem}[Следствие]
-  Пусть $r_B = \dfrac{\mu_{11}}{\sqrt{xz}}$ -- линейная замена $(y = \sqrt{xz} \rho)$, тогда $\bar \mu = (\mu_{11}, r_B, \mu_{22})$
+  Рассмотрим выборочный коэффициент корреляции. По сути он представляет собой линейную замену.
+  ($y = \sqrt{xz} \rho$),
+  тогда $\bar \mu = (\mu_{11}, r_B, \mu_{22})$
   \[
     p_\mu (x, \rho, z) = 
     \dfrac{n^{n-1}}{4\pi \Gamma(n-2)}
@@ -84,7 +106,9 @@ $\mu_{22} = \dfrac{1}{n} \sum (Y_k - \bar Y)^2$ --
   \]
 \end{theorem}
 
-Рассмотрим частный случай $r=0$:
+Рассмотрим частный случай
+\subsection{Случай $r=0$}
+
 \[
   p_{r_B} (\rho) = \dfrac{2^{n-2}}{\pi (n-3)!}
   (1-\rho^2)^{\dfrac{n-4}{2}}
@@ -116,7 +140,7 @@ $\mu_{22} = \dfrac{1}{n} \sum (Y_k - \bar Y)^2$ --
   \]
 
   \[
-    (g^{-1} (y))' = \dfrac{\sqrt{} - y \dfrac{2y}{\sqrt{} } }{\sqrt{}^2} = \dfrac{n-2}{(y^2 + n - 2)^{3/2}}
+    (g^{-1} (y))' = \dfrac{\sqrt{y^2+n-2} - y \dfrac{2y}{\sqrt{y^2+n-2}} }{y^2+n-2} = \dfrac{n-2}{(y^2 + n - 2)^{3/2}}
   \]
 
   \begin{multline*}
@@ -124,7 +148,7 @@ $\mu_{22} = \dfrac{1}{n} \sum (Y_k - \bar Y)^2$ --
     = \dfrac{\Gamma(\dfrac{n-1}{2})}{\Gamma(\dfrac{n-2}{2}) \sqrt{\pi}}
     (1-(\dfrac{y}{\sqrt{y^2+n-2}})^2)^{\dfrac{n-4}{2}} \cdot
     \dfrac{n-2}{(y^2 + n - 2)^{3/2}} = \\
-    = \dfrac{\Gamma((n-1)/2)}{\Gamma((n-2)/2) \sqrt{\pi (n-2)}} (1 + \dfrac{y^2}{n-2})^{-\dfrac{n-1}{2}} \sim t(n-2)
+    = \dfrac{\Gamma\left((n-1)/2\right)}{\Gamma\left((n-2)/2\right) \sqrt{\pi (n-2)}} \left(1 + \dfrac{y^2}{n-2}\right)^{-\dfrac{n-1}{2}} \sim t(n-2)
   \end{multline*}
 \end{proof}
 
@@ -148,7 +172,8 @@ $\mu_{22} = \dfrac{1}{n} \sum (Y_k - \bar Y)^2$ --
   $r_B = -1.159 \notin S \Rightarrow H_0$ -- принимается (нельзя считать). 
 \end{ex}
 
-Если $r \neq 0$:
+\subsection{Если $r \neq 0$}
+
 \begin{theorem}[Фишера]
   Если $(X_1, Y_1), \dots, (X_n, Y_n)$ -- выборка из нормального закона, то
   $z = \operatorname{Arcth} (r_B) = \dfrac{1}{2} \ln \dfrac{1 + r_B}{1 - r_B}$
@@ -157,7 +182,7 @@ $\mu_{22} = \dfrac{1}{n} \sum (Y_k - \bar Y)^2$ --
   $a_z = \operatorname{Arcth} (r) + \dfrac{r}{2(n-1)}$.
 \end{theorem}
 
-\subsubsection{Построение доверительного интервала для r}
+\subsection{Построение доверительного интервала для r}
 
 Закон распределения статистики $(z-a_z) \sqrt{n-3} \sim N(0, 1)$ не зависит от $r$, тогда:
 \[
