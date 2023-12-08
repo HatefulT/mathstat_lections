@@ -1,0 +1,310 @@
+\section{Лекция 14 - 2023-12-06 - Корреляционные отношения}
+
+$(\xi, \eta)$, регрессия $\eta = f(\xi) + \varepsilon$
+в гауссовском случае оказывается линейной:
+\[
+  f(\xi) = M(\eta | \xi) = (\text{в гауссовском случае}) = M\eta = \dfrac{\sigma_{12}}{\sigma_{11}} (\xi - M\xi)
+\]
+
+\begin{definition}
+  Корреляционным отношением называется 
+  \[
+    \nu_{\xi \eta} = \sqrt{\dfrac{Df(\xi)}{D\eta}}
+  \]
+
+  \[
+    \eta = f(\xi) + \varepsilon \Rightarrow D\eta = Df(\xi) + \bar \sigma_\eta^2
+  \]
+
+  \[
+    \nu_{\xi \eta} = \sqrt{1 - \dfrac{\bar\sigma^2_n}{D\eta}}
+  \]
+\end{definition}
+
+\subsection{Свойства корреляционного отношения}
+\begin{enumerate}
+  \item 
+    \[
+      \nu_{\xi\eta} = 0 \Leftrightarrow \bar\sigma^2_\eta = D\eta \Leftrightarrow Df(\xi) = 0 \Leftrightarrow f(\xi) = Mf(\xi) = M\eta
+    \]
+  \item
+    \[
+    \nu_{\xi\eta}^2 = 1 \Leftrightarrow \bar\sigma_\eta^2 = 0 \Leftrightarrow \eta = f(\xi)
+    \]
+    то есть существует функциональная зависимость.
+
+  \item $(\xi, \eta)$ - нормальный вектор, то 
+    \[
+      \nu_{\xi\eta}^2 = r_{\xi\eta}^2.
+    \]
+    \begin{proof}
+      \begin{multline*}
+        Df(\xi) = D(M\eta + \dfrac{\sigma_{12}}{\sigma_{11}} (\xi - M\xi))
+        = \dfrac{\sigma_{12}^2}{\sigma_{11}^2} D(\xi - M\xi)
+        = \dfrac{\sigma_{12}^2}{\sigma_{11}^2} \sigma_{11}
+        = \dfrac{\sigma_{12}^2}{\sigma_{11}}
+        = \dfrac{\sigma_{12}^2}{\sigma_{11} \sigma_{22}} \sigma_{22}
+        = \sigma_{22} r_{\xi\eta}^2
+        \Leftrightarrow \\
+        \Leftrightarrow
+        \nu_{\xi\eta}^2 = \dfrac{Df(\xi)}{D\eta} = \dfrac{\sigma_{22} r_{\xi\eta}^2}{\sigma_{22}} = r_{\xi\eta}^2
+      \end{multline*}
+    \end{proof}
+
+  \item В общем случае
+    \[
+      0 \leqslant r_{\xi\eta}^2 \leqslant \nu_{\xi\eta}^2 \leqslant 1
+    \]
+    \begin{proof}
+      Пусть $\zeta = x \cdot \xi - f(\xi)$, $x\in\mathbb{R}$.
+      \begin{multline*}
+        0 \leqslant D\xi = D(x \cdot \xi - f(\xi)) = x^2 D\xi - 2 x \cov (\xi, f(\xi)) + D f(\xi)
+      \end{multline*}
+      Больше нуля означает, что дискриминант меньше нуля:
+      \[
+        \dfrac{D}{4} = \cov(\xi, f(\xi))^2 - D\xi Df(\xi) \leqslant 0
+      \]
+      % TODO определить оператор cov
+      \[
+        \cov(\xi, f(\xi)) = \cov(\xi, \eta - \xi)
+        = \cov(\xi, \eta) - \cov(\xi, \xi) = \cov(\xi, \eta)
+      \]
+
+      \[
+        0 \geqslant \sigma_{12}^2 - \sigma_{11} \nu_{\xi\eta}^2 \sigma_{22} = \sigma_{12}^2 - D\xi Df(\xi) \Rightarrow r_{\xi\eta}^2 = \dfrac{\sigma_{12}^2}{\sigma_{11} \sigma_{22}} = \nu_{\xi\eta}^2
+      \]
+    \end{proof}
+\end{enumerate}
+
+Оценка корреляционного отношения
+\begin{align*}
+  H_0 &: \nu_{\xi\eta}^2 = 0 \\
+  H_1 &: \nu_{\xi\eta}^2 \neq 0
+\end{align*}
+
+Планирование эксперимента:
+Одно и то же число подаём на вход несколько раз и получаем точки:
+\[
+  X_i \rightarrow y_{i,1}, y_{i,2}, \dots, y_{i, n_i}, i = \overline{1, m}
+\]
+\[
+  \bar Y_i = \dfrac{1}{n_i} \sum_{j=1}^{n_i} Y_{ij} = \hat f(X_i)
+\]
+
+\[
+  \hat\sigma_f^2 = \dfrac{1}{n} \sum_{i=1}^m n_i (\bar Y_i - \bar Y)^2
+  \text{-- оценка регрессии}
+\]
+
+\[
+  \hat\sigma_\eta^2 = \dfrac{1}{n} \sum_{i=1}^m \sum_{j=1}^{n_i} (Y_{ij} - \bar Y)^2
+  \text{-- оценка дисперсии}
+\]
+
+\[
+  \hat f = \dfrac{\sigma_\eta^2}{\sigma_\eta^2 - \sigma_f^2} \cdot \dfrac{n-m}{m-1}
+  \sim F(m-1, n-m)
+\]
+
+\begin{align*}
+  \hat f &\geqslant F_{1-\alpha} (m-1, n-m) \Rightarrow \text{$H_0$ отклоняем} \\
+  \hat f &< F_{1-\alpha} (m-1, n-m) \Rightarrow \text{$H_0$ принимаем}
+\end{align*}
+
+\subsection{Линейная регрессионная модель}
+
+Выборка $(\vec{X}_1, \vec{Y}_1), (\vec{X}_2, \vec{Y}_2), \dots, (\vec{X}_n, \vec{Y}_n)$, 
+(p+1) - мерная: $\vec{X}_j = (X_j^{(1)}, X_j^{(2)}, \dots, X_j^{(n)})$ - факторы (входные переменные).
+\[
+  Y_k = \sum_{j=0}^{m-1} \beta_j \Psi_j(\vec{X}_k) + \varepsilon_k,
+\]
+$\Psi_j$ - базисные функции.
+
+\[
+  Y = \mathcal{F} \vec{\beta} + \varepsilon
+\]
+
+\[
+  \mathcal{F} = \begin{pmatrix}
+    \Psi_0(\vec{X}_1) & \Psi_1(\vec{X}_1) & \dots & \Psi_{m-1} (\vec{X}_1) \\
+    \Psi_0(\vec{X}_1) & \Psi_1(\vec{X}_1) & \dots & \Psi_{m-1} (\vec{X}_1) \\
+    \dots & \dots \\
+    \Psi_0(\vec{X}_1) & \Psi_1(\vec{X}_1) & \dots & \Psi_{m-1} (\vec{X}_1) \\
+  \end{pmatrix}
+\]
+
+\begin{ex}
+  Простейшая линейная регрессия: $\Psi_0(X_k) = 1$, $\Psi_1(X_k) = X_k$.
+  \[
+    Y_k = \beta_0 + \beta_1 X_k + \varepsilon_k
+  \]
+\end{ex}
+  Двухфакторная линейная регрессия: $\vec{X}_k = (X_k^{(1)}, X_k^{(2)})$.
+  \[
+    \Psi_0^(\vec{X}_k) = 1, \Psi_1(\vec{X}_k) = X_k^{(1)}, \Psi_2(\vec{X}_k) = X_k^{(2)}
+  \]
+  \[
+    Y_k = \beta_0 + \beta_1 X_k^{(1)} + \beta_2 X_k^{(2)} + \varepsilon_k
+  \]
+\begin{ex}
+  Простейшая квадратичная регрессия:
+  \[
+    Y_k = \beta_0 + \beta_1 X_k + \beta_2 X_k^2 + \varepsilon_k
+  \]
+\end{ex}
+
+\subsection{Ограничения на $\varepsilon_k$}
+
+\begin{enumerate}
+  \item $M\varepsilon_k = 0$
+  \item $M\varepsilon_k \varepsilon_j = 0, k \neq j$
+  \item $D \varepsilon_k = \delta^2$
+  \item $Y = \mathcal{F} \vec{\beta} + \varepsilon$
+\end{enumerate}
+
+Из 2-3 свойств получаем, что $\Sigma_\varepsilon = \delta^2 E_n$ ($E_n$ - единичная матрица).
+Тогда, $MY = \mathcal{F} \vec{\beta}$.
+
+\begin{theorem}
+  Если выполнены условия (*), $\mathcal{F}^T \mathcal{F}$ -- невырожденная матрица, то
+  $\hat{\vec{\beta}} = (\mathcal{F}^T \mathcal{F})^{-1} \mathcal{F} Y$ является несмещенной и оптимальной (в классе линейных несмещенных оценок) оценкой $\vec{\beta}$.
+\end{theorem}
+
+Замечания $\hat{\vec{\beta}}$ - выбирается по МНК $\sum \varepsilon_k^2 \to \min$.
+
+\begin{proof}
+  \begin{multline*}
+    M \hat{\vec{\beta}} = M ( (\mathcal{F}^T \mathcal{F})^{-1} \mathcal{F}^T Y )
+    = (\mathcal{F}^T \mathcal{F})^{-1} \mathcal{F}^T MY 
+    =(\mathcal{F}^T \mathcal{F})^{-1} \mathcal{F}^T \mathcal{F} \vec{\beta}
+    = \vec{\beta}
+  \end{multline*}
+
+  \[ 
+    \Delta = \sum_{k=1}^n \varepsilon_k^2
+    = \sum (Y_k - \sum \beta_j \Psi_j (\vec{X}_k) )^2
+  \] 
+
+  \[
+    \dfrac{\partial \Delta}{\partial \beta_j} = 2 \sum (Y_k - \sum \beta_j \Psi_j(\vec{X}_k) (-\Psi_j (\dots)) 
+  \]
+
+  В матричной записи:
+  \[
+    \dfrac{\partial \Delta}{\partial \beta_j} = 0
+    \Leftrightarrow \mathcal{F}^T (Y - \mathcal{F} \vec{\beta}) = 0
+  \]
+
+  \[
+    (\mathcal{F}^T \mathcal{F}) \vec{\beta} = \mathcal{F}^T Y
+    \Rightarrow
+    \hat{\vec{\beta}} = (\mathcal{F}^T \mathcal{F})^{-1} \mathcal{F}^T Y
+  \]
+
+  Оптимальность:
+  Для некоторой другой линейной несмещенной оценки:
+  $\tilde{\vec{\beta}} = L Y$,
+  \[
+    M \tilde{\vec{\beta}} = L MY = L \mathcal{F} \vec{\beta}
+    \Rightarrow L \mathcal{F} = E
+  \]
+
+  Обозначим: $(\mathcal{F}^T \mathcal{F})^{-1} \mathcal{F}^T = B$
+
+  \begin{multline*}
+    \Sigma_{LY} = M(LY - MLY)(LY - MLY)^T = M( L(Y-MY)(Y-MY)^T L^T ) = L \delta^2 E_n L^T = \delta^2 L L^T
+  \end{multline*}
+
+  Следствие: 
+  \[
+    \Sigma_{\hat{\vec{\beta}}} = \delta^2 (\mathcal{F}^T \mathcal{F})^{-1} \mathcal{F}^T ( (\mathcal{F}^T \mathcal{F})^{-1} \mathcal{F}^T )^T = B B^T = \delta^2 (\mathcal{F}^T \mathcal{F})^{-1} 
+  \]
+
+  \begin{multline*}
+    LL^T = (L-B+B) (L-B+B)^T = (L-B)(L-B)^T + B (L-B)^T + (L-B) B^T + BB^T = \\
+    = \text{так как $L\mathcal{F} = E$} = \\
+    = (L-B)(L-B)^T + BB^T
+  \end{multline*}
+
+  \[
+    \Sigma_{LY} = \delta^2 LL^T = \delta^2 (L-B)(L-B)^T + \delta^2 BB^T = \delta^2 (L-B)(L-B)^T + \Sigma_{BY}
+  \]
+
+  У матрицы $\delta^2 (L-B)(L-B)^T$ на диагонали стоят неотрицательные элементы, следовательно:
+  \[
+    D\tilde{\beta_i} \geqslant D\hat{\beta_i}
+  \]
+  что означает оптимальность.
+\end{proof}
+
+\begin{ex}
+  Пусть $\sum_{k=1}^20 X_k^2 = 5$, $\sum_{k=1}^20 X_k= -5$, и
+  \[
+    Y_k = \beta_0 + \beta_1 X_k + \varepsilon_k.
+  \]
+
+  Найти: $\hat{\beta_0}, \hat{\beta_1}$ - ОНК, $r_{\hat{\beta_0} \hat{\beta_1}}$.
+
+  \[
+    \mathcal{F} = \begin{pmatrix}
+      1 & X_1 \\
+      1 & X_2 \\
+      \dots & \dots \\
+      1 & X_{20}
+    \end{pmatrix}
+  \]
+
+  \[
+    \mathcal{F} = \begin{pmatrix}
+      20 & \sum_{k=1}^{20} X_k \\
+      \sum_{k=1}^{20} X_k & \sum_{k=1}^{20} X_k^2
+    \end{pmatrix}
+  \]
+
+  \[
+    \mathcal{F}^T \mathcal{F} = \begin{pmatrix}
+      20 & -5 \\
+      -5 & 5
+    \end{pmatrix}
+  \]
+  
+  \[
+    \delta^2 (\mathcal{F}^T \mathcal{F})^{-1} = \delta^2 \dfrac{1}{75} \begin{pmatrix}
+      5 & 5 \\
+      5 & 20
+    \end{pmatrix}
+  \]
+
+  \begin{align*}
+    D \hat{\beta}_0 &= \dfrac{5}{75} \delta^2 \\
+    D \hat{\beta}_1 &= \dfrac{20}{75} \delta^2
+  \end{align*}
+\end{ex}
+
+\subsection{Оценка дисперсии ошибок}
+
+\begin{definition}
+  Оценка среднего значения отклика
+  \[
+    \hat{Y}_k = \sum_{j=0}^{m-1} \hat{\beta}_j \Psi_j(\vec{X}_k)
+  \]
+  в матричном виде:
+  \[
+    \hat{Y} = \mathcal{F} \hat{\vec{\beta}}.
+  \]
+
+  \hat{Y} = \mathcal{F} \hat{\vec{\beta}}
+
+  Y-\hat{Y} = Y - \mathcal{F} \hat{\vec{\beta}}
+  = \mathcal{F} \vec{\beta} + \varepsilon - \mathcal{F}\hat{\vec{\beta}}
+  = \mathcal{F} (\vec{\beta} - \hat{\vec{\beta}}) + \varepsilon
+
+  Остаточная суммаа квадратов
+  \[
+    (Y - \mathcal{F} \hat{\vec{\beta}})^T (Y-\mathcal{F}\hat{\vec{\beta}})
+  \]
+\end{definition}
+
+\begin{theorem}
+  Если выполнено (*) и ранг матрицы $\mathcal{F}$ максимален, то $\hat{\delta^2} = \dfrac{1}{n-m} (Y-\mathcal{F}\hat{\vec{\beta}})()$
+\end{theorem}
