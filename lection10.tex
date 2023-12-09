@@ -17,14 +17,15 @@
 %   т.е. $\forall$ крит функции $\tilde S$ с $\tilde \varphi$ уровня $\alpha$ $W(S^*, \theta_1) \geqslant W(\tilde S, \theta_1)$ $\Rightarrow$ ошибка $\beta$ меньше.
 % \end{theorem}
 
-\begin{ex}[на критерий Неймана-Пирсона]
+\begin{ex}[критерий Неймана-Пирсона]
   $X_1,\dots,X_n \sim N(a, \sigma)$, $a = a_0$ - известно
   $H_0 : \sigma = \sigma_0$
   $H_1 : \sigma = \sigma_1$
   \begin{multline*}
-    \dfrac{L(\bar X, \sigma_1)}{L(\bar X, \sigma_0}
-    = \prod \dfrac{\dfrac{1}{\sqrt{2\pi} \sigma_1} \exp\left(- \dfrac{(x_k - a_0)^2}{2\sigma_1^2}\right)}{\dfrac{1}{\sqrt{2\pi} \sigma_0} exp\left(- \dfrac{(x_k - a_0)^2}{2\sigma_0^2}\right)}
-    = \left(\dfrac{\sigma_0}{\sigma_1}\right)^n exp\left(-\dfrac{1}{2\sigma_1^2} \sum (X_k-a_0)^2 + \dfrac{1}{2\sigma_0^2} \sum (X_k-a_0)^2 \right) = \\
+    \dfrac{L(\bar X, \sigma_1)}{L(\bar X, \sigma_0)}
+    = \prod \dfrac{\dfrac{1}{\sqrt{2\pi} \sigma_1} \exp\left(- \dfrac{(x_k -
+    a_0)^2}{2\sigma_1^2}\right)}{\dfrac{1}{\sqrt{2\pi} \sigma_0} \exp\left(- \dfrac{(x_k - a_0)^2}{2\sigma_0^2}\right)}
+    = \left(\dfrac{\sigma_0}{\sigma_1}\right)^n \exp\left(-\dfrac{1}{2\sigma_1^2} \sum (X_k-a_0)^2 + \dfrac{1}{2\sigma_0^2} \sum (X_k-a_0)^2 \right) = \\
     = \left(\dfrac{\sigma_0}{\sigma_1}\right)^n \exp\left( -\dfrac{1}{2} \sum \dfrac{\sigma_0^2 (X_k-a_0)^2 + \sigma_1^2 (X_k - a_0)^2}{\sigma_1^2 \sigma_0^2} \right) \geqslant C
   \end{multline*}
 
@@ -32,8 +33,8 @@
     \left(\dfrac{\sigma_0}{\sigma_1}\right)^n \exp\left(-\dfrac{1}{2} \dfrac{\sigma_0^2 - \sigma_1^2}{\sigma_1^2 \sigma_0^2} \sum (X_k-a_0)^2\right) \geqslant C
   \end{equation*}
 
-  На основе знания какая из сигм больше можно уже построить критерий вида:
-  $$ S = \left\{ \sum(X_k-a_0)^2 \leqslant (\geqslant) C_1 \right\} $$
+  Если знать, что из $ \sigma_0 $, $ \sigma_1 $ больше, то можно уже построить критерий вида:
+  $$ S = \left\{ \sum(X_k-a_0)^2 \gtrless C_1 \right\} $$
 \end{ex}
 
 \subsection{Графическая иллюстрация критерия отношения правдоподобия}
@@ -232,4 +233,5 @@ $z_\nu \geqslant A$ - принимаем $H_1$; $z_\nu \leqslant B$ - прини
     z_\nu = \sum Y_k \Rightarrow M_i z_\nu = M_i \nu M_i Y_k, i = 0, 1
   \]
   \epigraph{не просто, а очень просто}{Т.~В.~Облакова}
+
 \end{proof}
