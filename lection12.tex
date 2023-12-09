@@ -4,7 +4,7 @@
 
 \begin{ex}
   Случай сложной гипотезы
-  $X_1, X_2, \dots, X_n \sin F(x, \bar \theta)$, $\bar\theta = (\theta_1, \dots, \theta_r)$.
+  $X_1, X_2, \dots, X_n \sim F(x, \bar \theta)$, $\bar\theta = (\theta_1, \dots, \theta_r)$.
 
   Гипотеза $H_0$ - выборка подчиняется закону $F$.
 \end{ex}
@@ -15,14 +15,14 @@
   Пусть множество значений СВ $E = E_1 + \dots + E_l$.
   
   Пусть $p_l (\bar\theta) = p(\xi \in E_l) = \int_{E_l} dF(x, \bar\theta)$. 
-  $\hat\bar\theta$ - ОМП параметра $\bar\theta$.
+  $\hat{\bar\theta}$ - ОМП параметра $\bar\theta$.
   Тогда если
   \[
     \exists \dfrac{\partial p_l(\bar\theta)}{\partial \theta_i}, \dfrac{\partial^2 p_l(\bar\theta)}{\partial \theta_i \partial \theta_j}, i, j = \overline{1, r}; k=\overline{1, l},
   \]
-  А матрица $(\dfrac{\partial p}{\partial \bar\theta})$ - имеет ранг r, то
+  А матрица $\left(\dfrac{\partial p}{\partial \bar\theta}\right)$ - имеет ранг r, то
   \[
-    \chi^2_B = \sum_{k=1}^l \dfrac{(\nu_k - np_k(\hat\bar\theta)}{np_k(\hat\bar\theta)} \toD \chi^2 (l-1-r)
+    \chi^2_B = \sum_{k=1}^l \dfrac{(\nu_k - np_k(\hat{\bar\theta}))}{np_k(\hat{\bar\theta})} \toD \chi^2 (l-1-r)
   \]
 \end{theorem}
 
@@ -166,10 +166,10 @@
 
   Выборочная функция распределения:
   \[
-    \hat F_n(x) = \dfrac{1}{n} \sum_{k=1}^n I(x-X_k)
+    \hat{F}_n(x) = \dfrac{1}{n} \sum_{k=1}^n I(x-X_k)
   \]
 
-  Если $F(x)$ непрерывна, то закон распределения статистики Колмогорова $D_n = \sup_x |\hat F_n(x) - F(x)|$ - не зависит от вида $F(x)$.
+  Если $F(x)$ непрерывна, то закон распределения статистики Колмогорова $D_n = \sup_x |\hat{F}_n(x) - F(x)|$ - не зависит от вида $F(x)$.
 \end{theorem}
 
 \begin{proof}
@@ -181,13 +181,13 @@
   $\dfrac{1}{n} \sum_{k=1}^n I(X_k < F^{-x} (y)) = \dfrac{1}{n} \sum_{k=1}^n I(Y_k < y)$
 
   \begin{multline*}
-    D_n = \sup_{-\infty < x < \infty} |\hat F_n(x) - F(x)|
+    D_n = \sup_{-\infty < x < \infty} |\hat{F}_n(x) - F(x)|
     = \left|\, \begin{aligned}
       x = F^{-1} (y) \\
       (-\infty, \infty) \to [0, 1]
     \end{aligned} \,\right|\\ 
-    = \sup_{0 \leqslant y \leqslant 1} |\hat F_n (F^{-1} y) - F(F^{-1} (y))|
-    = \sup_{0\leqslant y \leqslant 1} |\hat F_n(y) - y|
+    = \sup_{0 \leqslant y \leqslant 1} |\hat{F}_n (F^{-1} y) - F(F^{-1} (y))|
+    = \sup_{0\leqslant y \leqslant 1} |\hat{F}_n(y) - y|
   \end{multline*}
 
   Условие строгой монотонности можно опустить, потому что достижение супремума всё равно достигается на участках строгой монотонности.
@@ -203,12 +203,12 @@
 \]
 
 \[
-  D_n = \sup_{y \in [0, 1]} |\hat{\hat F_n(y)} - y|
+  D_n = \sup_{y \in [0, 1]} |\hhat{F}_n(y - y|
   = \max_{1\leqslant k \leqslant n} \max | |Y_{(k) - \dfrac{k}{n}}|, |Y_{(k)} - \dfrac{k-1}{n}| |
   = \max_{1 \leqslant k \leqslant n} \{ |Y_{(k)} - \dfrac{2k-1}{2n}| + \dfrac{1}{2n} \}
 \]
 
-Потому что максимум разности $\hat{\hat F_n(y)} - y$ достигается в точках скачков ЭФР.
+Потому что максимум разности $\hhat{F}_n(y) - y$ достигается в точках скачков ЭФР.
 
 Для критерия Колмогорова важно чему равен объем выборки: $n\leqslant 35$ (иначе используем предельные теоремы).
 
@@ -286,15 +286,15 @@ $X_1, \dots, X_n \sim F(x)$, $Y_1, \dots, Y_m \sim G(x)$.
 Гипотеза $H_0: F(x) = G(x)$
 
 \begin{theorem}[Смирнов]
-  Пусть $\hat F_n(x) $ и $\hat G_m(x)$ - ЭФР выборок $X_k$, $Y_j$.
+  Пусть $\hat{F}_n(x) $ и $\hat{G}_m(x)$ - ЭФР выборок $X_k$, $Y_j$.
   
   Статистика Смирнова:
   \[
-    D_{nm} = \sup_x |\hat F_n(x) - \hat G_m(x)|
+    D_{nm} = \sup_x |\hat{F}_n(x) - \hat{G}_m(x)|
   \]
   Если $F(x) = G(x)$ - непрерывны, то
   \[
-    \lim_{n\to\infty, m\to\infty} P(\dfrac{nm}{m+n} D_{n,m} < x) = K(x)
+    \lim_{n\to\infty, m\to\infty} P\left(\dfrac{nm}{m+n} D_{n,m} < x\right) = K(x)
   \]
 
   При $n, m \geqslant 35$:
@@ -309,7 +309,7 @@ $X_1, \dots, X_n \sim F(x)$, $Y_1, \dots, Y_m \sim G(x)$.
   \]
   \item Составляем статистику:
     \[
-      s_j = |\dfrac{jn}{n+m} - \sum_{k=1}^j \delta_k|
+      s_j = \left| \dfrac{jn}{n+m} - \sum_{k=1}^j \delta_k \right|
     \]
     где $\delta_k = \begin{cases}
       1, &z_{(k)} \in X_1, \dots, X_n \\
@@ -317,16 +317,19 @@ $X_1, \dots, X_n \sim F(x)$, $Y_1, \dots, Y_m \sim G(x)$.
     \end{cases}$
   
   \item 
+    % TODO это вообще не понятное что-то
     \[
-      \max_j \tilde S_j = \max_j |\dfrac{j}{m} - \dfrac{\sum_{k=1}^j \delta_k(n+m)}{nm}| = \max_j |\dfrac{jn - \sum_{k=1}^j \delta_k (n+m)}{nm}| =
+      \max_j \tilde S_j = \max_j \left| \dfrac{j}{m} - \dfrac{\sum_{k=1}^j \delta_k(n+m)}{nm} \right
+      = \max_j \left| \dfrac{jn - \sum_{k=1}^j \delta_k (n+m)}{nm} \right| =
     \]
     \[
       j = \sum_{k=1}^j \delta_k + K_y = K_x + K_y
     \]
 
     \[
-      = \max_j |\dfrac{k_y n - k_x m}{nm}| = \max_j |\dfrac{k_y}{m} - \dfrac{k_x}{n}|
-      = \max_j |\hat G_m(z_{(j)}) - \hat F_n (z_{(j)})|
+      = \max_j \left| \dfrac{k_y n - k_x m}{nm} \right|
+      = \max_j \left| \dfrac{k_y}{m} - \dfrac{k_x}{n} \right|
+      = \max_j \left| \hat{G}_m(z_{(j)}) - \hat{F}_n (z_{(j)}) \right|
     \]
 \end{enumerate}
 
