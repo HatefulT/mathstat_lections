@@ -64,70 +64,66 @@
   Критерий имеет вид: $S = \{ \chi^2_B > \chi^2_{0.95}(3) \}$, $\chi^2_B \notin S \Rightarrow H_0$ -- принимается.
 \end{ex}
 
-\begin{ex}
-  Проверка гипотезы о независимости признаков.
+\subsection{Проверка гипотезы о независимости признаков}
 
-  $X_1, \dots, X_n$ обладают признаками A и B.
-  Признак A имеет m градаций, а признак B имеет k градаций.
+$X_1, \dots, X_n$ обладают признаками A и B.
+Признак A имеет m градаций, а признак B имеет k градаций.
 
-  Таблица сопряженности признаков
+Таблица сопряженности признаков
 
-  \begin{center}
-    \begin{tabular}{|c|c|c|c|c|}
-      \hline
-      A_i \ B_i & B_1 & B_2 & \dots & B_k \\
-      \hline
-      A_1 & \nu_{11} & & & \\
-      \hline
-      \dots & \dots & & & \\
-      \hline
-      A_m & & & & \\
-      \hline
-    \end{tabular}
-  \end{center}
+\begin{center}
+  \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    A_i \ B_i & B_1 & B_2 & \dots & B_k \\
+    \hline
+    A_1 & \nu_{11} & \nu_{12} & \dots & \nu_{1k} \\
+    \hline
+    \dots & \dots & \dots & \dots & \dots \\
+    \hline
+    A_m & \nu_{m1} & \nu_{m2} & \dots & \nu_{mk} \\
+    \hline
+  \end{tabular}
+\end{center}
 
-  $\nu_{ij}$ - кол-во элементов выборки, обладающие признаками $A_i, B_j$.
+$\nu_{ij}$ - кол-во элементов выборки, обладающие признаками $A_i, B_j$.
 
-  Гипотеза: $H_0$ признаки A и B независимы.
-  \[
-    P(A_i B_j) = P(A_i) P(B_j)
-  \]
+Гипотеза: $H_0$ признаки A и B независимы, т.е.
+$P(A_i B_j) = P(A_i) P(B_j)$;
 
-  \[
-    \dfrac{\nu_{ij}}{n} \approx \dfrac{\nu_i}{n} \dfrac{\nu_j}{n},
-  \]
-  где $\nu_i = \sum_j v_{ij}$, $\nu_j = \sum_i v_{ij}$.
+То есть:
+\[
+  \dfrac{\nu_{ij}}{n} \approx \dfrac{\nu_i}{n} \dfrac{\nu_j}{n},
+\]
+где $\nu_i = \sum_j v_{ij}$, $\nu_j = \sum_i v_{ij}$.
 
-  \[
-    \chi^2_B = \sum_{i=1}^m \sum_{j=1}^k \dfrac{(\nu_{ij} - n \hat p_{ij})^2}{n \hat p_{ij}}
-  \]
+\[
+  \chi^2_B = \sum_{i=1}^m \sum_{j=1}^k \dfrac{(\nu_{ij} - n \hat p_{ij})^2}{n \hat p_{ij}}
+\]
 
-  Параметры: $P(A_1), P(A_2), \dots, P(A_m); \sum P(A_i) = 1$, следовательно, независимых параметров здесь $m-1$. $P(B_1), P(B_2), \dots, P(B_k); \dots$, следовательно, независимых параметров $k-1$. Вместе параметров $r = m+k-2$.
+Параметры: $P(A_1), P(A_2), \dots, P(A_m); \sum P(A_i) = 1$, следовательно, независимых параметров здесь $m-1$. $P(B_1), P(B_2), \dots, P(B_k); \dots$, следовательно, независимых параметров $k-1$. Вместе параметров $r = m+k-2$.
 
-  \[
-    \hat p_{i} = P(A_i) = \dfrac{\nu_i}{n}; \hat p_j = P(B_j) = \dfrac{\nu_j}{n}.
-  \]
+\[
+  \hat p_{i} = P(A_i) = \dfrac{\nu_i}{n}; \hat p_j = P(B_j) = \dfrac{\nu_j}{n}.
+\]
 
-  При $H_0$:
-  \[
-    \hat p_{ij} = \hat p_i \cdot \hat p_h = \dfrac{\nu_i \nu_j}{n^2}
-  \]
+При $H_0$:
+\[
+  \hat p_{ij} = \hat p_i \cdot \hat p_j = \dfrac{\nu_i \nu_j}{n^2}
+\]
 
-  \begin{multline*}
-    \chi^2_B
-    = \sum_{i=1}^m \sum_{j=1}^k \dfrac{(\nu_{ij} - n \hat p_{ij})^2}{n \hat p_{ij}}
-    = n \sum_{i=1}^m \sum_{j=1}^k \dfrac{\nu^2_{ij}}{\nu_i \nu_j} - 2 \sum_{i=1}^m \sum_{j=1}^k \nu_ij + n \sum_{i=1}^m \sum_{j=1}^k = \\
-    = n \sum_{i=1}^m \sum_{j=1}^k \dfrac{\nu^2_{ij}}{\nu_i \nu_j} - 2n + n
-    = n \left(\sum_{i=1}^m \sum_{j=1}^k \dfrac{\nu^2_{ij}}{\nu_i \nu_j} - 1\right)
-  \end{multline*}
+\begin{multline*}
+  \chi^2_B
+  = \sum_{i=1}^m \sum_{j=1}^k \dfrac{(\nu_{ij} - n \hat p_{ij})^2}{n \hat p_{ij}}
+  = n \sum_{i=1}^m \sum_{j=1}^k \dfrac{\nu^2_{ij}}{\nu_i \nu_j} - 2 \sum_{i=1}^m \sum_{j=1}^k \nu_ij + n \sum_{i=1}^m \sum_{j=1}^k = \\
+  = n \sum_{i=1}^m \sum_{j=1}^k \dfrac{\nu^2_{ij}}{\nu_i \nu_j} - 2n + n
+  = n \left(\sum_{i=1}^m \sum_{j=1}^k \dfrac{\nu^2_{ij}}{\nu_i \nu_j} - 1\right)
+\end{multline*}
 
-  Число степеней свободы
+Число степеней свободы:
+$l-1-r = k m - 1 - (m+k-2) = (k-1)(m-1)$
 
-  $l-1-r = k m - 1 - (m+k-2) = (k-1)(m-1)$
-
-  Критерий: $\chi^2_B \geqslant \chi^2_{1-\alpha} ( (k-1)(m-1) )$, то $H_0$ принимается;
-  если $\chi^2_B < \chi^2_{1-\alpha} ( (k-1)(m-1) )$.
-\end{ex}
+Критерий: $\chi^2_B \geqslant \chi^2_{1-\alpha} ( (k-1)(m-1) )$, то $H_0$ принимается;
+если $\chi^2_B < \chi^2_{1-\alpha} ( (k-1)(m-1) )$.
 
 \begin{ex}
   100 студентов проходили опрос мешает ли курение учёбе.
