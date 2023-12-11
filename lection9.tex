@@ -532,61 +532,58 @@ $ \alpha$ из
 				\[
 						\alpha = P(\bar X \in S \mid H_0 ) = P(\bar X \leqslant C \mid H_0)
 						= P \left( 2\lambda_0 \sum_{k=1}^n X_k \leqslant 2\lambda_0 n C
-						\right) = F_{\chi^2(2n)}(2\lambda_0 n C).
+						  \right) = F_{\chi^2(2n)}(2\lambda_0 n C).
 				\]
 				Значит, $ 2\lambda_0 n C = \chi^2_\alpha(2n) $, а значит, 
 				\[
 						C = \frac{\chi^2_\alpha(2n)}{2\lambda_0 n} = 2.524.
 				\]
-
 			\end{solution}
 			
 			\item Найдём ошибку второго рода построенного критерия.
 				\begin{solution}
-				\[
-					\beta = P(\bar X > C \mid H_1 ) = P \left( 2\lambda_1 \sum_{k=1}^n X_k
-					> 2\lambda_1 n C\right) = 1 - F_{\chi^2(2n)}(2\lambda_0 n C) = 0.075.
-				\]
-
-			\end{solution}
+          \[
+            \beta = P(\bar X > C \mid H_1 ) = P \left( 2\lambda_1 \sum_{k=1}^n X_k
+            > 2\lambda_1 n C\right) = 1 - F_{\chi^2(2n)}(2\lambda_0 n C) = 0.075.
+          \]
+			  \end{solution}
 
 		\item Найдём объём выборки, обеспечивающий при решении задачи о различении
 			этих гипотез ошибки $ \alpha = 0.05 $ и $ \beta = 0.05 $.
 
 			\begin{solution}
-			Согласно критерию Неймана -- Пирсона $ S = (\bar X \leqslant C) $. Тогда
-			при больших $ n $ имеем  
-			\begin{align*}
-				\alpha &= P(\bar X \in S\mid H_0) = P(\bar X \leqslant C \mid H_0) = P
-					\left( \frac{n\bar X - 1/\lambda_0}{\sqrt{n/\lambda^2_0}}\leqslant
-					\frac{nC - n/\lambda_0}{\sqrt{n/\lambda^2_0}} \right) \approx \Phi
-					\left( \frac{n C \lambda_0 - n}{\sqrt n} \right),\\ 
-				\beta &= P(\bar X \notin S \mid H_1) = P(\bar X > C \mid H_1) = P
-					\left( \frac{n\bar X - 1/\lambda_1}{\sqrt{n/\lambda^2_1}}\leqslant
-					\frac{nC - n/\lambda_1}{\sqrt{n/\lambda^2_1}} \right) \approx \Phi
-					\left( \frac{n C \lambda_1 - n}{\sqrt n} \right).
-			\end{align*}
-			
-			Решим полученную систему: 
-			\[
-				\begin{cases}
-					C \lambda_0 \sqrt n - \sqrt n = u_\alpha,\\
-					C\lambda_1 \sqrt n - \sqrt n = u_{1-\beta}.
-				\end{cases}
-				\implies
-				\begin{cases}
-					\sqrt n = \frac{u{1-\beta}\lambda_0 - u_\alpha \lambda_1}{\lambda_1 -
-					\lambda_0},\\
-					C = \frac{\sqrt n + u_\alpha}{\lambda_0\sqrt n}.
-				\end{cases}
-				\implies
-				\begin{cases}
-					n \approx 115, \\
-					C = 2.538.
-				\end{cases}
-			\]
-
-		\end{solution}
+        Согласно критерию Неймана -- Пирсона $ S = (\bar X \leqslant C) $. Тогда
+        при больших $ n $ имеем  
+        \begin{align*}
+          \alpha &= P(\bar X \in S\mid H_0) = P(\bar X \leqslant C \mid H_0) = P
+            \left( \frac{n\bar X - 1/\lambda_0}{\sqrt{n/\lambda^2_0}}\leqslant
+            \frac{nC - n/\lambda_0}{\sqrt{n/\lambda^2_0}} \right) \approx \Phi
+            \left( \frac{n C \lambda_0 - n}{\sqrt n} \right),\\ 
+          \beta &= P(\bar X \notin S \mid H_1) = P(\bar X > C \mid H_1) = P
+            \left( \frac{n\bar X - 1/\lambda_1}{\sqrt{n/\lambda^2_1}}\leqslant
+            \frac{nC - n/\lambda_1}{\sqrt{n/\lambda^2_1}} \right) \approx \Phi
+            \left( \frac{n C \lambda_1 - n}{\sqrt n} \right).
+        \end{align*}
+        
+        Решим полученную систему: 
+        \[
+          \begin{cases}
+            C \lambda_0 \sqrt n - \sqrt n = u_\alpha,\\
+            C\lambda_1 \sqrt n - \sqrt n = u_{1-\beta}.
+          \end{cases}
+          \implies
+          \begin{cases}
+            \sqrt n = \frac{u{1-\beta}\lambda_0 - u_\alpha \lambda_1}{\lambda_1 -
+            \lambda_0},\\
+            C = \frac{\sqrt n + u_\alpha}{\lambda_0\sqrt n}.
+          \end{cases}
+          \implies
+          \begin{cases}
+            n \approx 115, \\
+            C = 2.538.
+          \end{cases}
+        \]
+      \end{solution}
 	\end{enumerate}
 \end{ex}
 	
