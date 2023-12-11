@@ -1,4 +1,5 @@
-\section{Лекция 6 - 2023-10-11 - Доверительные интервалы для параметров нормального закона}
+\section{Лекция 6 - 2023-10-11 - Доверительные интервалы для параметров
+нормального закона} \label{sec:lec6}
 \subsection{Совместный закон распределения выборочного среднего и выборочной
 дисперсии для нормально распределенной генеральной совокупности.}
 
@@ -163,15 +164,16 @@
 	a}{\sigma}}{\frac{S}{\sigma}} = \sqrt{n} \frac{\frac{\bar X -
 a}{\sigma}}{\sqrt{\frac{1}{n-1} \frac{(n-1) S^2}{\sigma^2}}} \sim t(n-1),
 	\]
-	где $ S = \sqrt{S^2} $, распределено по закону Стьюдента.	
+	где $ S = \sqrt{S^2} $, распределено по закону Стьюдента (см. лекцию
+  \ref{sec:lec1}.	
 
 Находим квантили и разрешаем неравенство:
-\begin{align*}
+\begin{gather*}
   -t_{1 - \alpha/2} (n-1) = t_{\alpha/2} (n-1) < \sqrt{n} \frac{\bar X -
-	a}{\sigma} < t_{1-\alpha/2} (n-1), \\
+	a}{S} < t_{1-\alpha/2} (n-1), \\
   \bar X - \frac{t_{1-\alpha/2}(n-1) S}{\sqrt{n}} < a < \bar X +
 	\frac{t_{1-\alpha/2}(n-1) S}{\sqrt{n}}.
-\end{align*}
+\end{gather*}
 \end{ex}
 
 \subsection{Доверительный интервал для разницы матожиданий при известных дисперсиях}
@@ -225,7 +227,7 @@ a}{\sigma}}{\sqrt{\frac{1}{n-1} \frac{(n-1) S^2}{\sigma^2}}} \sim t(n-1),
 \begin{multline*}
 	\frac{\bar X - \bar Y - (a-b)}{\sqrt{(n-1)S^2_X+(m-1)S^2_Y}} \sqrt{nm}
 	\sqrt{\frac{n+m -2}{n+m}}= \\ =
-	\frac{\bar X - \bar Y - (a-b)}{\sqrt{\frac1n + \frac1m}
+	\frac{\bar X - \bar Y - (a-b)}{\sigma\sqrt{\frac1n + \frac1m}
 	\sqrt{\frac{1}{n+m-2} \frac{(n-1) S_x^2 + (m-1)S_y^2}{\sigma^2}}} \sim
 	t(n+m-2)
 \end{multline*}
