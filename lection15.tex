@@ -1,0 +1,277 @@
+\section{Лекция 15 - 2023-12-13 - Линейная регрессионная модель в случае гауссовских ошибок}
+
+\[
+  Y_k = \sum_{j=0}^{m-1} \beta_j \Psi_j( \vec{X}_k ) + \varepsilon_k
+  \leftrightarrow
+  Y = \mathcal{F} \vec{\beta} + \vec{\varepsilon}
+\]
+
+Несмещенная оценка $\vec{\beta}$:
+\[
+  \hat{\vec{\beta}} = (\mathcal{F}^T \mathcal{F})^{-1} \mathcal{F}^T Y
+\]
+
+Несмещенная оценка $D\varepsilon_k = \delta^2$:
+\[
+  \hat{\delta^2} = \dfrac{1}{n-m} \sum_{k=1}^n (Y_k - \sum_{j=0}^{m-1} \hat{\beta_j} \Psi_j(\vec{X}_k))
+\]
+
+\[
+  \Sigma_{\hat{\vec{\beta}}} = \delta^2 (\mathcal{F}^T \mathcal{F})^{-1}
+\]
+
+\begin{theorem}
+  Если в линейной регрессионной модели ошибки удовлетворяют условиям (*), 
+  (+ $\vec{\varepsilon} \sim N(0, \delta^2 E_n)$), $\mathcal{F}^2 \mathcal{F}$ - невырожденная, 
+  то 
+  \[
+    \dfrac{\delta^2 (n-m)}{\delta^2} =
+    \dfrac{1}{\delta^2} (Y - \mathcal{F} \hat{\vec{\beta}})^T (Y - \mathcal{F} \hat{\vec{\beta}})
+  \]
+  не зависит от $\hat{\vec{\beta}}$ и распределена по закону $\chi^2(n-m)$.
+\end{theorem}
+
+\begin{proof}
+  \[
+    \dfrac{1}{\delta^2} (Y - \mathcal{F} \vec{\beta})^T (Y - \mathcal{F} \vec{\beta})
+    = \dfrac{1}{\delta^2} 
+    (Y - \mathcal{F} \hat{\vec{\beta}})^T
+    (Y - \mathcal{F} \hat{\vec{\beta}}) 
+    + \dfrac{1}{\delta^2} 
+    (\hat{\vec{\beta}} - \vec{\beta})^T 
+    \mathcal{F}^T \mathcal{F}
+    (\hat{\vec{\beta}} - \vec{\beta})
+  \]
+
+  В силу того, что:
+  $\dfrac{\vec{\varepsilon}}{\delta} \sim N(0, E_n)$:
+  \[
+    \Rightarrow 
+    \dfrac{1}{\delta^2} \vec{\varepsilon}^T \vec{\varepsilon}
+    \sim \chi^2(n)
+  \]
+
+  Факт из алгебры: для невырожденной матрицы A можно взять её корень (корень Халецкого) C: 
+  $A = C^T C$.
+  \[
+    C (\hat{\vec{\beta}} - \vec{\beta})
+  \]
+  % TODO расписать чо за С и откуда она появилась
+
+  \begin{multline*}
+    \Sigma_{C (\hat{\vec{\beta}} - \vec{\beta})}
+    = M \left[
+      C (\hat{\vec{\beta}} - \vec{\beta})
+      \left( C (\hat{\vec{\beta}} - \vec{\beta}) \right)^T \right]
+    = C ( \mathcal{F}^T \mathcal{F} )^{-1} \delta^2 C^T = \\
+    = C (C^T C)^{-1} \delta^2 C^T
+    = \delta^2 C C^{-1} (C^T)^{-1} C^T
+    = \delta^2 E_m
+  \end{multline*}
+
+  \[
+    \dfrac{1}{\delta^2}
+    ( C (\hat{\vec{\beta}} - \vec{\beta}) )^T
+    C (\hat{\vec{\beta}} - \vec{\beta})
+    \sim
+    \chi^2 (m)
+  \]
+
+  С другой стороны,
+  \[
+    ( C (\hat{\vec{\beta}} - \vec{\beta}) )^T
+    C (\hat{\vec{\beta}} - \vec{\beta})
+    = 
+    ( \mathcal{F} (\hat{\vec{\beta}} - \vec{\beta}) )^T
+    \mathcal{F} (\hat{\vec{\beta}} - \vec{\beta})
+    \sim
+    \chi^2 (m)
+  \]
+
+  Проверим независимость: $\mathcal{F} (\hat{\vec{\beta}} - \vec{\beta})$ и $Y - \mathcal{F} \hat{\vec{\beta}}$.
+  Обе величины нормально распределены, следовательно, надо проверить некоррелируемость.
+
+  \begin{multline*}
+    \hat{\vec{\beta}} - \vec{\beta}
+    = (\mathcal{F}^T \mathcal{F})^{-1} \mathcal{F}^T Y - \vec{\beta}
+    = (\mathcal{F}^T \mathcal{F})^{-1} \mathcal{F}^T ( \mathcal{F} \vec{\beta} + \vec{\varepsilon} ) - \vec{\beta} = \\
+    = (\mathcal{F}^T \mathcal{F})^{-1} \mathcal{F}^T \mathcal{F} \vec{\beta}
+    + (\mathcal{F}^T \mathcal{F})^{-1} \mathcal{F}^T \vec{\varepsilon} - \vec{\beta}
+    = (\mathcal{F}^T \mathcal{F})^{-1} \mathcal{F}^T \vec{\varepsilon}
+  \end{multline*}
+
+  \[
+    Y - \mathcal{F} \hat{\vec{\beta}}
+    = \mathcal{F} \vec{\beta} + \vec{\varepsilon} - \mathcal{F} \hat{\vec{\beta}}
+    = \vec{\varepsilon} - \mathcal{F} (\mathcal{F}^T \mathcal{F})^{-1} \mathcal{F}^T \vec{\varepsilon}
+  \]
+
+  \begin{multline*}
+    M (\hat{\vec{\beta}} - \vec{\beta}) (Y - \mathcal{F}\hat{\vec{\beta}})^T
+    = M (\mathcal{F}^T \mathcal{F})^{-1} \mathcal{F}^T \vec{\varepsilon} (\vec{\varepsilon}^T - \left( \mathcal{F} (\mathcal{F}^T \mathcal{F})^{-1} \right)^T \mathcal{F}^T \vec{\varepsilon}^T)
+    = (\mathcal{F}^T \mathcal{F})^-1 \mathcal{F}^T \delta^2 E_n - (\mathcal{F}^T \mathcal{F})^{-1} \mathcal{F}^T = 0
+  \end{multline*}
+
+  \[
+    \xi = \eta + \phi, \xi \sim \chi^2(n), \eta \phi - \text{независимы}, \phi \sim \chi^2 (m).
+  \]
+
+  Характеристическая функция:
+  \[
+    \chi^2(n) \rightarrow (1 - 2it)^{-n/2}
+  \]
+
+  \[
+    f_\xi(t) = f_\eta(t) \cdot f_\zeta(t) = (1-2it)^{n/2} f_\eta(t) = (1-2it)^{-\dfrac{n}{2}}
+  \]
+
+  \[
+    f_\eta(t) = (1 - 2it)^{-\dfrac{n-m}{2}}
+  \]
+\end{proof}
+
+\begin{corollary}[доверительный интервал для параметра регрессии и $\delta$]
+  \[
+    \dfrac{\hat{\delta^2} (n-m)}{\delta^2} \sim \chi^2(n-m)
+  \]
+
+  С вероятностью $1 - \alpha$:
+  \[
+    \chi^2_{\alpha / 2} < \dfrac{\hat{\delta^2} (n-m)}{\delta^2} < \chi^2_{1 - \alpha/2} (n-m)
+  \]
+
+  \[
+    \dfrac{\hat{\delta^2} (n-m)}{\chi^2_{1-\alpha/2}} < \delta^2 < \dfrac{\hat{\delta^2} (n-m)}{\chi^2_{\alpha/2}} = \sum_k (Y_k - \sum_{j=0}^{m-1} \hat{\beta}_j \Psi_j (\vec{X}_k)) / (\chi^2_{\alpha/2}(n-m))
+  \]
+\end{corollary}
+
+\begin{ex}
+  \[
+    Y_k = p_0 + p_1 X_k + \varepsilon, \varepsilon \sim N(0, \delta)
+  \]
+
+  \[
+    (\mathcal{F}^T \mathcal{F}) = \begin{pmatrix}
+      n & \sum X_k \\
+      \sum X_k & \sum X_k^2
+    \end{pmatrix},
+    \dots
+  \]
+
+  \[
+    \dfrac{\sum_k (Y_k - \hat{\beta_0} - \hat{\beta_1})^2}{\chi^2_{1 - \alpha/2}} < \delta^2 <
+    \dfrac{\sum_k (Y_k - \hat{\beta_0} - \hat{\beta_1})^2}{\chi^2_{\alpha/2}}
+  \]
+\end{ex}
+
+\subsection{Доверительный интервал для \beta}
+
+\[
+  \hat{\vec{\beta}} \sim N\left(\vec{\beta}, \delta^2 (\mathcal{F}^T \mathcal{F})^{-1}\right),
+  \hat{\beta}_i - \beta_i \sim N(0, \delta \sqrt{\tau_{ii}}),
+\]
+где $\tau_{ii}$ -- элемент $(\mathcal{F}^T \mathcal{F})^{-1}$.
+
+\[
+  \dfrac{\hat{\beta}_i - \beta_i}{\delta \sqrt{\tau_{ii}}} \sim N(0, 1)
+\]
+
+\[ 
+  \dfrac{\hat{\beta}_i - \beta_i}{\hat{\delta} \sqrt{\tau_{ii}}}
+  = \dfrac
+  { \dfrac{\hat{\beta}_i - \beta_i}{\delta \sqrt{\tau_{ii}}} }
+  { \sqrt{ \dfrac{1}{n-m} \dfrac{\hat{\delta^2} (n-m)}{\delta^2} } }
+  \sim t(n-m)
+\]
+т.к. $ \sqrt{ \dfrac{1}{n-m} \dfrac{\hat{\delta^2} (n-m)}{\delta^2} } \sim \chi^2(n-m) $.
+
+\[
+  -t_{1-\alpha/2} (n-m) <
+  \dfrac{\hat{\beta}_i - \beta_i}{\hat{\delta} \sqrt{\tau_{ii}}}
+  < t_{\alpha/2} (n-m)
+\]
+
+\[
+  \hat{\beta}_i - \hat{\delta} \sqrt{\tau_{ii}} t_{1-\alpha/2} (n-m) < 
+  \beta_i <
+  \hat{\beta}_i + \hat{\delta} \sqrt{\tau_{ii}} t_{1 + \alpha/2} (n-m)
+\]
+
+\begin{ex}
+  в продолжениe прошлого примера,
+  \[
+    \hat{\beta}_0 - \hat{\delta} \sqrt{ \dfrac{\sum X_k^2}{n \sum{X_k^2} - \left( \sum X_k \right)^2 } } t_{1-\alpha/2} (n-m) < 
+    \beta_0 <
+    \hat{\beta}_0 + \hat{\delta} t_{1 + \alpha/2} (n-m) \sqrt{ \dfrac{\sum X_k^2}{n \sum{X_k^2} - \left( \sum X_k \right)^2 } }
+  \]
+  
+  \[
+    \hat{\beta}_1 - \hat{\delta} \sqrt{ \dfrac{n}{n \sum{X_k^2} - \left( \sum X_k \right)^2 } } t_{1-\alpha/2} (n-m) < 
+    \beta_1 <
+    \hat{\beta}_1 + \hat{\delta} t_{1 + \alpha/2} (n-m) \sqrt{ \dfrac{n}{n \sum{X_k^2} - \left( \sum X_k \right)^2 } }
+  \]
+\end{ex}
+
+\subsection{Элементы регрессионного анализа}
+
+\subsubsection{О значимости $\beta_i$}
+Если $\beta$ получилось слишком маленькое, то можно упростить модель, пренебречь.
+
+\[
+  H_{0i} : \beta_i = 0;
+  H_{1i} : \beta_i \neq 0
+\]
+
+Критическое множество: $S = \left{ |\hat{\beta}_i| > C \right} $.
+\[
+  \alpha = P( |\hat{\beta}_i| > C | \beta_i 0)
+  = P( \dfrac{|\hat{\beta_i}|}{\hat{\delta} \sqrt{\tau_{ii}}} > \dfrac{C}{\hat{\delta} \sqrt{\tau_{ii}}} )
+  \Rightarrow
+  \dfrac{C}{\hat{\delta} \sqrt{\tau_{ii}}} = t_{1-\alpha/2} (n-m)
+\]
+
+Таким образом,
+\[
+  S = \left{ |\hat{\beta}_i| > t_{1-\alpha/2} (n-m) \hat{\delta} \sqrt{\tau_{ii}} \right} 
+\]
+
+\subsubsection{О значимости регрессионной модели}
+\[
+  H_0 : \beta_1 = \beta_2 = \dots = \beta_{m-1} = 0;
+  H_1 : \sum_k \beta_k^2 > 0
+\]
+Если примем $H_1$, то дальше по отдельности нужно будет проверять $\beta_k = 0$.
+
+\[
+  \dfrac{\xi}{\eta} = F_B =
+  \dfrac
+  { \dfrac{1}{\delta^2} \sum (\bar{Y} - \sum_j \hat{\beta}_j \Psi_j (\vec{X}_k))^2 (n-m)}
+  { (m-1) \dfrac{1}{\delta^2} \sum (Y_k - \sum_j \hat{\beta}_j \Psi_j (\vec{X}_k))^2 }
+\]
+
+Уже доказано выше:
+\[
+  \dfrac{1}{\delta^2} (\hat{\vec{\beta}} - \vec{\beta})^T \mathcal{F}^T \mathcal{F} (\hat{\vec{\beta}} - \vec{\beta}) \sim \chi^2(m).
+\]
+
+При основной гипотезе:
+\[
+  \hat{\beta}_0 = \bar{Y};
+  Y_k = \beta_0 \cdot 1 + \beta_1 \Psi_1 (\vec{X}_k) + \dots + \varepsilon_k
+  = \beta_0 + \varepsilon_k
+\]
+
+\[
+  \sum \left( \dfrac{X_k - a}{\sigma} \right)^2 \sim \chi^2(n);
+  \sum \left( \dfrac{X_k - \bar{X}}{\sigma} \right)^2 \sim \chi^2(n-1);
+\]
+
+\[
+  \dfrac{1}{\delta^2} (\hat{\vec{\beta}} - \bar{Y} \cdot I)^T \mathcal{F}^T \mathcal{F} (\hat{\vec{\beta}} - \bar{Y} \cdot I) \sim \chi^2(m-1)
+\]
+где $I$ - столбец единиц. С другой стороны,
+\[
+  \dfrac{1}{\delta^2} (\hat{\vec{\beta}} - \bar{Y} \cdot I)^T \mathcal{F}^T \mathcal{F} (\hat{\vec{\beta}} - \bar{Y} \cdot I)
+  = \dfrac{1}{\delta^2} \left( \mathcal{F} \hat{\vec{\beta}} - \bar{Y} I \right)^T \left( \mathcal{F} \hat{\vec{\beta}} - \bar{Y} I \right)
+  = \dfrac{1}{\delta^2} \sum \left( \bar{Y} - \sum \hat{\beta_j} \Psi_j (\vec{X}_k) \right)^2 
+\]
