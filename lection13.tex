@@ -16,13 +16,13 @@ $M X_k = a_x$, $M Y_k = a_y$.
   \item $S_{XY}^2$ -- несмещенная оценка ковариации $\sigma_{12} = M(X_k - a_x)(Y_k - a_y)$,
     где $a_x = MX_k$, $a_y = MY_k$.
     % TODO вот здесь много было в доказательстве этого свойства
-    \[
+    \begin{multline*}
       M \sum (X_k - \bar X)(Y_k - \bar Y)
       = M \sum \left( (X_k - a_x) - (\bar X - a_x)\right)
-        \left( (Y_k-a_y) - (\bar Y - a_y) \right)
+        \left( (Y_k-a_y) - (\bar Y - a_y) \right) = \\
       = \dots
       = (n-1) \sigma_{12}
-    \]
+    \end{multline*}
 
   \item Состоятельность оценки $S_{XY}^2$
     \begin{equation*}

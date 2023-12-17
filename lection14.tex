@@ -39,7 +39,7 @@ $(\xi, \eta)$, регрессия $\eta = f(\xi) + \varepsilon$
     \]
     \begin{proof}
       \begin{multline*}
-        Df(\xi) = D(M\eta + \dfrac{\sigma_{12}}{\sigma_{11}} (\xi - M\xi))
+        Df(\xi) = D\left(M\eta + \dfrac{\sigma_{12}}{\sigma_{11}} (\xi - M\xi)\right)
         = \dfrac{\sigma_{12}^2}{\sigma_{11}^2} D(\xi - M\xi)
         = \dfrac{\sigma_{12}^2}{\sigma_{11}^2} \sigma_{11}
         = \dfrac{\sigma_{12}^2}{\sigma_{11}}
@@ -57,9 +57,9 @@ $(\xi, \eta)$, регрессия $\eta = f(\xi) + \varepsilon$
     \]
     \begin{proof}
       Пусть $\zeta = x \cdot \xi - f(\xi)$, $x\in\mathbb{R}$.
-      \begin{multline*}
+      \[
         0 \leqslant D\xi = D(x \cdot \xi - f(\xi)) = x^2 D\xi - 2 x \cov (\xi, f(\xi)) + D f(\xi)
-      \end{multline*}
+      \]
       Больше нуля означает, что дискриминант меньше нуля:
       \[
         \dfrac{D}{4} = \cov(\xi, f(\xi))^2 - D\xi Df(\xi) \leqslant 0
