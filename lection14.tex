@@ -3,13 +3,13 @@
 $(\xi, \eta)$, регрессия $\eta = f(\xi) + \varepsilon$
 в гауссовском случае оказывается линейной:
 \[
-  f(\xi) = M(\eta | \xi) = (\text{в гауссовском случае}) = M\eta = \dfrac{\sigma_{12}}{\sigma_{11}} (\xi - M\xi)
+  f(\xi) = M(\eta | \xi) = (\text{в гауссовском случае}) = M\eta = \frac{\sigma_{12}}{\sigma_{11}} (\xi - M\xi)
 \]
 
 \begin{definition}
   Корреляционным отношением называется 
   \[
-    \nu_{\xi \eta} = \sqrt{\dfrac{Df(\xi)}{D\eta}}
+    \nu_{\xi \eta} = \sqrt{\frac{Df(\xi)}{D\eta}}
   \]
 
   \[
@@ -17,7 +17,7 @@ $(\xi, \eta)$, регрессия $\eta = f(\xi) + \varepsilon$
   \]
 
   \[
-    \nu_{\xi \eta} = \sqrt{1 - \dfrac{\bar\sigma^2_n}{D\eta}}
+    \nu_{\xi \eta} = \sqrt{1 - \frac{\bar\sigma^2_n}{D\eta}}
   \]
 \end{definition}
 
@@ -39,15 +39,15 @@ $(\xi, \eta)$, регрессия $\eta = f(\xi) + \varepsilon$
     \]
     \begin{proof}
       \begin{multline*}
-        Df(\xi) = D(M\eta + \dfrac{\sigma_{12}}{\sigma_{11}} (\xi - M\xi))
-        = \dfrac{\sigma_{12}^2}{\sigma_{11}^2} D(\xi - M\xi)
-        = \dfrac{\sigma_{12}^2}{\sigma_{11}^2} \sigma_{11}
-        = \dfrac{\sigma_{12}^2}{\sigma_{11}}
-        = \dfrac{\sigma_{12}^2}{\sigma_{11} \sigma_{22}} \sigma_{22}
+        Df(\xi) = D(M\eta + \frac{\sigma_{12}}{\sigma_{11}} (\xi - M\xi))
+        = \frac{\sigma_{12}^2}{\sigma_{11}^2} D(\xi - M\xi)
+        = \frac{\sigma_{12}^2}{\sigma_{11}^2} \sigma_{11}
+        = \frac{\sigma_{12}^2}{\sigma_{11}}
+        = \frac{\sigma_{12}^2}{\sigma_{11} \sigma_{22}} \sigma_{22}
         = \sigma_{22} r_{\xi\eta}^2
         \Leftrightarrow \\
         \Leftrightarrow
-        \nu_{\xi\eta}^2 = \dfrac{Df(\xi)}{D\eta} = \dfrac{\sigma_{22} r_{\xi\eta}^2}{\sigma_{22}} = r_{\xi\eta}^2
+        \nu_{\xi\eta}^2 = \frac{Df(\xi)}{D\eta} = \frac{\sigma_{22} r_{\xi\eta}^2}{\sigma_{22}} = r_{\xi\eta}^2
       \end{multline*}
     \end{proof}
 
@@ -62,7 +62,7 @@ $(\xi, \eta)$, регрессия $\eta = f(\xi) + \varepsilon$
       \end{multline*}
       Больше нуля означает, что дискриминант меньше нуля:
       \[
-        \dfrac{D}{4} = \cov(\xi, f(\xi))^2 - D\xi Df(\xi) \leqslant 0
+        \frac{D}{4} = \cov(\xi, f(\xi))^2 - D\xi Df(\xi) \leqslant 0
       \]
       \[
         \cov(\xi, f(\xi)) = \cov(\xi, \eta - \xi)
@@ -70,15 +70,15 @@ $(\xi, \eta)$, регрессия $\eta = f(\xi) + \varepsilon$
       \]
 
       \[
-        0 \geqslant \sigma_{12}^2 - \sigma_{11} \nu_{\xi\eta}^2 \sigma_{22} = \sigma_{12}^2 - D\xi Df(\xi) \Rightarrow r_{\xi\eta}^2 = \dfrac{\sigma_{12}^2}{\sigma_{11} \sigma_{22}} = \nu_{\xi\eta}^2
+        0 \geqslant \sigma_{12}^2 - \sigma_{11} \nu_{\xi\eta}^2 \sigma_{22} = \sigma_{12}^2 - D\xi Df(\xi) \Rightarrow r_{\xi\eta}^2 = \frac{\sigma_{12}^2}{\sigma_{11} \sigma_{22}} = \nu_{\xi\eta}^2
       \]
     \end{proof}
 \end{enumerate}
 
 Оценка корреляционного отношения
 \begin{align*}
-  H_0 &: \nu_{\xi\eta}^2 = 0 \\
-  H_1 &: \nu_{\xi\eta}^2 \neq 0
+  &H_0\text{: } \nu_{\xi\eta}^2 = 0, \\
+  &H_1\text{: } \nu_{\xi\eta}^2 \neq 0.
 \end{align*}
 
 Планирование эксперимента:
@@ -87,21 +87,21 @@ $(\xi, \eta)$, регрессия $\eta = f(\xi) + \varepsilon$
   X_i \rightarrow y_{i,1}, y_{i,2}, \dots, y_{i, n_i}, i = \overline{1, m}
 \]
 \[
-  \bar Y_i = \dfrac{1}{n_i} \sum_{j=1}^{n_i} Y_{ij} = \hat f(X_i)
+  \bar Y_i = \frac{1}{n_i} \sum_{j=1}^{n_i} Y_{ij} = \hat f(X_i)
 \]
 
 \[
-  \hat\sigma_f^2 = \dfrac{1}{n} \sum_{i=1}^m n_i (\bar Y_i - \bar Y)^2
+  \hat\sigma_f^2 = \frac{1}{n} \sum_{i=1}^m n_i (\bar Y_i - \bar Y)^2
   \text{-- оценка регрессии}
 \]
 
 \[
-  \hat\sigma_\eta^2 = \dfrac{1}{n} \sum_{i=1}^m \sum_{j=1}^{n_i} (Y_{ij} - \bar Y)^2
+  \hat\sigma_\eta^2 = \frac{1}{n} \sum_{i=1}^m \sum_{j=1}^{n_i} (Y_{ij} - \bar Y)^2
   \text{-- оценка дисперсии}
 \]
 
 \[
-  \hat f = \dfrac{\sigma_\eta^2}{\sigma_\eta^2 - \sigma_f^2} \cdot \dfrac{n-m}{m-1}
+  \hat f = \frac{\sigma_\eta^2}{\sigma_\eta^2 - \sigma_f^2} \cdot \frac{n-m}{m-1}
   \sim F(m-1, n-m)
 \]
 
@@ -155,22 +155,22 @@ $\Psi_j$ - базисные функции.
 \subsection{Ограничения на $\varepsilon_k$}
 
 \begin{enumerate}
-  \item $M\varepsilon_k = 0$
-  \item $M\varepsilon_k \varepsilon_j = 0, k \neq j$
-  \item $D \varepsilon_k = \delta^2$
-  \item $Y = \mathcal{F} \vec{\beta} + \varepsilon$
+  \item $M\varepsilon_k = 0$ для всех $ k = \overline{1, \ldots, n} $,
+  \item $M\varepsilon_k \varepsilon_j = 0$ для всех $k \neq j$,
+  \item $D \varepsilon_k = \delta^2$ для всех $ k = \overline{1, \ldots, n} $,
+  \item $\mathbf Y = \mathcal{F} \vec{\beta} + \varepsilon$.
 \end{enumerate}
-
-Из 2-3 свойств получаем, что $\Sigma_\varepsilon = \delta^2 E_n$ ($E_n$ - единичная матрица).
-Тогда, $MY = \mathcal{F} \vec{\beta}$.
+Из второго ($ \cov(\eta, \xi) = M(\xi\cdot\eta) - M\xi \cdot M\eta $) и третьего свойства получаем, что $\Sigma_{\mothbf{Y}} = \Sigma_{\bm\varepsilon} = \delta^2 E_n$
+($E_n$ --- единичная матрица).
+Тогда $M\mathbf{Y} = \mathcal{F} \vec{\beta}$.
 
 \begin{theorem}
   Если выполнены условия (*), $\mathcal{F}^T \mathcal{F}$ -- невырожденная матрица, то
   $\hat{\vec{\beta}} = (\mathcal{F}^T \mathcal{F})^{-1} \mathcal{F} Y$ является несмещенной и оптимальной (в классе линейных несмещенных оценок) оценкой $\vec{\beta}$.
 \end{theorem}
-
-Замечания $\hat{\vec{\beta}}$ - выбирается по МНК $\sum \varepsilon_k^2 \to \min$.
-
+\begin{remark*}
+$\hat{\vec{\beta}}$ выбирается по МНК $\sum \varepsilon_k^2 \to \min$.
+\end{remark*}
 \begin{proof}
   \begin{multline*}
     M \hat{\vec{\beta}} = M ( (\mathcal{F}^T \mathcal{F})^{-1} \mathcal{F}^T Y )
@@ -185,12 +185,12 @@ $\Psi_j$ - базисные функции.
   \] 
 
   \[
-    \dfrac{\partial \Delta}{\partial \beta_j} = 2 \sum (Y_k - \sum \beta_j \Psi_j(\vec{X}_k) (-\Psi_j (\dots)) 
+    \frac{\partial \Delta}{\partial \beta_j} = 2 \sum (Y_k - \sum \beta_j \Psi_j(\vec{X}_k) (-\Psi_j (\dots)) 
   \]
 
   В матричной записи:
   \[
-    \dfrac{\partial \Delta}{\partial \beta_j} = 0
+    \frac{\partial \Delta}{\partial \beta_j} = 0
     \Leftrightarrow \mathcal{F}^T (Y - \mathcal{F} \vec{\beta}) = 0
   \]
 
@@ -268,15 +268,15 @@ $\Psi_j$ - базисные функции.
   \]
   
   \[
-    \delta^2 (\mathcal{F}^T \mathcal{F})^{-1} = \delta^2 \dfrac{1}{75} \begin{pmatrix}
+    \delta^2 (\mathcal{F}^T \mathcal{F})^{-1} = \delta^2 \frac{1}{75} \begin{pmatrix}
       5 & 5 \\
       5 & 20
     \end{pmatrix}
   \]
 
   \begin{align*}
-    D \hat{\beta}_0 &= \dfrac{5}{75} \delta^2 \\
-    D \hat{\beta}_1 &= \dfrac{20}{75} \delta^2
+    D \hat{\beta}_0 &= \frac{5}{75} \delta^2 \\
+    D \hat{\beta}_1 &= \frac{20}{75} \delta^2
   \end{align*}
 \end{ex}
 
@@ -305,5 +305,5 @@ $\Psi_j$ - базисные функции.
 \end{definition}
 
 \begin{theorem}
-  Если выполнено (*) и ранг матрицы $\mathcal{F}$ максимален, то $\hat{\delta^2} = \dfrac{1}{n-m} (Y-\mathcal{F}\hat{\vec{\beta}})()$
+  Если выполнено (*) и ранг матрицы $\mathcal{F}$ максимален, то $\hat{\delta^2} = \frac{1}{n-m} (Y-\mathcal{F}\hat{\vec{\beta}})()$
 \end{theorem}
