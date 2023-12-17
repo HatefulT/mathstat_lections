@@ -1,4 +1,7 @@
-\section{Лекция 11 - 2023-11-15 - Непараметрические гипотезы. Критерий согласия $\chi^2$ Пирсона. Проверка гипотезы о виде распределения.}
+\section[Критерий Пирсона (лекция 11)]{Непараметрические гипотезы. Критерий согласия $\chi^2$ Пирсона. Проверка гипотезы о виде распределения}
+
+\epigraph{\emph{Лекция 11} (15.11.2023)}
+
 Рассмотрим простую гипотезу $H_0: X_1, \dots, X_n \sim F(x)$,
 где $F(x)$ --- конкретная функция распределения, например $\mathscr N(0, 1)$
 или
@@ -27,29 +30,69 @@ $\mathscr R[0, 2]$, с плотностью $ p $.
 Будем проверять схожесть двух последних строк.
 Для оценки схожести вводятся различные метрики, Пирсон придумал достаточно удачную метрику
 \[
-  \chi^2_B = \sum_{k=1}^m \dfrac{(\nu_k - np_k)^2}{np_k}.
+  \chi^2_B = \sum_{k=1}^m \frac{(\nu_k - np_k)^2}{np_k}.
 \]
 
 \begin{theorem}[Пирсона для простых гипотез]
   %!! простая гипотеза означает, что закон распределения очень конкретный (без параметра)
 
-  Пусть $E$ --- множество значений $X_i$ представлено в виде $E = \sqcup_{i=1}^m E_i$
+  Пусть $E$ --- множество значений $X_i$ представлено в виде $E =
+  \bigsqcup\limits_{i=1}^m E_i$
   (объединение непересекающихся множеств $E_i \cap E_j = \varnothing$, $i \neq
   j$).
 
   Пусть $p_i = P_0 (X_i \in E_i)$, $\nu_i$ - частоты попадения в $E_i$. Тогда
   \[
-    \chi^2_B = \sum_{k=1}^m \dfrac{(\nu_i - np_i)^2}{np_i} \toD \chi^2 (m-1),
+    \chi^2_B = \sum_{k=1}^m \frac{(\nu_i - np_i)^2}{np_i} \toD \chi^2 (m-1),
     \quad n \to \infty.
   \]
   
 \end{theorem}
 
 \begin{proof}
-  Напомним, что такое характеристическая функция:
+  Напомним определение \emph{характеристической функции}.
   \[
-    f_\xi (t) = M e^{i t \xi},\quad f_{\bar \xi} = M e^{i \bar t^T \bar \xi} = M e^{i \sum t_k \xi_k}
+    f_\xi (t) = M e^{i t \xi},\qquad f_{\bm\xi} = M e^{i (\mathbf t, \bm \xi)} =
+    M e^{i \sum t_k \xi_k}.
   \]
+В доказательстве будут использоваться следующие случайные величины:
+\begin{enumerate}
+  \item Статистика $ \bm \nu = (\nu_1, \nu_2, \ldots, \nu_m)^T$, распределённая
+    полиномиально. Действительно, отождествляя попадание величины $ X_i $ в
+    интервал $ E_j $ с вектором $ \mathbf e(X_i) = \mathbf e_j $,
+    получим $ \bm \nu = \sum \mathbf e(X_i) $. Напомним вероятности этого
+    закона: 
+      \[
+    P(\bm\nu = (n_1, n_2, \dots, n_m)) = \frac{n!}{n_1! n_2! \dots n_m!}
+    p_1^{n_1} p_2^{n_2} \dots p_m^{n_m}, 
+  \]
+  где, разумеется, $\sum n_i = n$, а
+  \[
+    \sum \frac{n!}{n_1! n_2! \dots n_m!} p_1^{n_1} \dots p_m^{n_m} = (p_1 + p_2
+    + \ldots + p_m)^n = 1
+  \]
+  по свойству мультиномиальных коэффициентов.
+    
+  \item Случайный вектор
+  \[
+  \bm\eta = \left\{\frac{\nu_i - np_i}{\sqrt{np_i}}\right\},
+  \]
+  который является функцией от $ \bm \nu $. Важно заметить, что его скалярный
+  квадрат (квадрат длины) и будет равен статистике $ \chi^2_B $.
+\item Наконец, случайный вектор $ \bm \xi = C \nu $, где $ C $ --- некоторая
+  ортогональная матрица с заданной первой строчкой (одну единичную строку можно задать в
+  любой ортогональной матрице): 
+  \[
+    C = \begin{pmatrix}
+      \sqrt{p_1} & \cdots & \sqrt{p_m} \\
+      \vdots & \ddots & \vdots \\
+      \cdots & \cdots & \cdots
+    \end{pmatrix}.
+  \]
+  
+  
+\end{enumerate}
+
 
   При нулевой гипотезе
   \[
@@ -58,17 +101,17 @@ $\mathscr R[0, 2]$, с плотностью $ p $.
 
   Ясно, что это распределено по полиномиальному закону:
   \[
-    P(\bar \nu = (n_1, n_2, \dots, n_m)) = \dfrac{n!}{n_1! n_2! \dots n_m!} p_1^{n_1} p_2^{n_2} \dots p_m^{n_m}, \sum n_i = n
+    P(\bar \nu = (n_1, n_2, \dots, n_m)) = \frac{n!}{n_1! n_2! \dots n_m!} p_1^{n_1} p_2^{n_2} \dots p_m^{n_m}, \sum n_i = n
   \]
 
   \[
-    \sum \dfrac{n!}{n_1! n_2! \dots n_m!} p_1^{n_1} \dots p_m^{n_m} = 1
+    \sum \frac{n!}{n_1! n_2! \dots n_m!} p_1^{n_1} \dots p_m^{n_m} = 1
   \]
 
   \begin{multline*}
     f_{\bar \nu} (\bar t) = M e^{i \bar t^T \bar \nu} =
-    \sum e^{i \sum t_k n_k} \dfrac{n!}{n_1! n_2! \dots n_m!} p_1^{n_1} \dots p_m^{n_m} = \\
-    = \sum \dfrac{n!}{n_1! n_2! \dots n_m!} (p_1 e^{i t_1})^{n_1} (p_2 e^{i t_2})^{n_2} \dots (p_m e^{i t_m})^{n_m} = 
+    \sum e^{i \sum t_k n_k} \frac{n!}{n_1! n_2! \dots n_m!} p_1^{n_1} \dots p_m^{n_m} = \\
+    = \sum \frac{n!}{n_1! n_2! \dots n_m!} (p_1 e^{i t_1})^{n_1} (p_2 e^{i t_2})^{n_2} \dots (p_m e^{i t_m})^{n_m} = 
     (p_1 e^{i t_1} + p_2 e^{i t_2} + \dots + p_m e^{i t_m})^n = \\
     = (1 + p_1 (e^{i t_1} - 1) + p_2 (e^{i t_2} - 1) + \dots + p_m (e^{i t_m} - 1))^n
   \end{multline*}
@@ -79,51 +122,58 @@ $\mathscr R[0, 2]$, с плотностью $ p $.
 
   Обозначим
   \[
-    \eta_k = \dfrac{\nu_k - np_k}{\sqrt{np_k}}, \chi^2_B = \sum_{k=1}^m \eta_k
+    \eta_k = \frac{\nu_k - np_k}{\sqrt{np_k}}, \chi^2_B = \sum_{k=1}^m \eta_k
   \]
 
   Тогда
   \[
     f_{\bar \eta} (\bar t) = M e^{i \bar t^T \bar \eta} =
-    M e^{i \sum t_k \dfrac{\nu_k - np_k}{\sqrt{np_k}}} = 
-    M e^{i \sum \dfrac{t_k}{\sqrt{np_k}} \nu_k} \cdot e^{i \sum t_k \sqrt{np_k}} = 
-    f_{\bar \nu} (\dfrac{t_1}{\sqrt{np_1}}, \dots, \dfrac{t_m}{\sqrt{np_m}}) e^{i \sum t_k \sqrt{np_k}}
+    M e^{i \sum t_k \frac{\nu_k - np_k}{\sqrt{np_k}}} = 
+    M e^{i \sum \frac{t_k}{\sqrt{np_k}} \nu_k} \cdot e^{i \sum t_k \sqrt{np_k}} = 
+    f_{\bar \nu} (\frac{t_1}{\sqrt{np_1}}, \dots, \frac{t_m}{\sqrt{np_m}}) e^{i \sum t_k \sqrt{np_k}}
   \]
 
   Тогда
   \[
-    \ln f_{\bar \nu} (\bar t) = -i \sum t_k \sqrt{np_k} + n \ln (1+p_1 (e^{\dfrac{i t_1}{\sqrt{np_1}}} - 1)+ \dots + p_m (e^{\dfrac{i t_m}{\sqrt{np_m}}} - 1) )
+    \ln f_{\bar \nu} (\bar t) = -i \sum t_k \sqrt{np_k} + n \ln (1+p_1 (e^{\frac{i t_1}{\sqrt{np_1}}} - 1)+ \dots + p_m (e^{\frac{i t_m}{\sqrt{np_m}}} - 1) )
   \]
 
-  Используя эквивалентности:
+  Используя эквивалентности,
   \begin{multline*}
-    = -i \sum t_k \sqrt{np_k} + n \left( \sum p_k (e^{\dfrac{i t_k}{\sqrt{np_k}}} - 1) - \dfrac{1}{2} (\sum p_k(e^{\dfrac{i t_k}{\sqrt{np_k}}} - 1))^2 + o(\dfrac{1}{n}) \right) = \\
-    = -i \sum t_k \sqrt{np_k} + n \left( \sum p_k (\dfrac{i t_k}{\sqrt{np_k}} + \dfrac{1}{2} \sum \dfrac{i t_k}{\sqrt{np_k}})^2 - \dfrac{1}{2} (\sum p_k \dfrac{i t_k}{\sqrt{np_K}})^2 + o(\dfrac{1}{n}) \right) = \\
-    = - \dfrac{1}{2} \sum t_k^2 + \dfrac{1}{2} \left( \sum t_k \sqrt{p_k} \right)^2 + o\left(\dfrac{1}{n}\right)
-    = - \dfrac{1}{2} \bar t^T \bar t + \dfrac{1}{2} ((C \bar t)_1)^2 + o(1)
+    = -i \sum t_k \sqrt{np_k} + n \left( \sum p_k \left(e^{\frac{i t_k}{\sqrt{np_k}}}
+    - 1\right) - \frac{1}{2} \left(\sum p_k(e^{\frac{i t_k}{\sqrt{np_k}}} - 1)\right)^2 +
+  o\left(\frac{1}{n}\right) \right) = \\
+    = -i \sum t_k \sqrt{np_k} + n \left( \sum p_k \left(\frac{i t_k}{\sqrt{np_k}} +
+    \frac{1}{2} \sum \frac{i t_k}{\sqrt{np_k}}\right)^2 - \frac{1}{2} \left(\sum p_k
+  \frac{i t_k}{\sqrt{np_K}}\right)^2 + o\left(\frac{1}{n}\right) \right) = \\
+    = - \frac{1}{2} \sum t_k^2 + \frac{1}{2} \left( \sum t_k \sqrt{p_k}
+    \right)^2 + o\left(\frac{1}{n}\right)
+    = - \frac{1}{2} \bar t^T \bar t + \frac{1}{2} ((C \bar t)_1)^2 + o(1),
   \end{multline*}
-  где $C$ - ортогональное преобразование $\bar \xi = C \eta$, с первой строчкой $(\sqrt{p_1}, \dots, \sqrt{p_m})$,
+  где $C$ - ортогональное преобразование $\bm \xi = C \bm\eta$, с первой
+  строчкой $(\sqrt{p_1}, \dots, \sqrt{p_m})$,
     а индексом 1 в $(C \bar t)_1$ обозначено взятие первого элемента вектора.
 
   Рассмотрим, что происходит с характеристической функцией при ортогональных преобразованиях:
   \[
-    f_{\bar \xi} (\bar t) = M e^{i \bar t^T \bar t} = M e^{i \bar t^T C \eta} =
-    M e^{i (C^T \bar t)^T \bar \eta} = f_{\bar \eta} (C^T \bar t)
+    f_{C\bm\eta} = f_{\bm \xi} (\mathbf t) = M e^{i \mathbf t^T \bm \xi} = M e^{i \mathbf t^T C
+    \bm\eta} =
+    M e^{i (C^T \mathbf t)^T \bm \eta} = f_{\bm\eta} (C^T \mathbf t).
   \]
 
   \[
-    \ln f_{\bar \xi} (\bar t) = - \dfrac{1}{2} (C^T \bar t)^T C^T \bar t + \dfrac{1}{2} ((C C^T \bar t))^2 + o(1) = -\dfrac{1}{2} \bar t^T \bar t + \dfrac{1}{2} t_1^2 + o(1) = - \dfrac{1}{2} \sum_{k=2}^m t_k^2 + o(1)
+    \ln f_{\bar \xi} (\bar t) = - \frac{1}{2} (C^T \bar t)^T C^T \bar t + \frac{1}{2} ((C C^T \bar t))^2 + o(1) = -\frac{1}{2} \bar t^T \bar t + \frac{1}{2} t_1^2 + o(1) = - \frac{1}{2} \sum_{k=2}^m t_k^2 + o(1)
   \]
 
   \[
-    \chi^2_B = \sum \dfrac{(\nu_k - np_k)^2}{np_k} = \sum \eta_k^2 = \bar \xi^T C^T C \bar \xi = \sum \xi_k^2
+    \chi^2_B = \sum \frac{(\nu_k - np_k)^2}{np_k} = \sum \eta_k^2 = \bar \xi^T C^T C \bar \xi = \sum \xi_k^2
   \]
 
   Рассмотрим как распределен вектор $\bar \xi$:
   
   Если бы $\bar \xi \sim N(0, \Sigma)$, то:
   \[
-    (\xi_1, \dots, \xi_m) \sim N(0, \Sigma) \Leftrightarrow f_{\bar \xi} (\bar t) = e^{-\dfrac{1}{2} \sum \sigma_k^2 t_k^2}
+    (\xi_1, \dots, \xi_m) \sim N(0, \Sigma) \Leftrightarrow f_{\bar \xi} (\bar t) = e^{-\frac{1}{2} \sum \sigma_k^2 t_k^2}
   \]
 
   В нашей ситуации выходит, что $\sigma_1 = 0$, следовательно, $\sum \xi_k^2 \sim \chi^2 (m-1)$.

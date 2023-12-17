@@ -1,14 +1,14 @@
-\section{Лекция 13 - 2023-11-29 - }
+\section[Обработка двумерной выборки (лекция 13)]{Обработка двумерной выборки}
 
-\subsection{Обработка двумерной выборки}
+\epigraph{\emph{Лекция 13} (29.11.2023).}
 
 Пусть $(X_1, Y_1), (X_2, Y_2), \dots, (X_n, Y_n)$, причем $X_i$ и $Y_i$ зависимы, $X_i$ и $X_j$ независимы при $i \neq j$.
 $M X_k = a_x$, $M Y_k = a_y$.
 
-Статистики: $\bar X, \bar Y, S_x^2 = \dfrac{1}{n-1} \sum (X_k - \bar X)^2, S_y^2 = \dfrac{1}{n-1} \sum (Y_k - \bar Y)^2$. 
+Статистики: $\bar X, \bar Y, S_x^2 = \frac{1}{n-1} \sum (X_k - \bar X)^2, S_y^2 = \frac{1}{n-1} \sum (Y_k - \bar Y)^2$. 
 
 \[
-  S_{xy}^2 = \dfrac{1}{n-1} \sum (X_k - \bar X) (Y_k - \bar Y)
+  S_{xy}^2 = \frac{1}{n-1} \sum (X_k - \bar X) (Y_k - \bar Y)
 \]
 
 Свойства:
@@ -26,16 +26,16 @@ $M X_k = a_x$, $M Y_k = a_y$.
 
   \item Состоятельность оценки $S_{XY}^2$
     \begin{equation*}
-      S_{xy}^2 = \dfrac{n}{n-1} \left( \dfrac{1}{n} \sum (X_k - a_x)(Y_k - a_y) - n (\bar X - a_x)(\bar Y - a_y) \right)
+      S_{xy}^2 = \frac{n}{n-1} \left( \frac{1}{n} \sum (X_k - a_x)(Y_k - a_y) - n (\bar X - a_x)(\bar Y - a_y) \right)
       \toP
       \sigma_{12}.
     \end{equation*}
     
   \item
     \begin{equation*}
-      \cov (\bar X, \bar Y) = \cov \left( \dfrac{1}{n} \sum X_k, \dfrac{1}{n} \sum Y_k \right)
-      = \dfrac{1}{n^2} \left( \sum_{k=1}^n \cov (X_k, Y_k) + \sum_{k\neq j} \cov(X_k, Y_j) \right)
-      = \dfrac{\sigma_{12}}{n}
+      \cov (\bar X, \bar Y) = \cov \left( \frac{1}{n} \sum X_k, \frac{1}{n} \sum Y_k \right)
+      = \frac{1}{n^2} \left( \sum_{k=1}^n \cov (X_k, Y_k) + \sum_{k\neq j} \cov(X_k, Y_j) \right)
+      = \frac{\sigma_{12}}{n}
     \end{equation*}
 \end{enumerate}
 
@@ -44,112 +44,132 @@ $M X_k = a_x$, $M Y_k = a_y$.
 
 \subsection{Оценка параметров двумерного нормального распределения}
 
-Оценки элементов ковариационной матрицы (смещенные):
+Оценки (смещённые!) элементов ковариационной матрицы:
 \[
 \begin{cases}
-  \mu_{11} &= \dfrac{1}{n} \sum (X_k - \bar X)^2, \\
-  \mu_{12} &= \dfrac{1}{n} \sum (X_k - \bar X)(Y_k - \bar Y), \\ 
-  \mu_{22} &= \dfrac{1}{n} \sum (Y_k - \bar Y)^2
+  \mu_{11} &= \frac{1}{n} \sum (X_k - \bar X)^2, \\
+  \mu_{12} &= \frac{1}{n} \sum (X_k - \bar X)(Y_k - \bar Y), \\ 
+  \mu_{22} &= \frac{1}{n} \sum (Y_k - \bar Y)^2.
 \end{cases}
 \]
 
-\begin{theorem}[Фишера]
-  Если $(X_1,Y_1), \dots, (X_n, Y_n)$ -- выборка из 
-  $N(
+\begin{theorem}[Фишер]
+  Если двумерная выборка
+  \[
+    (X_1,Y_1), \dots, (X_n, Y_n) \sim
+  \mathscr N\left(
     \begin{pmatrix} a_x \\ a_y \end{pmatrix},
     \begin{pmatrix}
       \sigma_{11} & \sigma_{12} \\
       \sigma_{12} & \sigma_{22}
-    \end{pmatrix} )$,
-  то $(\bar X, \bar Y)$ и $\bar \mu = (\mu_{11}, \mu_{12}, \mu_{22})$ независимы и
-  $(\bar X, \bar Y) \sim N( \bar a, \dfrac{1}{n} \dots )$
-  и совместная плотность имеет вид:
+  \end{pmatrix} \right)
+\]
+распределена по нормальному закону, 
+то статистики $(\bar X, \bar Y)$ и $\bm{\mu} = (\mu_{11}, \mu_{12}, \mu_{22})$ независимы и
+  $(\bar X, \bar Y) \sim N( \bar a, \frac{1}{n} \dots )$, а совместная плотность
+  $ \bm \mu $ имеет вид
   \[
-    p_{\mu} (x, y, z) = \dfrac{n^{n-1}}{4\pi \Gamma(n-2)} \dfrac{(xz - y^2)^\dfrac{n-4}{2}}{|\Sigma|^\dfrac{n-1}{2}} e^{-\dfrac{n}{2 |\Sigma|} (\sigma_{22} x - 2 \sigma_{12}y + \sigma_{11} z) }, x>0, y>0, xz>y^2
-  \]
+    p_{\bm\mu} (x, y, z) = \frac{n^{n-1}}{4\pi \Gamma(n-2)} \frac{(xz -
+    y^2)^\frac{n-4}{2}}{|\Sigma|^\frac{n-1}{2}} \exp\left[-\frac{n}{2 |\Sigma|}
+(\sigma_{22} x - 2 \sigma_{12}y + \sigma_{11} z) \right],
+\] 
+где $x>0$, $y>0$, $xz>y^2$.
 \end{theorem}
+\begin{proof}
 Без доказательства.
+\end{proof}
 
 \begin{definition}
-  $r_B = \dfrac{\mu_{11}}{\sqrt{xz}}$ называется выборочным коэффициентом корреляции.
+  Статистика
+  \[
+    r_B = \frac{\mu_{12}}{\sqrt{xz}} = \frac{S^2_{XY}}{\sqrt{S^2_X S^2_Y}}
+  \]
+  называется \emph{выборочным
+  коэффициентом корреляции}.
 \end{definition}
 
-\begin{corollary}
+\begin{corollary*}
   Рассмотрим выборочный коэффициент корреляции. По сути он представляет собой линейную замену.
   ($y = \sqrt{xz} \rho$),
-  тогда $\bar \mu = (\mu_{11}, r_B, \mu_{22})$
+  тогда $\bm \mu = (\mu_{11}, r_B, \mu_{22})$
   \[
-    p_\mu (x, \rho, z) = 
-    \dfrac{n^{n-1}}{4\pi \Gamma(n-2)}
-    \dfrac{(xz)^\dfrac{n-3}{2} \cdot (1-\rho^2)^\dfrac{n-4}{2}}{|\Sigma|^\dfrac{n-1}{2}}
-    e^{-\dfrac{n}{2 |\Sigma|} (\sigma_{22} x - 2 \sigma_{12}y + \sigma_{11} z) }, x>0, y>0, xz>y^2
+    p_{\bm\mu} (x, \rho, z) = 
+    \frac{n^{n-1}}{4\pi \Gamma(n-2)}
+    \frac{(xz)^\frac{n-3}{2} \cdot (1-\rho^2)^\frac{n-4}{2}}{|\Sigma|^\frac{n-1}{2}}
+    \exp\left[-\frac{n}{2 |\Sigma|} (\sigma_{22} x - 2 \sigma_{12}y +
+    \sigma_{11} z) \right],
   \]
+  где $x>0$, $y>0$, $xz>y^2$.
 
-  Найдем $p_{r_B} (\rho)$:
-
-  Для этого разложим экспоненту в ряд:
+  Найдем $p_{r_B} (\rho)$.
+  Для этого разложим экспоненту в ряд
   \[
-    e^{ \dfrac{n}{|\Sigma|} \sigma_{12} \rho \sqrt{xz} }
-    = \sum_{\nu=0}^\infty \left(\dfrac{n \sigma_{12}}{|\Sigma|} \rho \sqrt{xz} \right)^\nu \dfrac{1}{\nu!}
+    \exp\left[ \frac{n}{|\Sigma|} \sigma_{12} \rho \sqrt{xz} \right]
+    = \sum_{\nu=0}^\infty \left(\frac{n \sigma_{12}}{|\Sigma|} \rho \sqrt{xz}
+    \right)^\nu \frac{1}{\nu!}
   \]
-
-  Теперь проинтегрируем по х:
+  и проинтегрируем по переменным $ x $
   \[
-    \int_0^{+\infty} x^{\dfrac{n-3}{2} + \dfrac{\nu}{2}} e^{-\dfrac{n \sigma_{22} x}{2 |\Sigma|}} \, dx = \dots % (\dfrac{2 }{})
+    \int_0^{+\infty} x^{\frac{n-3}{2} + \frac{\nu}{2}} \exp\left[-\frac{n
+    \sigma_{22} x}{2 |\Sigma|}\right] \, dx = \dots % (\frac{2 }{})
   \]
+  и z  
+  \[
+      a.
+  \]
+  
 
   Без подробностей:
   \[
-    p_{r_B} (\rho) = \dfrac{2^{n-2}}{\pi (n-3)!}
-    (1 - r^2)^{\dfrac{n-1}{2}}
-    (1-\rho^2)^{\dfrac{n-4}{2}}
-    \sum_{\nu=0}^\infty \Gamma^2\left(\dfrac{n+\nu-1}{2}\right) \dfrac{(2 r \rho)^\nu}{\nu!}
+    p_{r_B} (\rho) = \frac{2^{n-2}}{\pi (n-3)!}
+    (1 - r^2)^{\frac{n-1}{2}}
+    (1-\rho^2)^{\frac{n-4}{2}}
+    \sum_{\nu=0}^\infty \Gamma^2\left(\frac{n+\nu-1}{2}\right) \frac{(2 r
+    \rho)^\nu}{\nu!}.
   \]
 \end{corollary}
 
-Рассмотрим частный случай
-\subsection{Случай $r=0$}
+Рассмотрим частный случай.
+\subsection{Случай $r = 0$}
 
 \[
-  p_{r_B} (\rho) = \dfrac{2^{n-2}}{\pi (n-3)!}
-  (1-\rho^2)^{\dfrac{n-4}{2}}
-  \Gamma^2\left(\dfrac{n-1}{2}\right)
+  p_{r_B} (\rho) = \frac{2^{n-2}}{\pi (n-3)!}
+  (1-\rho^2)^{\frac{n-4}{2}}
+  \Gamma^2\left(\frac{n-1}{2}\right).
 \]
 
 Какое-то свойство гамма-функции:
 \[
-  2^{2p-1} \dfrac{\Gamma(p+1/2)}{\Gamma(2p)} = \dfrac{\Gamma(1/2)}{\Gamma(p)}
+  2^{2p-1} \frac{\Gamma(p+1/2)}{\Gamma(2p)} = \frac{\Gamma(1/2)}{\Gamma(p)}
 \]
 
 \[
-  p_{r_B} (\rho) = \dfrac{\Gamma(\dfrac{n-1}{2})}{\Gamma(\dfrac{n-2}{2}) \sqrt{\pi}} (1-\rho^2)^{\dfrac{n-4}{2}}.
+  p_{r_B} (\rho) = \frac{\Gamma(\frac{n-1}{2})}{\Gamma(\frac{n-2}{2}) \sqrt{\pi}} (1-\rho^2)^{\frac{n-4}{2}}.
 \]
 
-
 \begin{theorem}
-  При $r=0$ статистика $t_B = \dfrac{r_B \sqrt{n-2}}{\sqrt{1 - r_B^2}}$
+  При $r=0$ статистика $t_B = \frac{r_B \sqrt{n-2}}{\sqrt{1 - r_B^2}}$
   распределена по закону $t(n-2)$.
 \end{theorem}
-
 \begin{proof}
   \[
-    y = \dfrac{x \sqrt{n-2}}{\sqrt{1-x^2}}; y^2 (1-x^2) = x^2 (n-2)
+    y = \frac{x \sqrt{n-2}}{\sqrt{1-x^2}}, \qquad y^2 (1-x^2) = x^2 (n-2)
   \]
 
   \[
-    x = \dfrac{y}{\sqrt{y^2+n-2}} = g^{-1} (y)
+    x = \frac{y}{\sqrt{y^2+n-2}} = g^{-1} (y)
   \]
 
   \[
-    (g^{-1} (y))' = \dfrac{\sqrt{y^2+n-2} - y \dfrac{2y}{\sqrt{y^2+n-2}} }{y^2+n-2} = \dfrac{n-2}{(y^2 + n - 2)^{3/2}}
+    (g^{-1} (y))' = \frac{\sqrt{y^2+n-2} - y \frac{2y}{\sqrt{y^2+n-2}} }{y^2+n-2} = \frac{n-2}{(y^2 + n - 2)^{3/2}}
   \]
 
   \begin{multline*}
     p_{t_B} (y) = p_{r_b} (g^{-1}(y)) (g^{-1}(y))'
-    = \dfrac{\Gamma(\dfrac{n-1}{2})}{\Gamma(\dfrac{n-2}{2}) \sqrt{\pi}}
-    (1-(\dfrac{y}{\sqrt{y^2+n-2}})^2)^{\dfrac{n-4}{2}} \cdot
-    \dfrac{n-2}{(y^2 + n - 2)^{3/2}} = \\
-    = \dfrac{\Gamma\left((n-1)/2\right)}{\Gamma\left((n-2)/2\right) \sqrt{\pi (n-2)}} \left(1 + \dfrac{y^2}{n-2}\right)^{-\dfrac{n-1}{2}} \sim t(n-2)
+    = \frac{\Gamma(\frac{n-1}{2})}{\Gamma(\frac{n-2}{2}) \sqrt{\pi}}
+    (1-(\frac{y}{\sqrt{y^2+n-2}})^2)^{\frac{n-4}{2}} \cdot
+    \frac{n-2}{(y^2 + n - 2)^{3/2}} = \\
+    = \frac{\Gamma\left((n-1)/2\right)}{\Gamma\left((n-2)/2\right) \sqrt{\pi (n-2)}} \left(1 + \frac{y^2}{n-2}\right)^{-\frac{n-1}{2}} \sim t(n-2)
   \end{multline*}
 \end{proof}
 
@@ -161,26 +181,26 @@ $M X_k = a_x$, $M Y_k = a_y$.
     H_1 &: r < 0
   \end{align*}
 
-  $t_B = \dfrac{r_B \sqrt{n-2}}{\sqrt{1-r_B^2}} \sim t(n-2)$ -- при выполнении гипотезы $H_0$.
+  $t_B = \frac{r_B \sqrt{n-2}}{\sqrt{1-r_B^2}} \sim t(n-2)$ -- при выполнении гипотезы $H_0$.
 
   $S = \{r_B < C\} = \{ t_B < C_1\}$
 
   \[
     \alpha = P(t_B < C_1 | H_0) \Rightarrow S = \{ t_B < t_\alpha (n-2) \} = 
-    \left\{ r_B < \dfrac{t_\alpha (n-2)}{\sqrt{ (t_\alpha(n-2))^2 + n-2 }}\right\}
+    \left\{ r_B < \frac{t_\alpha (n-2)}{\sqrt{ (t_\alpha(n-2))^2 + n-2 }}\right\}
   \]
 
   $r_B = -1.159 \notin S \Rightarrow H_0$ -- принимается (нельзя считать). 
 \end{ex}
 
-\subsection{Если $r \neq 0$}
+\subsection{Случай $r \neq 0$}
 
 \begin{theorem}[Фишера]
   Если $(X_1, Y_1), \dots, (X_n, Y_n)$ -- выборка из нормального закона, то
-  $z = \operatorname{Arcth} (r_B) = \dfrac{1}{2} \ln \dfrac{1 + r_B}{1 - r_B}$
+  $z = \operatorname{Arcth} (r_B) = \frac{1}{2} \ln \frac{1 + r_B}{1 - r_B}$
   приближенно распределена $(n \geqslant 10)$ по
-  $N\left(a_z, \dfrac{1}{\sqrt{n-3}}\right)$, где
-  $a_z = \operatorname{Arcth} (r) + \dfrac{r}{2(n-1)}$.
+  $N\left(a_z, \frac{1}{\sqrt{n-3}}\right)$, где
+  $a_z = \operatorname{Arcth} (r) + \frac{r}{2(n-1)}$.
 \end{theorem}
 
 \subsection{Построение доверительного интервала для r}
@@ -191,19 +211,19 @@ $M X_k = a_x$, $M Y_k = a_y$.
 \]
 
 \[
-  \dfrac{-u_{1-\alpha/2}}{\sqrt{n-3}} < \operatorname{Arcth} (r_B) - \operatorname{Arcth} (r) - \dfrac{r}{2(n-1)} < \dfrac{u_{1-\alpha/2}}{\sqrt{n-3}}
+  \frac{-u_{1-\alpha/2}}{\sqrt{n-3}} < \operatorname{Arcth} (r_B) - \operatorname{Arcth} (r) - \frac{r}{2(n-1)} < \frac{u_{1-\alpha/2}}{\sqrt{n-3}}
 \]
 
 Это уравнение является трансцендентным, поэтому заменим одну из r на $r_B$:
 \[
-  \dfrac{-u_{1-\alpha/2}}{\sqrt{n-3}} < \operatorname{Arcth} (r_B) - \operatorname{Arcth} (r) - \dfrac{r_B}{2(n-1)} < \dfrac{u_{1-\alpha/2}}{\sqrt{n-3}}
+  \frac{-u_{1-\alpha/2}}{\sqrt{n-3}} < \operatorname{Arcth} (r_B) - \operatorname{Arcth} (r) - \frac{r_B}{2(n-1)} < \frac{u_{1-\alpha/2}}{\sqrt{n-3}}
 \]
 
 Разрешая относительно r:
 \[
-  \th \left( \operatorname{Arcth}(r_B) - \dfrac{r_B}{2(n-1)} - \dfrac{u_{1-\alpha/2}}{\sqrt{n-3}} \right)
+  \th \left( \operatorname{Arcth}(r_B) - \frac{r_B}{2(n-1)} - \frac{u_{1-\alpha/2}}{\sqrt{n-3}} \right)
   < r
-  < \th \left( \operatorname{Arcth}(r_B) - \dfrac{r_B}{2(n-1)} + \dfrac{u_{1-\alpha/2}}{\sqrt{n-3}} \right)
+  < \th \left( \operatorname{Arcth}(r_B) - \frac{r_B}{2(n-1)} + \frac{u_{1-\alpha/2}}{\sqrt{n-3}} \right)
 \]
 
 \begin{ex}
@@ -223,17 +243,17 @@ $M X_k = a_x$, $M Y_k = a_y$.
   $(\xi, \eta) \sim$ норм.
 
   \[
-    p_\eta (y | \xi=x) = \dfrac{P_{\xi\eta} (x, y)}{P_\xi(x)} \dots \sim N\left(a_y+\dfrac{\sigma_{12}}{\sigma_{11}}(x-a_x), \sqrt{\sigma_{22} (1-r^2)}\right)
+    p_\eta (y | \xi=x) = \frac{P_{\xi\eta} (x, y)}{P_\xi(x)} \dots \sim N\left(a_y+\frac{\sigma_{12}}{\sigma_{11}}(x-a_x), \sqrt{\sigma_{22} (1-r^2)}\right)
   \]
 
   \[
-    M(\eta | \xi=x) = a_y + \dfrac{\sigma_{12}}{\sigma_{11}} (x-a_x);
+    M(\eta | \xi=x) = a_y + \frac{\sigma_{12}}{\sigma_{11}} (x-a_x);
     D(\eta | \xi=x) = \sqrt{\sigma_{22} (1-r^2) }
   \]
 
   $M(\eta | \xi) = M(\eta | \xi=x) |_{x=\xi} = f(\xi)$.
   В гассовском случае:
-  $f(\xi) = a_y + \dfrac{\sigma_{12}}{\sigma_{11}} (\xi - a_x)$.
+  $f(\xi) = a_y + \frac{\sigma_{12}}{\sigma_{11}} (\xi - a_x)$.
 
   Для r-мерной выборки:
   \[

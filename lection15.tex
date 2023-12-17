@@ -13,7 +13,7 @@
 
 Несмещенная оценка $D\varepsilon_k = \delta^2$:
 \[
-  \hat{\delta^2} = \dfrac{1}{n-m} \sum_{k=1}^n (Y_k - \sum_{j=0}^{m-1} \hat{\beta_j} \Psi_j(\vec{X}_k))
+  \hat{\delta^2} = \frac{1}{n-m} \sum_{k=1}^n (Y_k - \sum_{j=0}^{m-1} \hat{\beta_j} \Psi_j(\vec{X}_k))
 \]
 
 \[
@@ -25,33 +25,34 @@
   (+ $\vec{\varepsilon} \sim N(0, \delta^2 E_n)$), $\mathcal{F}^2 \mathcal{F}$ - невырожденная, 
   то 
   \[
-    \dfrac{\delta^2 (n-m)}{\delta^2} =
-    \dfrac{1}{\delta^2} (Y - \mathcal{F} \hat{\vec{\beta}})^T (Y - \mathcal{F} \hat{\vec{\beta}})
+    \frac{\delta^2 (n-m)}{\delta^2} =
+    \frac{1}{\delta^2} (Y - \mathcal{F} \hat{\vec{\beta}})^T (Y - \mathcal{F} \hat{\vec{\beta}})
   \]
   не зависит от $\hat{\vec{\beta}}$ и распределена по закону $\chi^2(n-m)$.
 \end{theorem}
 
 \begin{proof}
   \[
-    \dfrac{1}{\delta^2} (Y - \mathcal{F} \vec{\beta})^T (Y - \mathcal{F} \vec{\beta})
-    = \dfrac{1}{\delta^2} 
+    \frac{1}{\delta^2} (Y - \mathcal{F} \vec{\beta})^T (Y - \mathcal{F} \vec{\beta})
+    = \frac{1}{\delta^2} 
     (Y - \mathcal{F} \hat{\vec{\beta}})^T
     (Y - \mathcal{F} \hat{\vec{\beta}}) 
-    + \dfrac{1}{\delta^2} 
+    + \frac{1}{\delta^2} 
     (\hat{\vec{\beta}} - \vec{\beta})^T 
     \mathcal{F}^T \mathcal{F}
     (\hat{\vec{\beta}} - \vec{\beta})
   \]
 
   В силу того, что:
-  $\dfrac{\vec{\varepsilon}}{\delta} \sim N(0, E_n)$:
+  $\frac{\vec{\varepsilon}}{\delta} \sim N(0, E_n)$:
   \[
     \Rightarrow 
-    \dfrac{1}{\delta^2} \vec{\varepsilon}^T \vec{\varepsilon}
+    \frac{1}{\delta^2} \vec{\varepsilon}^T \vec{\varepsilon}
     \sim \chi^2(n)
   \]
 
-  Факт из алгебры: для невырожденной матрицы A можно взять её корень (корень Халецкого) C: 
+  \textsc{Факт из алгебры}. для невырожденной матрицы $A$ можно взять её корень
+  (\emph{корень Халецкого}), то есть представить её в виде 
   $A = C^T C$.
   \[
     C (\hat{\vec{\beta}} - \vec{\beta})
@@ -70,7 +71,7 @@
   \end{multline*}
 
   \[
-    \dfrac{1}{\delta^2}
+    \frac{1}{\delta^2}
     ( C (\hat{\vec{\beta}} - \vec{\beta}) )^T
     C (\hat{\vec{\beta}} - \vec{\beta})
     \sim
@@ -122,26 +123,26 @@
   \]
 
   \[
-    f_\xi(t) = f_\eta(t) \cdot f_\zeta(t) = (1-2it)^{n/2} f_\eta(t) = (1-2it)^{-\dfrac{n}{2}}
+    f_\xi(t) = f_\eta(t) \cdot f_\zeta(t) = (1-2it)^{n/2} f_\eta(t) = (1-2it)^{-\frac{n}{2}}
   \]
 
   \[
-    f_\eta(t) = (1 - 2it)^{-\dfrac{n-m}{2}}
+    f_\eta(t) = (1 - 2it)^{-\frac{n-m}{2}}
   \]
 \end{proof}
 
 \begin{corollary}[доверительный интервал для параметра регрессии и $\delta$]
   \[
-    \dfrac{\hat{\delta^2} (n-m)}{\delta^2} \sim \chi^2(n-m)
+    \frac{\hat{\delta^2} (n-m)}{\delta^2} \sim \chi^2(n-m)
   \]
 
   С вероятностью $1 - \alpha$:
   \[
-    \chi^2_{\alpha / 2} < \dfrac{\hat{\delta^2} (n-m)}{\delta^2} < \chi^2_{1 - \alpha/2} (n-m)
+    \chi^2_{\alpha / 2} < \frac{\hat{\delta^2} (n-m)}{\delta^2} < \chi^2_{1 - \alpha/2} (n-m)
   \]
 
   \[
-    \dfrac{\hat{\delta^2} (n-m)}{\chi^2_{1-\alpha/2}} < \delta^2 < \dfrac{\hat{\delta^2} (n-m)}{\chi^2_{\alpha/2}} = \sum_k (Y_k - \sum_{j=0}^{m-1} \hat{\beta}_j \Psi_j (\vec{X}_k)) / (\chi^2_{\alpha/2}(n-m))
+    \frac{\hat{\delta^2} (n-m)}{\chi^2_{1-\alpha/2}} < \delta^2 < \frac{\hat{\delta^2} (n-m)}{\chi^2_{\alpha/2}} = \sum_k (Y_k - \sum_{j=0}^{m-1} \hat{\beta}_j \Psi_j (\vec{X}_k)) / (\chi^2_{\alpha/2}(n-m))
   \]
 \end{corollary}
 
@@ -159,8 +160,8 @@
   \]
 
   \[
-    \dfrac{\sum_k (Y_k - \hat{\beta_0} - \hat{\beta_1})^2}{\chi^2_{1 - \alpha/2}} < \delta^2 <
-    \dfrac{\sum_k (Y_k - \hat{\beta_0} - \hat{\beta_1})^2}{\chi^2_{\alpha/2}}
+    \frac{\sum_k (Y_k - \hat{\beta_0} - \hat{\beta_1})^2}{\chi^2_{1 - \alpha/2}} < \delta^2 <
+    \frac{\sum_k (Y_k - \hat{\beta_0} - \hat{\beta_1})^2}{\chi^2_{\alpha/2}}
   \]
 \end{ex}
 
@@ -173,21 +174,21 @@
 где $\tau_{ii}$ -- элемент $(\mathcal{F}^T \mathcal{F})^{-1}$.
 
 \[
-  \dfrac{\hat{\beta}_i - \beta_i}{\delta \sqrt{\tau_{ii}}} \sim N(0, 1)
+  \frac{\hat{\beta}_i - \beta_i}{\delta \sqrt{\tau_{ii}}} \sim N(0, 1)
 \]
 
 \[ 
-  \dfrac{\hat{\beta}_i - \beta_i}{\hat{\delta} \sqrt{\tau_{ii}}}
-  = \dfrac
-  { \dfrac{\hat{\beta}_i - \beta_i}{\delta \sqrt{\tau_{ii}}} }
-  { \sqrt{ \dfrac{1}{n-m} \dfrac{\hat{\delta^2} (n-m)}{\delta^2} } }
+  \frac{\hat{\beta}_i - \beta_i}{\hat{\delta} \sqrt{\tau_{ii}}}
+  = \frac
+  { \frac{\hat{\beta}_i - \beta_i}{\delta \sqrt{\tau_{ii}}} }
+  { \sqrt{ \frac{1}{n-m} \frac{\hat{\delta^2} (n-m)}{\delta^2} } }
   \sim t(n-m)
 \]
-т.к. $ \sqrt{ \dfrac{1}{n-m} \dfrac{\hat{\delta^2} (n-m)}{\delta^2} } \sim \chi^2(n-m) $.
+т.к. $ \sqrt{ \frac{1}{n-m} \frac{\hat{\delta^2} (n-m)}{\delta^2} } \sim \chi^2(n-m) $.
 
 \[
   -t_{1-\alpha/2} (n-m) <
-  \dfrac{\hat{\beta}_i - \beta_i}{\hat{\delta} \sqrt{\tau_{ii}}}
+  \frac{\hat{\beta}_i - \beta_i}{\hat{\delta} \sqrt{\tau_{ii}}}
   < t_{\alpha/2} (n-m)
 \]
 
@@ -200,15 +201,15 @@
 \begin{ex}
   в продолжениe прошлого примера,
   \[
-    \hat{\beta}_0 - \hat{\delta} \sqrt{ \dfrac{\sum X_k^2}{n \sum{X_k^2} - \left( \sum X_k \right)^2 } } t_{1-\alpha/2} (n-m) < 
+    \hat{\beta}_0 - \hat{\delta} \sqrt{ \frac{\sum X_k^2}{n \sum{X_k^2} - \left( \sum X_k \right)^2 } } t_{1-\alpha/2} (n-m) < 
     \beta_0 <
-    \hat{\beta}_0 + \hat{\delta} t_{1 + \alpha/2} (n-m) \sqrt{ \dfrac{\sum X_k^2}{n \sum{X_k^2} - \left( \sum X_k \right)^2 } }
+    \hat{\beta}_0 + \hat{\delta} t_{1 + \alpha/2} (n-m) \sqrt{ \frac{\sum X_k^2}{n \sum{X_k^2} - \left( \sum X_k \right)^2 } }
   \]
   
   \[
-    \hat{\beta}_1 - \hat{\delta} \sqrt{ \dfrac{n}{n \sum{X_k^2} - \left( \sum X_k \right)^2 } } t_{1-\alpha/2} (n-m) < 
+    \hat{\beta}_1 - \hat{\delta} \sqrt{ \frac{n}{n \sum{X_k^2} - \left( \sum X_k \right)^2 } } t_{1-\alpha/2} (n-m) < 
     \beta_1 <
-    \hat{\beta}_1 + \hat{\delta} t_{1 + \alpha/2} (n-m) \sqrt{ \dfrac{n}{n \sum{X_k^2} - \left( \sum X_k \right)^2 } }
+    \hat{\beta}_1 + \hat{\delta} t_{1 + \alpha/2} (n-m) \sqrt{ \frac{n}{n \sum{X_k^2} - \left( \sum X_k \right)^2 } }
   \]
 \end{ex}
 
@@ -225,9 +226,9 @@
 Критическое множество: $S = \left{ |\hat{\beta}_i| > C \right} $.
 \[
   \alpha = P( |\hat{\beta}_i| > C | \beta_i 0)
-  = P( \dfrac{|\hat{\beta_i}|}{\hat{\delta} \sqrt{\tau_{ii}}} > \dfrac{C}{\hat{\delta} \sqrt{\tau_{ii}}} )
+  = P( \frac{|\hat{\beta_i}|}{\hat{\delta} \sqrt{\tau_{ii}}} > \frac{C}{\hat{\delta} \sqrt{\tau_{ii}}} )
   \Rightarrow
-  \dfrac{C}{\hat{\delta} \sqrt{\tau_{ii}}} = t_{1-\alpha/2} (n-m)
+  \frac{C}{\hat{\delta} \sqrt{\tau_{ii}}} = t_{1-\alpha/2} (n-m)
 \]
 
 Таким образом,
@@ -243,15 +244,15 @@
 Если примем $H_1$, то дальше по отдельности нужно будет проверять $\beta_k = 0$.
 
 \[
-  \dfrac{\xi}{\eta} = F_B =
-  \dfrac
-  { \dfrac{1}{\delta^2} \sum (\bar{Y} - \sum_j \hat{\beta}_j \Psi_j (\vec{X}_k))^2 (n-m)}
-  { (m-1) \dfrac{1}{\delta^2} \sum (Y_k - \sum_j \hat{\beta}_j \Psi_j (\vec{X}_k))^2 }
+  \frac{\xi}{\eta} = F_B =
+  \frac
+  { \frac{1}{\delta^2} \sum (\bar{Y} - \sum_j \hat{\beta}_j \Psi_j (\vec{X}_k))^2 (n-m)}
+  { (m-1) \frac{1}{\delta^2} \sum (Y_k - \sum_j \hat{\beta}_j \Psi_j (\vec{X}_k))^2 }
 \]
 
 Уже доказано выше:
 \[
-  \dfrac{1}{\delta^2} (\hat{\vec{\beta}} - \vec{\beta})^T \mathcal{F}^T \mathcal{F} (\hat{\vec{\beta}} - \vec{\beta}) \sim \chi^2(m).
+  \frac{1}{\delta^2} (\hat{\vec{\beta}} - \vec{\beta})^T \mathcal{F}^T \mathcal{F} (\hat{\vec{\beta}} - \vec{\beta}) \sim \chi^2(m).
 \]
 
 При основной гипотезе:
@@ -262,16 +263,16 @@
 \]
 
 \[
-  \sum \left( \dfrac{X_k - a}{\sigma} \right)^2 \sim \chi^2(n);
-  \sum \left( \dfrac{X_k - \bar{X}}{\sigma} \right)^2 \sim \chi^2(n-1);
+  \sum \left( \frac{X_k - a}{\sigma} \right)^2 \sim \chi^2(n);
+  \sum \left( \frac{X_k - \bar{X}}{\sigma} \right)^2 \sim \chi^2(n-1);
 \]
 
 \[
-  \dfrac{1}{\delta^2} (\hat{\vec{\beta}} - \bar{Y} \cdot I)^T \mathcal{F}^T \mathcal{F} (\hat{\vec{\beta}} - \bar{Y} \cdot I) \sim \chi^2(m-1)
+  \frac{1}{\delta^2} (\hat{\vec{\beta}} - \bar{Y} \cdot I)^T \mathcal{F}^T \mathcal{F} (\hat{\vec{\beta}} - \bar{Y} \cdot I) \sim \chi^2(m-1)
 \]
 где $I$ - столбец единиц. С другой стороны,
 \[
-  \dfrac{1}{\delta^2} (\hat{\vec{\beta}} - \bar{Y} \cdot I)^T \mathcal{F}^T \mathcal{F} (\hat{\vec{\beta}} - \bar{Y} \cdot I)
-  = \dfrac{1}{\delta^2} \left( \mathcal{F} \hat{\vec{\beta}} - \bar{Y} I \right)^T \left( \mathcal{F} \hat{\vec{\beta}} - \bar{Y} I \right)
-  = \dfrac{1}{\delta^2} \sum \left( \bar{Y} - \sum \hat{\beta_j} \Psi_j (\vec{X}_k) \right)^2 
+  \frac{1}{\delta^2} (\hat{\vec{\beta}} - \bar{Y} \cdot I)^T \mathcal{F}^T \mathcal{F} (\hat{\vec{\beta}} - \bar{Y} \cdot I)
+  = \frac{1}{\delta^2} \left( \mathcal{F} \hat{\vec{\beta}} - \bar{Y} I \right)^T \left( \mathcal{F} \hat{\vec{\beta}} - \bar{Y} I \right)
+  = \frac{1}{\delta^2} \sum \left( \bar{Y} - \sum \hat{\beta_j} \Psi_j (\vec{X}_k) \right)^2 
 \]
