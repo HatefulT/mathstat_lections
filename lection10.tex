@@ -141,8 +141,16 @@ $z_\nu \geqslant A$ - принимаем $H_1$; $z_\nu \leqslant B$ - прини
   \[
     P_{\theta_i} (\nu > rk) \to 0, k \to \infty
   \]
-  % TODO не знаю что следующая строчка вообще означает:
-  $M_{\theta_i} \nu = \sum n P_{\theta_i} (\nu  = n) = \sum P_{\theta_i} (\nu \geqslant n) = \sum ( P(\theta_i)^{1/r} )^{nr}$
+  
+  Матож тоже конечно:
+  \[
+    M_{\theta_i} \nu
+    = \sum_{n=1}^{\infty} n P_{\theta_i} (\nu  = n)
+    = \sum_{n=1}^{\infty} P_{\theta_i} (\nu \geqslant n)
+    \leqslant \sum_{k=1}^{\infty} ( P(\theta_i)^{1/r} )^{kr}
+    < \infty
+\]
+
 \end{proof}
 
 Вторая особенность такого критерия состоит в том, что он чувствителен к порядку учета выборки.
@@ -172,7 +180,7 @@ $z_\nu \geqslant A$ - принимаем $H_1$; $z_\nu \leqslant B$ - прини
   $\varkappa_{1n} = \left( \vec{X}_n : B < Z_k < A, k = \overline{1, n-1}, z_n \geqslant A \right)$ - множество тех, которые ведут к принятию гипотезы $H_1$
 
   \begin{equation*}
-    1 = \sum  P_{\theta_i} (\nu = n) = \sum P_{\theta_i} (\varkappa_{0n}) + \sum P_{\theta_i} (\varkappa_{1n}) =
+    1 = \sum_n P_{\theta_i} (\nu = n) = \sum_n P_{\theta_i} (\varkappa_{0n}) + \sum_n P_{\theta_i} (\varkappa_{1n}) =
     \begin{cases}
       (1 - \alpha) + \alpha, &\theta_0 \\
       \beta + (1 - \beta), &\theta_1
@@ -180,21 +188,32 @@ $z_\nu \geqslant A$ - принимаем $H_1$; $z_\nu \leqslant B$ - прини
   \end{equation*}
 
   \[
-    \alpha = \sum P_{\theta_0} (\varkappa_{1n}) \leqslant \dfrac{1}{A} \sum P_{\theta_1} (\varkappa_{1n}) = \dfrac{1 - \beta}{A}
+    \alpha
+    = \sum_n P_{\theta_0} (\varkappa_{1n})
+    \leqslant \dfrac{1}{A} \sum_n P_{\theta_1} (\varkappa_{1n})
+    = \dfrac{1 - \beta}{A}
   \]
   
   Рассмотрим почему среднее неравенство верно. Для дискретного случая:
-  \[
-    P_{\theta_1} (\varkappa_{0n}) = \sum_{\vec{X_n} \in \varkappa_{1n}} P_{\theta_1}(\xi_1 = X_1, \dots, \xi_n = X_n)= \sum \mathcal{L} (X_1, \dots, X_n, \theta_1) \leqslant \dfrac{1}{A} \sum \mathcal{L} (\dots, \theta_1) = \dfrac{1 - \beta}{A}
-  \]
+  \begin{multline*}
+    P_{\theta_1} (\varkappa_{0n})
+    = \sum_{\vec{X_n} \in \varkappa_{1n}} P_{\theta_1}(\xi_1 = X_1, \dots, \xi_n = X_n) = \\
+    = \sum_{\vec{X_n} \in \varkappa_{1n}} \mathcal{L} (X_1, \dots, X_n, \theta_1)
+    \leqslant \dfrac{1}{A} \sum_{\vec{X_n} \in \varkappa_{1n}} \mathcal{L} (X_1, \dots, X_n, \theta_1)
+    = \dfrac{1 - \beta}{A},
+  \end{multline*}
+  то есть верно по построению $\varkappa_{1n}$.
 
   \[
-    \beta = \sum P_{\theta_1} (\varkappa_{0n}) = \sum_{n=1}^\infty \sum_{\vec{X}_n \in \varkappa_{0n}} P_{\theta_1} (\vec{\xi} = \vec{X}_n)
+    \beta = \sum_{n} P_{\theta_1} (\varkappa_{0n})
+    = \sum_{n=1}^\infty \sum_{\vec{X}_n \in \varkappa_{0n}} P_{\theta_1} (\vec{\xi}
+    = \vec{X}_n)
   \]
 \end{proof}
 
 \subsection{Среднее число испытаний в критерии Вальда}
 
+% TODO здесь во всей лекции надо поменять обозначение Z_n = ln z_n
 Критерий Вальда для выборки $X_1, \dots, X_n, \dots$.
 Рассматривается статистика
 \[
@@ -244,7 +263,7 @@ $z_\nu \geqslant A$ - принимаем $H_1$; $z_\nu \leqslant B$ - прини
 \begin{proof}
   В соответствии с нашими обозначениями:
   \[
-    z_\nu = \sum Y_k \Rightarrow M_i z_\nu = M_i \nu M_i Y_k, i = 0, 1
+    z_\nu = \sum_{k=1}^\nu Y_k \Rightarrow M_i z_\nu = M_i \nu M_i Y_k, i = 0, 1
   \]
   \epigraph{не просто, а очень просто}{Т.~В.~Облакова}
 
