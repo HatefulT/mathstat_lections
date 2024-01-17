@@ -17,57 +17,71 @@
 % \end{theorem}
 
 \begin{ex}[критерий Неймана-Пирсона]
-  $X_1,\dots,X_n \sim N(a, \sigma)$, $a = a_0$ - известно
-  $H_0 : \sigma = \sigma_0$
-  $H_1 : \sigma = \sigma_1$
+  $X_1,\dots,X_n \sim N(a, \sigma)$, $a = a_0$;
+  $H_0 : \sigma = \sigma_0$,
+  $H_1 : \sigma = \sigma_1$.
   \begin{multline*}
     \dfrac{L(\bar X, \sigma_1)}{L(\bar X, \sigma_0)}
-    = \prod \dfrac{\dfrac{1}{\sqrt{2\pi} \sigma_1} \exp\left(- \dfrac{(x_k -
-    a_0)^2}{2\sigma_1^2}\right)}{\dfrac{1}{\sqrt{2\pi} \sigma_0} \exp\left(- \dfrac{(x_k - a_0)^2}{2\sigma_0^2}\right)}
-    = \left(\dfrac{\sigma_0}{\sigma_1}\right)^n \exp\left(-\dfrac{1}{2\sigma_1^2} \sum (X_k-a_0)^2 + \dfrac{1}{2\sigma_0^2} \sum (X_k-a_0)^2 \right) = \\
-    = \left(\dfrac{\sigma_0}{\sigma_1}\right)^n \exp\left( -\dfrac{1}{2} \sum \dfrac{\sigma_0^2 (X_k-a_0)^2 + \sigma_1^2 (X_k - a_0)^2}{\sigma_1^2 \sigma_0^2} \right) \geqslant C
+    = \prod \dfrac{\dfrac{1}{\sqrt{2\pi} \sigma_1} \exp\left(- \frac{(X_k -
+    a_0)^2}{2\sigma_1^2}\right)}{\frac{1}{\sqrt{2\pi} \sigma_0} \exp\left(- \frac{(X_k - a_0)^2}{2\sigma_0^2}\right)}
+    = \left(\dfrac{\sigma_0}{\sigma_1}\right)^n \exp\left(-\frac{1}{2\sigma_1^2}
+    \sum (X_k-a_0)^2 + \frac{1}{2\sigma_0^2} \sum (X_k-a_0)^2 \right) = \\
+    = \left(\dfrac{\sigma_0}{\sigma_1}\right)^n \exp\left( -\frac{1}{2} \sum
+    \frac{\sigma_0^2 (X_k-a_0)^2 + \sigma_1^2 (X_k - a_0)^2}{\sigma_1^2
+  \sigma_0^2} \right) \geqslant C.
   \end{multline*}
-
+То есть
   \begin{equation*}
-    \left(\dfrac{\sigma_0}{\sigma_1}\right)^n \exp\left(-\dfrac{1}{2} \dfrac{\sigma_0^2 - \sigma_1^2}{\sigma_1^2 \sigma_0^2} \sum (X_k-a_0)^2\right) \geqslant C
+    \left(\dfrac{\sigma_0}{\sigma_1}\right)^n \exp\left(-\dfrac{1}{2}
+    \dfrac{\sigma_0^2 + \sigma_1^2}{\sigma_1^2 \sigma_0^2} \sum
+  (X_k-a_0)^2\right) \geqslant C.
   \end{equation*}
 
-  Если знать, что из $ \sigma_0 $, $ \sigma_1 $ больше, то можно уже построить критерий вида:
-  $$ S = \left\{ \sum(X_k-a_0)^2 \gtrless C_1 \right\} $$
+  Если знать, что из $ \sigma_0 $, $ \sigma_1 $ больше, то можно уже построить
+  критерий вида
+  $$ S = \left\{ \sum(X_k-a_0)^2 \gtrless C_1 \right\}. $$
 \end{ex}
 
 \section{Лекция 10 - 2023-11-08 - Критерий Вальда}
-\subsection{Графическая иллюстрация критерия отношения правдоподобия}
+% \subsection{Графическая иллюстрация критерия отношения правдоподобия}
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=0.8\textwidth]{Figures/10-plot1.png}
-  \caption{Иллюстрация критерия Неймана-Пирсона}
-  \label{fig:10-plot1}
+  \begin{minipage}{0.45\textwidth}
+    \centering
+    \includegraphics[width=0.8\textwidth]{Figures/10-plot1.png}
+    \caption{Иллюстрация критерия Неймана -- Пирсона}
+    \label{fig:10-plot1}
+  \end{minipage}\hfill
+  \begin{minipage}{0.45\textwidth}
+    \centering
+    \includegraphics[width=0.8\textwidth]{Figures/10-plot2.png}
+    \caption{Иллюстрация критерия Вальда. Снизу область принятия $H_0$;
+      сверху область принятия $H_1$;
+    посередине область продолжения наблюдений.}
+    \label{fig:10-plot2}
+  \end{minipage}
 \end{figure}
 
-Таким образом, вывод по верности гипотез может зависеть от объема выборки n.
+Таким образом, в случае критерия Неймана -- Пирсона вывод по верности гипотез
+может зависеть от объема выборки $ n $; в критерии Вальда как
+только после очередного наблюдения статистика перешла вниз или вверх, наблюдения прекращаются и принимается нужная гипотеза.
 
-\subsection{Графическая иллюстрация критерия Вальда}
+% \subsection{Графическая иллюстрация критерия Вальда}
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=0.8\textwidth]{Figures/10-plot2.png}
-  \caption{Иллюстрация критерия Вальда}
-  \label{fig:10-plot2}
-\end{figure}
+% \begin{figure}[h!]
+%   \centering
+%   \includegraphics[width=0.8\textwidth]{Figures/10-plot2.png}
+%   \caption{Иллюстрация критерия Вальда. Снизу область принятия $H_0$;
+% сверху область принятия $H_1$;
+% посередине область продолжения наблюдений.}
+%   \label{fig:10-plot2}
+% \end{figure}
 
-На рисунке \ref{fig:10-plot2}:
-cнизу область принятия $H_0$;
-сверху область принятия $H_1$;
-посередине область продолжения наблюдений.
-Как только после очередного наблюдения статистика перешла вниз или вверх, наблюдения прекращаются и принимается нужная гипотеза.
-
-Статистика критерия $(\nu, X_1, X_2, \dots, X_n)$,
-$\nu = min \{ n : Z_n \notin (B, A) \}$,
-$z_n = \dfrac{L(X_1, \dots, X_n, \theta_1)}{L(X_1, \dots, X_n, \theta_0)}$
-
-Критерий: Пусть 0<B<1<A.
+Статистика критерия. $(\nu, X_1, X_2, \dots, X_n)$,
+ $\nu = \min \{ n : Z_n \notin (B, A) \}$,
+$z_n = \frac{L(X_1, \dots, X_n, \theta_1)}{L(X_1, \dots, X_n, \theta_0)}$.
+\textsc{Критерий}. Пусть $0<B<1<A$.
 $z_\nu \geqslant A$ - принимаем $H_1$; $z_\nu \leqslant B$ - принимаем $H_0$.
 
 \begin{theorem}
