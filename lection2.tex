@@ -139,20 +139,21 @@
 \end{ex}
 
 \begin{theorem}
-  Если последовательность $\{ \xi_n \}$ монотонно убывает (возрастает) и $\xi_n \toP \xi$, то
+  Если последовательность $\{ \xi_n \}$ поточечно монотонно убывает (возрастает) и $\xi_n \toP \xi$, то
 	\[
 		\xi_n \toPN \xi.
 	\]
 \end{theorem}
 \begin{proof}
-Пусть $ \{\xi_n\} $ монотонно убывает и $ \xi_n \toP 0 $ (в случае возрастания
-рассматривается последовательность $ \{\xi_n - \xi\} $). Тогда 
+  Пусть последовательность $ \{\tilde\xi_n\} = \{\xi_n - \xi\} $ монотонно
+  убывает и $ \tilde\xi_n \toP 0 $ (в случае
+возрастания рассматривается последовательность $ \{\xi - \xi_n\} $). Тогда 
 \[
-	 \sup_{m\geqslant n}|\xi_m - \xi| > \varepsilon  = 
-	\sup_{m\geqslant n} |\xi_m| > \varepsilon  =  \sup_{m\geqslant n}
-\xi_m > \varepsilon  = \xi_n > \varepsilon. 
+  \{ \omega\colon\sup_{m\geqslant n}|\xi_m - \xi| > \varepsilon\}  = 
+  \{\omega\colon	\sup_{m\geqslant n} |\tilde\xi_m| > \varepsilon\}  =
+  \{\omega\colon\sup_{m\geqslant n}
+  \tilde\xi_m > \varepsilon\}  = \{\omega\colon\tilde\xi_n > \varepsilon\}. 
 \]
-
 \end{proof}
 
 \begin{theorem}
@@ -470,8 +471,10 @@ M|\xi_k-a_k|^3 = c^3_k $. Обозначим $ A_n = \sum^n_{k=1} a_k $, $ B^2_n
 	\]
 \end{theorem}	
 
+\newpage
+
 \subsection{Резюме}
-\begin{figure}[H]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Figures/resume.png}
 	\label{fig:resume}

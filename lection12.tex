@@ -4,37 +4,46 @@
 
 \begin{ex}
   Случай сложной гипотезы
-  $X_1, X_2, \dots, X_n \sim F(x, \bar \theta)$, $\bar\theta = (\theta_1, \dots, \theta_r)$.
-
-  Гипотеза $H_0$ - выборка подчиняется закону $F$.
+  $X_1, X_2, \dots, X_n \sim F(x, \bm \theta)$, $\bm\theta = (\theta_1, \dots, \theta_r)$.
+  Гипотеза $H_0$: \emph{выборка подчиняется закону $F$}.
 \end{ex}
 
-\begin{theorem}[Теорема Фишера (критерий Фишера для сложных гипотез)]
-  Пусть проверятеся гипотеза $H_0$ - выборка из закона $F(x, \bar\theta)$.
+\begin{theorem}[Фишера, или критерий Фишера для сложных гипотез]
+  Пусть проверятеся гипотеза $H_0$: \emph{выборка из закона $F(x, \bar\theta)$}
+  и
+  пусть множество значений СВ $E = E_1 + \dots + E_l$.
   
-  Пусть множество значений СВ $E = E_1 + \dots + E_l$.
-  
-  Пусть $p_l (\bar\theta) = p(\xi \in E_l) = \int_{E_l} dF(x, \bar\theta)$. 
-  $\hat{\bar\theta}$ - ОМП параметра $\bar\theta$.
+  Пусть $p_l (\bm\theta) = p(\xi \in E_l) = \int_{E_l} dF(x, \bm\theta)$. 
+  $\hat{\bm\theta}$ есть ОМП параметра $\bm\theta$.
   Тогда если
   \[
-    \exists \dfrac{\partial p_l(\bar\theta)}{\partial \theta_i}, \dfrac{\partial^2 p_l(\bar\theta)}{\partial \theta_i \partial \theta_j}, i, j = \overline{1, r}; k=\overline{1, l},
+    \exists \dfrac{\partial p_l(\bar\theta)}{\partial \theta_i},\
+    \dfrac{\partial^2 p_l(\bar\theta)}{\partial \theta_i \partial
+    \theta_j},\quad i,\, j = \overline{1,\ldots, r};\ k=\overline{1,\ldots, l},
   \]
-  А матрица $\left(\dfrac{\partial p}{\partial \bar\theta}\right)$ - имеет ранг r, то
+  а матрица $\left(\partial p/\partial \bm\theta\right)$ имеет ранг r, то
   \[
-    \chi^2_B = \sum_{k=1}^l \dfrac{(\nu_k - np_k(\hat{\bar\theta}))^2}{np_k(\hat{\bar\theta})} \toD \chi^2 (l-1-r)
+    \chi^2_B = \sum_{k=1}^l \dfrac{(\nu_k -
+    np_k(\hat{\bar\theta}))^2}{np_k(\hat{\bar\theta})} \toD \chi^2 (l-1-r).
   \]
 \end{theorem}
 
 
 \begin{remark}
-  условия теоремы не выполнены например для выборки $X_1, \dots, X_n \sim R[a, b]$.
-  ОМП: $\hat a = X_{(1)}, \hat b = X_{(n)}$. $p_k (a, b) = \int_{E_k} \dfrac{1}{b-a} dx$ - не является дифф. (в точках a и b скачки).
+  Условия теоремы не выполнены, например, для выборки $X_1, \dots, X_n \sim
+  \mathscr R[a, b]$.
+  Там методом максимального правдоподобия находим $\hat a = X_{(1)}, \hat b =
+  X_{(n)}$. При этом
+  \[
+    p_k (a, b) = \int_{E_k} \frac{dx}{b-a}
+  \]
+  не является
+  дифференцируемой (в точках $a$ и $b$ скачки).
 \end{remark}
 
 При использовании критерия считают $r = 0$.
 
-Критерий: $\chi^2_B \geqslant \chi^2_{1-\alpha} (l-1-r)$, то $H_0$ отклоняют, если $\chi^2_B < \chi^2_{1-\alpha} (l-1-r)$, то $H_0$ принимается.
+\textsc{Критерий}. Если $\chi^2_B \geqslant \chi^2_{1-\alpha} (l-1-r)$, то $H_0$ отклоняют, если $\chi^2_B < \chi^2_{1-\alpha} (l-1-r)$, то $H_0$ принимается.
 
 \begin{ex}
   537 снарядов упало на Лондон. Территорию Лондона разделили на 576 участков по 0.25 км.
@@ -42,29 +51,29 @@
   \begin{center}
     \begin{tabular}{|c|c|c|c|c|c|c|}
       \hline
-      снаряды $k_j$ & 0 & 1 & 2 & 3 & 4 & 7 \\
+      снаряды $k_j$ & 0 & 1 & 2 & 3 & \multicolumn{1}{c|}{4} & 7 \\
       \hline
-      участки $\nu_j$ & 229 & 211 & 93 & 35 & 7 & 1 \\
+      участки $\nu_j$ & 229 & 211 & 93 & 35 & \multicolumn{2}{c|}{$7 + 1$} \\
       \hline
-      n \hat{p_j} & 226.74 & 211.39 & 98.54 & 30.62 & 8.71 \\ 
+      $n \hat{p_j}$ & 226.74 & 211.39 & 98.54 & 30.62 &
+      \multicolumn{2}{c|}{8.71}\\ 
       \hline
     \end{tabular}
   \end{center}
 
-  Гипотеза $H_0$ - число снарядов на 1 участок $\sim Pois$.
+  Гипотеза $H_0$: \emph{число снарядов на 1 участок $\sim \mathbf{Pois}$}.
 
   \[
     p(\xi = k) = \dfrac{\lambda^k}{k!} e^{-\lambda}.
   \]
 
-  ОМП $\hat \lambda = \bar X = \dfrac{537}{576}$. Считаем $\hat{p_0} = e^{-537 / 576}, \dots$.
-  Столбцы 4 и 7 пришлось объединить, так как $n\hat{p_4} < 5$.
-
+ОМП $\hat \lambda = \bar X = 537/576$. Считаем $\hat{p}_0 = e^{-537 / 576}, \dots$.
+Столбцы 4 и 7 пришлось объединить, так как $n\hat{p}_4 < 5$.
   \[
     \chi^2_B \approx 1.5; \chi^2_{0.95} (5-1-r) = \chi^2_{0.95} (3) = 7.81,
   \]
-
-  Критерий имеет вид: $S = \{ \chi^2_B > \chi^2_{0.95}(3) \}$, $\chi^2_B \notin S \Rightarrow H_0$ -- принимается.
+  Критерий имеет вид $S = \{ \chi^2_B > \chi^2_{0.95}(3) \}$, и $\chi^2_B \notin
+  S$ --- значит, $H_0$ принимается.
 \end{ex}
 
 \subsection{Проверка гипотезы о независимости признаков}
@@ -97,20 +106,21 @@ $P(A_i B_j) = P(A_i) P(B_j)$.
 где $\nu_i = \sum_j v_{ij}$, $\nu_j = \sum_i v_{ij}$.
 
 \[
-  \chi^2_B = \sum_{i=1}^m \sum_{j=1}^k \dfrac{(\nu_{ij} - n \hat p_{ij})^2}{n \hat p_{ij}}
+  \chi^2_B = \sum_{i=1}^m \sum_{j=1}^k \dfrac{(\nu_{ij} - n \hat p_{ij})^2}{n
+  \hat p_{ij}}.
 \]
 
 Параметры: $P(A_1), P(A_2), \dots, P(A_m); \sum P(A_i) = 1$, следовательно, независимых параметров здесь $m-1$. $P(B_1), P(B_2), \dots, P(B_k); \dots$, следовательно, независимых параметров $k-1$. Вместе параметров $r = m+k-2$.
 
 \[
-  \hat p_{i} = P(A_i) = \frac{\nu_i}{n}; \quad \hat p_j = P(B_j) = \frac{\nu_j}{n}.
+  \hat p_{i} = P(A_i) = \frac{\nu_i}{n}, \quad \hat p_j = P(B_j) = \frac{\nu_j}{n}.
 \]
 
-При $H_0$:
+При $H_0$
 \[
-  \hat p_{ij} = \hat p_i \cdot \hat p_j = \dfrac{\nu_i \nu_j}{n^2}
+  \hat p_{ij} = \hat p_i \cdot \hat p_j = \dfrac{\nu_i \nu_j}{n^2}.
 \]
-
+Найдём
 \begin{multline*}
   \chi^2_B
   = \sum_{i=1}^m \sum_{j=1}^k \dfrac{(\nu_{ij} - n \hat p_{ij})^2}{n \hat p_{ij}}
@@ -150,14 +160,14 @@ $\chi^2_B < \chi^2_{1-\alpha} ( (k-1)(m-1) )$ для принятия альте
   \begin{solution}
   \[
   \chi^2_B = 100 \left(\dfrac{15^2}{25\cdot23} + \dfrac{10^2}{45\cdot25} + \dots
-  + \dfrac{25^2}{55\cdot32} - 1\right) = 44.2
+  + \dfrac{25^2}{55\cdot32} - 1\right) = 44.2.
   \]
   Не забываем про условие применимости
   \[
-    \dfrac{\nu_i \nu_j}{n} \geqslant 4.
+    \dfrac{\nu_i \nu_j}{n} \geqslant 4,
   \]
 
-  $\chi^2_{0.95} = 13.3$, следовательно, $H_0$ отклоняем.
+  при этом $\chi^2_{0.95} = 13.3$. Следовательно, $H_0$ отклоняем.
 \end{solution}
 \end{ex}
 
@@ -168,31 +178,37 @@ $\chi^2_B < \chi^2_{1-\alpha} ( (k-1)(m-1) )$ для принятия альте
 
   Выборочная функция распределения:
   \[
-    \hat{F}_n(x) = \dfrac{1}{n} \sum_{k=1}^n I(x-X_k)
+    \widehat{F}_n(x) = \dfrac{1}{n} \sum_{k=1}^n I(x-X_k)
   \]
 
-  Если $F(x)$ непрерывна, то закон распределения статистики Колмогорова $D_n = \sup_x |\hat{F}_n(x) - F(x)|$ - не зависит от вида $F(x)$.
+  Если $F(x)$ непрерывна, то закон распределения статистики Колмогорова
+  \[
+    D_n =
+    \sup_x |\widehat{F}_n(x) - F(x)|
+  \]
+  не зависит от вида $F(x)$.
 \end{theorem}
 
 \begin{proof}
-  Пусть $F(x)$ - строго монотонна. Перейдем от выборки $X_k$ к выборке $Y_k$ по правилу:
+  Пусть $F(x)$ строго монотонна. Перейдем от выборки $X_k$ к выборке $Y_k$ по
+  правилу $Y_k = F(X_k)$. Тогда
   \[
-    X_1, \dots X_n \to Y_1, \dots, Y_n; Y_k = F(X_k)
+    \dfrac{1}{n} \sum_{k=1}^n I(X_k < F^{-1} (y)) = \dfrac{1}{n} \sum_{k=1}^n
+    I(Y_k < y),
   \]
-
-  $\dfrac{1}{n} \sum_{k=1}^n I(X_k < F^{-x} (y)) = \dfrac{1}{n} \sum_{k=1}^n I(Y_k < y)$
-
+а
   \begin{multline*}
-    D_n = \sup_{-\infty < x < \infty} |\hat{F}_n(x) - F(x)|
+    D_n = \sup_{-\infty < x < \infty} |\widehat{F}_n(x) - F(x)|
     = \left|\, \begin{aligned}
       x = F^{-1} (y) \\
       (-\infty, \infty) \to [0, 1]
-    \end{aligned} \,\right|\\ 
-    = \sup_{0 \leqslant y \leqslant 1} |\hat{F}_n (F^{-1} y) - F(F^{-1} (y))|
-    = \sup_{0\leqslant y \leqslant 1} |\hat{F}_n(y) - y|
+    \end{aligned} \,\right| = \\ 
+    = \sup_{0 \leqslant y \leqslant 1} |\widehat{F}_n (F^{-1} (y)) - F(F^{-1} (y))|
+    = \sup_{0\leqslant y \leqslant 1} |\widehat{F}_n(y) - y|.
   \end{multline*}
 
-  Условие строгой монотонности можно опустить, потому что достижение супремума всё равно достигается на участках строгой монотонности.
+  Условие строгой монотонности можно опустить, потому что достижение супремума
+  всё равно имеет место на участках строгой монотонности.
 \end{proof}
 
 О вычислении $D_n$:

@@ -49,23 +49,33 @@ $\mathscr R[0, 2]$, с плотностью $ p $.
   
 \end{theorem}
 
-\begin{proof}
-  Напомним определение \emph{характеристической функции}.
+% \begin{proof}
+  Напомним определение \emph{характеристической функции} ---
   \[
     f_\xi (t) = M e^{i t \xi},\qquad f_{\bm\xi} = M e^{i (\mathbf t, \bm \xi)} =
-    M e^{i \sum t_k \xi_k}.
+    M e^{i \sum t_k \xi_k}
   \]
+  --- и обратим внимание на следующее свойство характеристической функции: 
+  \[
+          f_{C\bm\eta} = f_{\bm \xi} (\mathbf t) = M e^{i \mathbf t^T \bm \xi} = M e^{i \mathbf t^T C
+    \bm\eta} =
+    M e^{i (C^T \mathbf t)^T \bm \eta} = f_{\bm\eta} (C^T \mathbf t).
+  \]
+  В случае $ \xi\sim\mathscr N(\bm\mu, \bm\Sigma)
+  $ имеем $ f_{\bm\xi}(\mathbf t) = \exp \left( i\bm\mu^T\mathbf t -
+  \frac{1}{2}\mathbf t^T\bm\Sigma\mathbf t \right)  $.
+  
 В доказательстве будут использоваться следующие случайные величины:
 \begin{enumerate}
   \item Статистика $ \bm \nu = (\nu_1, \nu_2, \ldots, \nu_m)^T$, распределённая
     полиномиально. Действительно, отождествляя попадание величины $ X_i $ в
     интервал $ E_j $ с вектором $ \mathbf e(X_i) = \mathbf e_j $,
     получим $ \bm \nu = \sum \mathbf e(X_i) $. Напомним вероятности этого
-    закона: 
-      \[
-    P(\bm\nu = (n_1, n_2, \dots, n_m)) = \frac{n!}{n_1! n_2! \dots n_m!}
-    p_1^{n_1} p_2^{n_2} \dots p_m^{n_m}, 
-  \]
+    закона.
+    \[
+      P(\bm\nu = (n_1, n_2, \dots, n_m)) = \frac{n!}{n_1! n_2! \dots n_m!}
+      p_1^{n_1} p_2^{n_2} \dots p_m^{n_m}, 
+    \]
   где, разумеется, $\sum n_i = n$, а
   \[
     \sum \frac{n!}{n_1! n_2! \dots n_m!} p_1^{n_1} \dots p_m^{n_m} = (p_1 + p_2
@@ -79,7 +89,7 @@ $\mathscr R[0, 2]$, с плотностью $ p $.
   \]
   который является функцией от $ \bm \nu $. Важно заметить, что его скалярный
   квадрат (квадрат длины) и будет равен статистике $ \chi^2_B $.
-\item Наконец, случайный вектор $ \bm \xi = C \nu $, где $ C $ --- некоторая
+\item Наконец, случайный вектор $ \bm \xi = C \bm\nu $, где $ C $ --- некоторая
   ортогональная матрица с заданной первой строчкой (одну единичную строку можно задать в
   любой ортогональной матрице): 
   \[
@@ -89,94 +99,90 @@ $\mathscr R[0, 2]$, с плотностью $ p $.
       \cdots & \cdots & \cdots
     \end{pmatrix}.
   \]
-  
-  
+  Учитывая ортогональность преобразования, получим также $ |\bm\xi|^2 = |\bm\eta|^2 =
+  \chi^2_B $.
 \end{enumerate}
-
-
-  При нулевой гипотезе
-  \[
-    p_i = P_0 (\xi \in E_i)
-  \]
-
-  Ясно, что это распределено по полиномиальному закону:
-  \[
-    P(\bar \nu = (n_1, n_2, \dots, n_m)) = \frac{n!}{n_1! n_2! \dots n_m!} p_1^{n_1} p_2^{n_2} \dots p_m^{n_m}, \sum n_i = n
-  \]
-
-  \[
-    \sum \frac{n!}{n_1! n_2! \dots n_m!} p_1^{n_1} \dots p_m^{n_m} = 1
-  \]
-
+\begin{proof}
+  % При нулевой гипотезе
+  % \[
+  %   p_i = P_0 (\xi \in E_i)
+  % \]
+  % Ясно, что это распределено по полиномиальному закону:
+  % \[
+  %   P(\bar \nu = (n_1, n_2, \dots, n_m)) = \frac{n!}{n_1! n_2! \dots n_m!} p_1^{n_1} p_2^{n_2} \dots p_m^{n_m}, \sum n_i = n
+  % \]
+  % \[
+  %   \sum \frac{n!}{n_1! n_2! \dots n_m!} p_1^{n_1} \dots p_m^{n_m} = 1
+  % \]
+  Найдём характеристические функции векторов $ \bm\nu $ и $ \bm\eta $.
+  \begin{align*}
+    f_{\bm \nu} (\mathbf t) &= M e^{i \mathbf t^T \bm \nu} =
+    \sum e^{i \sum t_k n_k} \frac{n!}{n_1! n_2! \ldots n_m!} p_1^{n_1} \ldots p_m^{n_m} = \\
+                          &= \sum \frac{n!}{n_1! n_2! \ldots n_m!} (p_1 e^{i
+                          t_1})^{n_1} (p_2 e^{i t_2})^{n_2} \ldots (p_m e^{i
+                          t_m})^{n_m} =\\
+                          &=(p_1 e^{i t_1} + p_2 e^{i t_2} + \ldots + p_m e^{i t_m})^n
+    = (1 + p_1 (e^{i t_1} - 1) + p_2 (e^{i t_2} - 1) + \ldots + p_m (e^{i t_m} -
+    1))^n,\\
+    \ln f_{\bm \nu} (\mathbf t) &= n \ln (1 + p_1 (e^{i t_1} - 1) + p_2 (e^{i t_2}
+    - 1) + \ldots + p_m (e^{i t_m} - 1)).
+  \end{align*}
+%   Обозначим
+%   \[
+%     \eta_k = \frac{\nu_k - np_k}{\sqrt{np_k}}, \chi^2_B = \sum_{k=1}^m \eta_k^2
+%   \]
+  Для вектора $ \bm\eta $ имеем
+  \begin{align*}
+    f_{\bm \eta} (\mathbf t) &= M \exp{i \mathbf t^T \bm\eta} =
+    M \exp \left(i \sum t_k \frac{\nu_k - np_k}{\sqrt{np_k}}\right) = 
+    M \exp \left(i \sum \frac{t_k}{\sqrt{np_k}} \nu_k\right) \cdot e^{i \sum t_k
+    \sqrt{np_k}} =\\
+                           &=f_{\bm \nu} \left(\frac{t_1}{\sqrt{np_1}}, \dots, \frac{t_m}{\sqrt{np_m}}\right)
+    \exp\left(i
+    \sum t_k \sqrt{np_k}\right),\\
+    \ln f_{\bm \eta} (\mathbf t) &= -i \sum t_k \sqrt{np_k} + n \ln \left(1+p_1
+    \left(\exp\left(\frac{i t_1}{\sqrt{np_1}}\right) - 1\right)+ \dots + p_m \left(\exp\left(\frac{i
+    t_m}{\sqrt{np_m}}\right) - 1\right) \right),
+  \end{align*}
+  или, используя эквивалентности для больших $ n $,
   \begin{multline*}
-    f_{\bar \nu} (\bar t) = M e^{i \bar t^T \bar \nu} =
-    \sum e^{i \sum t_k n_k} \frac{n!}{n_1! n_2! \dots n_m!} p_1^{n_1} \dots p_m^{n_m} = \\
-    = \sum \frac{n!}{n_1! n_2! \dots n_m!} (p_1 e^{i t_1})^{n_1} (p_2 e^{i t_2})^{n_2} \dots (p_m e^{i t_m})^{n_m} = 
-    (p_1 e^{i t_1} + p_2 e^{i t_2} + \dots + p_m e^{i t_m})^n = \\
-    = (1 + p_1 (e^{i t_1} - 1) + p_2 (e^{i t_2} - 1) + \dots + p_m (e^{i t_m} - 1))^n
-  \end{multline*}
-
-  \[
-    \ln f_{\bar \nu} (\bar t) = n \ln (1 + p_1 (e^{i t_1} - 1) + p_2 (e^{i t_2} - 1) + \dots + p_m (e^{i t_m} - 1))
-  \]
-
-  Обозначим
-  \[
-    \eta_k = \frac{\nu_k - np_k}{\sqrt{np_k}}, \chi^2_B = \sum_{k=1}^m \eta_k^2
-  \]
-
-  Тогда
-  \[
-    f_{\bar \eta} (\bar t) = M e^{i \bar t^T \bar \eta} =
-    M e^{i \sum t_k \frac{\nu_k - np_k}{\sqrt{np_k}}} = 
-    M e^{i \sum \frac{t_k}{\sqrt{np_k}} \nu_k} \cdot e^{i \sum t_k \sqrt{np_k}} = 
-    f_{\bar \nu} (\frac{t_1}{\sqrt{np_1}}, \dots, \frac{t_m}{\sqrt{np_m}}) e^{i \sum t_k \sqrt{np_k}}
-  \]
-
-  Тогда
-  \[
-    \ln f_{\bar \eta} (\bar t) = -i \sum t_k \sqrt{np_k} + n \ln (1+p_1 (e^{\frac{i t_1}{\sqrt{np_1}}} - 1)+ \dots + p_m (e^{\frac{i t_m}{\sqrt{np_m}}} - 1) )
-  \]
-
-  Используя эквивалентности,
-  \begin{multline*}
-    = -i \sum t_k \sqrt{np_k} + n \left( \sum p_k \left(e^{\frac{i t_k}{\sqrt{np_k}}}
-    - 1\right) - \frac{1}{2} \left(\sum p_k(e^{\frac{i t_k}{\sqrt{np_k}}} - 1)\right)^2 +
+    \ln f_{\bm\eta}(\mathbf t) =\\= -i \sum t_k \sqrt{np_k} + n \left( \sum p_k
+      \left(\exp\left(\frac{i t_k}{\sqrt{np_k}}\right)
+    - 1\right) - \frac{1}{2} \left(\sum p_k\left(\exp\left(\frac{i
+    t_k}{\sqrt{np_k}}\right) - 1\right)\right)^2 +
   o\left(\frac{1}{n}\right) \right) = \\
     = -i \sum t_k \sqrt{np_k} + n \left( \sum p_k \left(\frac{i t_k}{\sqrt{np_k}} +
     \frac{1}{2} \sum \frac{i t_k}{\sqrt{np_k}}\right)^2 - \frac{1}{2} \left(\sum p_k
   \frac{i t_k}{\sqrt{np_K}}\right)^2 + o\left(\frac{1}{n}\right) \right) = \\
     = - \frac{1}{2} \sum t_k^2 + \frac{1}{2} \left( \sum t_k \sqrt{p_k}
     \right)^2 + o\left(\frac{1}{n}\right)
-    = - \frac{1}{2} \bar t^T \bar t + \frac{1}{2} ((C \bar t)_1)^2 + o(1),
+    = - \frac{1}{2} \mathbf t^T \mathbf t + \frac{1}{2} ((C \mathbf t)_1)^2 + o(1),
   \end{multline*}
-  где $C$ - ортогональное преобразование $\bm \xi = C \bm\eta$, с первой
-  строчкой $(\sqrt{p_1}, \dots, \sqrt{p_m})$,
-    а индексом 1 в $(C \bar t)_1$ обозначено взятие первого элемента вектора.
-
-  Рассмотрим, что происходит с характеристической функцией при ортогональных преобразованиях:
+  где индексом в $(C \mathbf t)_1$ обозначено взятие первой компоненты вектора.
+  % Рассмотрим, что происходит с характеристической функцией при ортогональных преобразованиях:
+  % \[
+  %   f_{C\bm\eta} = f_{\bm \xi} (\mathbf t) = M e^{i \mathbf t^T \bm \xi} = M e^{i \mathbf t^T C
+  %   \bm\eta} =
+  %   M e^{i (C^T \mathbf t)^T \bm \eta} = f_{\bm\eta} (C^T \mathbf t).
+  % \]
   \[
-    f_{C\bm\eta} = f_{\bm \xi} (\mathbf t) = M e^{i \mathbf t^T \bm \xi} = M e^{i \mathbf t^T C
-    \bm\eta} =
-    M e^{i (C^T \mathbf t)^T \bm \eta} = f_{\bm\eta} (C^T \mathbf t).
+    \ln f_{\bm \xi} (\mathbf t) = - \frac{1}{2} (C^T \mathbf t)^T C^T \mathbf t +
+    \frac{1}{2} ((C C^T \mathbf t))^2 + o(1) = -\frac{1}{2} \mathbf t^T \mathbf t +
+    \frac{1}{2} t_1^2 + o(1) = - \frac{1}{2} \sum_{k=2}^m t_k^2 + o(1).
   \]
+  % \[
+  %   \chi^2_B = \sum \frac{(\nu_k - np_k)^2}{np_k} = \sum \eta_k^2 = \bar \xi^T C^T C \bar \xi = \sum \xi_k^2
+  % \]
 
-  \[
-    \ln f_{\bar \xi} (\bar t) = - \frac{1}{2} (C^T \bar t)^T C^T \bar t + \frac{1}{2} ((C C^T \bar t))^2 + o(1) = -\frac{1}{2} \bar t^T \bar t + \frac{1}{2} t_1^2 + o(1) = - \frac{1}{2} \sum_{k=2}^m t_k^2 + o(1)
-  \]
-
-  \[
-    \chi^2_B = \sum \frac{(\nu_k - np_k)^2}{np_k} = \sum \eta_k^2 = \bar \xi^T C^T C \bar \xi = \sum \xi_k^2
-  \]
-
-  Рассмотрим как распределен вектор $\bar \xi$:
-  
-  Если бы $\bar \xi \sim N(0, \Sigma)$, то:
-  \[
-    (\xi_1, \dots, \xi_m) \sim N(0, \Sigma) \Leftrightarrow f_{\bar \xi} (\bar t) = e^{-\frac{1}{2} \sum \sigma_k^2 t_k^2}
-  \]
-
-  В нашей ситуации выходит, что $\sigma_1 = 0$, следовательно, $\sum \xi_k^2 \sim \chi^2 (m-1)$.
+  Видно, что распределение $ \bm\xi $ в пределе нормально и даже стандартно --- с той
+  оговоркой, что первая компонента $ \sigma_1 = 0 \Rightarrow \xi_1 \equiv 0$
+  вырождена. Тогда $ \sum\xi_k^2 = \chi^2_B \sim \chi^2(m-1) $.
+  % Посмотрим на распределение $ \bm\xi $.
+  % Если бы $\bar \xi \sim N(0, \Sigma)$, то:
+  % \[
+  %   (\xi_1, \dots, \xi_m) \sim N(0, \Sigma) \Leftrightarrow f_{\bar \xi} (\bar t) = e^{-\frac{1}{2} \sum \sigma_k^2 t_k^2}
+  % \]
+  % В нашей ситуации выходит, что $\sigma_1 = 0$, следовательно, $\sum \xi_k^2 \sim \chi^2 (m-1)$.
 \end{proof}
 
 \begin{remark*} 
