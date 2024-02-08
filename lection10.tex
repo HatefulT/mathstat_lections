@@ -17,170 +17,204 @@
 % \end{theorem}
 
 \begin{ex}[критерий Неймана-Пирсона]
-  $X_1,\dots,X_n \sim N(a, \sigma)$, $a = a_0$ - известно
-  $H_0 : \sigma = \sigma_0$
-  $H_1 : \sigma = \sigma_1$
+  $X_1,\dots,X_n \sim N(a, \sigma)$, $a = a_0$;
+  $H_0 : \sigma = \sigma_0$,
+  $H_1 : \sigma = \sigma_1$.
   \begin{multline*}
     \dfrac{L(\bar X, \sigma_1)}{L(\bar X, \sigma_0)}
-    = \prod \dfrac{\dfrac{1}{\sqrt{2\pi} \sigma_1} \exp\left(- \dfrac{(x_k -
-    a_0)^2}{2\sigma_1^2}\right)}{\dfrac{1}{\sqrt{2\pi} \sigma_0} \exp\left(- \dfrac{(x_k - a_0)^2}{2\sigma_0^2}\right)}
-    = \left(\dfrac{\sigma_0}{\sigma_1}\right)^n \exp\left(-\dfrac{1}{2\sigma_1^2} \sum (X_k-a_0)^2 + \dfrac{1}{2\sigma_0^2} \sum (X_k-a_0)^2 \right) = \\
-    = \left(\dfrac{\sigma_0}{\sigma_1}\right)^n \exp\left( -\dfrac{1}{2} \sum \dfrac{\sigma_0^2 (X_k-a_0)^2 + \sigma_1^2 (X_k - a_0)^2}{\sigma_1^2 \sigma_0^2} \right) \geqslant C
+    = \prod \dfrac{\dfrac{1}{\sqrt{2\pi} \sigma_1} \exp\left(- \frac{(X_k -
+    a_0)^2}{2\sigma_1^2}\right)}{\frac{1}{\sqrt{2\pi} \sigma_0} \exp\left(- \frac{(X_k - a_0)^2}{2\sigma_0^2}\right)}
+    = \left(\dfrac{\sigma_0}{\sigma_1}\right)^n \exp\left(-\frac{1}{2\sigma_1^2}
+    \sum (X_k-a_0)^2 + \frac{1}{2\sigma_0^2} \sum (X_k-a_0)^2 \right) = \\
+    = \left(\dfrac{\sigma_0}{\sigma_1}\right)^n \exp\left( -\frac{1}{2} \sum
+    \frac{\sigma_0^2 (X_k-a_0)^2 - \sigma_1^2 (X_k - a_0)^2}{\sigma_1^2
+  \sigma_0^2} \right) \geqslant C.
   \end{multline*}
-
+То есть
   \begin{equation*}
-    \left(\dfrac{\sigma_0}{\sigma_1}\right)^n \exp\left(-\dfrac{1}{2} \dfrac{\sigma_0^2 - \sigma_1^2}{\sigma_1^2 \sigma_0^2} \sum (X_k-a_0)^2\right) \geqslant C
+    \left(\dfrac{\sigma_0}{\sigma_1}\right)^n \exp\left(-\dfrac{1}{2}
+    \dfrac{\sigma_0^2 - \sigma_1^2}{\sigma_1^2 \sigma_0^2} \sum
+  (X_k-a_0)^2\right) \geqslant C.
   \end{equation*}
 
-  Если знать, что из $ \sigma_0 $, $ \sigma_1 $ больше, то можно уже построить критерий вида:
-  $$ S = \left\{ \sum(X_k-a_0)^2 \gtrless C_1 \right\} $$
+  Если знать, что из $ \sigma_0 $, $ \sigma_1 $ больше, то можно уже построить
+  критерий вида
+  $$ S = \left\{ \sum(X_k-a_0)^2 \gtrless C_1 \right\}. $$
 \end{ex}
 
 \section{Лекция 10 - 2023-11-08 - Критерий Вальда}
-\subsection{Графическая иллюстрация критерия отношения правдоподобия}
+% \subsection{Графическая иллюстрация критерия отношения правдоподобия}
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=0.8\textwidth]{Figures/10-plot1.png}
-  \caption{Иллюстрация критерия Неймана-Пирсона}
-  \label{fig:10-plot1}
+  \begin{minipage}{0.45\textwidth}
+    \centering
+    \includegraphics[width=0.8\textwidth]{Figures/10-plot1.png}
+    \caption{Иллюстрация критерия Неймана -- Пирсона}
+    \label{fig:10-plot1}
+  \end{minipage}\hfill
+  \begin{minipage}{0.45\textwidth}
+    \centering
+    \includegraphics[width=0.8\textwidth]{Figures/10-plot2.png}
+    \caption{Иллюстрация критерия Вальда. Снизу область принятия $H_0$;
+      сверху область принятия $H_1$;
+    посередине область продолжения наблюдений.}
+    \label{fig:10-plot2}
+  \end{minipage}
 \end{figure}
 
-Таким образом, вывод по верности гипотез может зависеть от объема выборки n.
+Таким образом, в случае критерия Неймана -- Пирсона вывод по верности гипотез
+может зависеть от объема выборки $ n $; в критерии Вальда как
+только после очередного наблюдения статистика перешла вниз или вверх, наблюдения прекращаются и принимается нужная гипотеза.
 
-\subsection{Графическая иллюстрация критерия Вальда}
+% \subsection{Графическая иллюстрация критерия Вальда}
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=0.8\textwidth]{Figures/10-plot2.png}
-  \caption{Иллюстрация критерия Вальда}
-  \label{fig:10-plot2}
-\end{figure}
+% \begin{figure}[h!]
+%   \centering
+%   \includegraphics[width=0.8\textwidth]{Figures/10-plot2.png}
+%   \caption{Иллюстрация критерия Вальда. Снизу область принятия $H_0$;
+% сверху область принятия $H_1$;
+% посередине область продолжения наблюдений.}
+%   \label{fig:10-plot2}
+% \end{figure}
 
-На рисунке \ref{fig:10-plot2}:
-cнизу область принятия $H_0$;
-сверху область принятия $H_1$;
-посередине область продолжения наблюдений.
-Как только после очередного наблюдения статистика перешла вниз или вверх, наблюдения прекращаются и принимается нужная гипотеза.
-
-Статистика критерия $(\nu, X_1, X_2, \dots, X_n)$,
-$\nu = min \{ n : Z_n \notin (B, A) \}$,
-$z_n = \dfrac{L(X_1, \dots, X_n, \theta_1)}{L(X_1, \dots, X_n, \theta_0)}$
-
-Критерий: Пусть 0<B<1<A.
-$z_\nu \geqslant A$ - принимаем $H_1$; $z_\nu \leqslant B$ - принимаем $H_0$.
+Статистика критерия. $(\nu, X_1, X_2, \dots, X_n)$,
+ $\nu = \min \{ n : Z_n \notin (B, A) \}$,
+$z_n = \frac{L(X_1, \dots, X_n, \theta_1)}{L(X_1, \dots, X_n, \theta_0)}$.
+\textsc{Критерий}. Пусть $0<B<1<A$.
+Если $z_\nu \geqslant A$, то принимаем $H_1$; если $z_\nu \leqslant B$ --- принимаем $H_0$.
 
 \begin{theorem}
-  При $i \in \{ 0, 1 \}$:
+  При $i \in \{ 0, 1 \}$
   \[
-    P_{\theta_i}(\nu < \infty) = 1, \exists M_{\theta_0} \nu < \infty, M_{\theta_1} \nu < \infty
+    P_{\theta_i}(\nu < \infty) = 1,\quad \exists M_{\theta_0} \nu < \infty,
+    \quad \exists M_{\theta_1} \nu < \infty.
   \]
-  Здесь $P_{\theta_i} (A)$ обозначена условная вероятность $P(A | \theta_i)$
+  Здесь символом $P_{\theta_i} (A)$ обозначена условная вероятность $P(A \mid
+  \theta = \theta_i)$.
 \end{theorem}
 
 \begin{proof}
-  Назовем $Y_k = \ln \dfrac{P(X_k, \theta_1)}{P(X_k, \theta_0)}$, тогда:
+  Пусть
   \[
-    \ln Z_n = \sum_{k=1}^n \ln \dfrac{P(X_k, \theta_1)}{P(X_k, \theta_0)} = \sum_{k=1}^n Y_k
-  \]
-
-  Зададим $r \in \mathbb{N}$, и обозначим:
-  \begin{align*}
-    \eta_1 &= Y_1 + Y_2 + \dots + Y_r \\
-    \eta_2 &= Y_{r+1} + Y_{r+2} + \dots + Y_{2r} \\
-           &\dots \\
-    \eta_k &= Y_{(k-1) r + 1} + \dots + Y_{kr}
-  \end{align*}
-
-  Тогда событие $(\nu > rk)$ означает, что $(\ln B < Y_1 + \dots + Y_j < \ln A, j \leqslant rk)$, а следовательно и $(\ln B < \eta_1 + \eta_2 + \dots + \eta_j < \ln A, j \leqslant k)$.
-
-  \begin{multline*}
-    P_{\theta_i} (\nu > kr)
-    = P_{\theta_i} (\ln B < Y_1 + \dots + Y_j < \ln A, j \leqslant kr) \leqslant \\
-    \leqslant P_{\theta_i} (\ln B < \eta_1 + \eta_2 + \dots + \eta_i < \ln A, j \leqslant k) \leqslant \\
-    \leqslant P_{\theta_i} (|\eta_j| < \ln A - \ln B, j \leqslant k)
-    = P_{\theta_i} \left(\bigcap (|\eta_j| < \ln A - \ln B)\right) =
-  \end{multline*}
-  т.к. $\eta_i$ - назависимы и одинаково распределены \\
-  \[
-    = (P_{\theta_i} (|\eta_i| < \ln (A/B)))^k
-  \]
-
-  Выбираем r так, чтобы дисперсия $\eta_1$ была достаточно большой:
-  \[
-    \forall i : M_{\theta_i} \eta_1^2 \geqslant D_{\theta_i} \eta_1
-    = r \cdot D_{\theta_i} Y_j > C^2 = (\ln (A/B))^2,
+    Y_k = \ln \dfrac{P(X_k, \theta_1)}{P(X_k, \theta_0)}.
   \]
   Тогда
   \[
-    P(\theta_i) = P_{\theta_i} (|\eta_1| < C) < 1
+    \ln Z_n = \sum_{k=1}^n \ln \dfrac{P(X_k, \theta_1)}{P(X_k, \theta_0)} =
+    \sum_{k=1}^n Y_k.
   \]
 
-  иначе $P_{\theta_i} (|\eta_i| < C) = 1 \Rightarrow M \eta_i^2 < C^2$
+  Зададим $r \in \mathbb{N}$, и введём обозначения
+  \begin{align*}
+    \eta_1 &= Y_1 + Y_2 + \ldots + Y_r, \\
+    \eta_2 &= Y_{r+1} + Y_{r+2} + \ldots + Y_{2r}, \\
+           &\dots \\
+    \eta_k &= Y_{(k-1) r + 1} + \ldots + Y_{kr}.
+  \end{align*}
 
-  В силу независимости $\eta_j$:
+  Тогда событие $(\nu > rk)$ означает, что $(\ln B < Y_1 + \dots + Y_j < \ln A,\
+  j \leqslant rk)$, а следовательно\footnote{Обратное вообще говоря верно только при $ r=1 $.
+    Действительно, в ином случае, например, могут нарушаться неравенства $ \ln B
+  < Y_1 < \ln A$.}, и $(\ln B < \eta_1 + \eta_2 + \dots + \eta_j
+  < \ln A,\ j \leqslant k)$.
+
+Иными словами,
+  \begin{multline*}
+    P_{\theta_i} (\nu > kr)
+    = P_{\theta_i} (\ln B < Y_1 + \dots + Y_j < \ln A,\ j \leqslant kr) \leqslant \\
+    \leqslant P_{\theta_i} (\ln B < \eta_1 + \eta_2 + \dots + \eta_i < \ln A,\ j
+    \leqslant k) \leqslant P_{\theta_i} (|\eta_j| < \ln A - \ln B,\ j \leqslant k) =\\
+    = P_{\theta_i} \left(\bigcap (|\eta_j| < \ln A - \ln B)\right) =
+     (P_{\theta_i} (|\eta_i| < \ln (A/B)))^k,
+  \end{multline*}
+  поскольку $\eta_i$ назависимы и одинаково распределены. 
+
+  Выбираем $ r $ так, чтобы дисперсия $\eta_1$ была достаточно большой. Для
+  каждого $ i $
   \[
-    P_{\theta_i} (\nu > rk) \leqslant (P(\theta_i))^k = (P(\theta_i)^{1/r})^{rk}
+    M_{\theta_i} \eta_1^2 \geqslant D_{\theta_i} \eta_1
+    = r \cdot D_{\theta_i} Y_j > C^2 = (\ln (A/B))^2.
   \]
-
-  Тогда, очевидно:
+  Тогда
   \[
-    P_{\theta_i} (\nu > rk) \to 0, k \to \infty
+    P(\theta_i) = P_{\theta_i} (|\eta_1| < C) < 1,
+  \]
+  иначе $P_{\theta_i} (|\eta_i| < C) = 1 \Rightarrow M \eta_i^2 < C^2$.
+
+  В силу независимости $\eta_j$ имеем
+  \[
+    P_{\theta_i} (\nu > rk) \leqslant (P(\theta_i))^k =
+    (P(\theta_i)^{1/r})^{rk}.
+  \]
+  Тогда, очевидно,
+  \[
+    P_{\theta_i} (\nu > rk) \to 0, k \to \infty.
   \]
   
-  Матож тоже конечно:
+  Наконец, математическое ожидание аналогично
   \[
     M_{\theta_i} \nu
     = \sum_{n=1}^{\infty} n P_{\theta_i} (\nu  = n)
     = \sum_{n=1}^{\infty} P_{\theta_i} (\nu \geqslant n)
     \leqslant \sum_{k=1}^{\infty} ( P(\theta_i)^{1/r} )^{kr}
-    < \infty
+    < \infty.
 \]
-
 \end{proof}
 
-Вторая особенность такого критерия состоит в том, что он чувствителен к порядку учета выборки.
+\begin{remark*}
+Второй особенностью этого критерия является тот факт, что он чувствителен к порядку
+учета выборки.
+\end{remark*}
 
 \begin{theorem}[Вальда]
-  Если заданы A и B, то ошибки $\alpha$ и $\beta$ удовлетворяют неравенствам:
+  Если заданы A и B, то ошибки $\alpha$ и $\beta$ удовлетворяют неравенствам
   \begin{equation*}
     \begin{cases}
-      \dfrac{1 - \beta}{\alpha} \geqslant A \\[1em]
-      \dfrac{\beta}{1 - \alpha} \leqslant B
+      \dfrac{1 - \beta}{\alpha} \geqslant A, \\[1em]
+      \dfrac{\beta}{1 - \alpha} \leqslant B.
     \end{cases}
   \end{equation*}
-  (максимально широкий коридор)
-
-  Эти неравенства называют тождестами Вальда.
+  (Максимально широкий коридор.)
+  Эти неравенства называют \emph{тождестами Вальда}.
 
   % TODO здесь еще рисуночек (в лекциях на странице 12)
 \end{theorem}
 
-Применение: если $\alpha$ и $\beta$ заданы, то берут $A = \dfrac{1-\beta}{\alpha}, B = \dfrac{\beta}{1 - \alpha}$
+\textsc{Применение.} Если $\alpha$ и $\beta$ заданы, то берут $A =
+\frac{1-\beta}{\alpha}, B = \frac{\beta}{1 - \alpha}$.
 % TODO расписать в применении, почему берем именно крайние точки из неравенств
-Почему так? - иначе сумма ошибок будет больше
+Почему так? Иначе сумма ошибок будет больше (см. далее).
 
-\begin{proof}
-  $\varkappa_{0n} = \left( \vec{X}_n : B < Z_k < A, k = \overline{1, n-1}, z_n \leqslant B \right)$ - множество тех, которые ведут к принятию гипотезы $H_0$
-
-  $\varkappa_{1n} = \left( \vec{X}_n : B < Z_k < A, k = \overline{1, n-1}, z_n \geqslant A \right)$ - множество тех, которые ведут к принятию гипотезы $H_1$
+\begin{proof} 
+  Положим
+  \begin{align*}
+    \varkappa_{0n} &= \left( \vec{X}_n\colon B < Z_k < A,\ k = \overline{1,
+      n-1},\ Z_n
+      \leqslant B \right),\\ \varkappa_{1n} &= \left( \vec{X}_n\colon B < Z_k <
+        A,\ k = \overline{1, n-1},\ Z_n \geqslant A \right)
+  \end{align*}
+  --- множества тех выборок, которые ведут к соответственно приёму и отклонению гипотезы $ H_0 $.
+  % $\varkappa_{1n} = \left( \vec{X}_n : B < Z_k < A, k = \overline{1, n-1}, z_n
+  % \geqslant A \right)$ --- множество тех, которые ведут к принятию гипотезы
+  % $H_1$.
 
   \begin{equation*}
     1 = \sum_n P_{\theta_i} (\nu = n) = \sum_n P_{\theta_i} (\varkappa_{0n}) + \sum_n P_{\theta_i} (\varkappa_{1n}) =
     \begin{cases}
-      (1 - \alpha) + \alpha, &\theta_0 \\
-      \beta + (1 - \beta), &\theta_1
+      (1 - \alpha) + \alpha, &\theta = \theta_0, \\
+      \beta + (1 - \beta), &\theta = \theta_1.
     \end{cases} 
   \end{equation*}
-
+При этом
   \[
     \alpha
     = \sum_n P_{\theta_0} (\varkappa_{1n})
     \leqslant \dfrac{1}{A} \sum_n P_{\theta_1} (\varkappa_{1n})
-    = \dfrac{1 - \beta}{A}
+    = \dfrac{1 - \beta}{A}.
   \]
   
-  Рассмотрим почему среднее неравенство верно. Для дискретного случая:
+  Рассмотрим, почему среднее неравенство верно. Для дискретного случая:
   \begin{multline*}
     P_{\theta_1} (\varkappa_{0n})
     = \sum_{\vec{X_n} \in \varkappa_{1n}} P_{\theta_1}(\xi_1 = X_1, \dots, \xi_n = X_n) = \\
@@ -188,69 +222,69 @@ $z_\nu \geqslant A$ - принимаем $H_1$; $z_\nu \leqslant B$ - прини
     \leqslant \dfrac{1}{A} \sum_{\vec{X_n} \in \varkappa_{1n}} \mathcal{L} (X_1, \dots, X_n, \theta_1)
     = \dfrac{1 - \beta}{A},
   \end{multline*}
-  то есть верно по построению $\varkappa_{1n}$.
-
+  то есть верно по построению $\varkappa_{1n}$. В свою очередь,
   \[
     \beta = \sum_{n} P_{\theta_1} (\varkappa_{0n})
     = \sum_{n=1}^\infty \sum_{\vec{X}_n \in \varkappa_{0n}} P_{\theta_1} (\vec{\xi}
-    = \vec{X}_n)
+    = \vec{X}_n).
   \]
 \end{proof}
 
-\subsection{Среднее число испытаний в критерии Вальда}
 
+\subsection{Среднее число испытаний в критерии Вальда}
 % TODO здесь во всей лекции надо поменять обозначение Z_n = ln z_n
-Критерий Вальда для выборки $X_1, \dots, X_n, \dots$.
+Критерий Вальда для выборки $X_1, \dots, X_n, \dots$
 Рассматривается статистика
 \[
-  z_n = \dfrac{\mathcal{L} (X_1, \dots, X_n, \theta_1)}{\mathcal{L} (X_1, \dots, X_n, \theta_0)}
+  z_n = \dfrac{\mathcal{L} (X_1, \dots, X_n, \theta_1)}{\mathcal{L} (X_1, \dots,
+  X_n, \theta_0)}.
 \]
-если она выходит из коридора $(B, A)$, прекращаем наблюдения и делаем вывод о верности
+Если она выходит из коридора $(B, A)$, прекращаем наблюдения и делаем вывод о верности
 гипотез.
 
-Обозначим за $\nu$ - номер испытания (или размер выборки, что то же самое),
+Обозначим за $\nu$ номер испытания (или размер выборки, что то же самое),
 на котором закончили наблюдения.
-
 \[
-  Y_k = \ln \dfrac{P(X_k, \theta_1)}{P(X_k, \theta_0)}
+  Y_k = \ln \dfrac{P(X_k, \theta_1)}{P(X_k, \theta_0)}.
 \]
 
-Критерий $z_\nu = \sum \ln \dfrac{P(X_k, \theta_1)}{P(X_k, \theta_0)} = \sum Y_k$
-\[
-  \nu = \min \{ k, z_k \notin (B, A)\}
-\]
-Сам критерий Вальда тогда:
+Построим критерий. Напомним,
 \begin{align*}
-  z_\nu &\geqslant \ln A \Rightarrow H_1, \\
-  z_\nu &\leqslant \ln B \Rightarrow H_0
+  \ln Z_\nu &= \sum_{k=1}^\nu \ln \dfrac{P(X_k, \theta_1)}{P(X_k, \theta_0)} = \sum Y_k,\\
+  \nu &= \min \{ k, z_k \notin (B, A)\}.
 \end{align*}
-
-
+Сам критерий Вальда тогда принимает вид
+\begin{align*}
+  \ln z_\nu &\geqslant \ln A \Rightarrow H_1, \\
+  \ln z_\nu &\leqslant \ln B \Rightarrow H_0.
+\end{align*}
 Таблица вероятностей ошибок:
 \begin{center}
 \begin{tabular}{|c|c|c|}
   \hline
-  z_\nu & \approx \ln A & \approx \ln B \\
+  $\ln z_\nu$ & $\approx \ln A$ & $\approx \ln B$ \\
   \hline
-  H_0 & \alpha & 1 - \alpha \\
+  $H_0$ & $\alpha$ & $1 - \alpha$ \\
   \hline
-  H_1 & 1 - \beta & \beta \\
+  $H_1$ & $1 - \beta$ & $\beta$ \\
   \hline
 \end{tabular}
 \end{center}
 
-Найдем матожидание числа испытаний
+Найдем матожидание числа испытаний.
 \begin{align*}
-  M_0 \nu &= \dfrac{M_0 z_\nu}{M_0 Y_k} = \dfrac{\alpha \ln A + (1-\alpha) \ln B}{M_0 Y_k} \\
-  M_1 \nu &= \dfrac{M_1 z_\nu}{M_1 Y_k} = \dfrac{(1-\beta) \ln A + \beta \ln B}{M_1 Y_k}
+  M_0 \nu &= \dfrac{M_0 \ln z_\nu}{M_0 Y_k} = \dfrac{\alpha \ln A + (1-\alpha)
+  \ln B}{M_0 Y_k}, \\
+  M_1 \nu &= \dfrac{M_1 \ln z_\nu}{M_1 Y_k} = \dfrac{(1-\beta) \ln A + \beta \ln
+  B}{M_1 Y_k},
 \end{align*}
 где $M_0 Y_k$, $M_1 Y_k$ вычисляется уже в конкретном примере из законов распределения.
 
 \begin{proof}
   В соответствии с нашими обозначениями:
   \[
-    z_\nu = \sum_{k=1}^\nu Y_k \Rightarrow M_i z_\nu = M_i \nu M_i Y_k, i = 0, 1
+    M_i \ln z_\nu = M_i \nu M_i Y_k, \quad i = 0,
+    1.
   \]
-  \epigraph{не просто, а очень просто}{Т.~В.~Облакова}
-
 \end{proof}
+  \epigraph{не просто, а очень просто}{Т.\,В.~Облакова}

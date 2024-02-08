@@ -17,13 +17,13 @@ jobs:
         with:
           root_file: konspect.tex
           extra_system_packages: "inkscape"
-          args: -f -jobname=document -pdf -file-line-error -shell-escape -interaction=nonstopmode -synctex=1
+          args: -f -jobname=konspect -pdf -file-line-error -shell-escape -interaction=nonstopmode -synctex=1
       - name: Upload PDF file
         if: always()
         uses: actions/upload-artifact@v3
         with:
           name: PDF
-          path: document.pdf
+          path: konspect.pdf
       # - name: Create Release
       #   id: create_release
       #   uses: actions/create-release@v1
@@ -58,7 +58,7 @@ jobs:
           body: build
           tag_name: pdf
           files: |
-            document.pdf
+            konspect.pdf
       # - name: Publish HTML to GitHub Pages
       #   uses: peaceiris/actions-gh-pages@v3
       #   if: always()
