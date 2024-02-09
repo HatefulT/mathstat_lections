@@ -177,14 +177,14 @@
   Выберем $\varepslon = \min_{i, j} p_{ij}^{(n_0)} > 0$.
 
   Видно, что $M_j^{(n)}-m_j^{(n)}$ монотонно убывает.
-  \[
+  \begin{multline*}
     p_{ij}^{(n+n_0)} = \sum_{\alpha=1}^m p_{i\alpha}^{(n_0)} p_{\alpha j}^{(n)}
     = \sum_{\alpha=1}^m (p_{ij}^{(n_0)} - \varepsilon p_{j \alpha}^{(n)}) p_{\alpha j}^{(n)}
-      + \varepsilon \sum_{\alpha=1}^m p_{j \alpha}^{(n)} p_{\alpha j}^{(n)}
+      + \varepsilon \sum_{\alpha=1}^m p_{j \alpha}^{(n)} p_{\alpha j}^{(n)} \geqslant \\
     \geqslant \sum_{\alpha=1}^m (p_{i\alpha}^{(n_0)} - \varepsilon p_{j\alpha}^{(n)}) m_j^{(n)}
       + \varepsilon p_{jj}^{(2n)}
     = m_j^{(n)} (1-\varepsilon) + \varepsilon p_{jj}^{(2n)}
-  \]
+  \end{multline*}
   Таким образом, $m_j^{(n+n_0)} \geqslant m_j^{(n)} (1-\varepsilon) + \varepsilon p_{jj}^{(2n)}$.
   
   Аналогично доказывается, что $M_j^{(n+n_0)} \leqslant M_j^{(n)} (1-\varepsilon) + \varepsilon p_{jj}^{(2n)}$
