@@ -1,2 +1,221 @@
-\section{Лекция 1 -- 2024-02-09 --}
+\section{Лекция 1 -- 2024-02-09 -- }
 
+\subsection{Случайный процесс}
+
+\begin{definition}
+  Пусть на вероятностном пространстве $(\Omega, A, P)$ задана совокупность случайных величин
+  $\xi = \xi(\omega, t), t \in T$, называемая \emph{случайным процессом}, при этом параметр 
+  $t$ интерпретируется как время.
+
+  \begin{itemize}
+    \item Если $T = \mathbb{N}$, то имеем процесс с \emph{дискретным временем};
+    \item $T = \mathbb{R}$, то с \emph{непрерывным временем};
+    \item Если СВ $\xi=\xi(\omega, t)$ дискретного типа, то имеем процесс с \emph{дискретными состояниями};
+    \item Если СВ $\xi$ непрерывного типа, то имеем процесс с \emph{непрерывными состояниями}.
+  \end{itemize}
+
+  $\forall t \in T$ -- фиксированное, $\xi(t, \omega)$ -- случайная величина (измеримая функция)
+  -- \emph{сечение}.
+
+  $\forall \omega$ -- фиксированном, $\xi(t, \omega)$ называется \emph{траекторией}.
+\end{definition}
+
+
+
+\subsection{Марковская цепь}
+
+\begin{definition}
+  Пусть некоторая физическая система может находится в одном из дискретных состояний
+  $\{S_i\}_{j=1}^m$. При этом в моменты времени $t \in \mathbb{N}$ она может случайным образом
+  переходить в другие состояния. Введём случайные величины $\xi_j$ так, чтобы если система
+  находится в момент времени $j$ в состоянии $S_k$, то $\xi_j = k$.
+
+  \emph{Марковская цепь} -- случайный процесс $\{\xi_t(\omega)\}$ с дискретным временем
+  $t \in \mathbb{N} \bigcup \left\{ 0 \right\} $ и с дискретным множеством состояний
+  $\mathcal{S} = \left\{ S_1, S_2, \dots, S_m \right\} $, такой, что
+  \[
+    P(\xi_n = j | \xi_{n-1} = i, \xi_{n-2} = i_{n-3}, \xi_0 = i_0) = P(\xi_n=j | \xi_{n-1} = i)
+  \]
+\end{definition}
+
+\begin{ex}
+  Пусть $\eta_1, \eta_2, \dots, \eta_n$ -- независимые С.В. (пускай целочисленные),
+  тогда $\xi_n = \sum_{k=1}^n \eta_k$ -- марковская цепь.
+
+  В самом деле,
+  \begin{multline*}
+    P(\xi_n = j | \xi_{n-1} = i, \xi_{n-2} = i_{n-2}, \dots, \xi_1 = i_1)
+    = \dfrac{P(\xi_n = j, \xi_{n-1} = i, \xi_{n-2} = i_{n-2}, \dots, \xi_1 = i_1)}{P(\xi_{n-1} = i_{n-1}, \xi_{n-2} = i_{n-2}, \dots, \xi_1 = i_1)} = \\
+    = \dfrac{P(\eta_n = j-i, \xi_{n-1}=i_{n-1}, \dots, \xi_1 = i_1 )}{P(\xi_{n-1} = i_{n-1}, \xi_{n-2} = i_{n-2}, \dots, \xi_1 = i_1)}
+    = \dfrac{P(\eta_n = j-i) \cdot P(\xi_{n-1}=i_{n-1}, \dots, \xi_1 = i_1 )}{P(\xi_{n-1} = i_{n-1}, \xi_{n-2} = i_{n-2}, \dots, \xi_1 = i_1)}
+    = P(\eta_n = j-i)
+  \end{multline*}
+\end{ex}
+
+\paragraph{Свойства траекторий}
+
+\begin{enumerate}
+  \item $P(\xi_{n+l} = i_{n+l}, \dots, \xi_n=j | \xi_{n-1}=i, \xi_{n-2} = i_{n-2}, \dots, \xi_0 = i_0) = P(\xi_{n+l} = i_{n_l}, \dots, \xi_n = j | \xi_{n-1} = i)$.
+    Доказывается по индукции.
+
+  \item $P(\xi_{n+l} \in A_{n+l}, \dots, \xi_n\in A_{n} | \xi_{n-1} = i, \xi_{n-2} \in B_{n-2}, \dots, \xi_0 \in B_0) = P(\xi_{n+l} \in A_{n+l}, \dots, \xi_n \in A_n | \xi_{n-1} = i)$. Ну тут проще, такая вероятность является просто суммой таких же вероятностей как в прошлом пункте.
+
+  \item $n > n_r > n_{r-1} > \dots > n_1 \geqslant 0$
+    \[
+      P(\xi_n = j | \xi_{n_r}=i, \xi_{n_{r-1}} = i_{n_{r-1}}, \dots, \xi_{n_1} = i_{n_1}
+      = P(\xi_n=j | \xi_{n_r} = i)
+    \]
+
+  \item $A = \left( \xi_{n+l} \in A_{n+l}, \dots, \xi_n \in A_n \right)$ -- будущее;
+    $B = \left( \xi_{n-2}\in B_{n_2}, \dot, \xi_0 \in B_0 \right) $ -- далёкое прошлое.
+    Тогда <<условное будущее не зависит от условного прошлого>>:
+    \[
+      P(A \bigcap B | \xi_{n-1} =i) = P(A | \xi_{n-1} = i) \cdot P(B | \xi_{n-1} = i)
+    \]
+    \begin{proof}
+      \begin{multline*}
+        P(A \bigcap B | \xi_{n-1} = i) = \dfrac{P(A, \xi_{n-1} = i, B)}{P(\xi_{n-1} = i)} 
+        = \dfrac{P(A, \xi_{n-1} = i, B)}{P(\xi_{n-1} = i)} \cdot \dfrac{P(\xi_{n-1}=i, B)}{P(\xi_{n-1}=i, B)} = \\
+        = P(A | \xi_{n-1}=i, B) \cdot P(B | \xi_{n-1}=i)
+        = P(A | \xi_{n-1}=i) \cdot P(B | \xi_{n-1}=i)
+      \end{multline*}
+    \end{proof}
+\end{enumerate}
+
+\paragraph{Характеристики марковского процесса}
+
+\begin{enumerate}
+  \item $\bar{p}(k) = \begin{pmatrix} p_1 (k) & p_2(k) & \dots & p_m(k) \end{pmatrix}^T $,
+    где $p_j(k) = P(S_j^k) = P(\xi_k = j)$ -- вектор вероятностей состояний в
+    момент k.
+
+  \item $P(\xi_k = j | \xi_{k-1} = i) = p_{ij}^{k}$ -- переходные вероятности на $k$-ом шаге.
+    $P^{(k)} = (p_{ij}^k)$ -- матрица перехода вероятности на $k$-ом шаге, она является
+    стохастической, то есть такой, что сумма элементов в каждой строке равна $1$.
+\end{enumerate}
+
+\paragraph{Соотношения}
+\begin{enumerate}
+  \item $I = P^{(k)} \cdot I$, где $I = \begin{pmatrix} 1 & 1 & 1 \end{pmatrix}^T $. 
+    Данное соотношение является определением \emph{стохастической матрицы}.
+    \begin{proof}
+      \[
+        1 = P(\Omega | S_{k-1}^i) = P(\sum_{j=1}^m S_k^j | S_{k-1}^i)
+        = \sum_{j=1}^m P(S_k^j | S_{k-1}^i)
+        = \sum_{j=1}^m P(\xi_k = j | \xi_{k-1}=i) = \sum_{j=1}^m p_{ij}^k
+      \]
+    \end{proof}
+
+  \item $\bar{p} (k+1) ^T = \bar{p}(k)^T \cdot P^{(k)}$
+    \begin{proof}
+      $\Omega = S_1^k + S_2^k + \dots + S_m^k$ -- так как события несовместны.
+    \[
+      P(S_j^{k+1}) = \sum_{i=1}^m P(S_j^{k+1} | S_i^k) \cdot P(S_i^k)
+      = \sum_{i=1}^m p_{ij}^k \cdot p_i(k)
+    \]
+    \end{proof}
+
+  \item $\bar{p} (k+1)^T = \bar{p}(0)^T \cdot P^{(1)} P^{(2)} \cdot \dots \cdot P^{(k)}$.
+\end{enumerate}
+
+\subsection{Однородные марковские цепи}
+
+\begin{definition}
+  Марковская цепь $\xi_k$ называется \emph{однородной}, если $p_{ij}^k = P(\xi_k=j | \xi_{k-1}=i)$ -- не
+  зависит от k.
+\end{definition}
+
+Для однородных цепей: $\bar{p}(l+1)^T = \bar{p}(l)^T P$, $\bar{p}(l=1)^T = \bar{p}(0)^T P^{l+1}$.
+
+\begin{theorem}[Колмогорова-Чепмена]
+  Пусть в однородной марковской цепи: $p_{ij}^{(k)} = P(\xi_{l+k} = j | \xi_l=i)$, обозначим:
+  $\mathbb{P}^{(k)} = (p_{ij}^k)$; тогда имеет место:
+  \[
+    \forall l, k : \mathbb{P}^{(k+l)} = \mathbb{P}^{(k)} \cdot \mathbb{P}^{(l)}.
+  \]
+\end{theorem}
+% TODO дописать обратную теорему
+\begin{proof}
+  \begin{multline*}
+    p_{ij}^{(k+l)} = P(\xi_{k+l}=j | \xi_0 = i)
+    = P\left(\xi_{k+l}=j, \bigcup_{\alpha=1}^m (\xi_k=\alpha) | \xi_0 = i\right) = \\
+    = \dfrac{\sum_{\alpha=1}^m P(\xi_{k+l} = j, \xi_k = \alpha, \xi_0=i)}{P(\xi_0=i)}
+    = \sum_{\alpha=1}^m \dfrac{P(\xi_{k+l} = j, \xi_k = \alpha, \xi_0=i)}{P(\xi_0=i)} \dfrac{P(\xi_k=\alpha, \xi_0=i)}{P(\xi_k=\alpha, \xi_0=i)} = \\
+    = \sum_{\alpha=1}^m P(\xi_k=\alpha|\xi_0=i) P(\xi_{k+l}=j | \xi_k = \alpha, \cancel{\xi_0=i})
+    = \sum_{\alpha=1}^m P_{i\alpha}^{(k)} P_{\alpha j}^{(l)}
+  \end{multline*}
+\end{proof}
+
+\subsection{Эргодическая цепь}
+
+\begin{definition}
+  Марковская цепь называется \emph{эргодической}, если
+  \[
+    \forall i \quad \exists \lim_{n\to\infty} p_{ij}^{(n)} = \pi_{ij} \text{не зависит от i},
+  \]
+  где $0 < \pi_j < 1$, $\sum_{j=1}^m \pi_j = 1$.
+\end{definition}
+
+\begin{theorem}
+  Если марковская цепь $\xi_n$ с конечным множеством состояний и $\exists \varepsilon\in(0, 1) \, \exists n_0 : \min_{i, j} p_{ij}^{(n_0)} \geqslant \varepsilon$, то цепь эргодическая.
+\end{theorem}
+\begin{proof}
+  Обозначим $m_j^{(n)} = \min_i p_{ij}^{(n)}$, $M_j^{(n)} = \max_i p_{ij}^{(n)}$ -- минимальный 
+  и максимальный элементы в столбце. Докажем монотонное возрастание $m_{j}^{(n)}$ и монотонное
+  убываение $M_j^{(n)}$. По теореме Колмогорова-Чепмена:
+  \[
+    m_{j}^{(n+1)} = \min_i p_{ij}^{(n+1)}
+    = \min_i \sum_{\alpha=1}^m p_{i\alpha} \cdot p_{\alpha j}^{n} \geqslant 
+    \min_i \sum_{\alpha=1}^m p_{i \alpha} m_j^{(n)}
+    = m_j^{(n)}
+  \]
+  аналогично показывается, что $M_{j}^{(n+1)} \leqslant M_j^{(n)}$.
+
+  % TODO выше сказано монотонное убывание (возрастание) соответствующих последовательностей
+  % но мы доказали только невозрастание (неубывание)
+
+  Выберем $\varepslon = \min_{i, j} p_{ij}^{(n_0)} > 0$.
+
+  Видно, что $M_j^{(n)}-m_j^{(n)}$ монотонно убывает.
+  \[
+    p_{ij}^{(n+n_0)} = \sum_{\alpha=1}^m p_{i\alpha}^{(n_0)} p_{\alpha j}^{(n)}
+    = \sum_{\alpha=1}^m (p_{ij}^{(n_0)} - \varepsilon p_{j \alpha}^{(n)}) p_{\alpha j}^{(n)}
+      + \varepsilon \sum_{\alpha=1}^m p_{j \alpha}^{(n)} p_{\alpha j}^{(n)}
+    \geqslant \sum_{\alpha=1}^m (p_{i\alpha}^{(n_0)} - \varepsilon p_{j\alpha}^{(n)}) m_j^{(n)}
+      + \varepsilon p_{jj}^{(2n)}
+    = m_j^{(n)} (1-\varepsilon) + \varepsilon p_{jj}^{(2n)}
+  \]
+  Таким образом, $m_j^{(n+n_0)} \geqslant m_j^{(n)} (1-\varepsilon) + \varepsilon p_{jj}^{(2n)}$.
+  
+  Аналогично доказывается, что $M_j^{(n+n_0)} \leqslant M_j^{(n)} (1-\varepsilon) + \varepsilon p_{jj}^{(2n)}$
+  
+  Тогда $M_{j}^{(n+n_0)} - m_j^{(n+n_0)} \leqslant (1-\varepsilon) (M_j^{(n)} - m_j^{(n)})$. 
+  Тогда $M_j^{(n+kn_0)} - m_j^{(n+kn_0)} \leqslant (1-\varepsilon)^k (M_j^{(n)} - m_j^{(n)}) \to 0, k\to \infty$, то есть $M_{j}^{(n)} - m_j^{(n)} \to 0, n \to \infty$. По теореме о двух милиционерах
+  $m_j^{(n)} \leqslant p_{ij}^{(n)} \leqslant M_j^{(n)}$.
+  
+\end{proof}
+
+Обозначим $\lim_{n\to\infty} p_{ij}^{(n)} = \pi_j, j = \overline{1, m}$. 
+
+\begin{remark}
+  Обратное утверждение тоже верно, то есть если марковская цепь является эргодической, то найдется
+  такое $n_0$, что $\min_{i, j} p_{ij}^{(n_0)} > 0$.
+\end{remark}
+
+\begin{corollary}
+  \begin{enumerate}
+    \item $\bar{p} (n)^T = \bar{p}(0)^T P^n \to
+      \begin{pmatrix} \pi_1 & \pi_2 & \dots & \pi_n \end{pmatrix}$, так как матрица $P$:
+      \[
+        P \to \begin{pmatrix}
+          \pi_1 & \pi_2 & \dots & \pi_n \\
+          \pi_1 & \pi_2 & \dots & \pi_n \\
+          \dots \\
+          \pi_1 & \pi_2 & \dots & \pi_n
+        \end{pmatrix} 
+      \]
+
+    \item $\bar{p}(n+1)^T = \bar{p}(n)^T P$, $\pi^T = \pi^T \cdot P$, $\sum_{k=1}^m \pi_k = 1$, 
+      $\pi^T (P - E) = 0$
+  \end{enumerate}
+\end{corollary}
