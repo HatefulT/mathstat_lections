@@ -16,31 +16,31 @@
 %   т.е. $\forall$ крит функции $\tilde S$ с $\tilde \varphi$ уровня $\alpha$ $W(S^*, \theta_1) \geqslant W(\tilde S, \theta_1)$ $\Rightarrow$ ошибка $\beta$ меньше.
 % \end{theorem}
 
-\begin{ex}[критерий Неймана-Пирсона]
-  $X_1,\dots,X_n \sim N(a, \sigma)$, $a = a_0$;
-  $H_0 : \sigma = \sigma_0$,
-  $H_1 : \sigma = \sigma_1$.
-  \begin{multline*}
-    \dfrac{L(\bar X, \sigma_1)}{L(\bar X, \sigma_0)}
-    = \prod \dfrac{\dfrac{1}{\sqrt{2\pi} \sigma_1} \exp\left(- \frac{(X_k -
-    a_0)^2}{2\sigma_1^2}\right)}{\frac{1}{\sqrt{2\pi} \sigma_0} \exp\left(- \frac{(X_k - a_0)^2}{2\sigma_0^2}\right)}
-    = \left(\dfrac{\sigma_0}{\sigma_1}\right)^n \exp\left(-\frac{1}{2\sigma_1^2}
-    \sum (X_k-a_0)^2 + \frac{1}{2\sigma_0^2} \sum (X_k-a_0)^2 \right) = \\
-    = \left(\dfrac{\sigma_0}{\sigma_1}\right)^n \exp\left( -\frac{1}{2} \sum
-    \frac{\sigma_0^2 (X_k-a_0)^2 - \sigma_1^2 (X_k - a_0)^2}{\sigma_1^2
-  \sigma_0^2} \right) \geqslant C.
-  \end{multline*}
-То есть
-  \begin{equation*}
-    \left(\dfrac{\sigma_0}{\sigma_1}\right)^n \exp\left(-\dfrac{1}{2}
-    \dfrac{\sigma_0^2 - \sigma_1^2}{\sigma_1^2 \sigma_0^2} \sum
-  (X_k-a_0)^2\right) \geqslant C.
-  \end{equation*}
+% \begin{ex}[критерий Неймана-Пирсона]
+%   $X_1,\dots,X_n \sim N(a, \sigma)$, $a = a_0$;
+%   $H_0 : \sigma = \sigma_0$,
+%   $H_1 : \sigma = \sigma_1$.
+%   \begin{multline*}
+%     \dfrac{L(\bar X, \sigma_1)}{L(\bar X, \sigma_0)}
+%     = \prod \dfrac{\dfrac{1}{\sqrt{2\pi} \sigma_1} \exp\left(- \frac{(X_k -
+%     a_0)^2}{2\sigma_1^2}\right)}{\frac{1}{\sqrt{2\pi} \sigma_0} \exp\left(- \frac{(X_k - a_0)^2}{2\sigma_0^2}\right)}
+%     = \left(\dfrac{\sigma_0}{\sigma_1}\right)^n \exp\left(-\frac{1}{2\sigma_1^2}
+%     \sum (X_k-a_0)^2 + \frac{1}{2\sigma_0^2} \sum (X_k-a_0)^2 \right) = \\
+%     = \left(\dfrac{\sigma_0}{\sigma_1}\right)^n \exp\left( -\frac{1}{2} \sum
+%     \frac{\sigma_0^2 (X_k-a_0)^2 - \sigma_1^2 (X_k - a_0)^2}{\sigma_1^2
+%   \sigma_0^2} \right) \geqslant C.
+%   \end{multline*}
+% То есть
+%   \begin{equation*}
+%     \left(\dfrac{\sigma_0}{\sigma_1}\right)^n \exp\left(-\dfrac{1}{2}
+%     \dfrac{\sigma_0^2 - \sigma_1^2}{\sigma_1^2 \sigma_0^2} \sum
+%   (X_k-a_0)^2\right) \geqslant C.
+%   \end{equation*}
 
-  Если знать, что из $ \sigma_0 $, $ \sigma_1 $ больше, то можно уже построить
-  критерий вида
-  $$ S = \left\{ \sum(X_k-a_0)^2 \gtrless C_1 \right\}. $$
-\end{ex}
+%   Если знать, что из $ \sigma_0 $, $ \sigma_1 $ больше, то можно уже построить
+%   критерий вида
+%   $$ S = \left\{ \sum(X_k-a_0)^2 \gtrless C_1 \right\}. $$
+% \end{ex}
 
 \section{Лекция 10 - 2023-11-08 - Критерий Вальда}
 % \subsection{Графическая иллюстрация критерия отношения правдоподобия}

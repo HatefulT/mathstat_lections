@@ -98,31 +98,17 @@
 \usepackage[labelsep=period]{caption}
 \captionsetup{font = small}
 
-
+\usepackage{subfiles}
 
 \begin{document}
   \pagestyle{plain}
 
   \tableofcontents
 
-  \chapter{Модуль 1}
+  \subfile{notes-prob/notes-prob}
 
-  \input{lection1}
-  \input{lection2}
-  \input{lection3}
-  \input{lection4}
-  \input{lection5}
-  \input{lection6}
-  \input{lection7}
-
-  \chapter{Модуль 2}
-
-	\input{lection9}
-	\input{lection10}
-	\input{lection11}
-  \input{lection12}
-  \input{lection13}
-  \input{lection14}
-  \input{lection15}
+  \subfile{mathstat/mathstat} 
+ 
+  \subfile{stoproc/stoproc} 
 
 \end{document}
