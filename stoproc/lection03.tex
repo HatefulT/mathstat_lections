@@ -104,10 +104,26 @@ $\mathcal{S} = \left\{ S_1, S_2, \dots, S_m \right\}$
   % TODO рисунок числовая прямая
 
   Граф этой МЦ:
-  % TODO рисунок граф цепи
+  \begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}
+      \begin{scope}[every node/.style={fill=white,circle,draw=black}]
+        \node (S_0) at (0,0) {$S_0$};
+        \node (S_1) at (2,0) {$S_1$};
+        \node (S_2) at (4,0) {$S_2$};
+        \node[draw=white] (S_dots) at (6,0) {$\dots$};
+      \end{scope}
+    
+      \begin{scope}[->, every edge/.style={draw=black,thick}]
+        \path (S_0) edge [bend right=30] node[below] {$\lambda$} (S_1);
+        \path (S_1) edge [bend right=30] node[below] {$\lambda$} (S_2);
+        \path (S_2) edge [bend right=30] node[below] {$\lambda$} (S_dots);
+      \end{scope}
+    \end{tikzpicture}
+  \end{figure}
 
   Причём подписи у рёбер графа -- не вероятности, а интенсивности, поэтому могут
-  быть больше нуля.
+  быть больше единицы.
 
   \[
     P(\xi_{t+\Delta t} = j | \xi_t = i) = \begin{cases}
@@ -163,7 +179,23 @@ $\mathcal{S} = \left\{ S_1, S_2, \dots, S_m \right\}$
     p(0) = (1, 0, 0, \dots)^T
   \]
 
-  % TODO рисуночек.
+  \begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}
+      \begin{scope}[every node/.style={fill=white,circle,draw=black}]
+        \node (S_0) at (0,0) {$S_0$};
+        \node (S_1) at (2,0) {$S_1$};
+        \node (S_2) at (4,0) {$S_2$};
+        \node[draw=white] (S_dots) at (6,0) {$\dots$};
+      \end{scope}
+    
+      \begin{scope}[->, every edge/.style={draw=black,thick}]
+        \path (S_0) edge [bend right=30] node[below] {$\lambda$} (S_1);
+        \path (S_1) edge [bend right=30] node[below] {$\lambda$} (S_2);
+        \path (S_2) edge [bend right=30] node[below] {$\lambda$} (S_dots);
+      \end{scope}
+    \end{tikzpicture}
+  \end{figure}
 
   \[
     \begin{cases}

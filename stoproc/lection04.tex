@@ -2,19 +2,117 @@
 подмножестве состояний}
 
 \begin{ex}
-  $U = \left\{ S_0 \right\} $,
+  Рассмотрим следующую марковскую цепь:
   $\mathcal{S} = \left\{ S_0, S_1, \dots, S_m \right\} $.
   $\xi(0) = 0 \leftrightarrow \bar{p}(0) = (1, 0, \dots, 0)^T$.
+
+  Обозначим $T_U$ -- время до первого выхода из $U = \left\{ S_0 \right\} $.
+
+  \begin{tikzpicture}
+    \begin{scope}[every node/.style={fill=white,circle,draw=black}]
+      \node (S_0) at (1,0) {$S_0$};
+      \node (S_1) at (-2,-3) {$S_1$};
+      \node (S_2) at (0,-3) {$S_2$};
+      \node[draw=white] (S_dots) at (2, -3) {$\dots$};
+      \node (S_m) at (4,-3) {$S_m$};
+    \end{scope}
+
+    \begin{scope}[->, every edge/.style={draw=black,thick}]
+      \path (S_0) edge node[left] {$\lambda_{01}$} (S_1);
+      \path (S_0) edge node[left] {$\lambda_{02}$} (S_2);
+      \path (S_0) edge node[left] {$\lambda_{0m}$} (S_m);  
+    \end{scope}
+  \end{tikzpicture}
+
+  В этом случае вероятность нахождения в нулевом состоянии будет определяться
+  дифференциальным уравнением:
+  \[
+    \begin{cases}
+      p_0'(t) = - \left( \sum\limits_{k=1}^m \lambda_{0k} \right) p_0(t), \\
+      p_0(0) = 1,
+    \end{cases}
+  \]
+  которое, как несложно заметить, не зависит от того как между собой переходят 
+  все остальные состояния.
+
+  Функция распределения, по определению:
+  \[
+    F_{T_U} (t) = P(T_U < t) = 1 - P(T_U \geqslant t) = 1- p_0(t).
+  \]
+  -- эта функция распределения также не зависит от никаких других 
+  интенсивностей переходов. Продифференцируем, чтобы получить плотность распределения:
+  \[
+    p_{T_U}(t) = - p_0'(t) = \left( \lambda(t) e^{ - \int_0^t \lambda(\tau) d\tau } \right)'
+  \]
+
+  Здесь есть очень важный частный случай, когда $\lambda = \sum_{k=1}^m \lambda_{0k} = \operatorname{const}(t)$ -- случай однородной марковской цепи (ну не только когда вся цепь однородная, достаточно просто однородности исходящих из нулевого состояния интенсивностей):
+  \[
+    p_{T_U}(t) = \lambda e^{-\lambda t}
+  \]
+  -- показательный закон с параметром $\lambda$. В этом случае легко посчитать
+  математическое ожидание времени выхода: $MT_U = \dfrac{1}{\lambda}$.
 \end{ex}
 
-% TODO начало лекции
+\begin{ex}
+  Рассмотрим пример, в котором дано: $p_{T_U}(t) = \alpha^2 t e^{-\alpha t}$
+  (как и в предыдущем примере $U = \left\{ S_0 \right\} $). Найдём
+  тогда $\lambda(t)$.
+  \[
+    F_{T_U}(t) = \int\limits_0^t \alpha^2 \tau e^{-\alpha \tau} \, d\tau
+    = 1 - e^{-\alpha t} - \alpha t e^{-\alpha t}.
+  \]
+  \[
+    p_0(t) = 1 - F_{T_U}(t) = e^{-\alpha t} + \alpha t e^{-\alpha t}.
+  \]
+  \[
+    \lambda(t) = - \dfrac{p_0'(t)}{p_0(t)}
+    = - \dfrac{-\alpha e^{-\alpha t} + \alpha e^{-\alpha t} - \alpha^2 t e^{-\alpha t}}{e^{-\alpha t}+ \alpha t e^{-\alpha t}}
+    = \dfrac{\alpha^2 t}{1+ \alpha t}.
+  \]
+\end{ex}
 
 \begin{ex}
-  $U = \left\{ S_1, S_2, \dots, S_{m} \right\}, m < m+r $, 
-  a $\bar{p}(0)^T = ( \dots, \dots, 0, 0, \dots, 0)$ (начинаем где-то внутри $U$).
-  
+  Рассмотрим вот такую марковскую цепочечку:
 
-  $T_U$ -- время однократного пребывания в $U$.
+  \begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}
+      \begin{scope}[every node/.style={fill=white,circle,draw=black}]
+          \node (S_1) at (0,0) {$S_1$};
+          \node (S_2) at (2,0) {$S_2$};
+          \node[draw=white,rectangle] (S_dots_1) at (4,0) {$\dots$};
+          \node (S_m) at (6,0) {$S_m$};
+
+          \node (S_{m+1}) at (0,-3) {$S_{m+1}$};
+          \node (S_{m+2}) at (2,-3) {$S_{m+2}$};
+          \node[draw=white,rectangle] (S_dots_2) at (4,-3) {$\dots$};
+          \node (S_{m+r}) at (6,-3) {$S_{m+r}$};
+      \end{scope}
+    
+      \begin{scope}[->, every edge/.style={draw=black,thick}]
+        \path (S_1) edge [bend right=30] node[left] {} (S_2);
+        \path (S_2) edge [bend right=30] node[left] {} (S_1);
+        \path (S_2) edge [bend right=30] node[left] {} (S_dots_1);
+        \path (S_dots_1) edge [bend right=30] node[left] {} (S_2);
+        \path (S_dots_1) edge [bend right=30] node[left] {} (S_m);
+        \path (S_m) edge [bend right=30] node[left] {} (S_dots_1);
+
+        \path (S_1) edge  node[left] {} (S_{m+1});
+        \path (S_2) edge  node[left] {} (S_{m+2});
+        \path (S_m) edge  node[left] {} (S_{m+2});
+        \path (S_m) edge  node[left] {} (S_{m+r});
+      \end{scope}
+
+      \node[draw=black,very thick,dotted,fit=(S_1) (S_m)] (FIt1) [acateur][label=left:{$U$}]{};
+    \end{tikzpicture}
+  \end{figure}
+
+  Тогда у нас множество состояний $\mathcal{S} = \left\{ S_i | i=\overline{1, m+r} \right\} $,
+  подмножество $U = \left\{ S_1, S_2, \dots, S_{m} \right\}, m < m+r $, 
+  a $\bar{p}(0)^T = ( \underbrace{\dots}_{\text{не нули}},
+  \underbrace{0, 0, \dots, 0}_{\text{нули}})$ (начинаем где-то внутри $U$). 
+
+  Обозначим $T_U$ -- время однократного пребывания в $U$.
 
   \[
     \begin{cases}
@@ -42,10 +140,27 @@
 \end{ex}
 
 \begin{ex}
-  % TODO рисунок цепочечка
-
-  $p(0)^T = (1, 0, \dots)$, найти закон распределения времени появления третьей
-  особи.
+  Пусть для однородной марковской цепи со счетным количеством состояний 
+  $p(0)^T = (1, 0, \dots)$, интенсивности на рисунке.
+  Найти закон распределения времени появления третьей особи.
+  \begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}
+      \begin{scope}[every node/.style={fill=white,circle,draw=black}]
+        \node (S_1) at (0,0) {$S_1$};
+        \node (S_2) at (2,0) {$S_2$};
+        \node (S_3) at (4,0) {$S_3$};
+        \node[draw=white] (S_dots) at (6,0) {$\dots$};
+      \end{scope}
+    
+      \begin{scope}[->, every edge/.style={draw=black,thick}]
+        \path (S_1) edge [bend right=30] node[below] {$\lambda$} (S_2);
+        \path (S_2) edge [bend right=30] node[below] {$2\lambda$} (S_3);
+        \path (S_3) edge [bend right=30] node[below] {$3\lambda$} (S_dots);
+      \end{scope}
+      \node[draw=black,very thick,dotted,fit=(S_1) (S_2)] (FIt1) [acateur][label=left:{$U$}]{};
+    \end{tikzpicture}
+  \end{figure}
 
   \[
     \begin{cases}
@@ -132,7 +247,21 @@
 \end{corollary}
 
 \begin{ex}
-  % TODO рисунок два состояния
+  Запишем прямую и обратную системы уравнений Колмогорова для цепи:
+  \begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}
+      \begin{scope}[every node/.style={fill=white,circle,draw=black}]
+        \node (S_1) at (1,0) {$S_1$};
+        \node (S_2) at (3,0) {$S_2$};
+      \end{scope}
+    
+      \begin{scope}[->, every edge/.style={draw=black,thick}]
+        \path (S_1) edge [bend right=30] node[below] {$\alpha$} (S_2);
+        \path (S_2) edge [bend right=30] node[below] {$\beta$} (S_1);
+      \end{scope}
+    \end{tikzpicture}
+  \end{figure}
   \[
     \Lambda = \begin{pmatrix}
       -\alpha & \alpha \\
