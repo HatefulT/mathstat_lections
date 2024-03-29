@@ -2,21 +2,21 @@
 \subsection{Случайный процесс}
 \begin{definition}
   Пусть на вероятностном пространстве $(\Omega, \mathscr A, \mathsf P)$ задана совокупность случайных величин
-  $\xi = \xi(\omega, t),\ t \in T$, называемая \emph{случайным процессом}. При этом параметр 
-  $t$ интерпретируется как время.
+  $\xi = \xi(\omega; t) = \xi_t(\omega),\ t \in T$, называемая \emph{случайным процессом}. Параметр 
+  $t$ интерпретируется как время. При этом
 
   \begin{itemize}[label=--]
-    \item Если $T = \mathbb{N}$, то имеем процесс с \emph{дискретным временем};
-    \item Если $T = \mathbb{R}$, то процесс с \emph{непрерывным временем};
-    \item Если СВ $\xi=\xi(\omega, t)$ дискретного типа (то есть принимает не
+    \item если $T = \mathbb{N}$, то имеем процесс с \emph{дискретным временем};
+    \item если $T = \mathbb{R}$, то процесс с \emph{непрерывным временем};
+    \item если СВ $\xi=\xi(\omega; t)$ дискретного типа (то есть принимает не
       более чем счётное количество значений), то имеем процесс с \emph{дискретными состояниями};
-    \item Если СВ $\xi$ непрерывного типа, то получаем случайный процесс с \emph{непрерывными состояниями}.
+    \item если СВ $\xi$ непрерывного типа, то получаем случайный процесс с \emph{непрерывными состояниями}.
   \end{itemize}
 
-  При любом фиксированном $t \in T$ функция $\xi(t, \omega)$ --- случайная
+  При любом фиксированном $t_0 \in T$ функция $\xi(\omega; t_0)$ --- случайная
   величина (измеримая функция), называемая \emph{сечением}.
 
-  При любом фиксированном $\omega$ функция $\xi(t, \omega)$ называется \emph{траекторией}.
+  При любом фиксированном $\omega_0$ функция $\xi(\omega_0; t)$ называется \emph{траекторией}.
 \end{definition}
 
 
@@ -40,18 +40,24 @@
 \end{definition}
 
 \begin{ex}
-  Пусть $\eta_1, \eta_2, \dots, \eta_n$ --- независимые с.в. (и пускай они также целочисленные),
-  тогда $\xi_n = \sum\limits_{k=1}^n \eta_k$ есть марковская цепь.
+  Пусть $\eta_1, \eta_2, \dots, \eta_n$ --- независимые случайные величины (и
+  пускай они также целочислены). Тогда $\xi_n = \sum\limits_{k=1}^n \eta_k$ есть
+  марковская цепь.
 
   В самом деле,
   \begin{multline*}
     P(\xi_n = j \mid \xi_{n-1} = i, \xi_{n-2} = i_{n-2}, \dots, \xi_1 = i_1)
     =\\=
-    \dfrac{P(\xi_n = j, \xi_{n-1} = i, \xi_{n-2} = i_{n-2}, \dots, \xi_1 = i_1)}{P(\xi_{n-1} = i_{n-1}, \xi_{n-2} = i_{n-2}, \dots, \xi_1 = i_1)}
-    = \dfrac{P(\eta_n = j-i, \xi_{n-1}=i, \dots, \xi_1 = i_1 )}{P(\xi_{n-1} = i_{n-1}, \xi_{n-2} = i_{n-2}, \dots, \xi_1 = i_1)}
-    =\\= \dfrac{P(\eta_n = j-i) \cdot P(\xi_{n-1}=i, \dots, \xi_1 = i_1 )}{P(\xi_{n-1} = i_{n-1}, \xi_{n-2} = i_{n-2}, \dots, \xi_1 = i_1)}
+    \dfrac{P(\xi_n = j, \xi_{n-1} = i, \xi_{n-2} = i_{n-2}, \dots, \xi_1 = i_1)}{P(\xi_{n-1} = i, \xi_{n-2} = i_{n-2}, \dots, \xi_1 = i_1)}
+    = \dfrac{P(\eta_n = j-i, \xi_{n-1}=i, \dots, \xi_1 = i_1 )}{P(\xi_{n-1} = i, \xi_{n-2} = i_{n-2}, \dots, \xi_1 = i_1)}
+    =\\= \dfrac{P(\eta_n = j-i) \cdot P(\xi_{n-1}=i, \dots, \xi_1 = i_1 )}{P(\xi_{n-1} = i, \xi_{n-2} = i_{n-2}, \dots, \xi_1 = i_1)}
     = P(\eta_n = j-i).
   \end{multline*}
+  Аналогично $ P(\xi_k = j \mid \xi_{k-1} = i) = P(\eta_n = j - i) $.
+\begin{remark*}
+  Если $ \eta_1,\eta_2,\ldots,\eta_n $ к тому же одинаково распределены, то цепь
+  будет однородной.
+\end{remark*}
 \end{ex}
 
 
@@ -59,11 +65,12 @@
 \begin{enumerate}
   \item $P(\xi_{n+l} = i_{n+l}, \dots, \xi_n=j \mid \xi_{n-1}=i, \xi_{n-2} =
     i_{n-2}, \dots, \xi_0 = i_0) = P(\xi_{n+l} = i_{n_l}, \dots, \xi_n = j \mid \xi_{n-1} = i)$.
-    \emph{Доказывается} по индукции.
+    \emph{Доказательство} проводится по индукции.
 
   \item $P(\xi_{n+l} \in A_{n+l}, \dots, \xi_n\in A_{n} \mid \xi_{n-1} = i,
     \xi_{n-2} \in B_{n-2}, \dots, \xi_0 \in B_0) = P(\xi_{n+l} \in A_{n+l},
-    \dots, \xi_n \in A_n \mid \xi_{n-1} = i)$. \emph{Доказательство} проще, такая вероятность является суммой таких же вероятностей как в прошлом пункте.
+    \dots, \xi_n \in A_n \mid \xi_{n-1} = i)$. \emph{Доказательство} проще,
+    такая вероятность является суммой таких же вероятностей, как в прошлом пункте.
 
   \item Для любых $n > n_r > n_{r-1} > \ldots > n_1 \geqslant 0$
     \[
@@ -92,23 +99,26 @@
 
 \paragraph{Характеристики марковского процесса.}
 \begin{enumerate}
-  \item $\bar{p}(k) = \left( p_1 (k), p_2(k), \dots, p_m(k)\right)^{\mathsf T} $,
-    где $p_j(k) = P(S_j^k) = P(\xi_k = j)$ --- вектор вероятностей состояний в
+  \item Набор $\mathbf{p}(k) = \left( p_1 (k), p_2(k), \dots, p_m(k)\right)^{\mathsf T} $,
+    где $p_j(k) = P(S_j^k) = P(\xi_k = j)$ называется \emph{вектором
+    вероятностей состояний} в
     момент $ k $.
 
-  \item $P(\xi_k = j \mid \xi_{k-1} = i) =: p_{ij}^{k}$ --- переходные вероятности на $k$-ом шаге.
-    $P^{(k)} = (p_{ij}^k)$ --- матрица перехода вероятности на $k$-ом шаге, она является
-    \emph{стохастической}, то есть такой, что сумма элементов в каждой строке равна
+  \item Условные вероятности $P(\xi_k = j \mid \xi_{k-1} = i) =: p_{ij}^{k}$
+    называются \emph{переходными вероятностями} на $k$-ом шаге.
+    Соответствующую матрицу $P^{(k)} = (p_{ij}^k)$ называют \emph{матрицей переходных
+  вероятностей} на $k$-ом шаге. Она является
+    \emph{стохастической}, то есть такой, у которой сумма элементов в каждой строке равна
     единице.
 \end{enumerate}
 
-\paragraph{Соотношения.}
+\paragraph{Некоторые соотношения.}
 \begin{enumerate}
   \item $I = P^{(k)} \cdot I$, где $I = \left( 1 , 1 , 1 \right)^{\mathsf T} $. 
     Данное соотношение является определением \emph{стохастической матрицы}.
     \begin{proof}
       \begin{multline*}
-        1 = P(\Omega \mid S_{k-1}^i) = P\biggl(\sum_{j=1}^m S_k^j \mid
+        1 = P(\Omega \mid S_{k-1}^i) = P\biggl(\sum_{j=1}^m S_k^j \biggm|
           S_{k-1}^i\biggl)
         = \\ =
         \sum_{j=1}^m P(S_k^j \mid S_{k-1}^i)
@@ -116,7 +126,7 @@
       \end{multline*}
     \end{proof}
 
-  \item $\bar{p} (k+1) ^{\mathsf T} = \bar{p}(k)^{\mathsf T} \cdot P^{(k)}$.
+  \item $\mathbf{p} (k+1) ^{\mathsf T} = \mathbf{p}(k)^{\mathsf T} \cdot P^{(k)}$.
     \begin{proof}
       $\Omega = S_1^k + S_2^k + \ldots + S_m^k$, так как события несовместны.
     \[
@@ -125,7 +135,7 @@
     \]
     \end{proof}
 
-  \item $\bar{p} (k+1)^{\mathsf T} = \bar{p}(0)^{\mathsf T} \cdot P^{(1)} P^{(2)} \cdot \ldots \cdot P^{(k)}$.
+  \item $\mathbf{p} (k+1)^{\mathsf T} = \mathbf{p}(0)^{\mathsf T} \cdot P^{(1)} P^{(2)} \cdot \ldots \cdot P^{(k)}$.
 \end{enumerate}
 
 
@@ -135,8 +145,8 @@
   P(\xi_k=j \mid \xi_{k-1}=i)$ не
   зависит от $ k $.
 \end{definition}
-Для однородных цепей $\bar{p}(l+1)^{\mathsf T} = \bar{p}(l)^{\mathsf T} P$, а
-$\bar{p}(l=1)^{\mathsf T} = \bar{p}(0)^{\mathsf T} P^{l+1}$.
+Для однородных цепей $\mathbf{p}(l+1)^{\mathsf T} = \mathbf{p}(l)^{\mathsf T} P$, а
+$\mathbf{p}(l=1)^{\mathsf T} = \mathbf{p}(0)^{\mathsf T} P^{l+1}$.
 
 \begin{theorem}[Колмогорова -- Чепмена]
   Пусть в однородной марковской цепи $p_{ij}^{(k)} = P(\xi_{l+k} = j \mid
@@ -155,7 +165,7 @@ $\bar{p}(l=1)^{\mathsf T} = \bar{p}(0)^{\mathsf T} P^{l+1}$.
     = \dfrac{\sum\limits_{\alpha=1}^m P(\xi_{k+l} = j, \xi_k = \alpha, \xi_0=i)}{P(\xi_0=i)}
     = \sum_{\alpha=1}^m \dfrac{P(\xi_{k+l} = j, \xi_k = \alpha, \xi_0=i)}{P(\xi_0=i)} \dfrac{P(\xi_k=\alpha, \xi_0=i)}{P(\xi_k=\alpha, \xi_0=i)} = \\
     = \sum_{\alpha=1}^m P(\xi_k=\alpha\mid\xi_0=i) P(\xi_{k+l}=j \mid \xi_k = \alpha, \cancel{\xi_0=i})
-    = \sum_{\alpha=1}^m P_{i\alpha}^{(k)} P_{\alpha j}^{(l)}.
+    = \sum_{\alpha=1}^m p_{i\alpha}^{(k)} p_{\alpha j}^{(l)}.
   \end{multline*}
 \end{proof}
 
@@ -172,7 +182,7 @@ $\bar{p}(l=1)^{\mathsf T} = \bar{p}(0)^{\mathsf T} P^{l+1}$.
   Вектор $\bm{\pi}$ называется \emph{финальным} (распределением).
 \end{definition}
 
-\textsc{Пояснение}.\hspace{.1em} В пределе получается, что матрица состоит из одинаковых строк, каждая из
+\textsc{Пояснение}.\hspace{.15em} В пределе получается, что матрица состоит из одинаковых строк, каждая из
 которых совпадает с $\bm{\pi}^{\mathsf T}$.
 
 \begin{definition}
@@ -189,7 +199,7 @@ $\bar{p}(l=1)^{\mathsf T} = \bar{p}(0)^{\mathsf T} P^{l+1}$.
   Если марковская цепь $\xi_n$ имеет конечное множество состояний и существуют $0
   <\varepsilon < 1$,
   $n_0 \in \mathbb N$ такие, что $\min\limits_{i, j} p_{ij}^{(n_0)} \geqslant
-  \varepsilon$, то цепь эргодическая, а
+  \varepsilon$ для произвольных $ i $, $ j $, то цепь эргодическая, а
   финальные вероятности совпадают со стационарными.
 \end{theorem}
 \begin{proof}
@@ -221,10 +231,12 @@ $\bar{p}(l=1)^{\mathsf T} = \bar{p}(0)^{\mathsf T} P^{l+1}$.
   Аналогично доказывается, что $M_j^{(n+n_0)} \leqslant M_j^{(n)}
   (1-\varepsilon) + \varepsilon p_{jj}^{(2n)}$.
   Тогда $M_{j}^{(n+n_0)} - m_j^{(n+n_0)} \leqslant (1-\varepsilon) (M_j^{(n)} - m_j^{(n)})$. 
-  Тогда $M_j^{(n+kn_0)} - m_j^{(n+kn_0)} \leqslant (1-\varepsilon)^k (M_j^{(n)} - m_j^{(n)}) \to 0, k\to \infty$, то есть $M_{j}^{(n)} - m_j^{(n)} \to 0, n \to \infty$. По теореме о двух милиционерах
-  $m_j^{(n)} \leqslant p_{ij}^{(n)} \leqslant M_j^{(n)}$.
+  Тогда $M_j^{(n+kn_0)} - m_j^{(n+kn_0)} \leqslant (1-\varepsilon)^k (M_j^{(n)}
+  - m_j^{(n)}) \to 0$ при $ k\to \infty$, то есть $M_{j}^{(n)} - m_j^{(n)} \to
+  0$ при $ n \to \infty$. По теореме о двух милиционерах
+  вероятность $m_j^{(n)} \leqslant p_{ij}^{(n)} \leqslant M_j^{(n)}$ имеет
+  предел.
 \end{proof}
-
 Обозначим $\lim\limits_{n\to\infty} p_{ij}^{(n)} =: \pi_j$, где $j = \overline{1, m}$. 
 
 \begin{remark*}
@@ -234,26 +246,28 @@ $\bar{p}(l=1)^{\mathsf T} = \bar{p}(0)^{\mathsf T} P^{l+1}$.
 
 \setcounter{corollary}{0}
 \begin{corollary}
-  Безусловные вероятности $\bar{p} (n)^{\mathsf T} = \bar{p}(0)^{\mathsf T} P^n \to
+  Безусловные вероятности $\mathbf{p} (n)^{\mathsf T} = \mathbf{p}(0)^{\mathsf T} P^n \to
       \left(\pi_1 , \pi_2 , \dots , \pi_n \right)$ (для любого начального
       состояния!), так как матрица $P$ при возведении в степень стремится к
       \[
         P^n \to \begin{pmatrix}
-          \pi_1 & \pi_2 & \dots & \pi_n \\
-          \pi_1 & \pi_2 & \dots & \pi_n \\
-          \dots \\
-          \pi_1 & \pi_2 & \dots & \pi_n
+          \pi_1 & \pi_2 & \cdots & \pi_n \\
+          \pi_1 & \pi_2 & \cdots & \pi_n \\
+          \vdots & \vdots & \ddots & \vdots \\
+          \pi_1 & \pi_2 & \cdots & \pi_n
         \end{pmatrix}.
       \]
     \end{corollary}
 
     \begin{corollary}
       Для нахождения финальных вероятностей необязательно искать предел матрицы,
-      достаточно найти стационарные вероятности. Если $\bar{p}(n+1)^T = \bar{p}(n)^T \cdot P$,
+      достаточно найти стационарные вероятности. Если $\mathbf{p}(n+1)^{\mathsf T}
+      = \mathbf{p}(n)^{\mathsf T} \cdot P$,
       то для стационарной вероятности имеем уравнения
       \[
         \begin{cases}
-          \vec{\pi}^T = \vec{\pi}^T \cdot P \Leftrightarrow \pi^T (P - E) = 0,\\
+          \bm{\pi}^{\mathsf T} = \bm{\pi}^{\mathsf T} \cdot P \Leftrightarrow
+          \bm\pi^{\mathsf T} (P - E) = 0,\\
           \sum\limits_{k=1}^m \pi_k = 1.
         \end{cases}
       \]
