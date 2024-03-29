@@ -1,0 +1,168 @@
+\section{Лекция 6 -- 2024-03-29 -- Основные характеристики случайного процесса}
+
+\begin{definition}
+  Конечномерным распределением случайного процесса $\xi_t, t\in T$ -- это
+  совокупности законов распределения $\forall N t_1 < t_2 < \dots < t_N, t_i \in T$
+  случайных величин $\bar{\xi} = (\xi_{t_1}, \xi_{t_2}, \dots, \xi_{t_N})$.
+
+  Функция распределения $F_\bar{\xi}(\bar{x}) = P(\xi_{t_1} < x_1, \xi_{t_2} < x_2, \dots, \xi_{t_N} < x_N)$
+\end{definition}
+
+
+\begin{theorem}
+  Если $\xi_t$ -- марковская цепь, то его конечномерным распределение однозначно 
+  однозначно определено одно- или двумерным распределениями.
+\end{theorem}
+\begin{proof}
+  $t_1 < t_2 < \dots < t_N$. $F_\bar{\xi} (\bar{x}) = P(\xi_{t_1} < x_1, \dots, \xi_{t_N} < x_N)
+  = P(\xi_{t_N} < x_N | \xi_{t_{N-1}} < x_{N}, \dots) \cdot P(\text{условия}) = P(\xi_{t_N} < x_N | \xi_{t_{N-1}} < x_{N-1}) \cdot P(\text{условия})$.
+\end{proof}
+
+\begin{definition}
+  Если $F_{\bar{\xi}}(\bar{x}) = \int\limits_{-\infty}^{\bar{x}} p_{\bar{\xi}} (\bar{y}) \, dy$,
+  $p_{\bar{\xi}} (\bar{x}) = \dfrac{\partial^N F_{\bar{\xi}} (\bar{x})}{\partial x_1 \partial x_2 \dots}$, и $\bar{p}_\bar{\xi} (\bar{x})$ -- конечномерная плотность.
+\end{definition}
+
+\begin{ex}
+  $\xi_t (\omega) = \underbrace{U(\omega)}_\text{СВ} \cdot \underbrace{\varphi(t)}_\text{неслучайная функция $\varphi(t) > 0$}$.
+
+  Пусть $p_U (x)$ -- плотность СВ $U$. $p_{\xi_t} (x) = p_U \left(\dfrac{x}{\varphi(t)}\right) \cdot \dfrac{1}{\varphi(t)}$ -- одномерная плотность.
+
+  $t_1 < t_2$ $(\xi_1, \xi_2) = (\xi_{t_1}, \xi_{t_2})$
+  $F_{\xi_1, \xi_2} (x_1, x_2) = P(\xi_1 < x_1, \xi_2 < x_2) = P(U\varphi(t_1) < x_1, U\cdot\varphi(t_2) < x_2) = P(U < \min \left(\dfrac{x_1}{\varphi(t_1)}, \dfrac{x_2}{\varphi(t_2)}\right)
+  = F_U \left( \dfrac{x_1}{\varphi(t_1)}, \dfrac{x_2}{\varphi(t_2)} \right)$.
+
+  Вне прямой $\dfrac{x_1}{\varphi(t_1)} = \dfrac{x_2}{\varphi(t_2)}$ $ \dfrac{\partial^2 F}{\partial x_1 \partial x_2} = 0$.
+\end{ex}
+
+\begin{definition}
+  Случайный процесс называется гауссовским, если все его конечномерные распределения
+  -- гауссовские, то есть $\bar\xi = (\xi_{t_1}, \xi_{t_2}, \dots, \xi_{t_N})$ --
+  гауссовски распределенный случайный вектор.
+
+  Если известно $M\xi_t = m_\xi (t), \Sigma_\xi = (cov(\xi_{t_i}, \xi_{t_j})$,
+  то можно получить и плотность:
+  $p_{\bar{\xi}} (\bar{x}) = \dfrac{1}{(2\pi)^{N/2} \sqrt{|\Sigma_\xi|}} e^{ -\dfrac{1}{2} (\bar{x} - M\bar{\xi})^T \Sigma^{-1}_\xi (\bar{x} - M\bar{\xi}) }.$ То есть плотность 
+  существует, если ковариационная матрица не вырожденна.
+
+  Такой случайный процесс практически единственный, который можно потрогать.
+\end{definition}
+
+Характеристики случайного процесса:
+\begin{enumerate}
+  \item $M\xi_t(\omega) = m_\xi(t)$;
+  \item $k_\xi (t, s) = cov(\xi_t, \xi_s)$ -- ковариационная функция.
+    Её свойства:
+    \begin{enumerate}
+      \item $k_\xi (t, s) = k_\xi (s, t)$.
+      \item $k_\xi (t, s) \leqslant \sqrt{D\xi_t D\xi_s}$
+      \item $k_\xi(t, t) = D\xi_t$.
+      \item Неотрицательная определенность
+        \[
+          \forall t_1, t_2, \dots, t_N, z_1, \dots, z_N \in \mathbb{C} : \sum_{i, j = 1}^N z_i k_\xi(t_i, t_j) \bar{z_j} \geqslant 0
+        \]
+        \begin{proof}
+          $\zeta = \sum_{j=1}^N z_j \xi_{t_j}$.
+          \[
+            0 \leqslant cov(\zeta, \bar{\zeta}) = cov(\sum_{j=1}^N z_j \xi_{t_j}, \sum \dots) = \sum_{i, j} z_i \bar{z_j} k_\xi(t_i, t_j)
+          \]
+        \end{proof}
+    \end{enumerate}
+  \item Нормированная (авто) ковариационная функция.
+\end{enumerate}
+
+\begin{ex}[пример ковариационной функции]
+  $k_\xi(t, s) = \cos(t-s)$ -- ков. ф-я.
+\end{ex}
+
+% TODO ещё один пример U cos wt + V sin wt
+
+\begin{theorem}[Колмогорова]
+  Если семейство функций $F_{\bar{\xi}} (\bar{x})$ удовлетвояющая свойствам 1-6,
+  то $\exists (\Omega, \mathcal{F}, P)$ и $\xi_t$, что $F_\bar{\xi} (\bar{x})$ --
+  конечномерное распределение.
+  Эти самые свойства:
+  \begin{enumerate}
+    \item $0 \leqslant F_{t} (\bar{x}) \leqslant 1$.
+    \item $\lim_{x_i \to -\infty} F_{\bar{t}} (\bar{x}) = 0$,
+      $\lim_{x_1 \to +\infty, \dots, x_N \to +\infty} F = 1$.
+    \item $F_\bar{t} (\bar{x})$ -- непрерывна слева по каждому аргументу.
+    \item Если $(i_1, \dots, i_N)$ -- перестановка $(1, 2, \dots, N)$.
+      $F_{t_{i_1}, \dots, t_{i_N}} (x_{i_1}, \dots x_{i_N}) = F_{t_1, \dots, t_N} (x_1, \dots, x_N).$
+    \item $k < N$ $F_{t_1, \dots, t_N} (x_1, \dots, x_k) = F_\bar{t} (x_1, \dots, x_k, +\infty, \dots, +\infty)$.
+    \item $\Delta_{h_1, \dots, h_N} F_\bar{t}(x_1, \dots, x_N) \geqslant 0, h_i > 0$,
+      $\Delta_h F = F_\bar{t}(x_1+h, x_2, \dots, x_N) - F_\bar{t}(x_1, \dots, x_N)$.
+      $\Delta_{h_1, h_2} F = F_\bar{t} $ % TODO чуть расписать про дельту
+  \end{enumerate}
+\end{theorem}
+
+\begin{definition}
+  Случайный процесс называется стационарным в узком смысле, если его конечномерные
+  распределения не меняюются при сдвиге:
+  $F_{t_1, \dots, t_N}(x_1, \dots, x_N) = F_{t_1+h, \dots, t_N+h} (x_1, \dots, x_N)$.
+\end{definition}
+
+\begin{ex}
+  $(\alpha, \beta)$ -- неотрицательные случайные величины с $p_{\alpha\beta} (x, y)$,
+  $\gamma\sim R[0, 2\pi]$, $\gamma$ и $\alpha,\beta$ -- независимы.
+  Тогда $\xi_t = \alpha \cos(\beta t + \gamma)$ -- стационарный в узком смысле.
+
+  \[
+    F_{\xi_t}(x) = P(\alpha \cos(\beta t + \gamma) < x) = P(\cos(\beta t + \gamma) < \dfrac{x}{\alpha}) = P( \bigcup_k \left( \arccos\dfrac{x}{\alpha} - \beta t + 2\pi k < \gamma < 2\pi +2\pi k - \arccos\dfrac{x}{\alpha} - \beta t \right) )
+  \]
+  -- не зависит от $t$.
+  
+\end{ex}
+
+\begin{definition}
+  Случайный процесс называется стационарным в широком смысле, если 
+  $M\xi_t = m_\xi(t) \equiv C$, $k_\xi(t, s) = k_\xi(t-s)$
+\end{definition}
+
+\begin{definition}
+  Нормированная (авто) ковариационная функция:
+  $r_{\xi_t, \xi_s} = \dfrac{cov(\xi_t, \xi_s)}{\sqrt{D\xi_t \cdot D\xi_s}}$
+\end{definition}
+
+\begin{theorem}[о связи]
+  Если случайный процесс $\xi_t$ стационарен в узком смысле и $\exists M\xi_t, M\xi^2_t$, 
+  то $\xi_t$ стационарем в широком смысле.
+\end{theorem}
+\begin{proof}
+  $M\xi_t = \int\limits_{-\infty}^{+\infty} x dF_{\xi_t} (x) = M\xi_{t+h}$
+
+  $M\xi_t \xi_s = \int\int xy dF_{\xi_t \xi_s} (x, y) = \int\int xy dF_{\xi_{t+h}, \xi_{s+h}} (x, y)$
+
+  $cov(\xi_{t+h}, \xi_{s+h}) = M\xi_{t+h} \xi_{s+h} - M\xi_{t+h} \cdot M\xi_{s+h} = cov(\xi_t, \xi_s)$
+\end{proof}
+
+\subsection{Стационарные процессы}
+
+\paragraph{Свойства ковариационной функции стационарного процесса (в широком смысле)}
+
+\begin{enumerate}
+  \item $k_\xi(-\tau) = k_\xi (\tau)$
+  \item $|k_\xi(\tau)| \leqslant k_\xi(0) = D_{\xi_t}$
+  \item неотрицательная определенность
+\end{enumerate}
+
+\begin{ex}[Пуассоновский процесс]
+  Пусть $\xi_t$ -- пуассоновский процесс интенсивности $\lambda$:
+  \[
+    M\xi_t = \sum_{k=0}^\infty k P(\xi_t = k) = \sum_{k=0}^\infty k \dfrac{(\lambda t)^k}{k!} e^{-\lambda t} = \lambda t.
+  \]
+
+  $t<s$:
+  \begin{multline*}
+    M\xi_t \xi_s = \sum_{k=0}^\infty \sum_{j=k}^\infty k\cdot j \cdot P(\xi_t = k, \xi_s = j)
+    = \sum_{k=0}^\infty \sum_{j=k}^\infty k \cdot j \cdot P(\xi_s=j | \xi_t=k) \cdot P(\xi_t = k) = \\
+    = \sum_{k=0}^\infty \sum_{j=k}^\infty kj P_{kj}(s-t) \cdot \dfrac{(\lambda t)^k}{k!} e^{-\lambda t}
+    = \sum_{k=0}^\infty \sum_{j=k}^\infty kj P_{kj}(s-t) \cdot \dfrac{(\lambda t)^k}{k!} e^{-\lambda t} = \\
+    = \sum_{k=0}^\infty k \dfrac{(\lambda t)^k}{k!} e^{-\lambda t}
+    \sum_{j=k}^\infty (j-k+k) \dfrac{(\lambda(s-t))^{j-k}}{(j-k)!} e^{- \lambda (s-t)}
+    = \sum_{k=0}^\infty k \dfrac{(\lambda t)^k}{k!} e^{-\lambda t} [\lambda(s-t) + k] = \\
+    = \lambda t \lambda (s-t) + (\lambda t)^2 + \lambda t = \lambda^2 t s + \lambda t
+  \end{multline*}
+
+  $cov(\xi_t, \xi_s) = \lambda t$ $\Rightarrow$ $t < s : k_\xi (t, s) = \lambda \min(t, s)$
+\end{ex}
