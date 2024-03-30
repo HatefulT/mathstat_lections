@@ -217,10 +217,10 @@
 
   \[
     P = \begin{pmatrix}
-      0 & 1 & 0 & \dots \\
-      q & 0 & p & \dots \\
-      0 & q & 0 & p \\
-      \vdots & \vdots & \vdots & \vdots
+      0 & 1 & 0 & \cdots & \cdots\\
+      q & 0 & p & \cdots & \cdots\\
+      0 & q & 0 & p & \cdots \\
+      \vdots & \vdots & \vdots & \vdots & \ddots
     \end{pmatrix} 
   \]
 
@@ -234,17 +234,18 @@
       \pi_k = p \pi_{k-1} + q \pi_{k+1}.
     \end{cases}
   \]
-  Получили рекуррентное уравнение. Применим алгоритм его решения.
+  Получили рекуррентное уравнение. Применим следующий алгоритм его решения.
   Характеристическое уравнение имеет вид $q \lambda^2 - \lambda + p = 0$ с
   корнями
   \[
     \lambda_{1, 2} = \dfrac{1\pm \sqrt{1-4pq}}{2q} = \dfrac{1 \pm \sqrt{1 - 4(1-q)q}}{2q}
     = \dfrac{1 \pm |1 - 2q|}{2q}.
   \]
+  Рассмотрим три случая.
   \begin{enumerate}
-    \item $q > \dfrac{1}{2}$ -- движение влево более вероятно, чем вправо.
+    \item $q > 1/2$ (движение влево более вероятно, чем вправо). В этом случае
       \[
-        \lambda_{1, 2} = 1, \dfrac{1-q}{q}.
+        \lambda_{1, 2} = \begin{cases} 1,\\ \frac{1-q}{q}.\end{cases}
       \]
       $\pi_k = c_1 \cdot 1^k + c_2 \cdot \left( \dfrac{p}{q} \right)^k$.
       Причем $0 < \pi_k < 1$ $\Rightarrow$ и $\sum_{k=0}^\infty \pi_k = 1$.
@@ -254,10 +255,10 @@
 
       Получили эргодичность.
 
-    \item $q = \dfrac{1}{2}$ тогда $\lambda_{12} = 1$ -- двукратный корень. $\pi_k = C_1 + C_2 k$. 
+    \item $q = 1/2$. Тогда $\lambda_{12} = 1$ -- двукратный корень. $\pi_k = C_1 + C_2 k$. 
       Тогда $\pi_k = 0$, а цепь неэргодичная.
 
-    \item $q<\dfrac{1}{2}$. $\lambda_{1, 2} = \dfrac{1 \pm (1-2q)}{2q} = \dfrac{p}{q}, 1$.
+    \item $q<1/2$. $\lambda_{1, 2} = \dfrac{1 \pm (1-2q)}{2q} = \dfrac{p}{q}, 1$.
       $\pi_k = C_1 + C_2 \left(\dfrac{p}{q}\right)^{k} \Rightarrow \pi_k = 0$.
   \end{enumerate}
 \end{ex}
