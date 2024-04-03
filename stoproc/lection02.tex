@@ -23,7 +23,7 @@
     \end{pmatrix}.
   \]
   Очевидно, такая последовательность не может иметь предела, поэтому такая марковская цепь не
-  эргодичная.
+  эргодическая.
 
   Однако в этой марковской цепи существует стационарное распределение, поскольку СЛАУ
   $\bm\pi^T = \bm\pi^{\mathsf T} P;\ \sum \pi_j = 1$ даёт решение
@@ -50,7 +50,7 @@
       0 & 0 & 0 & 1
     \end{pmatrix}.
   \]
-  И тогда $\mathbf p = (0, 0, 0, 1)$ является стационарным распределением.
+  И тогда $\mathbf p = (0, 0, 0, 1)^{\mathsf T}$ является стационарным распределением.
   Интуитивно также понятно, что прибор, начиная с любого состояния, рано или поздно сломаемся.
   Таким образом, данная марковская цепь не является эргодической.
 \end{ex}
@@ -69,21 +69,22 @@
 
 \begin{definition}
   Состояние $S_i$ (или множество состояний) называется \emph{несущественным}, если
-  существуют $ S_j $ и $ n\in \mathbb N $, для которых $p_{ij}^{(n)} > 0$, --- из
-  этого состояния можно выйти ---
-  но для всякого $ S_k $ и $ m \in \mathbb N $ выполняется $p_{ki}^{(m)} = 0$ --- в это состояние нельзя попасть.
+   $\exists S_j \exists n\in \mathbb N\colon p_{ij}^{(n)} > 0$ --- из
+  этого состояния можно выйти,
+  но $  \forall S_k \forall m \in \mathbb N\ p_{ki}^{(m)} = 0$ --- в это состояние нельзя попасть.
 \end{definition}
 
 \begin{definition}
   Состояние (или множество состояний) называется \emph{поглощающим}, если в него
   можно войти ---
-  $\exists S_j , \exists n\colon p_{ji}^{(n)} > 0$,
+  $\exists S_j  \exists n\in\mathbb N\colon p_{ji}^{(n)} > 0$,
   но нельзя выйти ---
-  $\forall S_j, \forall n \colon p_{ij}^{(n)} = 0$.
+  $\forall S_j \forall n \in \mathbb N \ p_{ij}^{(n)} = 0$.
 \end{definition}
 
 \begin{definition}
-  Говорят, что состояние $S_i$ \emph{достижимо} из состояния $S_j$, если $\exists n\colon p_{ji}^{(n)} > 0$.
+  Говорят, что состояние $S_i$ \emph{достижимо} из состояния $S_j$, если из
+  последнего можно попасть в первое за некоторое количество шагов --- $\exists n\colon p_{ji}^{(n)} > 0$.
 \end{definition}
 
 \begin{definition}
@@ -128,12 +129,8 @@
 \end{ex}
 
 \begin{definition}
-  Говорят, что состояние $S_i$ \emph{имеет период $d(i) = d$}, если
-  \begin{enumerate}
-    \item Из $p_{ii}^{(n)} > 0$ вытекает $n = d \cdot l,\ l \in \mathbb{N}$ ($n$ делится на $d$).
-    \item Число $d$ есть наибольший общий делитель всех таких $n$, для которых
-      выполнено первое условие.
-  \end{enumerate}
+  Наибольший общий делитель $ d(i) $ всех $ n $ таких, что $ p_{ii}^{(n)} > 0 $
+  называют \emph{периодом состояния $ S_i $}.
 \end{definition}
 Например, в задаче \ref{ex:724} период $d(1, 2, 3, 4) = 2$.
 
@@ -148,32 +145,32 @@
   периодические, то $d(i) = d(j)$ для всех $ i $, $ j $.
 \end{theorem}
 \begin{proof}
-  Выберем $S_i$ периодическим с периодом $d(i)$, а $S_j$ --- с периодом $d(j)$.
+  Выберем $S_i$ периодическим с периодом $d(i)$, а $S_j$ с периодом $d(j)$.
   Необходимо доказать, что $d(i) = d(j)$.
   \begin{multline*}
     \begin{cases}
-    \exists k : p_{ij}^{(k)} > 0, \\
-      \exists l : p_{ji}^{(l)} > 0
+    \exists k \colon p_{ij}^{(k)} > 0, \\
+    \exists l \colon p_{ji}^{(l)} > 0
     \end{cases}
-    \Rightarrow \text{по т-ме Колмогорова-Чепмена: } \\
+    \Rightarrow \text{по теореме Колмогорова -- Чепмена } \\
     p_{ii}^{(k+l)} = \sum_{\alpha} p_{i\alpha}^{(k)} \cdot p_{\alpha i}^{(l)} 
     \geqslant p_{ij}^{(k)} \cdot p_{ji}^{(l)} > 0
     \Rightarrow
-    k+l \text{ делится на $d(i)$}.
+    (k+l) \text{ делится на $d(i)$}.
   \end{multline*}
-  если $n$ не делится на $d(i)$, то $n+k+l$ не делится на $d(i)$, тогда $p_{ii}^{(n+k+l)} = 0$, 
-  тогда $p_{ii}^{(n+k+l)} = \sum_{\alpha} \sum_\beta p_{i\alpha}^{(k)} p_{\alpha \beta}^{(n)} 
-  p_{\beta i}^{(l)}$, тогда $p_{jj}^{(n)} = 0$ тогда $n$ не делится на $d(j)$.
+  Если $n$ не делится на $d(i)$, то $(n+k+l)$ не делится на $d(i)$. Тогда $p_{ii}^{(n+k+l)} = 0$, 
+  тогда $p_{ii}^{(n+k+l)} = \sum\limits_{\alpha} \sum\limits_\beta p_{i\alpha}^{(k)} p_{\alpha \beta}^{(n)} 
+  p_{\beta i}^{(l)}$, тогда $p_{jj}^{(n)} = 0$, тогда $n$ не делится на $d(j)$.
 
-  если $p_{jj}^{(n)} > 0 \Rightarrow$ $n$ делится на $d(i)$, а по предположению теоремы $n$ делится 
-  на $d(j)$ $\Rightarrow$ $d(i) \leqslant d(j)$.
+  Если $p_{jj}^{(n)} > 0 $, то есть $n$ делится на $d(i)$ (а по предположению теоремы $n$ делится 
+  на $d(j)$), то $d(i) \leqslant d(j)$.
 
-  Аналогично можно доказать, что $d(j) \leqslant d(i)$. То есть $d(i) = d(j)$.
+  Аналогично можно доказать, что $d(j) \leqslant d(i)$. Таким образом, $d(i) = d(j)$.
 \end{proof}
 
 \begin{definition}
-  Этот общий период называется периодом цепи $d(S)$.
-  Если $d(S) = 1$, то цепь называется апериодической -- все состояния непериодические.
+  Этот общий период называется \emph{периодом цепи} $d(S)$.
+  Если $d(S) = 1$, то цепь называется \emph{апериодической} --- все состояния непериодические.
 \end{definition}
 
 \begin{theorem}
@@ -242,45 +239,61 @@
     = \dfrac{1 \pm |1 - 2q|}{2q}.
   \]
   Рассмотрим три случая.
-  \begin{enumerate}
+  \begin{enumerate}[label=\roman*)]
     \item $q > 1/2$ (движение влево более вероятно, чем вправо). В этом случае
       \[
-        \lambda_{1, 2} = \begin{cases} 1,\\ \frac{1-q}{q}.\end{cases}
+        \lambda_{1, 2} = \left\{ 1, \frac{1-q}{q} \right\}.
       \]
-      $\pi_k = c_1 \cdot 1^k + c_2 \cdot \left( \dfrac{p}{q} \right)^k$.
-      Причем $0 < \pi_k < 1$ $\Rightarrow$ и $\sum_{k=0}^\infty \pi_k = 1$.
-      Получаем, $C_1 = 0, \sum_{k=0}^\infty C_2 \left( \dfrac{p}{q} \right)^k 
-      \Rightarrow C_2 = \dots = \dfrac{q-p}{q}$
+      Значит, $\pi_k = C_1 \cdot 1^k + C_2 \cdot \left( p/q \right)^k$.
+      Причём $0 < \pi_k < 1$ и $\sum\limits_{k=0}^\infty \pi_k = 1$.
+      Отсюда получаем, что $C_1 = 0, \sum\limits_{k=0}^\infty C_2 \left( p/q
+      \right)^k$,
+      и $$C_2 = \ldots = \dfrac{q-p}{q}.$$
       % TODO дописать из семинара
 
       Получили эргодичность.
 
-    \item $q = 1/2$. Тогда $\lambda_{12} = 1$ -- двукратный корень. $\pi_k = C_1 + C_2 k$. 
-      Тогда $\pi_k = 0$, а цепь неэргодичная.
+    \item $q = 1/2$. Тогда $\lambda_{1,2} = 1$ (двукратный корень). В этом
+      случае $\pi_k = C_1 + C_2 k$. 
+      Тогда $\pi_k = 0$, а цепь неэргодическая.
 
-    \item $q<1/2$. $\lambda_{1, 2} = \dfrac{1 \pm (1-2q)}{2q} = \dfrac{p}{q}, 1$.
-      $\pi_k = C_1 + C_2 \left(\dfrac{p}{q}\right)^{k} \Rightarrow \pi_k = 0$.
+    \item $q<1/2$. В этом случае
+      \[
+        \lambda_{1, 2} = \dfrac{1 \pm (1-2q)}{2q} = \{
+          p/q,
+          1
+        \}.
+      \]
+      Здесь $\pi_k = C_1 + C_2 \left(p/q\right)^{k}$, и, значит, $\pi_k = 0$.
   \end{enumerate}
 \end{ex}
 
 \begin{definition}
   Пусть конечное множество состояний $\mathscr S = \left\{ S_1, \dots, S_m \right\} $. Берём подмножество 
   состояний (для определенности первые $m_1 < m$ состояний)
-  $A = \left\{ S_1, \dots, S_{m_1} \right\} $.
-  Обозначим $H^A = \inf \left\{ n\geqslant 0,\, \xi_n \in A \right\} $ --- момент первого достижения 
-  множества $A$.
-  Обозначим $h^A = P(H^A < \infty \mid \xi_0 = i)$,
-  $\mu^A_i = M(H^A \mid \xi_0 = i)$.
+  $\mathscr A = \left\{ S_1, \dots, S_{m_1} \right\} $.
+  Обозначим $H^{\mathscr A} = \inf \left\{ n\geqslant 0,\, \xi_n \in \mathscr A \right\} $ --- момент первого достижения 
+  множества $\mathscr A$.
+  Обозначим $h^{\mathscr A} = P(H^{\mathscr A} < \infty \mid \xi_0 = i)$,
+  $\mu^{\mathscr A}_i = M(H^{\mathscr A} \mid \xi_0 = i)$.
 \end{definition}
 
 \begin{theorem}
-  Если $A \subset \mathscr S$, то $h_i^A$ --- наименьшее неотрицательное решение системы
+  Если $\mathscr A \subset \mathscr S$, то $h_i^{\mathscr A}$ --- наименьшее неотрицательное решение системы
   \[
-    h^A_i = \begin{cases}
-      1, & S_i \in A, \\
-      \sum_{j=1}^m p_{ij} h_j^A, &S_i \notin A.
+    h^{\mathscr A}_i = \begin{cases}
+      1, & S_i \in \mathscr A, \\
+      \sum\limits_{j=1}^m p_{ij} h_j^{\mathscr A}, &S_i \notin \mathscr A.
     \end{cases}
   \]
-  $\mu^A_i = 0, S_i \in A$
-  $\mu^A_i = 1 + \sum_{j=m_1+1}^{m} p_{ij} \mu_j^A, S_i \notin A$.
+  
+  В свою очередь
+  \[
+    \begin{cases}
+      \mu^{\mathscr A}_i = 0, &S_i \in \mathscr A,\\
+  \mu^{\mathscr A}_i = 1 + \!\!\!\!\sum\limits_{j=m_1+1}^{m} p_{ij} \mu_j^{\mathscr A},
+                              &S_i \notin
+  \mathscr A.
+    \end{cases}
+  \]
 \end{theorem}

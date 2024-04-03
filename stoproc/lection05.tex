@@ -102,32 +102,35 @@
   \end{scope}
 \end{tikzpicture}
 
-Эта цепь точно является эргодической, тогда:
+Эта цепь точно является эргодической. Тогда
 \[
   \begin{cases}
     0 = -\lambda_1 \pi_1 + \mu_2 \pi_2, \\
     0 = \lambda_1 \pi_1 - (\lambda_2+\mu_2) \pi_2 + \mu_3 \pi_3, \\
-    \dots \\
+    \dots, \\
     0 = \lambda_{N-1} \pi_{N-1} - \mu_N \pi_M, \\
     \sum_j \pi_j = 1.
   \end{cases}
 \]
 
-Эту систему можно решить рекуррентно:
-\begin{align*}
-  &\begin{cases}
+Систему можно решить рекуррентно:
+\[
+  \begin{cases}
     \pi_2 = \dfrac{\lambda_1}{\mu_2} \pi_1, \\
     \pi_3 = \dfrac{\lambda_2}{\mu_3} \pi_2 = \dfrac{\lambda_2 \lambda_1}{\mu_3 \mu_2} \pi_1, \\
-    \dots \\
+    \ldots, \\
     \pi_N = \dfrac{\lambda_{N-1}}{\mu_N} \pi_{N-1}
-    = \dots
-    = \dfrac{\lambda_1 \cdot \dots \cdot \lambda_{N-1}}{\mu_2 \cdot \dots \cdot \mu_N} \pi 1
-    = \dfrac{\prod_{k=1}^{N-1} \lambda_k}{\prod_{j=2}^N \mu_j} \pi_1
-    = \prod_{j=2}^N \dfrac{\lambda_{j-1}}{\mu_j} \pi_1
+    = \ldots
+    = \dfrac{\lambda_1 \cdot \ldots \cdot \lambda_{N-1}}{\mu_2 \cdot \ldots
+    \cdot \mu_N} \pi_1
+    = \dfrac{\prod\limits_{k=1}^{N-1} \lambda_k}{\prod\limits_{j=2}^N \mu_j} \pi_1
+    = \prod\limits_{j=2}^N \dfrac{\lambda_{j-1}}{\mu_j} \pi_1,
   \end{cases}
-  \Rightarrow \\
-  &\Rightarrow \pi_1 = \left( 1 + \sum_{l=2}\prod_{j=2}^N \dfrac{\lambda_{j-1}}{\mu_j} \right)^{-1}.
-\end{align*}
+\]
+откуда
+\[
+  \pi_1 = \left( 1 + \sum_{l=2}\prod_{j=2}^N \dfrac{\lambda_{j-1}}{\mu_j} \right)^{-1}.
+\]
 
 Если этот ряд сходится (регулярно?), то можно рассматривать и предел
 $N \to \infty$, то есть модель, рассматривающую неограниченную популяцию.

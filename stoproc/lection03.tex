@@ -1,7 +1,7 @@
 \section{Лекция 3 -- 2024-03-01 -- }
 
 \begin{theorem}
-  $\mathcal{A} = \left\{ S_1, S_2, \dots, S_{m_1} \right\} \subset S = \left\{ S_1, \dots, S_m \right\} $
+  $\mathscr{A} = \left\{ S_1, S_2, \dots, S_{m_1} \right\} \subset \mathscr S = \left\{ S_1, \dots, S_m \right\} $
 \end{theorem}
 
 % TODO дописать начало лекции до 
@@ -9,28 +9,29 @@
 
 
 \begin{theorem}
-  $\mu_k = M(M^A | \xi_0=k)$, $\mu_k = \mu_k^A$ -- наименьшее наотрицателььное решение системы:
+  Положим $\mu_k = M(h^{\mathscr A} \mid \xi_0=k)$. Тогда $\mu_k = \mu_k^{\mathscr A}$ --- наименьшее неотрицателььное решение системы
   \[
     \begin{cases}
-      \mu_k = 0, & S_k \in \mathcal{A} \\
-      \mu_k = 1 + \sum_{j={m_1+1}}^m p_{kj} \mu_j, &S_k \notin \mathcal{A}.
+      \mu_k = 0, & S_k \in \mathscr{A}, \\
+      \mu_k = 1 + \!\!\!\!\sum\limits_{j={m_1+1}}^m p_{kj} \mu_j, &S_k \notin
+      \mathscr{A}.
     \end{cases}
   \]
 \end{theorem}
 
-
+\addtocounter{ex}{-1}
 \begin{ex}[продолжение]
   \begin{align*}
     \mu_0 &= 0, \\
     \mu_k &= 1 + q \mu_{k+1} + p \mu_{k+1}, \\
-    \mu_k &= A \cdot 1^k + B \left( \dfrac{q}{p} \right)^k + \mu_k^{\text{ч}}, \\
+    \mu_k &= A \cdot 1^k + B \left( q/p \right)^k + \mu_k^{\text{ч}}, \\
     \mu_k^{\text{ч}} &= \begin{cases}
-      A_1 \alpha^k, &\text{если $\alpha$ не является корнем характеристического} \\
-      A_1 k \alpha^k, &\text{является однократным корнем} \\
+      A_1 \alpha^k, &\text{$\alpha$ не является корнем характеристического,} \\
+      A_1 k \alpha^k, &\text{является однократным корнем,} \\
       A_1 k^2 \alpha^k, &\text{является двукратным корнем}
     \end{cases} = \begin{cases}
-      A_1 k, & q \neq p \\
-      A_1 k^2, & q = p
+      A_1 k, & q \neq p, \\
+      A_1 k^2, & q = p.
     \end{cases} 
   \end{align*}
 
@@ -41,71 +42,76 @@
     \Rightarrow
     A_1 k \cdot 0 = 1 - qA_1 + p A_1
     \Rightarrow
-    A = \dfrac{k}{q-p}
-  \]
-  Тогда при $p>\dfrac{1}{2}$:
-  \[
-    \mu_k = A + B \left( \dfrac{q}{p} \right)^k + \dfrac{k}{q-p}
-  \]
-  Причём $\mu_0 = A + B = 0 \Rightarrow A = -B$
-  \[
-    \mu_k = A \left( 1 - \left( \dfrac{q}{p} \right)^k \right) + \dfrac{k}{q-p} = \infty
-  \]
-  Равно бесконечности, так как второе слагаемое при $k \to \infty$ сколь угодно большое по модулю,
-  но меньше нуля, а первое слагаемое стремиться к константе $A$. Поэтому, чтобы не было отрицательным
-  надо чтобы $A = \infty$.
-
-  Если $p < 1/2$:
-  \[
-    \mu_k = A + B \left( \dfrac{q}{p} \right)^k + \dfrac{k}{q-p} = B \left( \left( \dfrac{q}{p} \right) ^k - 1 \right) + \dfrac{k}{q-p} \geqslant \dfrac{k}{q-p}
+    A = \dfrac{k}{q-p}.
   \]
 
-  Если $p = q$:
+  Тогда при $p>1/2$
+  \[
+    \mu_k = A + B \left( \dfrac{q}{p} \right)^k + \dfrac{k}{q-p}.
+  \]
+  При этом $\mu_0 = A + B = 0 $, откуда $A = -B$, и
+  \[
+    \mu_k = A \left( 1 - \left( \dfrac{q}{p} \right)^k \right) + \dfrac{k}{q-p}
+    = \infty.
+  \]
+  (Равно бесконечности, так как второе слагаемое при $k \to \infty$ сколь угодно большое по модулю,
+  но меньше нуля, а первое слагаемое стремится к константе $A$. Поэтому, чтобы
+  $ \mu $ не было отрицательным
+  надо чтобы $A = \infty$.)
+
+  Если $p < 1/2$,
+  \[
+    \mu_k = A + B \left( \dfrac{q}{p} \right)^k + \dfrac{k}{q-p} = B \left(
+    \left( \dfrac{q}{p} \right) ^k - 1 \right) + \dfrac{k}{q-p} \geqslant
+    \dfrac{k}{q-p}.
+  \]
+
+  Если $p = q$,
   \begin{align*}
     \mu_k &= A + Bk + \mu_k^\text{ч} = A + Bk + A_1 k^2, \\
-    \cancel{A_1 k^2} &= 1 + q A_1 (\cancel{k^2} - 2k+1) + pA_1 (\cancel{k^2} + 2k + 1), \\
-    \Leftrightarrow A_1 &= -1.
+    \cancel{A_1 k^2} &= 1 + q A_1 (\cancel{k^2} - 2k+1) + pA_1 (\cancel{k^2} + 2k + 1),
+    \quad \text{откуда } A_1 = -1.
   \end{align*}
 
-  Ищем наименьшее неотрицательное решение. $\mu_k = A + Bk - k^2$, Квадрат рано или поздно сделает
+  Ищем наименьшее неотрицательное решение. $\mu_k = A + Bk - k^2$. Квадрат рано или поздно сделает
   это выражение отрицательным, поэтому наименьшее неотрицатьельное решение $\mu_k = \infty$.
 
   Время вырождения получилось бесконечным, но вероятность вырождения равна единице. То
   есть выродится, но просто когда-то.
 
-  Можно провести аналогию с рядами. Если $P(\xi = k) = \dfrac{1}{k}$, то математическое ожидание
+  Можно провести аналогию с рядами. Если $P(\xi = k) = 1/k$, то математическое ожидание
   расходится, вот это очень похожая история.
 \end{ex}
 
 \subsection{Марковская цепь с непрерывным временем}
-
-$\mathcal{S} = \left\{ S_1, S_2, \dots, S_m \right\}$
+Пусть $\mathscr{S} = \left\{ S_1, S_2, \dots, S_m \right\}$.
 
 \begin{definition}
-  Если $P(\xi_{t+\Delta t} = j | \xi_t = i) = p_{ij}(t, \Delta t)$ не зависит от значений $\xi_s$, 
+  Если $P(\xi_{t+\Delta t} = j \mid \xi_t = i) = p_{ij}(t, \Delta t)$ не зависит от значений $\xi_s$, 
   $s \in [0, t)$.
 
   Более того, если $p_{ij}(t, \Delta t) = \lambda_{ij}(t) \Delta t + o(\Delta t)$, 
-  то $\lambda_{ij} $ называется \emph{интенсивностью} переходной вероятности
+  то $\lambda_{ij} $ (производная) называется \emph{интенсивностью} переходной вероятности
   из $i$ в $j$ в момент времени $t$.
 
-  Если $\lambda_{ij} (t) = \lambda_{ij}$ не зависит от $t$, то МЦ называется \emph{однородной}.
+  Если $\lambda_{ij} (t) =: \lambda_{ij}$ не зависит от $t$, то марковская цепь называется \emph{однородной}.
 \end{definition}
 
-\begin{ex}[Пуассоновский поток событий]
+\begin{ex}[пуассоновский поток событий]
   \[
     \begin{cases}
       P(\text{за $\Delta t$ случается 1 событие}) = \lambda \Delta t + o(\Delta t), \\
-      P(\text{за $\Delta t$ случается больше 1 события}) = o(\Delta t)
+      P(\text{за $\Delta t$ случается $>1$ события}) = o(\Delta t)
     \end{cases}
   \]
-  -- однородная марковская цепь с интенсивностью $\lambda$.
+  --- однородная марковская цепь с интенсивностью $\lambda$.
 
   % TODO рисунок числовая прямая
 
-  Граф этой МЦ:
+  На рисунке \ref{fig:ex731} изображён граф этой марковской цепи.
   \begin{figure}[h!]
     \centering
+    \label{fig:ex731}
     \begin{tikzpicture}
       \begin{scope}[every node/.style={fill=white,circle,draw=black}]
         \node (S_0) at (0,0) {$S_0$};
@@ -122,47 +128,49 @@ $\mathcal{S} = \left\{ S_1, S_2, \dots, S_m \right\}$
     \end{tikzpicture}
   \end{figure}
 
-  Причём подписи у рёбер графа -- не вероятности, а интенсивности, поэтому могут
+  Причём подписи у рёбер графа не вероятности, а интенсивности, поэтому могут
   быть больше единицы.
 
   \[
-    P(\xi_{t+\Delta t} = j | \xi_t = i) = \begin{cases}
-      \lambda \Delta t, & j = i+1 \\
-      0 & j \neq i+1, j \neq i \\
-      1-\lambda \Delta t + o(\Delta t), & j =1
+    P(\xi_{t+\Delta t} = j \mid \xi_t = i) = \begin{cases}
+      \lambda \Delta t, & j = i+1, \\
+      0 & j \neq i+1, j \neq i, \\
+      1-\lambda \Delta t + o(\Delta t), & j =1.
     \end{cases}
   \]
 \end{ex}
 
 \begin{theorem}
-  Пусть $\lambda_{ij}(t)$ -- интенсивности вероятности перехода. Пусть
+  Пусть $\lambda_{ij}(t)$ --- интенсивности вероятности перехода. Пусть
   $p(t) = (p_0(t), p_1(t), \dots, p_m(t))^T$
   -- вектор вероятностей состояний в момент $t$.
   \[
-    \Lambda = (\lambda_{ij}), \lambda_{ii} = - \sum_{j\neq i} \lambda_{ij} 
+    \Lambda = (\lambda_{ij}),\qquad \lambda_{ii} = - \sum_{j\neq i} \lambda_{ij} 
   \]
-  Эту сумму (без минуса) иногда называют интенсивностью истекающего потока.
+  Эту сумму (без минуса) иногда называют \emph{интенсивностью истекающего
+  потока}.
 
   Тогда
   \[
     p'(t) = \Lambda^T(t) p(t) 
-    \leftrightarrow
+    \Leftrightarrow
     p'^T(t) = p(t)^T \Lambda(t)
-    \leftrightarrow
+    \Leftrightarrow
     p_k'(t)
     = \sum_{i=1, i\neq k}^m \lambda_{ik}(t) p_{i}(t)
-      - \sum_{i=1, i\neq k}^m \lambda_{ki}(t) p_k(t)
+      - \sum_{i=1, i\neq k}^m \lambda_{ki}(t) p_k(t).
   \]
-  такая система называется системой дифференциальных уравнений Колмогорова.
+  Такая система называется \emph{системой дифференциальных уравнений
+  Колмогорова}.
 \end{theorem}
 \begin{proof}
   \begin{multline*}
     p_k(t+\Delta t) = P(\xi_{t+\Delta t} = k)
-    = \sum_{j=1}^m P(\xi_{t+\Delta t} = k | \xi_t = j) \cdot P(\xi_t = j) = \\
+    = \sum_{j=1}^m P(\xi_{t+\Delta t} = k \mid \xi_t = j) \cdot P(\xi_t = j) = \\
     = \sum_{j=1, j \neq k}^m \lambda_{ij}(t) \Delta t \cdot p_j(t)
-      + P(\xi_{t+\Delta t} = k | \xi_t = k) \cdot P(\xi_t = k) + o(\Delta t) = \\
+      + P(\xi_{t+\Delta t} = k \mid \xi_t = k) \cdot P(\xi_t = k) + o(\Delta t) = \\
     = \sum_{j=1, j \neq k}^m \lambda_{ij}(t) \Delta t \cdot p_j(t)
-      + \left( 1 - \sum_{j\neq k} \lambda_{kj}(t) \Delta t\right)  P(\xi_t = k) + o(\Delta t) = \\
+  + \biggl( 1 - \sum_{j\neq k} \lambda_{kj}(t) \Delta t\biggr)  P(\xi_t = k) + o(\Delta t) = \\
   \end{multline*}
 
   \[
@@ -173,12 +181,11 @@ $\mathcal{S} = \left\{ S_1, S_2, \dots, S_m \right\}$
   (поделили на $\Delta t$ и устремили к 0).
 \end{proof}
 
-\begin{ex}[Пуассоновский поток]
-  Пусть в начальный момент времени находились в состоянии $S_0$:
+\begin{ex}[пуассоновский поток]
+  Пусть в начальный момент времени находились в состоянии $S_0$,
   \[
-    p(0) = (1, 0, 0, \dots)^T
+    p(0) = (1, 0, 0, \dots)^{\mathsf T}.
   \]
-
   \begin{figure}[h!]
     \centering
     \begin{tikzpicture}
@@ -201,19 +208,19 @@ $\mathcal{S} = \left\{ S_1, S_2, \dots, S_m \right\}$
     \begin{cases}
       p_0' = -\lambda p_0, \\
       p_1' = \lambda p_0 - \lambda p_1, \\
-      \dots \\
-      p_k' = \lambda p_{k-1} - \lambda p_k
+      \dots, \\
+      p_k' = \lambda p_{k-1} - \lambda p_k.
     \end{cases}
   \]
-  -- с плюсом всё что втекает, с минусом всё что вытекает.
+  (С плюсом всё что втекает, с минусом всё что вытекает.)
 
-  Операционно решим:
+  Решим операционно,
   \[
     p_k(t) \risingdotseq \tilde p_k(s) 
     \Rightarrow
-    p_k'(t) \risingdotseq s \tilde p_k(s) - p_k(0)
+    p_k'(t) \risingdotseq s \tilde p_k(s) - p_k(0).
   \]
-
+Тогда
   \[
     \begin{cases}
       s \tilde p_0 - 1 = - \lambda \tilde p_0, \\
@@ -226,7 +233,7 @@ $\mathcal{S} = \left\{ S_1, S_2, \dots, S_m \right\}$
       \tilde p_0 = \dfrac{1}{s+\lambda} \fallingdotseq e^{-\lambda t}, \\
       \tilde p_1 = \dfrac{\lambda \tilde p_0}{s+\lambda} = \dfrac{\lambda}{(s+\lambda)^2}
         \fallingdotseq \lambda t e^{-\lambda t}, \\
-      \dots \\
+      \dots, \\
       \tilde p_{k+1} = \dfrac{\lambda \tilde p_k}{s+\lambda}=\dfrac{\lambda^{k+1}}{(s+\lambda)^{k+2}}
         \fallingdotseq e^{-\lambda t}, \\
 
@@ -234,12 +241,13 @@ $\mathcal{S} = \left\{ S_1, S_2, \dots, S_m \right\}$
   \]
 
   \[
-    p(t) = \left( e^{-\lambda t}, \lambda t e^{-\lambda t}, \dots, \dfrac{(\lambda t)^k}{k!} e^{-\lambda t}, \dots \right)^T.
+    p(t) = \biggl( e^{-\lambda t}, \lambda t e^{-\lambda t}, \dots,
+    \dfrac{(\lambda t)^k}{k!} e^{-\lambda t}, \dots \biggr)^{\mathsf T}.
   \]
 \end{ex}
 
-Финальные вероятности находятся по формуле:
+Финальные вероятности находятся по формуле
 \[
   \lim_{t\to +\infty} p_n(t) = \lim_{j \to 0} s \tilde p(s)
 \]
-(по теореме из операционного исчисления)
+(теорема из операционного исчисления).

@@ -3,11 +3,12 @@
 
 \begin{ex}
   Рассмотрим следующую марковскую цепь:
-  $\mathcal{S} = \left\{ S_0, S_1, \dots, S_m \right\} $.
-  $\xi(0) = 0 \leftrightarrow \bar{p}(0) = (1, 0, \dots, 0)^T$.
+  $\mathcal{S} = \left\{ S_0, S_1, \dots, S_m \right\} $. Пусть
+  $\xi(0) = 0 \Leftrightarrow \bar{p}(0) = (1, 0, \dots, 0)^{\mathsf T}$.
 
-  Обозначим $T_U$ -- время до первого выхода из $U = \left\{ S_0 \right\} $.
-
+  Обозначим символом $T_U$ время до первого выхода из $U = \left\{ S_0 \right\} $.
+  \begin{figure}[h!]
+    \centering
   \begin{tikzpicture}
     \begin{scope}[every node/.style={fill=white,circle,draw=black}]
       \node (S_0) at (1,0) {$S_0$};
@@ -23,34 +24,39 @@
       \path (S_0) edge node[left] {$\lambda_{0m}$} (S_m);  
     \end{scope}
   \end{tikzpicture}
+\end{figure}
 
   В этом случае вероятность нахождения в нулевом состоянии будет определяться
   дифференциальным уравнением:
   \[
     \begin{cases}
-      p_0'(t) = - \left( \sum\limits_{k=1}^m \lambda_{0k} \right) p_0(t), \\
+      p_0'(t) = - \Bigl( \sum\limits_{k=1}^m \lambda_{0k} \Bigr) p_0(t), \\
       p_0(0) = 1,
     \end{cases}
   \]
   которое, как несложно заметить, не зависит от того как между собой переходят 
   все остальные состояния.
 
-  Функция распределения, по определению:
+  Функция распределения по определению принимает вид
   \[
     F_{T_U} (t) = P(T_U < t) = 1 - P(T_U \geqslant t) = 1- p_0(t).
   \]
-  -- эта функция распределения также не зависит от никаких других 
+  Эта функция распределения также не зависит от никаких других 
   интенсивностей переходов. Продифференцируем, чтобы получить плотность распределения:
   \[
-    p_{T_U}(t) = - p_0'(t) = \left( \lambda(t) e^{ - \int_0^t \lambda(\tau) d\tau } \right)'
+    p_{T_U}(t) = - p_0'(t) = \left( \lambda(t) \exp\left\{ - \int_0^t \lambda(\tau)
+    d\tau \right\} \right)'
   \]
 
-  Здесь есть очень важный частный случай, когда $\lambda = \sum_{k=1}^m \lambda_{0k} = \operatorname{const}(t)$ -- случай однородной марковской цепи (ну не только когда вся цепь однородная, достаточно просто однородности исходящих из нулевого состояния интенсивностей):
+  Здесь есть очень важный частный случай, когда $\lambda = \sum\limits_{k=1}^m
+  \lambda_{0k} = \operatorname{const}(t)$ --- случай однородной марковской цепи
+  (ну не только когда вся цепь однородная, достаточно просто однородности
+  исходящих из нулевого состояния интенсивностей). Там получаем
   \[
     p_{T_U}(t) = \lambda e^{-\lambda t}
   \]
-  -- показательный закон с параметром $\lambda$. В этом случае легко посчитать
-  математическое ожидание времени выхода: $MT_U = \dfrac{1}{\lambda}$.
+   показательный закон с параметром $\lambda$. В этом случае легко посчитать
+  математическое ожидание времени выхода, $MT_U = 1/\lambda$.
 \end{ex}
 
 \begin{ex}
@@ -72,9 +78,10 @@
 \end{ex}
 
 \begin{ex}
-  Рассмотрим вот такую марковскую цепочечку:
+  Рассмотрим марковскую цепочечку, изображённую на рисунке \ref{fig:ex743}.
 
   \begin{figure}[h!]
+    \label{fig:ex743}
     \centering
     \begin{tikzpicture}
       \begin{scope}[every node/.style={fill=white,circle,draw=black}]
@@ -107,41 +114,40 @@
     \end{tikzpicture}
   \end{figure}
 
-  Тогда у нас множество состояний $\mathcal{S} = \left\{ S_i | i=\overline{1, m+r} \right\} $,
-  подмножество $U = \left\{ S_1, S_2, \dots, S_{m} \right\}, m < m+r $, 
-  a $\bar{p}(0)^T = ( \underbrace{\dots}_{\text{не нули}},
-  \underbrace{0, 0, \dots, 0}_{\text{нули}})$ (начинаем где-то внутри $U$). 
+  Тогда у нас множество состояний $\mathscr{S} = \left\{ S_i \mid i=\overline{1, m+r} \right\} $,
+  подмножество $\mathscr U = \left\{ S_1, S_2, \dots, S_{m} \right\}, m < m+r $, 
+  a $\mathbf{p}(0)^{\mathsf T} = ( \underbrace{\dots}_{\text{не нули}},
+  \underbrace{0, 0, \dots, 0}_{\text{нули}})$ (начинаем где-то внутри $\mathscr U$). 
 
-  Обозначим $T_U$ -- время однократного пребывания в $U$.
-
+  Обозначим символом $T_{\mathscr U}$ время однократного пребывания в $\mathscr U$.
   \[
     \begin{cases}
-      p_1' = - \sum_{k=2}^{m+2} \lambda_{1k} p_1 + \sum_{k=2}^m \lambda_{k 1} p_k  \\
-      p_m' = - \left( \sum_{k=1, k\neq m}^{m+r} \lambda_{mk} \right) p_m + \sum_{k=1}^m \lambda_{km} p_k \\
-      p_{m+1}' = \sum_{k=1}^m \lambda_{k, m+1} p_k \\
-      p_{m+r}' = \sum_{k=1}^m \lambda_{k, m+r}^{m} \lambda_{k, m+r} p_k.
+      p_1' = - \sum\limits_{k=2}^{m+2} \lambda_{1k} p_1 + \sum\limits_{k=2}^m \lambda_{k 1}
+      p_k,  \\
+      p_m' = - \Bigl( \sum\limits_{k=1, k\neq m}^{m+r} \lambda_{mk} \Bigr) p_m +
+      \sum\limits_{k=1}^m \lambda_{km} p_k, \\
+      p_{m+1}' = \sum\limits_{k=1}^m \lambda_{k, m+1} p_k, \\
+      p_{m+r}' = \sum\limits_{k=1}^m \lambda_{k, m+r}^{m} \lambda_{k, m+r} p_k.
     \end{cases}
   \]
 
-  Функция распределения, по определению будет равна:
+  Функция распределения по определению будет равна
   \[
-    F_{T_U}(t) = P(T_U < t) = 1 - P(T_U \geqslant t)
+    F_{T_{\mathscr U}}(t) = P(T_{\mathscr U} < t) = 1 - P(T_{\mathscr U} \geqslant t)
     = 1 - \sum_{k=1}^m p_k(t)
     = \sum_{k=m+1}^{m+r} p_k(t).
   \]
-
-  Дифференцированием получаем:
+  Дифференцированием получаем
   \[
-    p_{T_U}(t) = \sum_{k=m+1}^{m+r} p_k'(t)
+    p_{T_{\mathscr U}}(t) = \sum_{k=m+1}^{m+r} p_k'(t)
     = \sum_{k=m+1}^{m+r} \sum_{j=1}^m \lambda_{k, j} p_j
-    = \sum_{j=1}^m \left( \sum_{k=m+1}^{m+r} \lambda_{jk} p_j \right)
-    = \sum_{j=1}^m \left( \sum_{k=m+1}^{m+r} \lambda_{jk} \right) p_j
+    = \sum_{j=1}^m \biggl( \sum_{k=m+1}^{m+r} \lambda_{jk} p_j \biggr)
+    = \sum_{j=1}^m \biggl( \sum_{k=m+1}^{m+r} \lambda_{jk} \biggr) p_j.
   \]
 \end{ex}
-
 \begin{ex}
   Пусть для однородной марковской цепи со счетным количеством состояний 
-  $p(0)^T = (1, 0, \dots)$, интенсивности на рисунке.
+  $\mathbf p(0)^{\mathsf T} = (1, 0, \dots)$, интенсивности на рисунке.
   Найти закон распределения времени появления третьей особи.
   \begin{figure}[h!]
     \centering
@@ -174,21 +180,22 @@
     \end{cases}
     \Rightarrow
     \begin{cases}
-      \tilde p_1 = \dfrac{1}{s+\lambda} \risingdotseq e^{-\lambda t}, \\
-      \tilde p_2 = \dfrac{\lambda \tilde p_1}{s+2\lambda} 
-      = \dfrac{1}{(s+\lambda)(s+2\lambda)} \risingdotseq e^{-\lambda t} - e^{-2\lambda t}.
+      \tilde p_1 = \frac{1}{s+\lambda} \risingdotseq e^{-\lambda t}, \\
+      \tilde p_2 = \frac{\lambda \tilde p_1}{s+2\lambda} 
+      = \frac{1}{(s+\lambda)(s+2\lambda)} \risingdotseq e^{-\lambda t} - e^{-2\lambda t}.
     \end{cases}
   \]
 
-  Тогда:
+  Тогда
   \[
-    p_{T_U} (t) = 2\lambda p_2(t) = 2\lambda e^{-2\lambda t} - 2\lambda e^{-2\lambda t}
+  p_{T_{\mathscr U}} (t) = 2\lambda p_2(t) = 2\lambda e^{-2\lambda t} - 2\lambda e^{-2\lambda t}
     = 2 \lambda e^{-\lambda t} - 1 \cdot 2\lambda e^{-2\lambda t}
   \]
-  -- смесь двух показательных законов.
-  Тогда так как это показательные законы, очень легко можно получить матожидание:
+  --- смесь двух показательных законов.
+  Тогда так как это показательные законы, очень легко можно получить
+  математическое ожидание
   \[
-    MT_U = \dfrac{2}{\lambda} - \dfrac{1}{2\lambda} = \dfrac{3}{2\lambda}.
+    MT_{\mathscr U} = \dfrac{2}{\lambda} - \dfrac{1}{2\lambda} = \dfrac{3}{2\lambda}.
   \]
 \end{ex}
 
@@ -197,57 +204,58 @@
 \subsection{Прямые и обратные уравнения Колмогорова}
 
 \begin{definition}
-  Пусть $\xi_t$ -- однородная марковская цепь,
-  $P(\xi_{t+\Delta t} = j | \xi_t = i) = \lambda_{ij} \Delta t + o(\Delta t)$.
-  $p_{ij}(t) = (\xi_t = j | \xi_0 = i)$ -- переходные вероятности за $t$,
-  тогда $P(t) = (p_{ij}(t))$ -- матрица переходных вероятностей.
+  Пусть $\xi_t$ --- однородная марковская цепь,
+  $P(\xi_{t+\Delta t} = j \mid \xi_t = i) = \lambda_{ij} \Delta t + o(\Delta
+  t)$, а
+  $p_{ij}(t) = (\xi_t = j \mid \xi_0 = i)$ --- переходные вероятности за $t$.
+  Тогда $P(t) = (p_{ij}(t))$ --- матрица переходных вероятностей.
 \end{definition}
 
 \begin{theorem}
   Для однородной марковской цепи
 
-  Если $P(t)$ -- матрица переходных вероятностей однородной марковской цепи.
-  $\bar{p}(0)$ -- вектор вероятностей начальных состояний, то
+  Если $P(t)$ --- матрица переходных вероятностей однородной марковской цепи.
+  $\bar{p}(0)$ --- вектор вероятностей начальных состояний, то
   \[
-    \bar{p}(t)^T = \bar{p}(0)^T \cdot P(t)
+    \mathbf{p}(t)^{\mathsf T} = \mathbf{p}(0)^{\mathsf T} P(t).
   \]
 \end{theorem}
 \begin{proof}
   \[
-    p_j(t) = P(\xi_t = j) = \sum_{k=1}^m P(\xi_t = j | \xi_0=j) P(\xi_0=k)
-    = \sum_{k=1}^m p_{kj}(t) p_k(0)
+    p_j(t) = P(\xi_t = j) = \sum_{k=1}^m P(\xi_t = j \mid \xi_0=j) P(\xi_0=k)
+    = \sum_{k=1}^m p_{kj}(t) p_k(0).
   \]
 \end{proof}
 
-Мораль: если бы мы знали матрицу переходных вероятностей, не надо было бы 
+\textsc{Мораль}.\hskip{2em}Если бы мы знали матрицу переходных вероятностей, не надо было бы 
 решать систему диффуров, просто можно было бы умножить эту матрицу на столбец
 начальных вероятностей.
 
 \begin{corollary}
   \[
-    \bar{p}'(t) = \bar{p}(0)^T \cdot P'(t)
+    \mathbf{p}'(t) = \mathbf{p}(0)^{\mathsf T} P'(t).
   \]
 
-  С другой стороны, для однородной цепи:
+  С другой стороны, для однородной цепи
   \[
-    \bar{p}'(t)^T = \bar{p}(t)^T \cdot \Lambda = \bar{p}(0)^T \cdot P(t) \cdot \Lambda
+    \mathbf{p}'(t)^{\mathsf T} = \mathbf{p}(t)^{\mathsf T} \Lambda =
+    \mathbf{p}(0)^{\mathsf T} P(t) \Lambda.
   \]
-
   Следовательно, 
   \[
-    P'(t) = P(t) \cdot \Lambda
+    P'(t) = P(t) \Lambda
   \]
-  -- система прямых уравнений Колмогорова.
+  --- система прямых уравнений Колмогорова.
 
   Чуть сложнее, но можно доказать и такое:
   \[
     P'(t) = \Lambda \cdot P(t)
   \]
-  -- система обратных уравнений Колмогорова.
+  --- система обратных уравнений Колмогорова.
 \end{corollary}
 
 \begin{ex}
-  Запишем прямую и обратную системы уравнений Колмогорова для цепи:
+  Запишем прямую и обратную системы уравнений Колмогорова для цепи
   \begin{figure}[h!]
     \centering
     \begin{tikzpicture}
@@ -266,20 +274,20 @@
     \Lambda = \begin{pmatrix}
       -\alpha & \alpha \\
       \beta & - \beta
-    \end{pmatrix} 
+    \end{pmatrix}.
   \]
 
   Прямая система:
   \[
     \begin{cases}
-      p_{11}' = - \alpha p_{11} + \beta p_{12} \\
-      p_{12}' = \alpha p_{11} - \beta p_{12} \\
-      p_{21}' = -\alpha p_{21} + \beta p_{22} \\
+      p_{11}' = - \alpha p_{11} + \beta p_{12}, \\
+      p_{12}' = \alpha p_{11} - \beta p_{12}, \\
+      p_{21}' = -\alpha p_{21} + \beta p_{22}, \\
       p_{22}' = \alpha p_{21} - \beta p_{22}.
     \end{cases}
   \]
 
-  Обратная система (в некотором смысле, она важнее):
+  Обратная система (в некотором смысле она важнее):
   \[
     \begin{cases}
       p_{11}' = - \alpha p_{11} + \alpha p_{21}, \\
@@ -291,30 +299,31 @@
 \end{ex}
 
 \subsection{Способы решения}
-
 \begin{enumerate}
-  \item Операционное решение -- не интересно, уже знаем.
+  \item Операционное решение --- неинтересно, уже знаем.
   \item Матричная экспонента:
     \[
       \begin{cases}
         P'(t) = \Lambda \cdot P(t), \\
-        P(0) = E.
+        P(0) = E
       \end{cases}
-      \Rightarrow
-      P(t) = E \cdot e^{\Lambda t} = \sum_{k=0}^\infty \dfrac{(\Lambda t)^k}{k!}
+      \implies
+      P(t) = E \cdot e^{\Lambda t} = \sum_{k=0}^\infty \dfrac{(\Lambda
+      t)^k}{k!}.
     \]
-  \item Численно
+  \item Численно.
 \end{enumerate}
 
 \begin{corollary}
   \[
     P'(0) = \Lambda \cdot P(0) = \Lambda
     \Rightarrow
-    \lambda_{ij} = p_{ij}' (0)
+    \lambda_{ij} = p_{ij}' (0).
   \]
 \end{corollary}
 
 Впечатляет? -- тишина -- ой, ладно, только я в своём преклонном возрасте умею впечатляться.
+%TODO: оформить в цитату
 
 \begin{ex}
   % TODO рисунок
@@ -322,7 +331,7 @@
     \Lambda = \begin{pmatrix}
       -\alpha & \alpha \\
       \beta & -\beta
-    \end{pmatrix} 
+    \end{pmatrix}.
   \]
 
   \[
@@ -330,10 +339,10 @@
     = \dfrac{1}{\alpha+\beta} \begin{pmatrix}
       1 & -\alpha \\
       1 & \beta
-    \end{pmatrix}  \cdot \begin{pmatrix}
+    \end{pmatrix}  \begin{pmatrix}
       0 & 0 \\
       0 & - (\alpha+\beta)
-    \end{pmatrix} \cdot \begin{pmatrix}
+    \end{pmatrix} \begin{pmatrix}
       \beta & \alpha \\
       -1 & 1
     \end{pmatrix} 
@@ -343,71 +352,121 @@
     \Lambda^k = \dfrac{1}{\alpha+\beta} \begin{pmatrix}
       1 & -\alpha \\
       1 & \beta
-    \end{pmatrix} \cdot \begin{pmatrix}
+    \end{pmatrix} \begin{pmatrix}
       0 & 0 \\
       0 & (-\alpha-\beta)^k
-    \end{pmatrix} \cdot \begin{pmatrix}
+    \end{pmatrix} \begin{pmatrix}
       \beta & \alpha \\
       -1 & 1
-    \end{pmatrix} 
+    \end{pmatrix}.
   \]
 
-  \[
+  \begin{multline*}
     P(t) = e^{\Lambda t} = \sum_{k=0}^\infty \dfrac{(\Lambda t)^k}{k!}
     = \dfrac{1}{\alpha+\beta} \begin{pmatrix}
       1 & -\alpha \\
       1 & \beta
-    \end{pmatrix}  \cdot
+    \end{pmatrix}
     \sum_{k=0}^\infty \dfrac{D^k t^k}{k!} \cdot
     \begin{pmatrix}
       \beta & \alpha \\
       -1 & 1
-    \end{pmatrix} = \dots = \dfrac{1}{\alpha+\beta} \begin{pmatrix}
+    \end{pmatrix} = \ldots =\\= \dfrac{1}{\alpha+\beta} \begin{pmatrix}
       1 & -\alpha \\
       1 & \beta
-    \end{pmatrix}  \cdot
+    \end{pmatrix}
     \begin{pmatrix}
       1 & 0 \\
       0 & e^{-(\alpha+\beta) t}
-    \end{pmatrix} \cdot \begin{pmatrix}
+    \end{pmatrix} \begin{pmatrix}
       \beta & \alpha \\
       -1 & 1
-    \end{pmatrix} 
-  \]
+    \end{pmatrix}.
+  \end{multline*}
 
   \[
     P(t) = e^{\Lambda t} = 
   \]
+  %TODO: дописать
 
   Можно было не находить собственные вектора, т.к. зная общий вид
-  степени, можно было бы воспользоваться методом неопределённых коэффициентов:
+  степени, можно было бы воспользоваться методом неопределённых коэффициентов. А
+  именно,
   представить $p_{ij}(t)$ в виде $A + B e^{-(\alpha+\beta) t}$, и найти 
   эти коэффициенты из условий: $p_{ij}(0) = 0, p_{ij}'(0) = \lambda_{ij}$.
 \end{ex}
 
 \begin{definition}
-  Если $ \forall i : \exists \lim_{t\to +\infty} p_{ij}(t) = \pi_j, 0 < \pi_j < 1, \sum \pi_j = 1$,
+  Если для всякого $ i $ существует и не зависит от $ i $ предел
+  $\lim\limits_{t\to +\infty} p_{ij}(t) = \pi_j$, где $ 0 < \pi_j < 1$, а $\sum \pi_j = 1$,
   то цепь называется \emph{эргодической}.
 \end{definition}
 
 \begin{theorem}[эргодическая]
-  Пусть $\mathbb{S} = \left\{ S_1, S_2, \dots, S_m, \dots \right\} $ --
-  марковская цепь со счетным множеством состояний. Если
-  \[
-    \exists S_{j_0} \exists h>0 \exists \delta \in(0, 1], \forall S_i \in \mathbf{S} : P_{ij_0}(h) \geqslant \delta,
-  \]
-  тогда цепь эргодична, причём $|p_{ij}(t) - \pi_j| \leqslant (1-\delta)^{\left[\dfrac{t}{h}\right]}$
+  Пусть $\mathbb{S} = \left\{ S_1, S_2, \dots, S_m, \dots \right\} $ ---
+  марковская цепь со счетным множеством состояний. Если существует такие время
+  $ h > 0 $, число $ \delta \in (0, 1] $ и состояние $ S_{j_0} $, что для любого
+  $ i \in \mathbb N $ выполняется $ p_{ij_0}(h) \geqslant \delta $,
+  то цепь эргодична, причём $|p_{ij}(t) - \pi_j| \leqslant
+  (1-\delta)^{\left[t/h\right]}$.
 \end{theorem}
 
-\begin{corollary}
-  В условиях эргодической теоремы:
-  \begin{enumerate}
-    \item $\exists \lim_{t\to +\infty} p_j(t) = \pi_j$, причём легко показать, 
+\begin{corollary*}
+  В условиях эргодической теоремы
+  \begin{itemize}[label=--]
+    \item существует $\lim\limits_{t\to +\infty} p_j(t) = \pi_j$, причём легко показать, 
       что
       \[
-        |p_j(t) - \pi_j| = |\sum_{k} p_k(0) p_{kj}(t) - \sum_{k} \pi_j p_{k}(0)|
-        \leqslant |\sum_k p_k(0) \left( p_{kj}(t) - \pi_j \right) |
-        \leqslant (1-\delta)^{ \left[ \dfrac{t}{h} \right] } \cancel{\sum_{k} p_k(0)}
+        |p_j(t) - \pi_j| = \biggl|\sum_{k} p_k(0) p_{kj}(t) - \sum_{k} \pi_j
+        p_{k}(0)\biggr|
+        \leqslant \biggl|\sum_k p_k(0) \left( p_{kj}(t) - \pi_j \right) \biggr|
+        \leqslant (1-\delta)^{ \left[ t/h \right] } \cancel{\sum_{k} p_k(0)};
       \]
-  \end{enumerate}
-\end{corollary}
+
+    \item в условиях теоремы $\pi_j = \sum_{i} p_{ij}(t) \pi_i$, что равносильно
+      тому, что вектор $\bm\pi$ является
+      собственным вектором матрицы $P(t)^{\mathsf T}$, соответствующим
+      собственному значению $\lambda = 1$, но с оговоркой,
+      что $\bm\pi \neq \mathbf 0$ (нулевой вектор не является собственным по определению).
+      Эта система в векторной записи: $\bm\pi = P(t)^{\mathsf T} \bm\pi$.
+      \begin{proof}
+        \[
+          \pi_j = \lim_{s\to\infty} p_j(s+t) = \lim_{s\to\infty} \sum_i p_{ij}(t) p_t(s)
+          \geqslant \lim_{s\to\infty} \sum_{i \leqslant N} p_{ij}(t) p_i(s)
+          = \sum_{i \leqslant N} p_{ij}(t) \pi_i \Rightarrow \pi_j \geqslant \sum_i p_{ij}(t) \pi_i.
+        \]
+        \[
+          \exists S_{j_1}\colon \pi_{j_1} > \sum_i p_{ij_1} \pi_i,
+        \]
+        \[
+          \sum_{j\leqslant N} = \lim_{t\to\infty} \sum_{j\leqslant N} p_{ij}(t) \leqslant 1.
+        \]
+        \[
+          \sum_j \pi_j > \sum_j \sum_i p_{ij}(t) \pi_i = \sum_i \pi_i;
+        \]
+      \end{proof}
+
+    \item из \eqref{ergodi-eq-1} следует либо $\sum \pi_j = 1$ (тогда это
+      собственный вектор), либо $\sum \pi_j = 0$.
+      \begin{proof}
+        $\sum \pi_j \leqslant 1$ означает, что либо $\pi_j \pi_j = 1$, либо
+        $\sum \pi_j < 1$. 
+        $A = \sum_j \pi_j$ рассматривается
+        $p(0) = \left( \dfrac{\pi_1}{A}, \dfrac{\pi_2}{A}, \dots
+        \right)^{\mathsf T}$.
+        $\bar p(t)^{\mathsf T} = p(0)^{\mathsf T} \cdot P(t)$.
+        \[
+          p_j(t) = \sum_i p_i(0) p_{ij}(t) = \sum_i \dfrac{\pi_i}{A} p_{ij}(t)
+          = \dfrac{\pi_j}{\sum_{k} \pi_k} = p_j(0)
+          \Rightarrow
+          \sum_j \pi_j = \sum_j p_j(0) = 1;
+        \]
+      \end{proof}
+    \item в условиях теоремы $$\begin{cases} \mathbf{0} = \bm\pi^{\mathsf T} \Lambda,
+      \\ \sum \pi_j = 1.\end{cases}$$
+      Это условие можно получить из системы уравнений Колмогорова:
+      $\mathbf p'(t)^{\mathsf T} = \mathbf p(t)^{\mathsf T} \Lambda$. Левая
+      часть стремится к $\mathbf{0}$, 
+      а правая к $\bm\pi^{\mathsf T} \Lambda$.
+  \end{itemize}
+\end{corollary*}
