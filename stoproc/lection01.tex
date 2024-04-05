@@ -122,7 +122,8 @@
           S_{k-1}^i\biggl)
         = \\ =
         \sum_{j=1}^m P(S_k^j \mid S_{k-1}^i)
-        = \sum_{j=1}^m P\left(\xi_k = j \mid \xi_{k-1}=i\right) = \sum_{j=1}^m p_{ij}^k.
+        = \sum_{j=1}^m P\left(\xi_k = j \mid \xi_{k-1}=i\right) = \sum_{j=1}^m
+        p_{ij}^{(k)}.
       \end{multline*}
     \end{proof}
 
@@ -131,7 +132,7 @@
       $\Omega = S_1^k + S_2^k + \ldots + S_m^k$, так как события несовместны.
     \[
       P(S_j^{k+1}) = \sum_{i=1}^m P(S_j^{k+1} \mid S_i^k) \cdot P(S_i^k)
-      = \sum_{i=1}^m p_{ij}^k \cdot p_i(k).
+      = \sum_{i=1}^m p_{ij}^{(k)} p_i(k).
     \]
     \end{proof}
 
@@ -141,17 +142,17 @@
 
 \subsection{Однородные марковские цепи}
 \begin{definition}
-  Марковская цепь $\xi_k$ называется \emph{однородной}, если $p_{ij}^k =
+  Марковская цепь $\xi_k$ называется \emph{однородной}, если $p_{ij}^{(k)} =
   P(\xi_k=j \mid \xi_{k-1}=i)$ не
   зависит от $ k $.
 \end{definition}
 Для однородных цепей $\mathbf{p}(l+1)^{\mathsf T} = \mathbf{p}(l)^{\mathsf T} P$, а
-$\mathbf{p}(l=1)^{\mathsf T} = \mathbf{p}(0)^{\mathsf T} P^{l+1}$.
+$\mathbf{p}(l+1)^{\mathsf T} = \mathbf{p}(0)^{\mathsf T} P^{l+1}$.
 
-\begin{theorem}[Колмогорова -- Чепмена]
-  Пусть в однородной марковской цепи $p_{ij}^{(k)} = P(\xi_{l+k} = j \mid
+\begin{theorem}[Колмогоров -- Чепмен]
+  Пусть в \emph{однородной} марковской цепи $p_{ij}^{(k)} = P(\xi_{l+k} = j \mid
   \xi_l=i)$. Обозначим
-  $\mathbb{P}^{(k)} = (p_{ij}^k)$. Тогда имеет место соотношение
+  $\mathbb{P}^{(k)} = (p_{ij}^{(k)})$. Тогда имеет место соотношение
   \[
     \forall l, k \quad \mathbb{P}^{(k+l)} = \mathbb{P}^{(k)} \mathbb{P}^{(l)}.
   \]
@@ -168,9 +169,12 @@ $\mathbf{p}(l=1)^{\mathsf T} = \mathbf{p}(0)^{\mathsf T} P^{l+1}$.
     = \sum_{\alpha=1}^m p_{i\alpha}^{(k)} p_{\alpha j}^{(l)}.
   \end{multline*}
 \end{proof}
+\begin{remark*}
+  Учитывая, что $ \mathbb P^{(1)} = P $, то и $ \mathbb P^{(k)} = P^k $.
+\end{remark*}
+
 
 \subsection{Эргодическая цепь}
-
 \begin{definition}
   Марковская цепь называется \emph{эргодической}, если для любого $ i $ существует и не зависит
   от $ i $ предел
@@ -182,7 +186,8 @@ $\mathbf{p}(l=1)^{\mathsf T} = \mathbf{p}(0)^{\mathsf T} P^{l+1}$.
   Вектор $\bm{\pi}$ называется \emph{финальным} (распределением).
 \end{definition}
 
-\textsc{Пояснение}.\hspace{.15em} В пределе получается, что матрица состоит из одинаковых строк, каждая из
+\textsc{Пояснение}.\hspace{.15em} В пределе получается, что матрица переходных
+вероятностей состоит из одинаковых строк, каждая из
 которых совпадает с $\bm{\pi}^{\mathsf T}$.
 
 \begin{definition}
@@ -190,25 +195,25 @@ $\mathbf{p}(l=1)^{\mathsf T} = \mathbf{p}(0)^{\mathsf T} P^{l+1}$.
   системе
   \[
     \bm{\pi}^{\mathsf T} = \bm{\pi}^{\mathsf T} \cdot P
-    \Leftrightarrow 
+    \Longleftrightarrow 
     \pi_j = \sum_\alpha \pi_\alpha p_{\alpha j}.
   \]
 \end{definition}
 
-\begin{theorem}
-  Если марковская цепь $\xi_n$ имеет конечное множество состояний и существуют $0
+\begin{theorem}[эргодическая]
+  Если \emph{однородная} марковская цепь $\xi_n$ имеет конечное множество состояний и существуют $0
   <\varepsilon < 1$,
   $n_0 \in \mathbb N$ такие, что $\min\limits_{i, j} p_{ij}^{(n_0)} \geqslant
   \varepsilon$ для произвольных $ i $, $ j $, то цепь эргодическая, а
   финальные вероятности совпадают со стационарными.
 \end{theorem}
 \begin{proof}
-  Обозначим как $m_j^{(n)} := \min\limits_i p_{ij}^{(n)}$, $M_j^{(n)} = \max\limits_i p_{ij}^{(n)}$ минимальный 
-  и максимальный элементы в столбце. Докажем монотонное возрастание $m_{j}^{(n)}$ и монотонное
+  Обозначим $m_j^{(n)} := \min\limits_i p_{ij}^{(n)}$, $M_j^{(n)} := \max\limits_i p_{ij}^{(n)}$ минимальный 
+  и максимальный элементы в столбце $ j $. Докажем монотонное возрастание $m_{j}^{(n)}$ и монотонное
   убываение $M_j^{(n)}$. По теореме Колмогорова -- Чепмена
   \[
     m_{j}^{(n+1)} = \min_i p_{ij}^{(n+1)}
-    = \min_i \sum_{\alpha=1}^m p_{i\alpha} \cdot p_{\alpha j}^{n} \geqslant 
+    = \min_i \sum_{\alpha=1}^m p_{i\alpha} p_{\alpha j}^{n} \geqslant 
     \min_i \sum_{\alpha=1}^m p_{i \alpha} m_j^{(n)}
     = m_j^{(n)}.
   \]
@@ -266,7 +271,7 @@ $\mathbf{p}(l=1)^{\mathsf T} = \mathbf{p}(0)^{\mathsf T} P^{l+1}$.
       то для стационарной вероятности имеем уравнения
       \[
         \begin{cases}
-          \bm{\pi}^{\mathsf T} = \bm{\pi}^{\mathsf T} \cdot P \Leftrightarrow
+          \bm{\pi}^{\mathsf T} = \bm{\pi}^{\mathsf T} P \Leftrightarrow
           \bm\pi^{\mathsf T} (P - E) = 0,\\
           \sum\limits_{k=1}^m \pi_k = 1.
         \end{cases}
