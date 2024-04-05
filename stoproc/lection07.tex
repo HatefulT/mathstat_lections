@@ -1,0 +1,179 @@
+\section{Лекция 7 -- 2024-04-05}
+
+\subsection{Гауссовские процессы}
+
+\begin{theorem}
+  Пусть $\xi = (\xi_0, \xi_1, \dots, \xi_N)$ -- стационарный нормальный вектор,
+  $M\xi_i = 0$, $D\xi_i = i$, $M\xi_i \xi_j = \delta_{ij}$. $\Sigma$ -- положительно определенная матрица,
+  причём $\Sigma = L \cdot L^T$, тогда $\bar{\xi} = L \cdot \bar{\varepsilon}$ имеет ковариационную матрицу.
+\end{theorem}
+\begin{proof}
+  $M\bar{\xi} = \bar{0}$, т.к. $M\bar{\varepsilon} = \bar{0}$.
+  $\Sigma_{\xi} = M \bar{\xi} \cdot \bar{\xi}^T = M(L \bar{\varepsilon} \cdot (L\bar{\varepsilon})^T) = M(L \bar{\xi} \cdot \bar{\xi}^T L^T) = L M(\bar{\xi} \cdot \bar{\xi}^T) L^T = L L^T = \Sigma$.
+\end{proof}
+
+
+
+\subsection{Процессы с назависимыми приращениями}
+
+\begin{definition}
+  $\xi_t, t \in T$ называется процессом с независимыми приращениями, если
+  $\forall t_1 < t_2 < \dots < t_N$ случайные величины $\xi_{t_1}$, $\xi_{t_2}-\xi_{t_1}$,
+  $\xi_{t_3}-\xi_{t_2}$, $\dots$, $\xi_{t_N} - \xi_{t_{N-1}}$ независимы.
+\end{definition}
+
+\begin{definition}
+  $\xi_t$ назывектся процессом с некоррелированными приращениями, если
+  $\exists M \xi_t, k_\xi (t, s)$ и случайные величины $\xi_{t_1}, \xi_{t_2}-\xi_{t_1}, \dots, \xi_{t_N} - \xi_{t_{N-1}}$ -- некоррелированны.
+\end{definition}
+
+\begin{remark}
+  \begin{enumerate}
+      \item Если $\exists M \xi_{t}, k_\xi(t, s)$, то из независимых приращений
+        следует, некоррелированные приращения.
+
+      \item Если $\xi_t$ гауссовский, то независимые приращения тогда и только тогда, 
+        когда некоррелированные приращения.
+  \end{enumerate}
+\end{remark}
+
+\begin{ex}
+  $\xi_t$ -- пуассоновский процесс с интенсивностью $\lambda$, являющийся процессом с независимыми приращениями.
+  Пусть $t_1 < t_2 < \dots < t_N$, $k_1 \leqslant k_2 \leqslant \dots \leqslant k_N$, тогда
+  \begin{align*}
+    &P(\xi_{t_1} = k_1, \xi_{t_2} - \xi_{t_1} = k_2 - k_1, \dots, \xi_{t_N} - \xi_{t_{N-1}} = k_N - k_{N-1}) =  \\
+    &= P(\xi_{t_1} = k_1, \xi_{t_2} = k_2, \dots, \xi_{t_N} = k_N) = \\
+    &= P(\xi_{t_1}=k_1) \cdot P(\xi_{t_2} = k_2 | \xi_{t_1} = k_1) P(\xi_{t_3}=k_3 | \xi_{t_2}=k_2, \cancel{\xi_{t_1} = k_1}) \dots P(\xi_{t_N}=k_N | \xi_{t_{N-1}} = k_{N-1}) = \\
+    &= \dots \\ % раскрыли эти условные вероятности для пуассоновского процесса
+    &= P(\xi_{t_1} = k_1) P(\xi_{t_2}-\xi_{t_1} =k_2-k_1) \cdot \dots \cdot P(\xi_{t_N}-\xi_{t_{N-1}} = k_N - k_{N-1})
+  \end{align*}
+\end{ex}
+
+\begin{definition}
+  Случайный процесс $\xi_t$ называется процессом со стационарными приращениями,
+  если закон распределения $\xi_{t_2} - \xi_{t_1}$ зависит только от разности $t_2-t_1$, $\forall t_2, t_1 \in T$.
+\end{definition}
+
+\begin{ex}
+  Пуассоновский процесс является процессом со стационарными приращениями.
+\end{ex}
+
+\begin{theorem}
+  Если $\xi_t$ -- процесс с некоррелированными приращениями, то его ковариационная функция
+  $k_\xi(t, s) = D \xi_{t \wedge s}, t\wedge s = \min(t, s)$.
+\end{theorem}
+\begin{proof}
+  Пусть $t<s$: $k_\xi(t, s) = \cov (\xi_t, \xi_s) = \cov (\xi_t, (\xi_s - \xi_t) + \xi_t)
+  = \cancelto{0}{\cov(\xi_t, \xi_s - \xi_t)} + \cov(\xi_t, \xi_t) = D\xi_t$
+\end{proof}
+
+\begin{ex}
+  Пуассоновский процесс:
+  \[
+    k_\xi(t, s) = D\xi_{t \wedge s} = \lambda \cdot (t \wedge s) = \lambda \min(t, s)
+  \]
+\end{ex}
+
+\begin{theorem}
+  Конечномерные распределения процесса с независимыми приращениями определяются 
+  одномерными распределениями и распределениями приращений.
+\end{theorem}
+\begin{proof}
+  Пусть $t_1 < t_2 < \dots < t_N$, $p_{\bar{\xi}} ( \bar{x})$ -- плотность $\bar{\xi}$
+  $\bar{\xi} = (\xi_{t_1}, \xi_{t_2}, \dots, \xi_{t_N})^T \to \eta = (\xi_{t_1}, \xi_{t_2}-\xi_{t_1}, \dots, \xi_{t_N} - \xi_{t_{N-1}})^T$, причём все компоненты $\bar{\eta}$ -- попарно независимы.
+  $\bar{\eta} = A \bar{\xi} = \begin{pmatrix}
+    1 & 0 & 0 & \dots \\
+    -1 & 1 & 0 & \dots \\
+    0 & -1 & 1 & \dots \\
+  \end{pmatrix} \cdot \bar{\xi}$, причём $|A| = 1$.
+  \[
+    p_{\bar{\eta}} ( \bar{y} ) = p_{\xi} (A^{-1} \bar{y}) \dfrac{1}{|A|}
+    \Leftrightarrow
+    p_\xi(x) < p_\eta (A\xi) = p_{\eta_1, \eta_2, \dots, \eta_N} (x_1, x_2-x_1, \dots, x_N - x_{N-1}) = p_{\xi_t} (x_1) \prod_{k=2}^N p_{\xi_{t_k} - \xi_{t_{k-1}}} (x_k - x_{k-1}).
+  \]
+\end{proof}
+
+\subsection{Многомерные случайные процессы}
+
+\begin{definition}
+  $\bar{\xi}_t = (\xi_1 (t), \xi_2 (t), \dots, \xi_N(t))$ называется многомерным случайным
+  процессом, $\xi_i(t)$ -- одномерные случайные процессы.
+\end{definition}
+
+\paragraph{Характеристики}
+\begin{enumerate}
+  \item матож $M\bar{\xi}_t = (M\xi_1(t), M\xi_2(t), \dots, M\xi_n(t))$;
+  \item взаимная ковариационная функция:
+    \[
+      R_{ij}(t, s) = \cov(\xi_i (t), \xi_j (s))
+    \]
+\end{enumerate}
+
+\paragraph{Свойства вазимной ковариационной функции}
+\begin{enumerate}
+  \item $R_{ij}(t, s) \neq R_{ji} (t, s)$;
+  \item $R_{ij}(t, s) = R_{ji} (s, t)$;
+  \item $R_{ii} (t, s) = k_{\xi_i} (t, s)$;
+  \item неотрицательная определенность:
+    \[
+      \forall Z_{(i)} = (z_{1i}, z_{2i}, \dots, z_{ni})^T, i = \overline{1, m}
+      \forall t_1, t_2, \dots, t_m
+      \sum_{i=1}^m \sum_{j=1}^M Z_{(i)}^T R_\xi(t_i, t_j) \bar{Z}_{(j)}^ \geqslant 0.
+    \]
+  А функция $\mathbb{R}(t, s) = (R_{ij}(t, s))$ называется ковариационной матрицей случайного процесса.
+\end{enumerate}
+
+\begin{ex}
+  \begin{align*}
+    X_t &= Z \cov \omega t + V \sin \omega t, \\
+    Y_t &= -Z \sin \omega t + V \cos \omega t.
+  \end{align*}
+  $\omega$ -- неслуч., $MV = MZ = 0$, $MVZ = 0$, $DU = DZ = D$.
+
+  Тогда:
+  \[
+    R_{11}(t, s) = \cov(X_t, X_s)
+    = \cov( Z \cov \omega t + V \sin \omega t, Z \cov \omega s + V \sin \omega s )
+    = D (\cos(\omega t) \cos(\omega s) + \sin(\omega t) \sin(\omega s))
+    = D \cos(\omega (t-s))
+  \]
+  \[
+    R_{22}(t, s) = \cov(-Z \sin \omega t + V \cos \omega t, -Z \sin \omega s + V \cos \omega s)
+    = D \cos\omega (t-s)
+  \]
+
+  \[
+    R_{12}(t, s) = \cov(Z \cov \omega t + V \sin \omega t, -Z \sin \omega s + V \cos \omega s)
+    = D(\cos\omega s \sin\omega t - \sin\omega s \cos\omega t)
+    = D \sin\omega(t-s)
+  \]
+
+
+
+  \[
+    \mathbb{R}(t, s) = \begin{pmatrix}
+      D \cos\omega(t-s) & D \sin\omega(t-s) \\
+      D \sin\omega(s-t) & D \cos\omega (t-s)
+    \end{pmatrix} 
+  \]
+\end{ex}
+
+\textsc{Resum\'e}: Если $\mathring{\bar{\xi}}(t) = \bar{\xi}(t) - M\bar{\xi}(t)$ -- центрированный процесс,
+то $\mathbb{R}(t, s) = M \left[ \mathring{\bar{\xi}}(t) \cdot \mathring{\bar{\xi}}^T \right] $.
+
+Было $k_\xi^2 (t, s) \leqslant k_\xi(t, s) \cdot k_\xi(s, s)$ -- неравенство Коши-Буняковского.
+
+\paragraph{Неравенство Шварца}
+Пусть $\mathring{\bar{\xi}}$ и $\mathring{\bar{\eta}}$ центрированные процессы, тогда:
+\[
+  \| M\mathring{\bar{\xi}} \cdot \mathring{\bar{\eta}}^T \|^2 \leqslant M \left[ \mathring{\bar{\xi}}^T \cdot \mathring{\bar{\xi}} \right]\cdot M \left[ \mathring{\bar{\eta}}^T \cdot \mathring{\bar{\eta}} \right] 
+\]
+
+\begin{proof}
+  \[
+    0 \leqslant \left[ M(\mathring{\xi} + \alpha \mathring{\eta})^T (\mathring{\xi} + \alpha \mathring{\eta}) \right]
+    = М \mathring{\bar{\xi}}^T \cdot \mathring{\bar{\xi}} + 2 \alpha \mathring{\bar{\xi}}^T \cdot \mathring{\bar{\eta}} + \alpha^2 M \mathring{\bar{\eta}}^T \cdot \mathring{\bar{\eta}}
+  \]
+  -- квадратный трёхчлен.
+  $\dfrac{D}{4} = \left[ M \mathring{\bar{\xi}}^T \cdot \mathring{\bar{\eta}} \right]^2 - M \mathring{\bar{\xi}}^T \cdot \mathring{\bar{\xi}} \cdot M \mathring{\bar{\eta}}^T \cdot \mathring{\bar{\eta}} $
+\end{proof}
