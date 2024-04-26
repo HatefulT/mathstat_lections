@@ -1,0 +1,185 @@
+\section{Лекция 9 -- 2024-04-26 }
+
+% TODO чтото здесь
+
+\begin{theorem}
+  Если $k_\xi(t,s)$ непрерывная на $0 \leqslant t = s \leqslant T$, то
+  $k_\xi(t, s)$ непрерывна на $[0, T]^2$.
+\end{theorem}
+\begin{proof}
+  % TODO дописать доказательство
+\end{proof}
+
+\begin{ex}
+  Пусть $W_t$ -- винеровский процесс  с ковариационной функцией $k_W(t, s) = \sigma^2 \min(t, s)$.
+  Т.к. ковариационная функция непрерывна, то и сам винеровский процесс непрерывен в 
+  средне квадратическом смысле.
+\end{ex}
+
+\begin{ex}
+  Если $\xi_t$ -- пуассоновский процесс, его ковариационная функция $k_\xi(t, s) = \lambda \min(t, s)$ -- непрерывна, тогда и сам пуассоновский процесс непрерывен -- скачки происходят на множестве
+  меры нуль.
+\end{ex}
+
+\begin{ex}
+  Пусть случайный процесс $\eta_t  = t \cdot V$, где $V$ -- случайная величина с плотностью
+  $p_V(x) = \dfrac{1}{\pi (x^2 + 1)}$, тогда $MV = 0 \Rightarrow M\eta_t = 0$.
+
+  Его ковариационная функция $k_\eta (t, s) = M\eta_t \eta_s = M(t V \cdot s V) = ts MV^2$ --
+  даже не существует (!), но при этом если мы зафиксируем $\omega \in \Omega$, 
+  то траектория $\eta_t (\omega)$ окажется абсолютно-непрерывной.
+\end{ex}
+
+\begin{theorem}[Колмогорова]
+  Если $\exists \alpha > 0, \beta > 0, k>0 : M|\xi_t - \xi_s|^\alpha \leqslant k |t-s|^{1+\beta}$,
+  то процесс $\xi_t$ имеет непрерывную модификацию (то есть он стохастически эквивалентен
+  некоторому непрерывному процессу -- $\exists \tilde \xi_t$ с непрерывными траекториями,
+  стохастически эквивалентными $\xi_t$).
+\end{theorem}
+
+Если в этой теореме $\alpha \geqslant 2$, то будет и непрерывность в средне-квадратическом смысле.
+
+\begin{ex}
+  Пусть $W_t$ -- винеровский процесс. Для $t > s$:
+  \[
+    M|W_t - W_s|^4 = \underbrace{M \left| \dfrac{W_t - W_s}{\sigma \sqrt{t-s}} \right|^4} \cdot \sigma^4 (t-s)^2
+    = 3 \sigma^4 (t-s)^2.
+  \]
+\end{ex}
+
+Пусть $a=t_0 < t_1 < \dots < t_{n} = b$, $W_t$ -- винеровский процесс, тогда:
+\begin{multline*}
+  A = M\sum_{k=0}^{n-1} |W_{t_{k+1}} - W_{t_k}|
+  = \sum_{k=0}^{n-1} M \left| \underbrace{\dfrac{W_{t_{k+1}} - W_{t_k}}{\sigma \sqrt{t_{k+1} - t_k}}} \right|
+  \cdot \sigma \sqrt{t_{k+1} - t_{k}}
+  = \sqrt{\dfrac{2}{\pi}} \sigma \sum_{k=0}^{n-1} \dfrac{(t_{k+1} - t_k)}{\sqrt{t_{k+1} - t_k}} > \\
+  > \sigma \sqrt{\dfrac{2}{\pi}} \dfrac{1}{\sqrt{\varepsilon}} \sum_{k=0}^{n-1} (t_{k+1} - t_k)
+  > \sigma \sqrt{\dfrac{2}{\pi}} (b-a) \dfrac{1}{\sqrt{\varepsilon}} \to \infty, \varepsilon \to 0
+\end{multline*}
+
+Согласно неравенству Чебышева:
+\begin{multline*}
+  P\left(A - \sum_{k=0}^{n-1} |W_{t_{k+1}} - W_{t_k}| > A - \delta\right)
+  \leqslant \dfrac{D(A - \sum\dots)}{(A-\delta)^2}
+  = \dfrac{D \left( \sum_{k=0}^{n-1} |W_{t_{k+1}} - W_{t_k}| \right) }{(A-\delta)^2} = \\
+  = \dfrac{\sum_{k=0}^{n-1} \sigma^2 (t_{k+1} - t_k)}{(A-\delta)^2}
+  = \dfrac{(b-a) \sigma^2 }{(A_\delta)^2},
+\end{multline*}
+то есть:
+\[
+  P \left( \sum_{k=0}^{n-1} |W_{t_{k+1}} - W_{t_k}| < \delta \right)  \to 0, \max_k |\Delta t_k| \to 0,
+\]
+или, что то же самое:
+\[
+  P \left( \sum_{k=0}^{n-1} |W_{t_{k+1}} - W_{t_k}| > \delta \right) \to 1, 
+  \max |\Delta t_k| \to 0,
+\]
+то есть сходится по вероятности (и, в силу монотонности, сходится почти почти наверно).
+
+
+\subsection{Дифференцируемость в средне квадратическом}
+
+\begin{definition}
+  Случайный процесс $\xi_t$ дифференцируемый в точке $t_0$ в средне квадратическом, если
+  \[
+    \exists \underset{t \to t_0}{l.i.m.} \dfrac{\xi_t - \xi_{t_0}}{t - t_0} = \eta,
+  \]
+  и $\eta = \xi'_{t_0}$.
+\end{definition}
+
+\begin{theorem}
+  Случайный процесс $\xi_t$ дифференцируем в точке $t = t_0$ в средне квадратическом
+  $\Leftrightarrow$ $\exists (M\xi_t)' |_{t=0}$, $\exists \dfrac{\partial^2 k_\xi(s-t)}{\partial s \partial t}$.
+\end{theorem}
+\begin{proof}
+  $\Rightarrow$ Пусть $\exists \eta = l.i.m. {t\to t_0} \dfrac{\xi_t - \xi_{t_0}}{t-t_0}$
+  Тогда
+  \[
+    \left| \dfrac{M\xi_t - M\xi_{t_0}}{t-t_0} - M\eta \right|
+    = \left| M \left( \dfrac{\xi_t - \xi_{t_0}}{t-t_0} - \eta \right) \cdot 1 \right| 
+    \leqslant \sqrt{M \left( \dfrac{\xi_t - \xi_{t_0}}{t-t_0} - \eta \right)^2 } \cdot 1
+    \to 0.
+  \]
+    
+  Необходимо доказать:
+  \[
+    0 = \lim_{t\to t_0, s\to t_0} \left| M \left( \dfrac{\xi_t - \xi_{t_0}}{t-t_0} \cdot \dfrac{\xi_s - \xi_{t_0}}{s-t_0} \right) - M\eta^2 \right| 
+  \]
+  Рассмотрим выражение под пределом:
+  \begin{multline*}
+    |\Delta| = \left| M \left( \dfrac{\xi_t - \xi_{t_0}}{t-t_0} \cdot \dfrac{\xi_s - \xi_{t_0}}{s-t_0} \right) - M\eta^2 \right|  = \\
+    = \left|
+      M \dfrac{\xi_t - \xi_{t_0}}{t-t_0} \left( \dfrac{\xi_s - \xi_{t_0}}{s-t_0} - \eta \right)
+      + M\eta \left( \dfrac{\xi_t - \xi_{t_0}}{t-t_0} - \eta \right) 
+      - M \eta \left(\dfrac{\xi_s - \xi_{t_0}}{s-t_0} - \eta\right)
+      + M \eta \left( \dfrac{\xi_s - \xi_{t_0}}{s-t_0} - \eta \right)  \right| \leqslant \\
+      \leqslant \left| 
+      M \left(\dfrac{\xi_t - \xi_{t_0}}{t-t_0}- \eta \right) \left( \dfrac{\xi_s - \xi_{t_0}}{s-t_0}-\eta \right)
+      + M \eta \left( \dfrac{\xi_t - \xi_{t_0}}{t-t_0} - \eta \right) + M\eta \left( \dfrac{\xi_s - \xi_{t_0}}{s-t_0} - \eta \right)\right|
+      \leqslant \\ \leqslant
+      \sqrt{M \left( \dfrac{\xi_t - \xi_{t_0}}{t-t_0} -\eta \right)^2 M \left( \dfrac{\xi_s - \xi_{t_0}}{s-t_0} - \eta \right) ^2 } + \dots \to 0
+  \end{multline*}
+\end{proof}
+
+\begin{remark}
+  $\xi_t = \sum f_i (t) \cdot \xi_i \Rightarrow \xi_t ' = \sum f_i'(t) \xi_i$.
+\end{remark}
+
+\begin{ex}
+  $W_t$ -- винеровский процесс. Для $t_1 < t_0 < t_2$:
+  \begin{multline*}
+    M\left| \dfrac{W_{t_2} - W_{t_0}}{t_2 - t_0} - \dfrac{W_{t_1} - W_{t_0}}{t_1 - t_0} \right|^2 
+    = M \left| \dfrac{W_{t_2} - W_{t_0}}{t_2 - t_0} \right|^2 - \cancel{2 M \dfrac{(W_{t_2} - W_{t_0})(W_{t_0} - W_{t_1})}{(t_2 - t_0)(t_0-t_1)} } + M \left| \dfrac{W_{t_0} - W_{t_1}}{t_0 - t_1} \right|^2 = \\
+    = \sigma^2 \dfrac{t_2-t_0}{(t_2-t_0)^2} + \sigma^2 \dfrac{t_0 - t_1}{(t_0-t_1)^2} \to +\infty
+  \end{multline*}
+
+  Стохастический критерий Коши не выполнен, из чего следует то, что винеровский процесс не дифференцируем в средне квадратическом.
+\end{ex}
+
+\begin{corollary}
+  Если среднеквадратически дифференцируемый случайный процесс $\xi_t$ является стационарным,
+то $\xi_t'$ -- тоже стационарный (в широком смысле) и $k_{\xi'} (\tau) = - k_\xi''(\tau)$.
+\end{corollary}
+\begin{proof}
+  \[
+    k_\xi (\tau) = \cov(\xi_t, \xi_{t+\tau}) = K_\xi(t, \underset{s}{t+\tau}) = k_\xi(s-t)
+  \]
+  Согласно теореме, 
+  \[
+    \dfrac{\partial^2 k_\xi(s-t)}{\partial s \partial t} = \dfrac{\partial }{\partial s} k_\xi'(s-t) \cdot (-1) = - k_\xi''(s-t) = - k_\xi''(\tau)
+  \]
+
+  Стационарность:
+  \[
+    M\xi_t' = (M\xi_t)' = 0' = 0
+  \]
+\end{proof}
+
+\begin{ex}
+  Рассмотрим случайный процесс с ковариационной функцией
+  $K_\xi(t,s) = e^{-\alpha |t-s|} ( 1 + \beta|t-s| ) $, $ 0 < \beta \leqslant \alpha$
+  и пусть математическое ожидание $M\xi_t = 0$.
+
+  \[
+    K_\xi(t,s) = \begin{cases}
+      e^{-\alpha (t-s)} (1+\beta(t-s)), t > s \\
+      e^{-\alpha (s - t)} (1+\beta(s-t)), t < s
+    \end{cases}
+  \]
+  Вопрос заключается в том, получится ли нам склеить производные.
+  \[
+    \dfrac{\partial }{\partial t} K_\xi(t,s) = \begin{cases}
+      e^{-\alpha (t-s)} ( - \alpha - \alpha \beta(t-s) + \beta), t > s \\
+      e^{-\alpha (s - t)} (\alpha + \alpha \beta (s-t) - \beta), t < s
+    \end{cases}
+  \]
+  -- не склеивается при $t = s$ при произвольных $\alpha, \beta$. Но при $\alpha = \beta$
+  склеивается ($=0$).
+  \[
+    \dfrac{\partial^2 }{\partial t \partial s} K_\xi(t,s) = \begin{cases}
+      e^{-\alpha (t-s)} (\alpha(\beta-\alpha)- \alpha^2 \beta(t-s) + \alpha\beta), t > s \\
+      e^{-\alpha (t-s)} (\alpha(\beta-\alpha)- \alpha^2 \beta(s-t) + \alpha\beta), t < s
+    \end{cases}
+  \]
+  % TODO разобраться -- получилось почему-то, что склеивается.
+\end{ex}
