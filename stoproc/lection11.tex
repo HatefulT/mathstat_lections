@@ -1,0 +1,172 @@
+\section{Спектральная теория случайных процессов}
+
+$\xi_t$ -- $K_\xi(t, s) = k_\xi(t-s) = k_\xi(\tau)$.
+
+\begin{enumerate}
+  \item $k_\xi(\tau) \leqslant k_\xi(0)$;
+  \item $k_\xi(-\tau) = k_\xi(\tau)$;
+  \item неотрицательная определенность:
+    \[
+      \forall t_1, \dots, t_n \in \mathbb{R} :
+      \forall C_1, \dots, C_n \int \mathbb{C}:
+      \sum_{i,j} k_\xi(t_i - t_j) C_i \bar{C}_j \geqslant 0;
+    \]
+\end{enumerate}
+
+\begin{theorem}[Бохнера-Хинчина]
+  $k_\xi(\tau)$ положительно определена тогда и только тогда, когда
+  $k_\xi(\tau) = \int\limits_{-\infty}^{\infty} e^{i \tau \lambda} dC_\xi(\lambda)$,
+  где $C_{\xi}(\lambda)$ неубывающая функция, называемая \emph{спектральной функцией},
+  причём
+  $dC_\xi(\lambda) = q_\xi(\lambda) d\lambda$, $q_\xi(\lambda)$ называется
+  \emph{спектральной плотностью}.
+\end{theorem}
+
+\begin{definition}
+  Функция $S_\xi(\omega)$ называется спектральной плотностью, если
+  \[
+    k_\xi(\tau) = \int\limits_{-\infty}^{+\infty} e^{i\omega\tau} s_\xi(\omega) \, d\omega
+  \]
+\end{definition}
+Поскольку это банальное преобразование Фурье, существует обратное:
+\[
+  s_\xi(\omega) = \dfrac{1}{2\pi} \int\limits_{-\infty}^{+\infty} e^{-i\omega\tau} k_\xi(\tau) \, d\tau.
+\]
+
+\paragraph{О терминологии}. 
+Разложим функцию в ряд Фурье на $[-T/2, T/2]$:
+\[
+  f(\tau) = \sum_{n=-\infty}^{\infty} c_n e^{-i\omega_n \tau}, \omega_n = \dfrac{2\pi n}{T},
+  c_n = \dfrac{1}{T} \int\limits_{-T/2}^{T/2} e^{i\omega_n \tau} f(\tau) \, d\tau.
+\]
+
+$\omega_n$ -- частоты, $c_n$ -- амплитуды. Совокупность $\omega_n, c_n$ называется
+\emph{спектром}.
+
+
+Пусть $f(\tau)$ -- произвольная функция, тогда
+\begin{multline*}
+  f(\tau) = \sum_{n = -\infty}^{\infty}
+    \left(
+      \dfrac{1}{T} \int\limits_{-T/2}^{T/2} e^{i\omega_n \lambda} f(\lambda) \, d\lambda
+    \right) e^{-i\omega_n \tau}
+  = \dfrac{1}{2\pi} \sum_{n=-\infty}^\infty \left(
+    \int\limits_{-T/2}^{T/2} e^{i\omega_n \lambda} f(\lambda) \, d\lambda \right)
+    e^{-i\omega_n \tau} \dfrac{2\pi}{T} \to \\
+  \to \dfrac{1}{2\pi} \int_{-\infty}^{\infty} \left( \int\limits_{-\infty}^{\infty} e^{i\omega\lambda} f(\lambda) \, d\lambda \right) e^{-i\omega\tau} \, d\omega
+  = \dfrac{1}{2\pi} \int\limits_{-\infty}^\infty s_\xi(\omega) e^{-i\omega\tau} \, d\omega,
+  T\to\infty
+\end{multline*}
+
+\begin{ex}
+  \begin{enumerate}
+    \item $k_\xi(\tau) = e^{-|\tau|}$,
+      \begin{multline*}
+        \exists s_\xi(\omega) =
+        \dfrac{1}{2\pi} \int\limits_{-\infty}^{+\infty} e^{-|\tau|} e^{-i\omega\tau} \, d\tau =
+        \dfrac{1}{2\pi} \left( \int\limits_{-\infty}^0 \dots \, d\tau + \int\limits_{0}^{\infty} \dots \, d\tau \right) =
+        \dfrac{1}{2\pi} \left( \int\limits_{-\infty}^0 e^{\tau(1 - i\omega)} \, d\tau +
+        \int\limits_{0}^\infty e^{-\tau(1+i\omega} \, d\tau \right) = \\
+        =
+        \dfrac{1}{2\pi} \left(
+          \left. \dfrac{e^{\tau (1-i\omega)}}{1 - i\omega} \right|_{-\infty}^0 -
+          \left. \dfrac{e^{-\tau(1+i\omega}}{1+i\omega} \right|_{0}^{+\infty} \right) 
+        = \dfrac{1}{2\pi} \left( \dfrac{1}{1 - i\omega} + \dfrac{1}{1+i\omega} \right) 
+        = \dfrac{1}{\pi (1+\omega^2)}
+      \end{multline*}
+
+    \item $k_\xi(\tau) = c \cos \lambda\tau$.
+      $s_\xi(\omega) = \dfrac{c}{2\pi}\int\limits_{-\infty}^{+\infty} \cos\lambda\tau e^{-i\omega\tau} \, d\tau$ --
+      расходится, но
+      \[
+        c \cos\lambda\tau = \dfrac{c}{2} \left( e^{i\lambda\tau} + e^{-i\lambda\tau} \right) =
+        \dfrac{c}{2} \left[ \int\limits_{-\infty}^{+\infty} e^{-i\omega`t} \delta(\omega-\lambda) \, d\omega
+        + \int\limits_{-\infty}^{+\infty} e^{- i\omega \tau} \delta(\omega+\lambda) \, d\omega \right]
+      \]
+
+      получается, что 
+      \[
+        k_\xi(\tau) = \dfrac{1}{2\pi} \int\limits_{-\infty}^{+\infty} e^{-i\omega\tau} \left[ \delta(\omega+\lambda) + \delta(\omega-\lambda) \right] \, d\omega,
+      \]
+      где выражение в квадратных скобках будет спектральной плотностью,
+      тогда получается, что вся мера сосредоточена всего в двух точках.
+  \end{enumerate}
+\end{ex}
+
+\subsection{Свойства спектральной плотности}
+
+\begin{enumerate}
+  \item $s_\xi(\omega) \geqslant 0$,
+    из теоремы Бохнера-Хинчина $dG(\omega) = s_\xi(\omega) \, d\omega$. причём $G(\omega)$ 
+    неубывающая, поэтому производная больше или равна нуля;
+  \item $s_\xi(-\omega) = s_\xi(\omega)$,
+    действительно, рассмотрим:
+    $s_\xi(\omega) = \dfrac{1}{2\pi} \int k_\xi(\tau) e^{-i\omega\tau} \, d\tau$, 
+    $s_\xi(-\omega) = - \dfrac{1}{2\pi} \int\limits_{-\infty}^{+\infty} k_\xi(-\tau) e^{-i\omega(-\tau)} \, d(-\tau) = s_\xi(\omega)$;
+  \item $\lim_{\omega \to \infty} s_\xi(\omega) = 0$,
+    поскольку интеграл
+    $k_\xi(\tau) = \int\limits_{-\infty}^{+\infty} s_\xi(\omega) e^{i\omega\tau} \, d\omega$
+    должен сходится, а подинтегральная функция неотрицательная, то по необходимому условию
+    сходимости интеграла, подинтегральная функция должна стремиться к нулю;
+  \item $D\xi_t = 2 \int\limits_0^{+\infty} s_\xi(\omega) \, d\omega$,
+    поскольку $D\xi_t = k_\xi(0) = \int_{-\infty}^{+\infty} s_\xi(\omega) e^{i\omega \cdot 0} \, d\omega
+    = 2 \int_0^{+\infty} s_\xi(\omega) \, d\omega$.
+\end{enumerate}
+
+\begin{theorem}\label{fourier-of-diff}
+  Если $k_\xi(\tau)$ -- АКФ $\xi_t$, $\xi_t$ -- дифференцируем $n$ раз в средне квадратическом, $s_\xi(\omega)$ --
+  спектральная плотность $\xi_t$, тогда
+  \[
+    s_{\xi^{(n)}} (\omega) = \omega^{2n} s_\xi(\omega),
+  \]
+  Если при преобразовании Фурье 
+  $k_\xi(\tau) \xrightarrow{\text{Ф}} s_\xi(\omega)$, то
+  $k_\xi'(\tau) \xrightarrow{\text{Ф}} i\omega s_\xi(\omega)$,
+  $- k_\xi''(\tau) \xrightarrow{\text{Ф}} -(i\omega)^2 s_\xi(\omega) = \omega^2 s_\xi(\omega)$.
+\end{theorem}
+
+\begin{corollary}
+  $R_{\xi, \xi'} (t, t+\tau) = k_\xi'(\tau) \xrightarrow{\text{Ф}} i\omega s_\xi(\omega) = s_{\xi,\xi'} (\omega)$,
+  $R_{\xi', \xi} (t, t+\tau) = - R_{\xi, \xi'} (t, t+\tau) \xrightarrow{\text{Ф}} - i\omega s_\xi(\omega)$.
+\end{corollary}
+
+\begin{theorem}
+  В условиях теоремы \ref{fourier-of-diff}, $\forall a_i \in \mathbb{R}$
+  $\eta_t = a_0 \xi_t + a_1 \xi_t' + \dots + a_n \xi_t^{(n)}$, тогда
+  \[
+    s_{\eta}(\omega) = \left| \sum_{k=0}^n a_k (i\omega)^k \right|^2 s_\xi(\omega).
+  \]
+\end{theorem}
+\begin{proof}
+  \begin{multline*}
+    K_\eta(t, t+\tau) = \cov \left( \eta_t, \eta_{t+\tau} \right) =
+    \cov \left( \sum_{k=0}^n a_k \xi_t^{(k)}, \sum_{l=0}^n a_l \xi_{t+\tau}^{(l)} \right) =
+    \sum_{k=0}^n \sum_{l=0}^n \cov \left( a_k \xi_{t}^{(k)}, a_l \xi_{t+\tau}^{(l)} \right) = \\
+    =
+    \sum_{k=0}^n \sum_{l=0}^n a_k a_l \dfrac{\partial^{k+l} K_\xi(t, s)}{\partial t^k \partial s^l}
+  \end{multline*}
+  Тогда
+  \[
+    s_\eta(\omega) = \sum_{k=0}^n \sum_{l=0}^n a_k a_l (-i\omega)^k (i\omega)^l s_\xi(\omega) =
+    s_\xi(\omega) \left| \sum_{k=0}^n a_k i\omega \right| ^2.
+  \]
+\end{proof}
+
+\begin{theorem}
+  Пусть случайные процессы $\xi_t $ и $\eta_t$ связаны дифференциальным уравнением:
+  \[
+    a_0 \xi_t + a_1 \xi_t' + \dots + a_n \xi_t^{(n)} = 
+    b_0 \eta_t + b_1 \eta_t' + \dots + b_m \eta_t^{(m)},
+  \]
+  тогда $s_\eta(\omega) = |\Phi(i\omega)|^2 s_\xi(\omega)$, где передаточная функция
+  $\Phi(i\omega) = \dfrac{\sum_{k=0}^n a_k (i\omega)^k}{\sum_{k=0}^m b_l (i\omega)^l}$,
+  $ \left| \Phi(i\omega) \right|^2 = \dfrac{ \left| \sum_{k=0}^n a_k (i\omega)^2 \right|^2  }{ \left| \sum_{l=0}^m b_l (i\omega)^l \right|^2 } $
+\end{theorem}
+
+Уравнение из этой теоремы называется \emph{линейная динамическая система}. Как пример,
+где такое возникает -- колебательный контур:
+% TODO рисунок колебательный контур
+\[
+  u(t) = \dfrac{1}{c} \int_0^t i(\tau) \, d\tau + L \dfrac{di(t)}{dt} + R i(t)
+\]
+-- интегро-дифференциальное уравнение, эквивалентное $u' = L i'' + R i' + \dfrac{1}{c} i$
