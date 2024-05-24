@@ -1,0 +1,201 @@
+\section{Эргодические случайные процессы}
+
+\begin{definition}
+  Случайный процесс $\xi_t$, интегрируемый на $[0, l]$ называется
+  \emph{эргодическим} относительно математического ожидания, если
+  \[
+    M \left| \dfrac{1}{l} \int\limits_0^l \xi_u \, du - m_\xi \right|^2 \to 0,
+  \]
+  или, что тоже самое,
+  \[
+    \dfrac{1}{l} \int\limits_0^l \xi_u \, du \toP m_\xi.
+  \]
+\end{definition}
+
+% TODO дописать что-то после определения
+
+\begin{theorem}[необходимое и достаточное условие эргодичности]
+  Интегрируемый случайный процесс $\xi_t$ с постоянным математическим ожиданием $m_\xi$
+  является эргодическим относительно математического ожидания тогда и только тогда,
+  когда 
+  \[
+    \dfrac{1}{l^2} \int\limits_0^l \int\limits_0^l k_\xi(t, s) \, dt ds \to 0.
+  \]
+\end{theorem}
+\begin{proof}
+  \[
+    M \dfrac{1}{l} \int\limits_0^l \xi_s \, ds = \dfrac{1}{l} \int\limits_0^l M\xi_s \, ds = m_\xi.
+  \]
+  % TODO дописать
+\end{proof}
+
+\begin{theorem}[достаточное условие эргодичности]
+  Если интегрируемый случайный процесс $\xi_t$ имеет постоянное математическое ожидание и
+  $\exists \lim_{|t-s| \to +\infty} k_\xi(t, s) = 0$, то $\xi_t$ является эргодическим относительно
+  математического ожидания $m_\xi$.
+\end{theorem}
+\begin{proof}
+  \[
+    \exists \lim_{|t-s| \to +\infty} k_\xi(t, s) = 0
+    \Leftrightarrow
+    \forall \varepsilon > 0 \exists l_0 : |t-s|>l_0 \Rightarrow |k_\xi(t, s)| < \varepsilon.
+  \]
+  \[
+  \left| \dfrac{1}{l^2} \int\limits_0 \int\limits_0^l k_\xi(t, s) \, dt ds \right]
+  \leqslant \dfrac{1}{l^2} \iint_{D_1} |k_\xi(t, s)| \, dt ds + \dfrac{1}{l^2} \iint_{D_2} |k_\xi(t, s)| \, dt ds < \varepsilon + \dfrac{1}{l^2} C \cdot 2 l_0 l \to 0, l\to+\infty.
+  \]
+\end{proof}
+
+\begin{ex}
+  $k_\xi(\tau) = \cos \tau$ не стремиться к нулю, 
+  \begin{multline*}
+    \dfrac{1}{l^2} \int\limits_0^l \int\limits_0^l \cos(t-s) \, dt ds
+    = \dfrac{1}{l^2} \int\limits_0^l dt \left(-\sin(t-s) |_0^l \right)
+    = \dfrac{1}{l^2} \int\limits_0^l \left[ \sin(t) - \sin (t-l) \right] \, dt = \\
+    = \dfrac{1}{l^2} \left[ - \cos t + \cos(t-l) \right] |_0^l
+    = \dfrac{1}{l^2} \left( 1 - \cos l + 1 - \cos l \right) 
+    = \dfrac{2 (1 - \cos l)}{l^2} \to 0, l \to + \infty
+  \end{multline*}
+\end{ex}
+
+\begin{ex}
+  Пуассоновский процесс $M\xi_t = \lambda t$, $D\xi_t = \lambda t$.
+  Так как математическое ожидание непостоянно, рассмотрим случайный процесс
+  $\mathring{\xi}_t = \xi_t - \lambda t$ -- центрированная часть пуассоновского процесса, 
+  его ковариационная функция: $k_{\mathring{\xi}}(t, s) = \lambda \min(t, s)$, достаточное условие не выполнено,
+  \[
+    \dfrac{\lambda}{l^2} \int\limits_0^l \int\limits_0^l \min(t, s) \, dt ds
+    = \dfrac{2\lambda}{l^2} \int\limits_0^l dt \int\limits_0^t s \, ds
+    = \dfrac{2\lambda}{l^2} \int\limits_0^s \dfrac{t^2}{2} \, dt
+    = \dfrac{\lambda l^3}{l^2} = \lambda l \to +\infty,
+  \]
+  то есть ни пуассоновский ни центрированная его часть не являются эргодическими процессами.
+\end{ex}
+
+\begin{ex}
+  Пуассоновский поток электронов на анод. На анод падают электроны, дают ему некий заряд,
+  но со временем устройство разряжается. $X_t$ -- суммарное напряжение в момент $t$:
+  $X_t = \sum_{k=1}^{Y} X_k(t) = \sum_{k=1}^{Y} e^{-\alpha (t-\tau_k)} I(t > \tau_k)$, $Y$ --
+  число событий в потоке на $[0, t]$.
+
+  Через характеристические функции можно доказать, что $M \sum_{k=0}^\tau \xi_k = M\tau \cdot M\xi_k$, $D \sum_{k=1}^\tau \xi_k = M\tau \cdot D \xi_k + D\tau \cdot \left( M\xi_k \right)^2$.
+
+  % Так как для малых отрезков времени $[t_1, t_2]$ верно, что на отрезке $[]$
+  \[
+    MX_t = MY \cdot M e^{-\alpha(t-\tau_k)} I(t > \tau_k) = \lambda t \cdot \int\limits_0^t \dfrac{1}{t} e^{-\alpha(t-x)} I(t > x) \, dx
+    = \dfrac{\lambda}{\alpha} t \cdot \dfrac{1}{t} e^{-\alpha (t-x)} |_0^t
+    = \dfrac{\lambda}{\alpha} \left( 1 - e^{-\alpha t} \right) \to \dfrac{\lambda}{\alpha}.
+  \]
+  Приближенно можно считать, что математическое ожидание постоянно.
+  Ковариационная функция: $K_x (t_1, t_2) = \cov (X_{t_1}, X_{t_2})$,
+  несложно получить следующее представление для $X_{t_2}$ при $t_2 > t_1$:
+  $X_{t_2} = X_{t_1} e^{-\alpha(t - t_1)} + U(t_1, t_2)$, 
+  причём слагаемые независимы. Поэтому,
+  \[
+    K_X(t_1, t_2) = e^{-\alpha |t_2-t_1|} DX_{\min(t_1, t_2)}.
+  \]
+
+  Посчитаем дисперсию:
+  \[
+    DX_t = MY \cdot DX_k(t) + DY \cdot (MX_k(t))^2
+    = \lambda t M \left( X_k(t) \right)^2
+    = \lambda t \cdot \dfrac{1}{t} \int\limits_0^t e^{-2\alpha(t-x)} \, dx
+    = \dfrac{\lambda}{2\alpha} \left( 1 - e^{-2\alpha t} \right) 
+  \]
+
+  Собирая всё вместе:
+  \[
+    K_X(t_1, t_2) = \dfrac{\lambda}{2\alpha} \left(1 - e^{-2\alpha \min(t_1, t_2)}\right)
+    e^{-\alpha |t_2-t_1|}
+  \]
+  это скобка ограничена, второй множитель стремиться к нулю при $t_2 - t_1 \to +\infty$,
+  поэтому выполнено достаточное условие эргодичности.
+\end{ex}
+
+\subsection{Белый шум}
+
+\begin{ex}
+  Случайная телеграфная волна. Есть последовательность независимых случайных величин
+  $\xi_0, \xi_1, \xi_2, \dots, M\xi_i = m_\xi, D\xi_i = D\xi$.
+  $ \left\{ \tau_k \right\}  $ -- пуассоновский поток интенсивности $\lambda$.
+  В моменты времени $t = \tau_k$ случайная величина $\xi_t$ меняет своё значение на $\xi_k$ до следующего $\tau_{k+1}$.
+
+  $M\xi_t = M\xi_i = m_\xi$, обозначим $\mathring{\xi}_t = \xi_t - m_\xi$,
+  $t_1 < t_2 : k_\xi(t_1, t_2) = \cov (\xi_{t_1}, \xi_{t_2})
+  = M \mathring{\xi}_{t_1} \cdot \mathring{\xi}_{t_2} (I_{H_0} + I_{H_1}) = $,
+  где $H_0$ -- событие,
+  заключающееся в том, что на $(t_1, t_2)$ -- не случилось ни одного события, $H_1$ -- случилось 
+  хотя бы одно.
+  $ = D\xi_i \cdot P(H_0)$,
+  тогда $K_\xi(t, s) = D_\xi \cdot e^{-\lambda |t-s|}$.
+
+  Предельный случай $\lambda \to +\infty, D_\xi \to +\infty$, причём
+  $\dfrac{D_\xi}{\lambda \pi} \to C$: 
+  $k_\xi(\tau) = D_\xi e^{-\lambda |\tau|} = \dfrac{D_\xi}{\lambda \pi} 2\pi \cdot \underbrace{\dfrac{\lambda}{2} e^{-\lambda|\tau|}}_{\text{двусторонний закон Лапласа}} = C 2\pi \delta(\tau)$,
+  $s_\xi(\omega) = C$.
+\end{ex}
+
+\begin{definition}
+  Центрированный случайный процесс $\xi_t$ называется \emph{белым шумом интенсивности $C$}, если
+  $s_\xi(\omega) = C$. 
+
+  Если $C = 1$, то он называется \emph{стандартным белым шумом}.
+\end{definition}
+
+\paragraph{Свойства белого шума.}
+\begin{enumerate}
+  \item Сечения $\xi_{t_1}$ и $\xi_{t_2}$ некоррелированны при $t_1 \neq t_2$;
+    \begin{proof}
+      $\cov(\xi_{t_1}, \xi_{t_2}) = K_\xi(t_1, t_2) = C\cdot 2\pi \cdot \delta(t_2 - t_1) = 0$.
+    \end{proof}
+  \item Дисперсия белого шума $D\xi_t = +\infty$;
+    \begin{proof}
+      $D\xi_t = k_\xi(t, t) = 2\pi C \delta(0) = \infty$.
+    \end{proof}
+  \item $\xi_t$ можно рассматривать как обобщённую производную винеровского процесса с 
+    $\sigma = \sqrt{2\pi C}$.
+    \begin{proof}
+      $K_W (t, s) = \sigma^2 \min(t, s)$, 
+      \[
+        \dfrac{\partial }{\partial t} k_\xi(t, s) = \begin{cases}
+          0, &t > s \\
+          \sigma^2 = 2\pi C, & t < s
+        \end{cases}
+      \]
+      \[
+        \dfrac{\partial^2 }{\partial t \partial s} k_\xi(t, s) = 2\pi C \delta(t-s).
+      \]
+    \end{proof}
+\end{enumerate}
+
+\subsection{Понятие о стохастических дифференциальных уравнений}
+
+Рассмотрим уравнение: $\xi_t' = -a \xi_t + \varepsilon_t, \xi_0 = \nu$, где $\varepsilon_t$ -- случайный шум.
+Об этом шуме можно выдвинуть естественные предположения:
+\begin{enumerate}
+  \item $M\varepsilon_t = 0$;
+  \item $t \neq s : M\varepsilon_t \varepsilon_s = 0$;
+  \item $D\varepsilon_t < \infty$;
+  \item $\nu$ и $\xi_t$ независимы.
+\end{enumerate}
+оказывается, что данные предположения ничего не дают.
+Решение этого уравнения представляется в виде свёртки фундаментального решения с правой частью:
+\[
+  \xi_t = \nu e^{-a t} + \int\limits_0^t e^{-a(t-\tau)} \varepsilon_\tau \, d\tau.
+\]
+Обозначим свёртку за $\gamma_t = \int\limits_0^t e^{-a(t-\tau)} \varepsilon_\tau \, d\tau$:
+\[
+  k_1 (t, s) = \cov \left( e^{-a(t-\tau)} \varepsilon_\tau, e^{-a(s-} \right) 
+\]
+\begin{align*}
+  M\gamma_t &= M\int\limits_0^t e^{-a(t-\tau)} \varepsilon_\tau \, d\tau = 0, \\
+  k_\gamma(t, s) &= \cov( \dots ) = 0
+\end{align*}
+
+То есть получается, что такая система просто не замечает такого рода шум. То есть условия, наложенные
+на шум, надо изменить. Отказались от условия $D\varepsilon_t < \infty$.
+То есть $\varepsilon_t$ -- белый шум.
+
+Формальная запись:
+$d\xi_t = - a\xi_t dt + \varepsilon_t dt, d\xi_t = -a \xi_t dt + dW_t$. То есть если нужен шум,
+то его надо моделировать винеровским процессом. Больший смысл имеет выражение $\xi_t = - a \int\limits_0^t \xi_s \, ds + W_t$.
