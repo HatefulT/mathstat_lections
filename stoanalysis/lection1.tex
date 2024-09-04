@@ -1,0 +1,173 @@
+\section{Условное математическое ожидание относительно $\sigma$-алгебры и его свойства}
+
+На данный момент мы знаем, что такое
+\[
+  M(\eta | \xi) \equiv M(\eta | \xi = x) |_{x = \xi}
+  = \int\limits_{-\infty}^{+\infty} y p_{\eta} (y | \xi = x) \, dy |_{x = \xi}
+  = \int\limits_{-\infty}^{+\infty} y \dfrac{p_{\xi\eta} (x, y)}{p_\xi (x)} \, dy,
+\]
+где $p_{\xi\eta} (x, y)$ -- известная плотность.
+
+\paragraph{Гауссовский случай.}
+Если $(\xi, \eta)$ -- гауссовский вектор, то:
+\[
+  \hat{\eta} = M(\eta | \xi) = \phi(\xi) = M\eta + \dfrac{\cov(\xi, \eta)}{D\xi} (\xi-M\xi), \quad
+    \Delta = M(\eta - M(\eta|\xi))^2 = D\eta (1 - r_{\xi\eta}^2).
+\]
+
+\paragraph{Многомерный гауссовский случай}
+Пусть $(\bar{\xi}, \bar{\eta})$ -- гаусс., тогда:
+\[
+  \hat{\bar{\eta}} = M(\bar{\eta} | \bar{\xi}) = M\bar{\eta} + \Sigma_{\bar{\eta} \bar{\xi}} \Sigma_{\bar{\xi}}^{-1} (\bar{\xi} - M\bar{\xi}), \quad
+  \Delta = M(\bar{\eta} - M(\bar{\eta} | \bar{\xi}))(\bar{\eta} - M(\bar{\eta} | \bar{\xi}))^T
+  = \dots = \Sigma_{\bar{\eta}} - \Sigma_{\bar{\eta}\bar{\xi}} \Sigma_{\bar{\xi}}^{-1} \Sigma_{\bar{\xi} \bar{\eta}}.
+\]
+
+\begin{ex}\label{ex-bernoulli-with-random-parameter}
+  $\xi \sim R(0, 1)$, $\eta$ -- число опытов с вероятностью успеха $\xi$, $\eta \sim Bernoulli(\xi)$,
+  тогда 
+  \[
+    P(\eta = j | \xi = x) = C_n^j x^j (1-x)^{n-j}
+    \Rightarrow
+    P(\eta = j | \xi) = C_n^j \xi^j (1-\xi)^{n-j},
+  \]
+  % Причём интуитивно хотелось бы, чтобы $M(\eta | \xi = x) = n\cdot x$.
+  % И тогда получим, что $M(\eta | \xi) = n \xi$.
+
+  Хочется, чтобы $M\eta = MM(\eta | \xi)$.
+\end{ex}
+
+
+\begin{definition}[УМО относительно СВ]
+  Пусть $\xi$ -- простая случайная величина, принимающая конечное множество значений:
+  $\xi(\omega) = \sum_{j=1}^k x_j I_{D_j}(\omega)$, где
+  $\mathcal{D} = \left\{ D_j \right\} $ -- конечное разбиение пространства элементарных
+  исходов ($\sum_j D_j = \Omega$).
+
+  Тогда случайная величина $P(A | \xi) \equiv \sum_{j=1}^k P(A|D_j) I_{D_j}$.
+
+  Заметим, что:
+  \begin{enumerate}
+    \item $\mathcal{D} = \Omega \Rightarrow P(A | \mathcal{D}) = P(A | \Omega) I_\Omega = P(A)$;
+    \item $MP(A | \mathcal{D}) = \sum_{j=1}^k P(A | D_j) M(I_{D_j}) =
+      \sum_{j=1}^k P(A|D_j) P(D_j) = P(A)$ -- это свойство мы будем пытаться сохранить и
+      при определении МО относительно сигма-алгебры;
+    % \item 
+  \end{enumerate}
+\end{definition}
+
+% Согласно второму свойству, в примере \ref{ex-bernoulli-with-random-parameter} теперь несложно
+% получить, что 
+
+\begin{definition}[УМО относительно разбиения]
+  Пусть $\mathcal{D} = \left\{ D_j \right\} $ -- конечное разбиение пространства элементарных
+  исходов ($\sum_j D_j = \Omega$). 
+  % TODO дописать определение
+\end{definition}
+
+\begin{definition}[УМО относительно конечной алгебры]
+  Пусть $\mathcal{A}$ -- конечная алгебра. Тогда, согласно теореме из курса функана, 
+  она порождается конечным разбиением $\mathcal{D}$, тогда 
+  % TODO дописать определение
+\end{definition}
+
+\begin{definition}
+  Пусть теперь $\xi$ и $\eta$ -- простые случайные величины:
+  $\xi = \sum_j x_j I_{D_j}$, $\eta = \sum_i y_i I_{A_i}$.
+  Тогда УМО:
+  \begin{multline*}
+    M(\eta | \xi) = \sum_j \sum_i y_i P(A_i | D_j) I_{D_j} =
+    \sum_j \sum_i y_i M(I_{A_i} | D_j) I_{D_j} =
+    \sum_j M \left( \sum_i y_i I_{A_i} | D_j \right) I_{D_j} =  \\
+    = \sum_j M(\eta | D_j) I_{D_j}.
+  \end{multline*}
+\end{definition}
+
+\paragraph{Свойства.}
+\begin{enumerate}
+  \item Линейность:
+    \[
+      M(\alpha_1 \eta_1 + \alpha_2 \eta_2 | \mathcal{A}) =
+      \alpha_1 M(\eta_1 | \mathcal{A}) + \alpha_2 M(\eta_2 | \mathcal{A});
+    \]
+
+  \item $M(C | \mathcal{A}) = C$, $C$ -- константа;
+
+  \item $MM(\eta | \mathcal{A}) = M\eta$
+    \begin{proof}
+      Пусть $\mathcal{A}$ порождена разбиением $\mathcal{D} = D_1 + D_2 + \dots + D_k$, тогда:
+      \[
+        MM(\eta | \mathcal{A}) = M \sum_i y_i P(\eta = y_i | \mathcal{A}) =
+        % TODO дописать док-во
+      \]
+    \end{proof}
+
+  \item \begin{definition}
+      СВ $\eta$ измериме относительно $(\mathcal{D}, \mathcal{A}, \xi)$, если
+      $A_{\eta} \subseteq \mathcal{A}$ или $A_\eta \subseteq A_\xi$.
+    \end{definition}
+
+    Тогда $M(\eta | \mathcal{A})$ измеримо относительно $\mathcal{A}$:
+      $M(\eta | \mathcal{A}) = \sum M(\eta | D_j) I_{D_j}$.
+
+    \item Если $\zeta$ измерима относительно $\mathcal{A}$, то $M(\eta \zeta | \mathcal{A}) = \zeta M(\eta | \mathcal{A})$.
+    \begin{proof}
+      $\xi = \sum_j x_j I_{D_j}$, $\zeta = \sum_s z_s I_{D_s}$, $\eta = \sum_i y_i I_{A_i}$.
+
+      Тогда левая часть:
+      \begin{multline*}
+        M(\eta\zeta | \mathcal{A}) = M \left( \sum_i \sum_s y_i z_s I_{A_i D_s} | \mathcal{A} \right) 
+        = \sum_i \sum_s y_i z_s M \left( I_{A_i D_s} | \mathcal{A} \right) = \\
+        = \sum_i \sum_s y_i z_s M \left( \sum_j M(I_{A_i D_s} | D_j) I_{D_j} \right) 
+        = \sum_i \sum_s y_i z_s P(A_i | D_s) I_{D_s}.
+      \end{multline*}
+
+      Правая часть:
+      \[
+        \zeta M(\eta | \mathcal{A}) = \sum_s z_s I_{D_s} \sum_i y_i \sum_j P(A_i | D_j) I_{D_j}
+        = \sum_s z_s I_{D_s} \sum_i y_i P(A_i | D_s).
+      \]
+    \end{proof}
+
+  \item $\mathcal{A}_1 \subseteq \mathcal{A}_2 \Rightarrow M(\eta | \mathcal{A}_1) = M( M(\eta | \mathcal{A}_2) | \mathcal{A}_1)$;
+
+  \item Если $\eta$ не зависит от $\xi$ (от $\mathcal{A}$), то $M(\eta | \mathcal{A}) = M\eta$.
+\end{enumerate}
+
+\begin{theorem}[Радона-Никодима]\label{theorem-radon-nikodim}
+  Для множества, системы подмножеств и меры $(X, \mathcal{A}, \mu)$ назовём \emph{зарядом}
+  некоторый интеграл $\Phi(B) = \int_B f(x) \mu(dx)$ (можно мыслить себе как новую меру).
+
+  Если $(\mu(B) = 0 \Rightarrow \Phi(B) = 0)$ ($\Phi$ непрерывна относительно меры $\mu$),
+  то $\exists \tilde f$:
+
+  $\Phi(B) = \int_B \tilde f(x) dx$, где $\tilde f$ -- измеримая относительно меры $\mu$.
+
+  $\tilde f$ также называют производной Радона-Никодима.
+\end{theorem}
+
+\begin{definition}[Общее определение УМО]
+  Для вероятностного пространства $(\Omega, \mathcal{A}, P)$, 
+  $\Phi(B) = \int_B \eta(\omega) P(d\omega)$, причем имеет место $(P(B) = 0 \Rightarrow \Phi(B) = 0), $ тогда по теореме \ref{theorem-radon-nikodim} существует $\hat{\eta}$ -- измеримая относительно $\mathcal{A}$:
+  $\hat{\eta} (\omega) \equiv M(\eta | \xi)$
+\end{definition}
+
+\begin{ex}
+  Если $\xi$ и $\eta$ -- простые СВ, то 
+  $\forall t $:
+  \[
+    \Phi(D_t) = \int_{D_t} \eta(\omega) P(d\omega) = \sum_i y_i P(A_i D_t).
+  \]
+
+  с другой стороны,
+  \[
+    \int_{D_t} M(\eta | \xi) P(d\omega) = \int_{D_t} \sum_j \sum_i y_i P(A|D_j) I_{D_j} P(d\omega)
+    = \sum_i y_i P(A_i|D_t) P(D_t) = \sum_i y_i P(A_i D_t)
+  \]
+\end{ex}
+
+
+
+
+% $P(\eta | \mathcal{A}) \equiv M(I_A | \mathcal{A})$
+
