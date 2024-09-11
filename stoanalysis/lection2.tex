@@ -1,0 +1,187 @@
+\section{Мартингалы. Субмартингалы}
+
+% TODO начало лекции
+
+\paragraph{Свойства мартингалов}
+
+\begin{enumerate}
+  \item % TODO дописать
+
+  \item Пусть $S_n = \sum_{j=0}^n \xi_j$, где $\xi_i$ -- попарно независимы,
+    тогда $S_n$ -- мартингал $\Leftrightarrow M\xi_j = 0 \forall j$;
+    \begin{proof}
+      \begin{multline*}
+        M(S_{n+1} | \mathcal{F}_n) = M(S_n + \xi_{n+1} | \mathcal{F}_n)
+        = M(S_n | \mathcal{F}_n) + M(\xi_{n+1} | \mathcal{F}_n) = \\
+        = S_n + M\xi_{n+1} \equiv S_n \Rightarrow M\xi_{n+1} = 0 \forall n.
+      \end{multline*}
+      (но $M\xi_0$ может быть не равен $0$)
+    \end{proof}
+
+  \item Если $\eta$ -- интегрируемая случайная величина ($M|\eta| < \infty$), тогда
+    последовательность $\xi_n = M( \eta | \mathcal{F}_n )$ является мартингалом.
+    \begin{proof}
+      \[
+        M(\xi_{n+1} | \mathcal{F}_n) = M( M(\eta | \mathcal{F}_{n+1}) | \mathcal{F}_n )
+        = M(\eta | \mathcal{F}_n) = \xi_n.
+      \]
+    \end{proof}
+\end{enumerate}
+
+\begin{theorem}[Неравенство Йенсена]
+  Если $g(x)$ -- выпуклая вниз функция, тогда $g(M\xi) \leqslant Mg(\xi)$, причём
+  это неравенство сохраняется и для условного математического ожидания:
+  пусть $\mathcal{A}$ -- некоторая произвольная алгебра, тогда
+  $g(M(\xi|\mathcal{A})) \leqslant M(g(\xi) | \mathcal{A})$.
+
+  На самом деле эта теорема является свойством интеграла Лебега -- свойством
+  сходимости под интегралом Лебега.
+\end{theorem}
+
+
+\subsection{Субмартингалы, теорема Дуба, квадратическая характеристика}
+
+\begin{definition}
+  Стохастическая последовательность $\{Y_n\}_{n \geqslant 0}$ называется
+  \emph{субмартингалом} относительно потока $ \left\{ \mathcal{F}_n \right\}_{n\geqslant 0} $,
+  если
+  \[
+    M(Y_{n+1} | \mathcal{F}_n) \geqslant Y_n - \text{$P$-п.н.}.
+  \]
+
+  И называется \emph{супермартингалом}, если
+  $M(Y_{n+1} | \mathcal{F}_n) \leqslant Y_n.$
+\end{definition}
+
+
+\begin{theorem}[Дуб]
+  Всякий субмартингал раскладывается $P$-п.н. единственным образом в сумму мартингала
+  и предсказуемой стохастической последовательности:
+  \[
+    Y_n = \underbrace{m_n}_{\text{мартингал}} + \underbrace{A_n}_{\text{предск.}}, n \geqslant 0.
+  \]
+  при этом $ \left\{ A_n \right\}  $ называется компенсатором $Y_n$.
+\end{theorem}
+\begin{proof}
+  \[
+    Y_n = Y_0 + \sum_{j=0}^{n-1} (Y_{j+1} - Y_j)
+    = \underbrace{Y_0 + \sum_{j=0}^{n-1} (Y_{j+1} - M(Y_{j+1}|\mathcal{F}_j))}_{m_n}
+    + \underbrace{\sum_{j=0}^{n-1} (M(Y_{j+1} | \mathcal{F}_j) - Y_j)}_{A_n},
+  \]
+  причём $A_n$ -- предсказуема, так как содержит $Y_j$ только до $Y_n$, и является
+  $\mathcal{F}_n$-измеримой;
+  $m_n$ -- мартингал, т.к.
+  \[
+    M( m_{n+1} | \mathcal{F}_n ) =
+    M\left( m_n + Y_{n+1} - M(Y_{n+1} |\mathcal{F}_n) | \mathcal{F}_n \right) = m_n + 0.
+  \]
+\end{proof}
+
+\begin{corollary}
+  Если $\{m_n\}$ -- мартингал, тогда, в силу неравенства Йенсена,
+  \[
+    M(m_{n+1}^2 | \mathcal{F}_n) \geqslant \left( \underbrace{M(m_{n+1}|\mathcal{F}_n)}_{m_n} \right)^2
+  \]
+  или $Y_n = m_n^2$ -- субмартингал
+\end{corollary}
+
+\begin{definition}
+  Компенсатор субмартингала $m_n^2$ называется \emph{квадратической характеристикой} $m_n$:
+  \[
+    \langle m \rangle_n = A_n, \quad 
+    m_n^2 = \xi_k + A_k,
+  \]
+  причём
+  \[
+    \langle m \rangle_n =
+    \sum_{k=0}^{n-1} \left[M( m_{k+1}^2 | \mathcal{F}_k) - m_k^2 \right] =
+    \sum_{k=0}^{n-1} \left[ M( m_{k+1}^2 - m_k^2 | \mathcal{F}_k ) \right] =
+    \sum_{k=0}^{n-1} \left[ M( (m_{k+1}^2 - m_k^2)^2 | \mathcal{F}_k ) \right] 
+  \]
+  (последнее несложно доказать, если раскрыть квадрат разности, а далее
+  $M(m_k m_{k+1} | \mathcal{F}_k) = m_k^2$)
+\end{definition}
+
+\begin{ex}
+  Пусть $m_k = \sum_{j=0}^k \xi_j$, где $\xi_0, \xi_1, \dots, \xi_n$ -- независимые
+  случайные величины с $M\xi_i = 0, i \geqslant 1$.
+  \[
+    \langle m\rangle_n = \sum_{j=0}^{n-1} M \left( (m_{j+1} - m_j)^2 | \mathcal{F}_j \right) 
+    = \sum_{j=0}^{n-1} M \left( \xi_{j+1}^2 | \mathcal{F}_j \right) 
+    = \sum_{j=0}^{n-1} M\left(\xi_{j+1}^2\right) = \sum_{j=0}^{n-1} D\xi_{j+1}
+  \]
+  -- некоторая постоянная (если $M\xi_0 \neq 0$, то первое слагаемое не будет равно дисперсии
+  $\xi_0$).
+\end{ex}
+
+\begin{theorem}
+  Если последовательность $ \left\{ X_k \right\}_{k \geqslant 0} $ -- мартингал и 
+  $\exists \alpha > 1 : \sup_n M|X_k|^\alpha < \infty$ (равномерно интегрируема ???), то
+  $\exists X_{\infty}, $ что
+  \begin{enumerate}
+    \item $X_n \toPN X_\infty$;
+    \item $X_n \xRightarrow[]{\text{ср.}} X_\infty$, ($M|X_n - X_\infty| \to 0$);
+    \item $X_n = M(X_\infty | \mathcal{F}_n)$.
+  \end{enumerate}
+
+  Использовать эту теорему можно для проверки условий усиленного закона больших чисел.
+\end{theorem}
+
+\begin{lemma}[Кронекер]
+  Пусть $\sum_{k=1}^\infty a_k < \infty$, $b_n \uparrow \infty$ (монотонно стремиться к $\infty$),
+  тогда $\dfrac{1}{b_n} \sum_{k=1}^n a_k b_n \to 0$.
+\end{lemma}
+
+\begin{proof}
+  $\varepsilon_k = \dfrac{\xi_k - a}{k}, M\varepsilon_k = 0$, $X_n = \sum_{k=1}^n \varepsilon_k$ -- мартингал.
+
+  $MX_n^2 = M \left( \sum_{k=1}^n \varepsilon_k^2 \right) = \sum_{k=1}^n M\varepsilon_k^2 = \sum_{k=1}^n \dfrac{M(\xi_k - a)^2}{k^2} \leqslant C \sum_{k=1}^n \dfrac{1}{k^2} \leqslant C \zeta(2)$,
+  где $\zeta(x)$ -- это функция Римана.
+
+  Тогда $\exists X_\infty : P( X_n \to X_\infty ) = 1$;
+
+  \[
+    \dfrac{1}{n} \sum_{k=1}^n \xi_k = \dfrac{1}{n} \sum_{k=1}^n (\xi_k - a) + a
+    = a + \underbrace{\dfrac{1}{n} \sum_{k=1}^n \dfrac{\xi_k-a}{k} k}_{\to 0 \text{(по лемме Кронекера)}}
+  \]
+\end{proof}
+
+\begin{theorem}
+  Если $ \left\{ X_n \right\}_{n \geqslant 0} $ -- квадратично интегрируемый мартингал и $P( \langle X\rangle_n \to \infty ) = 1$, то $\dfrac{X_n}{\langle X\rangle_n} \toPN 0$.
+\end{theorem}
+\begin{ex}
+  Дана авторегрессионная последовательность:
+  $X_{n+1} = \theta X_n + \varepsilon_{n+1}, n \geqslant 0, X_0 = 0$,
+  где $\varepsilon_j$ -- последовательность независимых случайных величин с $M\varepsilon_k = 0$.
+
+  \[
+    \hat{\theta} = \dfrac{ \sum_{k=0}^{n-1} X_{k+1} X_k }{ \sum_{k=0}^{n-1} X_k^2 } =
+    \dfrac{ \sum_{k=0}^{n-1} (\theta X_k + \varepsilon_{k+1}) X_k }{ \sum_{k=0}^{n-1} X_k^2 } =
+    \theta + \dfrac{ \sum_{k=0}^{n-1} \varepsilon_{k+1} X_k }{ \sum_{k=0}^{n-1} X_k^2 } =
+    \theta + \dfrac{m_n}{\langle m \rangle_n}
+  \]
+
+  \[
+    \dfrac{m_n}{\langle m \rangle_n} \toPN 0 \Leftrightarrow \hat{\theta} -
+    \text{сильно состоятельная}
+  \]
+\end{ex}
+\begin{proof}
+  $\mathcal{F}_k = \sigma(\varepsilon_0, \varepsilon_1, \dots, \varepsilon_k)$
+  
+  Докажем, что $m_n = \sum_{k=0}^{n-1} \varepsilon_{k+1} X_k$ -- действительно является мартингалом:
+  \[
+    M(m_{n+1} | \mathcal{F}_n) =
+    M \left( \sum_{k=0}^n X_k \varepsilon_{k+1} | \mathcal{F}_n \right) =
+    M \left( m_n + X_n \varepsilon_{n+1} | \mathcal{F}_n \right) =
+    m_n + X_n \cdot \cancelto{0}{M\varepsilon_{n+1}}
+  \]
+
+  \[
+    \langle m \rangle_n = \sum_{k=0}^{n-1} M \left(  X_k^2 \varepsilon^2_{k+1} | \mathcal{F}_n \right)  = \sum_{k=0}^{n-1} X_k^2 \underbrace{M\varepsilon_{k+1}^2}_{D\varepsilon = 1} = \sum_{k=0}^{n-1} X_k^2
+  \]
+
+  т.о. если $\sum X_k^2 \to \infty$, то $\hat{\theta} \toPN 0$;
+
+  % изучить экспериментально, к чему сходиться последовательность $\dfrac{m_n}{ \sqrt{\langle m\rangle_n} }$
+\end{proof}
