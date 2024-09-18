@@ -1,0 +1,243 @@
+% \section{}
+
+\section{Линейные стохастические модели}
+
+$X_1, X_2, \dots, X_n, X_{n+1}$ -- была реализация независимых случайных величин,
+а теперь на стохастическом анализе мы рассматриваем эту последовательность
+как реализацию зависимых случайных величин:
+\[
+  \hat{X}_{n+1} = M \left( X_{n+1} | X_n, \dots, X_1 \right) 
+\]
+
+% \subsection{Скользящее среднее}
+
+\begin{definition}
+  Модель скользящего среднего.
+  Последовательность $\{\varepsilon_k\}_{k=-\infty}^\infty$ называется \emph{белым шумом},
+  если $\varepsilon_i$ и $\varepsilon_j$ некоррелированы,
+  $M\varepsilon_i = 0, D\varepsilon_i < \infty$.
+
+  Если к тому же $D\varepsilon_i = 1$, то $\{\varepsilon_k\}$ называется
+  \emph{стандартным белым шумом}.
+\end{definition}
+
+\begin{definition}
+  $\{\eta_n\}$ называется СП вида $MA(q)$ (скользящее среднее порядка $q$),
+  если
+  \[
+    \eta_n = (\mu + b, \varepsilon_{n-1} + b_2 \varepsilon_{n-2} + \dots + b_q \varepsilon_{n-q}) + b_0 \varepsilon_n,
+    \quad n \in \mathbb{Z}
+  \]
+  где $\mu, b_i$ -- некоторые постоянные.
+\end{definition}
+
+\begin{definition}
+  СП $\{\eta_n\}$ называется стационарным, если $M\eta_n = \operatorname{const}$,
+  а $\cov (\eta_n, \eta_k) = K_{\eta} (n-k)$.
+\end{definition}
+
+\begin{remark}
+  $MA(q)$ является стационарным,
+  \begin{proof}
+    \[
+      M\eta_n = \mu, \quad 
+      D\eta_n = \sum_{j=0}^q b_j^2
+    \]
+
+    При $k > 0 \Rightarrow k \geqslant 1$:
+    \begin{multline*}
+      \cov(\eta_n, \eta_{n+k}) = \\
+      = \cov (\mu + b_1 \varepsilon_{n-1} + b_2 \varepsilon_{n-2} + \dots + b_q \varepsilon_{n-q} + b_0 \varepsilon_n,
+      \mu + b_1 \varepsilon_{n + k-1} + b_2 \varepsilon_{n + k - 2} + \dots + b_q \varepsilon_{n + k - q} + b_0 \varepsilon_{n-k}) = \\
+      = \cov \left( \sum_{j=0}^q b_j \varepsilon_{n-j}, \sum_{m=0}^q b_m \varepsilon_{n+k-m} \right) 
+      = \sum_{j=0}^{q-k} b_j b_{j+k}
+    \end{multline*}
+    Зависит только от разности $n$ и $n+k$.
+  \end{proof}
+\end{remark}
+
+\subsection{Оценка $\mu$}
+
+Очевидной оценкой для $\mu$ является:
+\[
+  \hat{\mu}_n = \dfrac{1}{n} \sum_{j=1}^n X_j \rightarrow \mu
+\]
+для зависимых случайных величин есть теорема Маркова \ref{markov-limit-theorem},
+которая говорит, что для сходимости такой оценки $\hat{\mu}$ необходимо:
+\[
+  \dfrac{1}{n^2} D \sum_{j=1}^n \xi_j \to 0 \Rightarrow \dfrac{1}{n} \sum_{j=1}^n \xi_j \toP \mu.
+\]
+
+\begin{theorem}
+  Для стационарной стохастической последовательности $\{\eta_n\}$ имеет место:
+  \[
+    \dfrac{1}{n}\sum_{j=1}^n \eta_j \xrightarrow{\text{ср.кв.}} 0 \Leftrightarrow
+    \dfrac{1}{n} \sum_{j=1}^n K_{\eta} (j) \to 0.
+  \]
+\end{theorem}
+
+\begin{ex}
+  $\{\eta_n\}$ -- $MA(q)$ (является стационарной!) тогда:
+  \[
+    \dfrac{1}{n} \sum_{j=1}^n K_\eta (j) = \dfrac{1}{n} \sum_{j=1}^n \underbrace{\sum_{m=0}^{q-j} b_m b_{m+k}}_{K_\eta(j)}
+  \]
+
+  Если $q=1$, то 
+  \[
+    \dfrac{1}{n} \sum_{j=1}^n K_\eta(j) = \dfrac{1}{n} \sum_{j=1}^n b_0 b_1 \to 0
+  \]
+
+  Если $q$ -- произвольно, то:
+  \[
+    \dfrac{1}{n} \sum_{j=1}^n K_\eta(j) = \dfrac{1}{n} \left( \overbrace{b_0b_1 + \dots + b_{q-1}b_q}^{K_\eta(1)} + K_\eta(2) + \dots \right) \to 0. 
+  \]
+\end{ex}
+
+\begin{proof}
+  Докажем $\Rightarrow$:
+
+  Так как
+  \[
+    \dfrac{1}{n} \sum_{j=1}^n \eta_j \xrightarrow{\text{ср.кв.}} \mu 
+    \Leftrightarrow
+    \dfrac{1}{n} \sum_{j=1}^n (\eta_j - M\eta_j) \xrightarrow{\text{ср.кв.}} 0,
+  \]
+  то без ограничения общности можно считать $M\eta_j = 0$.
+
+  \[
+    \left| \dfrac{1}{n} \sum_{j=1}^n K_\eta(j) \right|^2 =
+    \left| \dfrac{1}{n} \sum_{j=1}^n M\eta_0 \eta_j \right|^2 = 
+    \left| M \left( \eta_0 \dfrac{1}{n} \sum_{j=1}^n \eta_j \right)  \right|^2 \leqslant 
+    \underbrace{M\eta_0^2}_\text{ограничено} \underbrace{M \left|\dfrac{1}{n} \sum \eta_j \right|^2}_{\to 0},
+  \]
+  где использовано неравенство Коши-Буняковского.
+
+  Докажем в другую сторону ($\Leftarrow$):
+  \begin{multline*}
+    M \left| \dfrac{1}{n} \sum_{j=1}^n \eta_j \right|^2 =
+    \dfrac{1}{n^2} M \left| \sum_{j=1}^n \eta_j \right|^2 = \dfrac{1}{n^2} D \sum_{j=1}^n \eta_j =
+    \dfrac{1}{n^2} \left( \sum_{j=1}^n \underbrace{D\eta_j}_{= K_\eta(0)} + 2 \sum_{i<j} M\eta_i \eta_j \right) = \\
+    = \dfrac{K_\eta(0)}{n} + \dfrac{2}{n^2} \left( \overbrace{(n-1)}^{\leqslant n} K_\eta(1) + (n-2) K_\eta(2) + \dots + \overbrace{1}^{\leqslant n} \cdot K_\eta(n-1) \right) \leqslant \\
+    \leqslant \dfrac{K_\eta(0)}{n} + \dfrac{2}{n} \sum_{j=1}^n K_\eta(j) \to 0
+  \end{multline*}
+\end{proof}
+
+% \subsection{Одностороннее скользящее среднее}
+
+\begin{definition}
+  Стохастическая последовательность $MA(\infty)$ называется \emph{односторонним скользящим средним}, если
+  \[
+    \eta_n = \mu + \sum_{j=0}^\infty b_j \varepsilon_{n-j}
+  \]
+\end{definition}
+
+$M\eta_n = \mu, \quad D\eta_n = \sum_{j=1}^\infty b_j^2$, если ряд сходиться.
+Если ряд для дисперсии сходиться, то ряд для автокорреляционной функции
+$K_\eta(j) = \sum_{j=0}^\infty b_j b_{i+j}$ тоже сходиться.
+
+% \subsection{Авторегрессионная последовательность}
+
+\begin{definition}
+  СП $\{h_n\}$ называется \emph{авторегрессионной последовательностью} $AR(p)$, если
+  \begin{equation}\label{autoregress-seq-definition}
+    h_n = a_0 + a_1 h_{n-1} + \dots + a_p h_{n-p} + \sigma \varepsilon_n, \quad n\in\mathbb{Z}
+  \end{equation}
+\end{definition}
+
+\begin{remark}
+  Если $p=1$, то $AR(1)$ является конструктивно построенной марковской цепью
+  (т.к. $P(\eta_{n+1} = X_{n+1} | \eta_n = x_n, \eta_{n-1} = x_{n-1}, \dots) = P(\eta_{n+1} = x_{n+1} | \eta_n = x_n)$, или, в других терминах $M(\eta_{n+1} | \eta_n, \eta_{n-1}, \dots) = M(\eta_{n+1} | \eta_n)$):
+  \[
+    M(a_0 + a_1 h_n + \sigma \varepsilon_n | h_n, h_{n-1}, \dots) =
+    a_0 + a_1 h_n + \sigma M(\varepsilon_n | h_n, \dots) = a_0 + a_1 h_n = M(a_0 + a_1 h_n | h_n).
+  \]
+\end{remark}
+
+\begin{theorem}
+  Если в $AR(1)$ $|a_1| < 1$, то имеется единственное стационарное решение
+  \eqref{autoregress-seq-definition}, в виде:
+  \[
+    h_n = \sum_{k=0}^\infty a_1^k w_{n-k},
+  \]
+  где $w_j = a_0 + \sigma \varepsilon_j$.
+\end{theorem}
+\begin{proof}
+  Введём оператор сдвига $L h_n = h_{n-1}$, тогда уравнение \eqref{autoregress-seq-definition}
+  принимает вид:
+  \[
+    (1 - a_1 L) h_n = w_n.
+  \]
+
+  Подставим предполагаемое теоремой решение в получившийся вид уравнения:
+  \[
+    (1 - a_1 L) \left(\sum_{k=0}^\infty a_1^k w_{n-k}\right) = 
+    \sum_{k=0}^\infty a_1^k w_{n-k} - \sum_{k=0}^\infty a_1^{k+1} w_{n-k-1} = 
+    w_n + \sum_{k=1}^\infty a_1^k w_{n-k} - \sum_{k=0}^\infty a_1^{k+1} w_{n-k-1} =
+    w_n.
+  \]
+
+  Осталось доказать, что такое решение будет единственным.
+
+  Докажем от противного: пусть $\tilde{h}_n$ -- другое стационарное решение, т.е.
+  \[
+    \tilde{h}_n = a_0 + a_1 \tilde{h}_{n-1} + \sigma \varepsilon_n =
+    a_0 + a_1 (a_0 + a_1 \tilde{h}_{n-2}) + \sigma \varepsilon_n = 
+    \sum_{k=0}^m a_1^k w_{n-k} + \tilde{h}_{n-m-1} a_1^m
+  \]
+  \[
+    M\left( \tilde{h}_n - \sum_{k=0}^m a_1^k w_{n-k} \right)^2 = M \left( \tilde{h}_{n-m-1} a_1^{m+1} \right)^2 \leqslant a_1^{2m + 2} \cdot M \tilde{h}_{n-m-1}^2 \to 0.
+  \]
+\end{proof}
+
+\paragraph{Характеристики}
+
+Несложно получить выражение для $b_k$:
+\[
+  h_n = \sum_{k=0}^\infty a_1^k w_{n-k} =
+  \dfrac{a_0}{1 - a_1} + \sum_{k=0}^\infty \overbrace{\sigma a_1^k}^{= b_k} \varepsilon_{n-k}.
+\]
+
+\begin{enumerate}
+  \item $Mh_n = \sum_{k=0}^\infty a_1^k a_0 = \dfrac{a_0}{1 - a_1}$ -- сходится при $|a_1| < 1$;
+  \item $Dh_n = \sum_{k=0}^\infty D a_1^k w_{n-k} = \sum_{k=0}^\infty a_1^{2k} \sigma^2 = \dfrac{\sigma^2}{1 - a_1^2}$;
+  \item $K_\eta(j) = \sum_{k=0}^\infty b_k b_{k+j} = \sum_{k=0}^\infty \sigma a_1^k \sigma a_1^{k+j} = \dfrac{\sigma^2 a_1^j}{1 - a_1^2}$;
+\end{enumerate}
+
+\begin{theorem}
+  Если все корни характеристического уравнения
+  \[
+    1 - a_1 z - a_2 z^2 - \dots - a_p z^p = 0
+  \]
+  по модулю различны и по модулю больше единицы, то существует единственное стационарное решение
+  в виде:
+  \[
+    h_n = \sum_{k=0}^\infty \sum_{j=1}^p c_j \lambda_j^k w_{n-k},
+  \]
+  где $\lambda_j = \dfrac{1}{z_j}$, а коэффициенты $c_j$ находятся по методу неопределённых коэффициентов:
+  \[
+    c_j = \dfrac{\lambda_j^{p-1}}{\prod_{l \neq j} (\lambda_j - \lambda_l)},
+  \]
+  Причём 
+  \[
+    Mh_n = \dfrac{a_0}{1 - \sum_{j=1}^p a_j},
+  \]
+  но дисперсии и ковариации можно получить только путём решения уравнения Юла-Уокера:
+  поочерёдно умножим уравнение \eqref{autoregress-seq-definition} на $h_i$, если умножим
+  на $h_n$ и возьмём математическое ожидание (то есть получим ковариацию в левой части):
+  \[
+    \begin{cases}
+      K_\eta(0) = a_1 K_\eta(1) + \dots + a_p K_\eta(p) + \sigma^2 \\
+      K_\eta(1) = a_1 K_\eta(0) + \dots + a_p K_\eta(p-1) + \dots, \\
+      \dots
+    \end{cases}
+  \]
+\end{theorem}
+
+Если можно оценить $K_\eta(j)$, то с помощью аналогичной системы уравнений можно получить
+сами коэффициенты $a_i$. Оценки для $K_\eta(j)$ получаются следующим образом:
+\[
+  \begin{cases}
+    \hat{K}_\eta(0) = \hat{D} X_n = \dfrac{1}{n} \sum_{j=1}^n (X_n - \hat{\mu})^2; \\
+    \hat{K}_\eta(j) = \dfrac{1}{n} \sum_{k=1}^{n-j} (X_k - \hat{\mu}_n) (X_{k+j} - \hat{\mu}_j)
+  \end{cases}
+\]
