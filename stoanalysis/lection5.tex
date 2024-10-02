@@ -1,0 +1,297 @@
+\section{Ортогональная случайная мера}
+Комбинация случайной величины и некоторой меры. Пусть дано вероятностное
+пространство $ (\Omega, \mathscr{F}, \mathsf{P}) $, а также $ (E, \mathscr{E})
+$, где $ \mathscr{E} $ --- $ \sigma $-алгебра подмножеств. Построим
+\emph{ортогональную случайную меру} $ z(\omega, \Delta) $, $ \Delta \in \mathscr
+E$, $ z\in\mathbb C $, $ z $ --- случайная величина.
+
+Назовём некоторые \textbf{свойства ортогональной случайной меры}.
+\begin{enumerate}
+  \item Для любого $ \Delta $ справедливо $
+    MZ(\omega,\Delta)\overline{Z(\omega,\Delta)} <\infty $.
+  \item Для любого $ \Delta $ справедливо $MZ(\omega,\Delta) = 0$.
+  \item Для $\Delta_1 \cap \Delta_2 = \varnothing$ справедливо
+  \[
+      Z(\omega, \Delta_1 + \Delta_2) = Z(\omega,\Delta_1) + Z(\omega, \Delta_2).
+  \]
+  \item $ \Delta_i \cap \Delta_j = \varnothing $, $ i\neq j $
+  \[
+    \Delta = \bigcup_k \Delta_k  M \biggl|Z(\omega, \Delta) - \sum_{k=1}^n
+    Z(\omega,\Delta_k) \biggr|^2 \to 0
+  \]
+  при $ n\to\infty $.
+\item \textsc{Ортогональность.} Для $ \Delta_1 \cap \Delta_2 = \varnothing $
+  справедливо
+\[
+  M\big[Z(\omega,\Delta_1) \cdot \overline{Z(\omega,\Delta_2)}\big] = 0.
+\]
+При этом 
+\[
+  M Z(\omega, \Delta)\overline{Z(\omega, \Delta)} = m(\Delta) \text{ ---
+  \emph{структурная функция меры}}.
+\]
+\end{enumerate}
+
+\begin{ex}
+  Пуассоновская случайная мера. $ \nu(\omega,\Delta) $ --- число событий в
+  пуассоновском потоке на $ \Delta $, $ E = [0, \infty) $, $
+  \mathscr{E} $ --- борелевские подмножества. Для $ \Delta \in
+  \mathscr{E} $ $ \pi(\Delta) < \infty $. При этом  
+  \[
+    P(\nu(\omega,\Delta)=k) = \frac{(\pi(\Delta))^k}{k!}e^{-\pi(\Delta)}, \quad
+    k = 0,1, \ldots.
+  \]
+  
+  Проверим свойства.
+  \begin{enumerate}
+    \item $ M\nu^2(\omega,\Delta) = \text{существ.} $ \checkmark
+    \item $ M\nu(\omega,\Delta) = \pi(\Delta) \neq 0 $. \cross
+    \item[3, 4.] автоматически. \checkmark
+    \item[5.] $ M\nu(\omega,\Delta_1)\overline{\nu(\omega,\Delta_2)} =
+      M\nu(\omega,\Delta_1)\nu(\omega, \Delta_2) = 0 $ (независимые величины).
+      \checkmark
+  \end{enumerate}
+  
+   %TODO дописать
+\end{ex}
+ 
+\begin{ex}
+  Винеровская случайная мера. Пусть $ W_t $ --- стационарный винеровский
+  процесс. 
+  \[
+      W(\omega, \Delta) = W_b - W_a
+  \]
+ \[
+   E = [0, +\infty) \quad \Delta = [a, b]
+ \]
+ $ \varepsilon $ 
+ На $ \varepislon $ продолжаем по теореме Каритоодори. 
+ \[
+     MW(\omega, \Delta) \overline(\omega,\Delta) = M(W_b - W_a)^2 = m(\Delta) =
+     \sigma^2(b-a) = (b-a).
+ \]
+  
+\[
+    MW(\omega, \Delta) = M(W_b - W_a) = 0
+\]
+ 
+\[
+  MW(\omega,\Delta_2) W(\omega, \Delta_2) = 0 (\text{незав., поскольку $
+  \Delta_1 \cap \Delta_2 = \varnothing $}).
+\]
+\end{ex} 
+
+Всё понятие было бы абстрактным, если бы не следующий пример.
+\begin{ex}
+  $ \xi_n = \sum_{k=1}^N Z_k e^{i\lambda_k n}, $ $ \lambda_i \in (-\pi, \pi) $.
+  $ MZ_i = 0 $, $ MZ_iZ_i = \sigma^2 $, $ MZ_iZ_j = 0 $, откуда $ MZ(\omega,\Delta) = 0
+  $.
+   
+ \[
+   Z(\omega, \Delta) = \sum_{k=1}^N z_k I(\lambda_k \in\Delta).
+ \]
+ 
+\[
+  MZ(\omega, \Delta_2)\overline{Z(\omega,\Delta_2)} = M\left(\sum_{k=1}^N
+  Z_kI(\lambda_k \in\Delta_2)\right) \left( \sum_{j=1}^n Z_j I(\lambda_j \in
+  \Delta_2) \right)  = 0.
+\]
+ 
+\begin{multline*}
+  MZ(\omega, \Delta)\overline{Z(\omega,\Delta)} = M\sum_{k=1}^NZ_k
+  I(\lambda_k\in\Delta)\sum_{j=1}^N\overline{Z}_j I(\lambda_j \in \Delta) =\\=
+  \sum_k \sum_j I(\lambda_k\in\Delta) I(\lambda_j\in\Delta) MZ_k\overline{Z_j} =
+  \sum_{k=1}^n \sigma^2_k I(\lambda_k \in \Delta) = G(\Delta)
+\end{multline*}
+ 
+ 
+\[
+    G(\Delta) = \int dG(\lambda),
+\]
+где $ G(\lambda) = \sum_{k=1}^n \sigma_k^2 I(\lambda - \lambda_k) $.
+
+ 
+\begin{align*}
+  K_\xi(n) &= \int\limits_{-\pi}^{\pi}e^{i\lambda n}\,dG(\lambda), \\
+  \xi_n &= \int\limits_{-\pi}^{\pi}e^{i\lambda n} Z(d\lambda)= e^{i\lambda_1 n}
+  Z_1 + e^{i\lambda_N} %TODO: дописать
+\end{align*}
+\end{ex}
+%TODO: рис ко всем примерам
+
+
+\subsection{Интеграл от неслучайной функции по ОСМ}
+$ \mathscr H $ --- гильбертово пространство комплексные с. в. $ M\xi\bar{\xi} < \infty $ 
+\[
+  (\xi, \eta) = M\dot{\xi} \dot{\bar{\eta}} = M\xi\bar{\eta} - M\xi\cdot
+  M\bar{\eta},
+\]
+ 
+$\mathscr{L}_2$ --- пространство комплексных (неслуч) функций на $ E $. 
+\[
+  \int_E f(\lambda)\overline{f(\lambda)} m(d\lambda) < \infty,
+\]
+ 
+\[
+  (f, g) = \int_E f(\lambda)\overline{g(\lambda)}md(\lambda)
+\]
+ 
+\[
+    \int_E f(\lambda)Z(d\lambda)
+\]
+1. $ f(\lambda) = \int_{k=1}^n f_k I(\lambda \in \Delta_k) $,
+$ \Delta_k \cap \Delta_j = \varnothing $, $ k\neq j $.
+ 
+\[
+  \int_E f(\lambda)Z(d\lambda) = \sum_{k=1}^n f_k Z(\omega,\Delta_k)
+\]
+
+Свойства.
+\begin{enumerate}
+  \item $ MI(f) = 0 $,  
+  \[
+    MI(f) = \sum_{k=1}^n f_k MZ(\omega, \Delta_k) = 0.
+  \]
+\item $ I(\alpha f +\beta g) = \alpha I(f) + \betaa I(g) $
+\item
+  \begin{multline*}
+    \cov(I(f), I(g)) = MI(f) \overline{I(g)} = \\ =
+    M \left[ \sum_{k=1}^n f_k
+      Z(\omega, \Delta_k) \overline{\sum_{j=1}^n g_j Z\left(\omega,\Delta_j\right)}
+    \right] = \sum_{k=1}^n f_k \bar{g}_k MZ(\omega, \Delta_k)
+    \overline{Z(\omega,\Delta_k)},
+  \end{multline*}
+\[
+  g = \sum_{k=1}^n g_k I(\lambda \in \Delta_k).
+\]
+ 
+\[
+  \int_E f(\lambda)\overline{g(\lambda)} m(d\lambda) = \sum_{k=1}^n f_k\bar{g}_k
+  m(d\lambda).
+\]
+\end{enumerate}
+
+\paragraph{2.} $ f $ --- произвольная неслучайная функция. Пусть $ f_n $ ---
+последовательность простых функций $ \| f - f_n \|_{\mathscr{L}_2} \to 0 $. 
+\begin{multline*}
+  \|I(f) - I(g)\|_{\mathscr{H}} = M \left[\sum_{k=1}^N(f_k - g_k)Z(\omega,
+  \Delta_k)\cdot \sum_{j=1}^N(f_j - g_j)Z(\omega,\Delta_j)\right] = \\ =
+  \sum_{k=1}^N
+  |f_k - g_k|^2m(\Delta_k) = \int_E |f-g|^2 m(d\lambda) =
+  \|f-g\|_{\mathscr{L}_2}.
+\end{multline*}
+Отсюда $ \|I(f_n) - I(f_m)\|_\mathscr{H} \to 0 $, откуда %TODO: дописать
+
+\begin{theorem}
+  Если $ \{\xi_n\} $ --- ССП, то существует ортогональная случайная мера $
+  Z_\xi(\omega, \Delta) $, такая что $ \xi_n =
+  \int\limits_{-\pi}^{\pi}e^{i\lambda n} \,dG_\xi(\lambda) $, где $ \Delta \in
+  \mathscr{E} $, $ E = [-\pi, \pi] $, $ \mathscr{E} $ --- борелевские множества,
+ \[
+     G_\xi(\Delta) = \int_\Delta d G_\xi(\lambda).
+ \]
+ --- структурная функция. То есть спектральная функция автоков функции является
+ структурной функцией меры $ Z_\xi $.
+\end{theorem}
+
+\begin{theorem}
+  Если $ \mathscr{H} $ --- пространство из линейной комбинации сечения ССП $
+  \{\xi_n\} $ и их ср.кв.пределов  
+  \[
+    \eta \in \mathscr{H} \implies \exist \Psi(\lambda)\colon \eta =
+    \int\limits_{-\pi}^{\pi}\Psi(\lambda)Z_\xi(d\lambda). 
+  \]
+\end{theorem}
+\begin{remark*}
+   
+ \[
+   \int\limits_{-\pi}^{\pi}(e^{i\lambda n} + e^{2i\lambda n})Z_\xi(d\lambda) =
+   \xi_{-n} + \xi_n.
+ \]
+\end{remark*} 
+
+\begin{definition}
+  $ \{\Dzeta_n\} $ называется \emph{стационарным линейным преобразованием} $
+  \{\xi_n\} $ в спектральной области, если $ \Dzeta_n =
+  \int\limits_{-\pi}^{\pi}e^{i\lambda n}\Phi(\lambda)Z_\xi(d\lambda) $.
+
+  $ \Phi(\lambda) $ --- частотная характеристика линейного преобразования, 
+  \[
+      \int\limits_{-\pi}^{\pi}|\Phi(\lambda)|^2 dG(\lambda) < \infty.
+  \]
+\end{definition}
+
+\begin{theorem}
+  %TODO: дописать
+
+   
+ \[
+   \Dzeta_n = \int\limits_{-\pi}^{\pi}e^{i\lambda n}\Phi(\lambda)
+   Z_\xi(d\lambda),
+ \]
+ 
+\end{theorem}
+\begin{proof}
+  \begin{multline*}
+    K_\Dzeta(n+m, m) = \cov(\Dzeta_{n+m}, \Dzeta_m) = \cov \left(
+      \int\limits_{-\pi}^{\pi}e^{i\lambda(n+m)}\Phi(\lambda)Z_\xi(d\lambda),
+    \int\limits_{-\pi}^{\pi}e^{i\lambda m}\Phi(\lambda) Z_\xi(d\lambda)\right) =
+    \\ =
+    \int\limits_{-\pi}^{\pi}e^{i\lambda(n+m)} \Phi(\lambda)e^{i\lambda m}
+      \Phi(\lambda)\,dG_\xi(\lambda) = \int\limits_{-\pi}^{\pi}e^{i\lambda n}
+      |\Phi(\lambda)|^2\,dG_\xi(\lambda)
+  \end{multline*}
+  не зависит от $ m $. 
+  \[
+    \Dzeta_n = \int\limits_{-\pi}^{\pi}e^{i\lambda n} Z_\dzeta(d\lambda) =
+    \int\limits_{-\pi}^{\pi}e^{i\lambda n}\Phi(\lambda)Z_\xi(d\lambda).
+  \]
+  
+\[
+  K_\dzeta(n) = \int\limits_{-\pi}^{\pi}e^{i\lambda n}
+  |\Phi(\lambda)|^2\,dG_\xi(\lambda) = \int\limits_{-\pi}^{\pi}e^{i\lambda
+  n}\,dG_\xi(\lambda).
+\]
+\end{proof}
+
+\begin{example}
+  Пусть $ \{\varepsilon_n\} $ --- стационарный белый шум. Тогда  
+  \[
+    \Phi(\lambda) = \sum_{m=-\infty}^\infty e^{-i\lambda m} h(m),
+  \]
+   
+ \[
+   h(m) = \frac{1}{2\pi}\int\limits_{-\pi}^{\pi}e^{i\lambda
+   m}\Phi(\lambda)\,d\lambda
+ \]
+  
+\[
+  \Dzeta_n = \int\limits_{-\pi}^{\pi}e^{i\lambda n}\Phi(\lambda)Z_\xi(d\lambda)
+  = \sum_{m=-\infty}^\infty h_m
+  \int\limits_{-\pi}^{\pi}e^{i\lambda(n-m)}Z_\xi(d\lambda) =
+  \sum_{m=-\infty}^{\infty}h_m\varepsilon_{n-m}
+\]
+(скользящее среднее). 
+ 
+\[
+  g_\varepsilon(\lambda) = \frac{1}{2\pi} \to g_\dzeta(\lambda) =
+  |\Phi(\lambda)|^2 \frac{1}{2\pi}
+\]
+\end{example}
+
+\begin{example}
+  $\ARMA(p, q)$.  $ \xi_n - \sum_{k=1}^p b_k \xi_{n-k} = \sum_{k=1}^q a_k
+  \varepsilon_{n-k} $, $ n \in \mathbb Z $.
+
+   
+ \[
+   \xi_n - \sum_{k=1}^p \xi_{n-k} b_k = \int\limits_{-\pi}^{\pi}lr(e^{i\lambda
+   n} - \sum_{k=1}^p b_k e^{i\lambda(n-k)})Z_\xi(d\lambda)
+ \]
+ --- левая часть.
+\end{example}
+
+Прогнозирование достаточно лёгкое. У фильтрации сложное практическое применение,
+и она решается другим способом.
+
+
