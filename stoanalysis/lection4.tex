@@ -1,0 +1,215 @@
+\section{Модель $ARMA(p, q)$}
+
+\begin{definition}
+  Моделью $ARMA(p, q)$ называется:
+  \[
+    h_n - \left( a_1 h_{n-1} + \dots + a_p h_{n-p} \right) = a_0 + \sigma \left( \varepsilon_n + b_1 \varepsilon_{n-1} + \dots + b_q \varepsilon_{n-q} \right),
+    n \in \mathbb{Z}.
+  \]
+\end{definition}
+
+
+В частом случае $ARMA(0, q) \equiv MA(q)$, $ARMA(p, 0) \equiv AR(p)$.
+
+\subsection{Характеристики}
+
+Представление в виде одностороннего скользящего среднего:
+\[
+  h_n = \mu + \sum_{k=0}^\infty \alpha_k \varepsilon_{n-k}
+\]
+если смогли получить такое представление, то
+\begin{enumerate}
+  \item $Mh_n = \mu$ (в случае $M\varepsilon_k = 0$);
+  \item $Dh_n = \sum_{k=0}^\infty \alpha_k^2$ (при условии, что этот ряд сходиться);
+  \item $K_h(j) = \sum_{k=0}^\infty \alpha_{k+j} \alpha_k$.
+\end{enumerate}
+
+\paragraph{Как получить представление в виде одностороннего скользящего среднего?}
+Представим модель через оператор $L$:
+\[
+  \left( 1 - a_1 L - a_2 L^2 - \dots - a_p L^p \right) h_n = a_0 + \sigma \left( \varepsilon_n + \sum_{j=0}^q b_q \varepsilon_{n-j} \right).
+\]
+
+В случае $p = 1$: $(1 - a_1 L) h_n = \omega_n$. Тогда
+$(1 - a_1 L)^{-1} = \sum_{k=0}^\infty a_1^k L^k$.
+
+\begin{theorem}
+  Если в $ARMA(p, q)$ все корни характеристического уравнения
+  \[
+    1 - a_1 z - a_2 z^2 - \dots - a_p z^p = 0
+  \]
+  различны и по модулю больше 1, то модель стационарная и обратный опрератор
+  \[
+    (1 - a_1 L - \dots - a_p L^p) = \sum_{j=0}^\infty \left( A_1 (\lambda_1)^j + A_2 (\lambda_2)^j + \dots + A^p (\lambda_p)^j \right) L^j,
+  \]
+  где $\lambda_i = \dfrac{1}{z_i}$, $z_i$ -- корни характеристического уравнения. 
+  Тогда
+  \[
+    h_n = \left( 1 - a_1 L - \dots - a_p L^p \right)^{-1} \left[ \dots \right]
+    = \mu + \sum_{j=0}^\infty \alpha_j \varepsilon_{n-j}.
+  \]
+\end{theorem}
+Для того, чтобы получить $\alpha_j$ можно подставить такое представление в определение модели $ARMA(p, q)$.
+
+
+\section{Спектральные представления стационарной случайной последовательностью}
+
+Пусть $\xi = \alpha_\xi + i \beta_\xi$,
+$M\alpha_\xi = M\beta_\xi = 0, M \left( \alpha_\xi^2 + \beta_\xi^2 \right) < \infty$.
+Скалярное произведение $(\xi, \eta) = M(\xi \cdot \bar{\eta})$,
+где $\bar{\eta}$ -- комплексно-сопряженное к $\eta$.
+И ковариация $\cov(\xi-M\xi, \eta-M\eta) = M\xi\bar{\eta} - M\xi M\bar{\eta}$.
+
+Совершенно очевидно, что построенное таким образом пространство случайных величин будет
+гильбертовым.
+
+\begin{definition}
+  Случайная последовательность называется стационарной, если $Mh_n = a, k_h (n, m) = K(n-m)$.
+\end{definition}
+
+\paragraph{Свойства автоковариационной функции стационарной случайной последовательности}
+
+\begin{enumerate}
+  \item $K(-n) = M(\xi_{j-n}, \bar{\xi}_j) = M(\xi_k, \bar{\xi}_{n+k}) = \bar{M\xi_{n+k} \bar{\xi}_k} = \bar{K(n)}$;
+  \item $|K_\xi(n)| \leqslant K_\xi(0)$;
+    \begin{proof}
+      Неравенство Коши-Буняковского: $|K_\xi(n)|^2 = \left( \cov(\xi_{n+j}, \xi_n) \right)^2 \leqslant \cov(\xi_{n+j}, \xi_{n+j}) \cdot \cov(\xi_n, \xi_n) = ()$ % TODO дописать доказательство
+    \end{proof}
+
+  \item неотрицательная определённость: $\forall M \forall a_1, \dots, a_M \in \mathbb{C} \forall n_1, n_2, \dots, n_N : \sum_{i, j = 1}^N a_i \bar{a}_j K(n_i - n_j) \geqslant 0$.
+    \begin{proof}
+      \[
+        \sum_{i,j=1}^N a_i \bar{a}_j K(n_i - n_j) = \sum_{i, j=1}^N a_i \bar{a}_j M\xi_{n_i} \bar{\xi}_{n_j}
+      \]
+    \end{proof}
+\end{enumerate}
+
+\begin{theorem}[Герглотца]
+  Если $K_\xi(j)$ удовлетворяет условиями 1-3, то $\exists G_\xi(\lambda), \lambda\in[-\pi, \pi] : G_\xi(-\pi) = 0$, $G(\lambda)$ -- монотонно неубывает, непрерывна слева и $\forall j : K_\xi(j) = \int\limits_{-\pi}^\pi e^{i\lambda j} dG_\xi(\lambda)$, $G_\xi$ называется спектральной функции.
+
+  Если $dG_\xi(\lambda) = g_\xi(\lambda) \, d\lambda$, то $K_\xi(j) = \int\limits_{-\pi}^\pi e^{i\lambda j} g_\xi(\lambda) \, d\lambda$, и тогда $g_\xi(\lambda) = \dfrac{1}{2\pi} \sum_{j=-\infty}^{+\infty} e^{-i\lambda j} K_\xi(j)$.
+\end{theorem}
+
+\begin{ex}
+  Пусть $\xi_n = \xi_0 \cdot g(0) \cdot e^{i\lambda_0 n}$,
+  где $g(0), \lambda_0 \in [-\pi, \pi]$ -- некоторые постоянные; $M\xi_0 = 0, D\xi_0 = 1$.
+
+  \[
+    K_\xi(j) = M(\xi_{n+j}, \bar{\xi}_n) = M \left[ \xi_0 g(0) e^{i \lambda_0 (n+j)} \cdot \bar{\xi}_0 \cdot \bar{g(0)} \cdot e^{-i \lambda_0 n} \right] = |g(0)|^2 e^{i\lambda_0 j}
+  \]
+  -- зависит только от разности.
+
+  $|g(0)|^2 e^{i \lambda_0 j} = K_\xi(j) = \int\limits_{-\pi}^\pi e^{i\lambda_0 j} dG_\xi(\lambda)$,
+  а спектральная функция должна быть кусочно-постоянной, и в точке $\lambda_0$ иметь скачок высотой $|g(0)|^2$:
+  $g_\xi(\lambda) = |g(0)|^2 \cdot \delta(\lambda - \lambda_0)$.
+\end{ex}
+
+\begin{ex}
+  Пусть теперь $\xi_n = \sum_{k=1}^N z_k e^{i\lambda_k n}$, где $\lambda_1, \dots, \lambda_N \in (-\pi, \pi)$, $z_1, \dots, z_N$ -- случайные величины с $Mz_k = 0, M(z_k \bar{z}_j) = \sigma^2_k \delta_{K_j}$.
+
+  Проверим стационарность:
+  \begin{enumerate}
+    \item $M\xi_n = \sum_{k=1}^N e^{i\lambda_k n} Mz_k = 0$;
+    \item $K_\xi(j) = M(\xi_{n+j}, \bar{\xi}_n) = \dots = \sum_{k=1}^N \sigma^2_k e^{i \lambda_k j}$ -- не зависит от $n$.
+  \end{enumerate}
+
+  \[
+    G_\xi(\lambda) = \sum_{k=1}^N \sigma^2_k I(\lambda-\lambda_k > 0).
+  \]
+  \[
+    g_\xi(\lambda) = \sum_{k=1}^N \sigma_k^2 \delta(\lambda - \lambda_k).
+  \]
+\end{ex}
+
+\begin{ex}
+  Двустороннее скользящее среднее:
+  $\xi_n = \sum_{-\infty}^{+\infty} a_k \varepsilon_{n-k}, n \in \mathbb{Z}$,
+  $M\varepsilon_k = 0$, $\sum a_k^2 < \infty$.
+  Эта модель стационарна.
+  \[
+    K_\xi(j) = \sum_{k=-\infty}^{+\infty}a_{k+j} \bar{a}_k
+  \]
+
+  По теореме Герблотца:
+  \begin{multline*}
+    g_\xi(\lambda) = \dfrac{1}{2\pi} \sum_{j=-\infty}^{+\infty} e^{-i\lambda j} K_\xi(j)
+    = \dfrac{1}{2\pi} \sum_{j=-\infty}^{+\infty} \sum_{k=-\infty}^{+\infty} e^{-i \lambda j} a_{k+j} \bar{a}_k
+    = \dfrac{1}{2\pi} \sum_{j=-\infty}^{+\infty} \sum_{k=-\infty}^{+\infty} e^{-i \lambda (k+j)} a_{k+j} \overline{e^{-i\lambda j}} \bar{a}_k = \\
+    = \dfrac{1}{2\pi} \sum_{j=-\infty}^{+\infty} e^{-i \lambda (k+j)} a_{k+j} \overline{\left(\sum_{k=-\infty}^{+\infty} e^{-i\lambda j} a_k \right)}
+    = \dfrac{1}{2\pi} \left| \sum_{k=-\infty}^{+\infty} a_k e^{-i\lambda k} \right|^2.
+  \end{multline*}
+\end{ex}
+
+\begin{center}
+  \begin{tabular}{|c|c|c|}
+    \hline
+    ССП & АКФ & спектральные характеристики \\
+    \hline
+
+
+    $\begin{aligned}
+      &\xi_n = \xi_0 g(0) e^{i\lambda_0 n}, \\
+      &M\xi_0=0, D\xi_0=1
+    \end{aligned}$ &
+    $K_\xi(j) = |g(0)|^2 e^{i\lambda_0 j}$ &
+    $G_\xi(\lambda) = |g(0)|^2 I(\lambda-\lambda_0)$ \\
+    \hline
+
+
+    $\begin{aligned}
+      &\xi_n = \sum_{k=1}^N z_k e^{i\lambda_k n}, \\
+      &-\pi < \lambda_1 < \dots < \pi, \\
+      &Mz_k=0, Dz_k=\sigma^2_k, \\
+      &Mz_k \bar{z}_j=0
+    \end{aligned}$ &
+    $K_\xi(j)=\sum_{k=1}^N \sigma^2_k e^{i\lambda_k j}$ &
+    $\begin{aligned}
+      &G_\xi(\lambda) = \sum \sigma_k^2 I(\lambda-\lambda_k), \\
+      &g_\xi(\lambda) = \sum \sigma_k^2 \delta(\lambda-\lambda_k)
+    \end{aligned}$ \\
+    \hline
+
+    $\begin{aligned}
+      &\varepsilon_{-1}, \varepsilon_0, \dots \\
+      &M\varepsilon_k = 0, M\varepsilon_k \varepsilon_j = \sigma^2 \delta_{kj}
+    \end{aligned}$ &
+    $K_\xi(j) = \sigma^2 \delta_{0j}$ &
+    $g_\xi(\lambda) = \dfrac{\sigma^2}{2\pi}$\\
+    \hline
+
+    $\begin{aligned}
+      &MA(\infty) \\
+      &\xi_n=\sum_{k=-\infty}^{+\infty} a_k \varepsilon_{n-k} \\
+      &\sum |a_k|^2 < \infty
+    \end{aligned}$ &
+    $K_\xi(j) = \sum_j a_{k+j} \bar{a}_k$ &
+    $g_\xi(\lambda) = \dfrac{1}{2\pi} \left| \sum_k a_k e^{-i\lambda k} \right|^2$ \\
+    \hline
+
+    $\begin{aligned}
+      &MA(q) \\
+      &\xi_n=\sum_{k=0}^q a_k \varepsilon_{n-k}
+    \end{aligned}$ &
+    $ K_\xi(j) = \sum\limits_{k=0}^{q-n} a_{k+j} \bar{a}_k $ &
+    $g_\xi(\lambda) = \dfrac{1}{2\pi} \left| \sum_{k=0}^{q-n} a_k e^{-i\lambda k} \right|^2$ \\
+    \hline
+
+    $\begin{aligned}
+      &AR(p) \\
+      &\xi_n + \sum_{k=1}^n b_k \xi_{n-k} = \varepsilon_n
+    \end{aligned}$ &
+    $K_\xi(j)$ из уравнения ЮУ &
+    $g_\xi(\lambda) = \dfrac{1}{2\pi} \dfrac{1}{ \left| 1+\sum_{k=1}^p b_k e^{-i\lambda k}\right|^2 }$ \\
+    \hline
+
+    $\begin{aligned}
+      &ARMA(p, q) \\
+      \dots
+    \end{aligned}$ &
+    $\dots$ &
+    $g_\xi(\lambda) = \dfrac{ \left| \sum_{j=1}^q a_j e^{-i\lambda j} \right|^2 }{2\pi \left| 1 + \sum_{j=1}^{p} b_k e^{-i\lambda j} \right|^2 }$ \\
+    \hline
+  \end{tabular}
+\end{center}
+
+
