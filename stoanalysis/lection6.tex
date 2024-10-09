@@ -1,0 +1,220 @@
+\paragraph{Resum\'e}
+
+Если ССП $\xi_n = \sum_{k=-\infty}^\infty a_k \varepsilon_{n-k}$,
+тогда $K_\xi(n) = \sum_{k=-\infty}^\infty a_{k+n} \bar{a}_k$
+
+% TODO дописать начало, Андрей сфоткал
+
+$\exists g_\xi(\lambda) \geqslant 0 \Leftrightarrow \xi_n = \sum_{k=-\infty}^\infty$ -- 
+существование спектральной плотности эквивалентно представимости этой последовательности в 
+виде двустороннего скользящего среднего.
+
+\[
+  \xi_n = \underbrace{\sum_{k=0}^{+\infty} a_k \varepsilon_{n-k}}_\text{регулярная часть (физически реализуемый фильтр)} 
+  + 
+  \underbrace{\sum_{k=-1}^{-\infty} a_k \varepsilon_{n-k}}_\text{сингулярная}
+\]
+Есть ещё такая теорема --
+\emph{теорема Вольда}, которая говорит о разложимости в виде: $\xi_n = \xi_n^P + \xi_n^S$.
+
+Сингулярная часть физически не реализуемая.
+
+\begin{theorem}[Колмогорова]
+  ССП $\xi_n$ представима в виде одностороннего скользящего среднего тогда и только тогда, когда
+  его спектральная плотность принадлежит классу таких, у которых интеграл от логарифма больше 
+  минус бесконечности:
+  \[
+    \xi_n = \sum_{k=0}^{+\infty} a_k \varepsilon_{n-k} \Leftrightarrow
+    \int\limits_{-\pi}^\pi \ln g_\xi(\lambda) \, d\lambda > -\infty
+  \]
+
+  В частности, $g_\xi(\lambda) > 0$ почти всюду.
+
+  Здесь можно еще сказать про принадлежность этой функции классу Харви.
+\end{theorem}
+
+\begin{remark}
+  Почти периодическая последовательность $\xi_n = \sum_{k=1}^N \sigma_k e^{i\lambda_k n}$
+  не является регулярной, также как и не имеет спектральной плотности.
+\end{remark}
+
+\begin{remark}
+  Рассмотрим последовательность с автоковариационной функцией вида:
+  \[
+    K_\xi(n) = \begin{cases}
+      1, n = 0, \\
+      \dfrac{\sin na}{na}, n\neq 0
+    \end{cases}
+  \]
+  тогда $g_\xi(\lambda) = \dfrac{1}{2\pi} I(|\lambda| < a) \geqslant 0$.
+  $\xi_n$ может быть представлена в виде двустороннего скользящего среднего, но
+  не является регулярной.
+\end{remark}
+
+\section{Прогнозирование регулярных ССП}
+
+Введём обозначение:
+$\xi^m = \left( \xi_{m}, \xi_{m-1}, \dots \right) $ -- вектор, содержащий информацию о прошлом, а
+$\varepsilon^m = \left( \varepsilon_m, \varepsilon_{m-1}, \dots \right) $.
+
+Пусть $\mathcal{H}(\xi^m)$ -- гильбертово пространство линейных комбинаций $\xi^m$,
+тогда: $\mathcal{H}(\xi^m) = \mathcal{H}(\varepsilon^m).$
+
+В силу стационарности, задачу прогнозирования можно поставить проще: $\hat{\xi}_{n+m}$ выразить
+через $\xi_m, \xi_{m-1}, \dots$ и эта задача эквивалентна тому, что:
+$\hat{\xi}_n$ через $\xi_0, \xi_{-1}, \dots$.
+
+\begin{multline*}
+  \hat{\xi}_n = M(\xi_n | \xi_0, \xi_{-1}, \dots) =
+  M \left( \left. \sum_{k=0}^{+\infty} a_k \varepsilon_{n-k} \right| \varepsilon_0, \varepsilon_1, \dots \right) =
+    M \left( \left. \sum_{k=0}^{+\infty} a_k \varepsilon_{n-k} + \sum_{k=0}^{n-1} a_k \varepsilon_{n-k} \right| \varepsilon_0, \varepsilon_{n-1}, \dots \right) = \\
+      = \sum_{k=n}^{+\infty} a_k\varepsilon_{n-k} + \sum_{k=0}^{n-1} a_k M\varepsilon_{n-k}
+      = \sum_{k=n}^{+\infty} a_k \varepsilon_{n-k}
+\end{multline*}
+-- предсказали через $\varepsilon$, но надо через $\xi$.
+
+Посчитаем еще ошибку:
+\[
+  \Delta = M(\hat{\xi}_n - \xi_n)^2 = M |\sum a_k \varepsilon_{n-k}|^2 = \sum_{k=0}^{n-1} |a_k|^2
+\]
+
+\begin{theorem}
+  Если регулярный ССП $\xi_n = \sum_{k=0}^{+\infty} a_k \varepsilon_{n-k}$ с
+  спектральной плотностью $g_\xi(\lambda) = \dfrac{1}{2\pi} |\varphi(e^{i\lambda})|^2,$
+  причём $\varphi(z) = \sum_{k=0}^{+\infty} a_k z^k$ имеет радиус сходимости больше 1,
+  не имеет нулей в $|z| \leqslant 1$, тогда:
+  \[
+    \hat{\xi}_n = \int\limits_{-\pi}^\pi \hat{\varphi}_n(\lambda) Z_\xi(d\lambda),
+  \]
+  где $\hat{\varphi}_n(\lambda) = e^{i\lambda n} \dfrac{\varphi_n(e^{-i\lambda)}}{\varphi(e^{-i\lambda})}$, $\varphi_n(z) = \sum_{k=n}^{+\infty} a_k z^k$.
+\end{theorem}
+\begin{proof}
+  \[
+    \hat{\xi}_n = \sum_{k=n}^\infty a_k \varepsilon_{n-k} =
+    \sum_{k=n}^\infty a_k \int\limits_{-\pi}^\pi e^{-i\lambda (n-k)} \, Z_\varepsilon(d\lambda)
+    =
+    \int\limits_{-\pi}^\pi e^{i\lambda n} \left( \sum_{k=n}^\infty a_k e^{-i\lambda k} \right) \, Z_\varepsilon(d\lambda)
+  \]
+  Причём т.к.
+  \[
+    \xi_n = \sum_{k=0}^\infty a_k \varepsilon_{n-k} = \int\limits_{-\pi}^\pi e^{i\lambda n} \underbrace{\sum_{k=0}^\infty a_k e^{-i\lambda k} \, Z_\varepsilon(d\lambda)}_{Z_\xi(d\lambda)}
+  \]
+  тогда можно выразить:
+  \[
+    \hat{\xi}_n = \int\limits_{-\pi}^\pi e^{i\lambda n} \dfrac{\sum_{k=n}^\infty a_k e^{-i\lambda k}}{\sum_{k=0}^\infty a_k e^{-i\lambda k}} Z_\xi(d\lambda)
+  \]
+\end{proof}
+
+\begin{corollary}
+  Если $\hat{\varphi}_n (\lambda) = C_0 + C_1 e^{-i\lambda} + C_2 e^{-2i\lambda} + \dots$, то
+  $\hat{\xi}_n = c_0 \xi_0 + c_1 \xi_{-1} + \dots$.
+\end{corollary}
+
+\begin{ex}
+  $g_\xi(\lambda) = \dfrac{1}{2\pi} (5 + 4 \cos \lambda) = \dfrac{1}{2\pi} (5 + 2e^{i\lambda} + 2e^{-i\lambda})$
+  Необходимо проверить условия теоремы, для этого надо найти <<корень>> этой функции, т.е.
+  представить $g_\xi(\lambda) = \dfrac{1}{2\pi} |\varphi(e^{-i\lambda})|^2$.
+
+  Найдем представление в виде: $(a+be^{-i\lambda})(a+be^{i\lambda}) = a^2 + b^2 + 2ab \cos\lambda$,
+  тогда сравнивая с выражением для $g_\xi$ получаем следующие возможные пары решений $(a; b)$:
+  $(2, 1), (1, 2), (-1, -2), (-2, -1)$.
+  У полученной функции $\varphi(z) = a+bz$ не должно быть нулей в круге $|z| \leqslant 1$, что
+  есть то же самое, что $\left|- \dfrac{a}{b}\right| > 1$, тогда получается, что подходят только
+  решения $(2, 1)$ и $(-2, -1)$:
+  \[
+    \varphi(z) = 2 + z = \sum_{k=0}^\infty a_k z^k \rightarrow 
+    \varphi(e^{-i\lambda}) = 2 + e^{-i\lambda}.
+  \]
+  \[
+    \varphi_1(z) = z, \quad
+    \varphi_n (z) = 0, n\geqslant 0.
+  \]
+
+  \begin{multline*}
+    \hat{\xi}_1 = \int\limits_{-\pi}^\pi e^{i\lambda} \dfrac{\varphi_1(e^{-i\lambda}}{\varphi(e^{-i\lambda}} \, Z_\xi(d\lambda) = \int\limits_{-\pi}^\pi \dfrac{Z_\xi(d\lambda)}{2+e^{-i\lambda}} =
+    \dfrac{1}{2} \int\limits_{-\pi}^\pi \dfrac{Z_\xi(d\lambda)}{1 + e{-i\lambda} / 2} =
+    \dfrac{1}{2} \int\limits_{-\pi}^\pi \sum_{k=0}^\infty \left( - \dfrac{1}{2} e^{-i\lambda} \right)^k Z_\xi(d\lambda) = \\
+    = \sum_{k=0}^\infty \dfrac{(-1)^k}{2^{k+1}} \int\limits_{-\pi}^\pi e^{-i\lambda k} Z_\xi(d\lambda) =
+    \sum_{k=0}^\infty \dfrac{(-1)^k}{2^{k+1}} \xi_{-k}
+  \end{multline*}
+
+  Но для $n > 1$: $\hat{\xi}_n = 0$. Почему так происходит?
+  Так как
+  \[
+    g_\xi(\lambda) = \dfrac{1}{2\pi} \sum_{n=-\infty}^{+\infty} e^{- i\lambda n} K_\xi(n) = \dfrac{1}{2\pi} (5+2e^{-i\lambda} + 2e^{i\lambda}),
+  \]
+  т.е. $K_\xi(0) = 5, K_\xi(\pm 1) = 2,$ а при $|n| > 1: K_\xi(n) = 0$.
+\end{ex}
+
+\begin{ex}
+  $K_\xi(n) = a^{|n|}, |a| < 1$. Найти прогноз $\hat{\xi}_n = M(\xi_n | \xi_0, \xi_{-1}, \dots).$
+
+  \begin{multline*}
+    g_\xi(\lambda) = \dfrac{1}{2\pi} \sum_{n=-\infty}^\infty e^{- i\lambda n} a^{|n|} =
+    \dfrac{1}{2\pi} \sum_{n=0}^\infty e^{- i\lambda n} a^n + \dfrac{1}{2\pi}\sum_{n=-1}^{-\infty} e^{-i\lambda n} a^{-n} =
+    \dfrac{1}{2\pi} \left( \dfrac{1}{1 - ae^{-i\lambda}} + \dfrac{ae^{i\lambda}}{1 - ae^{i\lambda}} \right) = \\
+    = \dfrac{1}{2\pi} \dfrac{1 - a^2}{(1-ae^{-i\lambda})(1-ae^{i\lambda})} = 
+    \dfrac{1}{2\pi} \left| \dfrac{\sqrt{1-a^2}}{1-ae^{-i\lambda}} \right|^2
+  \end{multline*}
+  Тогда $\varphi$ -- не имеет нулей
+  в $|z| \leqslant 1$ ($1/a > 1$).
+  \[
+    \varphi(e^{-i\lambda}) = \dfrac{\sqrt{1-a^2}}{1 - ae^{-i\lambda}} = 
+    \sqrt{1-a^2} = \sum_{k=0}^\infty a^k e^{-i\lambda k}
+  \]
+  \[
+    \hat{\varphi}_n(\lambda) = e^{i\lambda n} \dfrac{\varphi_n}{\varphi} = e^{i\lambda n} \dfrac{\sum_{k=n}^\infty a^k e^{-i\lambda k}}{\sum_{k=0}^\infty a^k e^{-i\lambda k}} = e^{i\lambda n} a^n e^{-i\lambda n} = a^n
+  \]
+  Тогда
+  \[
+    \hat{\xi}_n = \int\limits_{-\pi}^\pi \hat{\varphi}_n(\lambda) Z_\xi(d\lambda) = 
+    \int\limits_{-\pi}^\pi \underbrace{1}_{e^{i\lambda 0}} a^n Z_\xi(d\lambda) = a^n \xi_0.
+  \]
+\end{ex}
+
+\section{Задача фильтрации}
+
+Имеется двумерная последовательность $(\theta_n, \xi_n)$, причём $\theta_n$ -- наблюдаемая
+компонента, а $\xi_n$ -- ненаблюдаемая. Задача фильтрации формулируется так:
+\[
+  \hat{\xi}_n = M(\xi_n | \theta_n, \theta_{n-1}, \dots)
+\]
+
+\[
+  \theta_n = \int\limits_{-\pi}^\pi e^{i\lambda n} Z_\theta(d\lambda), \quad
+  \xi_n = \int\limits_{-\pi}^\pi e^{i\lambda n} Z_\xi(d\lambda)
+\]
+
+\begin{definition}
+  \emph{Взаимная спектральная функция}:
+  $G_{\xi \theta} (\Delta) = M Z_\xi(\Delta) \overline{Z_\theta(d\lambda)}.$
+
+  $R_{\xi\theta}(n) = \cov (\xi_{n+k}, \theta_k) = \int\limits_{-\pi}^\pi e^{i\lambda n} G_{\xi\theta}(d\lambda)$
+\end{definition}
+
+По сути, задача фильтрации состоит в нахождении такой функции $\hat{\varphi}_n$, что:
+$\hat{\xi}_n = \int\limits_{-\pi}^\pi \hat{\varphi}_n(\lambda) Z_\theta(d\lambda)$,
+причём $\hat{\varphi}_n(\lambda) = \mathcal{H}(\theta^n) = \mathcal{H}( \theta_n, \theta_{n-1}, \dots )$,
+причём $\hat{\xi}_n - \xi_n \perp \mathcal{H}(\theta^n)$.
+
+\begin{theorem}
+  Если $G_{\xi\theta} (\lambda)$ имеет спектральную плотность $g_{\xi\theta} (\lambda)$, тогда 
+  $\hat{\varphi}_n(\lambda) = e^{i\lambda n} \dfrac{g_{\xi\theta}(\lambda)}{g_\theta(\lambda)}$.
+\end{theorem}
+\begin{proof}
+  Ортогональность $\hat{\xi}_n - \xi_n \perp \mathcal{H}(\theta^n)$ означает, что 
+  $0 = M(\hat{\xi}_n - \xi_n) \bar{\theta}_m \forall m \leqslant n$ тогда:
+  \[
+    M\hat{\xi}_n \bar{\theta}_m = \int\limits_{-\pi}^\pi e^{-i\lambda m} \hat{\varphi}_n (\lambda) \, \underbrace{g_\theta(\lambda) d\lambda}_{dG_\theta(\lambda)}
+  \]
+  \[
+    M\xi_n \hat{\theta}_m = \int\limits_{-\pi}^\pi e^{i\lambda(n-m)} g_{\xi\theta} (\lambda) d\lambda
+  \]
+  Ортогональность тогда будет означать, что
+  \[
+    \int\limits_{-\pi}^\pi e^{i\lambda (n-m)} \left(\underbrace{
+      e^{-i\lambda m}\hat{\varphi}_n (\lambda) g_\theta(\lambda) -
+      g_{\xi\theta}(\lambda)
+  }_{=0}\right) d\lambda = 0
+  \]
+\end{proof}
