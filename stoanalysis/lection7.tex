@@ -1,0 +1,135 @@
+\section{Фильтр КАЛмана}
+
+\begin{theorem}
+  $(\xi, \eta)$ -- векторные случайные величины (размерности могут быть разными) тогда 
+  \[
+    \hat{\xi} = M\xi + \Sigma_{\xi\eta} \Sigma^{-1}_{\eta} (\eta - M\eta),
+  \]
+  где $\Sigma_\eta = \cov (\eta_i, \eta_j)$.
+
+  И ошибка:
+  \[
+    \Delta = \Sigma \xi - \Sigma_{\xi\eta} \Sigma^{-1} \Sigma_{\eta \xi}
+  \]
+\end{theorem}
+\begin{proof}
+  Прогноз линейно выражается:
+  \[
+    \hat{\xi} - M\xi = \alpha (\eta - M\eta),
+  \]
+  где $\alpha$ -- некоторая матрица.
+
+  $\hat{\xi} - \xi \perp \eta; \hat{\xi} - M\hat{\xi} \perp C \Rightarrow \cov(\hat{\xi}-\xi, \eta) = 0 = \Sigma_{\hat{\xi}-\xi, \eta}$
+
+  Домножим на $(\hat{\xi}-\xi)^T$ справа и возьмём математическое ожидание:
+  \begin{multline*}
+    M(\hat{\xi}-M\hat{\xi})(\hat{\xi}-\xi)^T \overset{\text{т.к. $\hat{\xi} - M\hat{\xi} \perp \hat{\xi} - \xi$}}{=} 0 = M\alpha (\eta-M\eta)(\hat{\xi}-\xi)^T = \\
+    = M\alpha(\eta-M\eta)(\hat{\xi} - M\xi - (\xi-M\xi))^T = 
+    M\alpha(\eta - M\eta)(\hat{\xi} - M\xi)^T - M\alpha(\eta-M\eta)(\xi - M\xi)^T = \\
+    = \alpha M(\eta-M\eta)(\eta-M\eta)^T\alpha - \alpha M(\eta-M\eta)(\xi-M\xi)^T
+  \end{multline*}
+  Тогда:
+  \[
+    \alpha \Sigma_\eta \alpha^T = \alpha \Sigma_{\eta\xi}; \alpha(\Sigma_{\eta\xi} - \Sigma_{\eta} \alpha^T) = 0 \Rightarrow \Sigma_\eta \alpha^T = \Sigma_{\eta\xi} \Rightarrow \alpha = \Sigma_{\eta\xi}^T (\Sigma_{\eta}^{-1})^T = \Sigma_{\xi\eta} \Sigma_{\eta}^{-1}
+  \]
+
+  Теперь посчитаем ошибку:
+  \begin{multline*}
+    \Delta = M(\hat{\xi}-\xi)(\hat{\xi}-\xi)^T = M \left[ M\xi - \Sigma_{\xi\eta}\Sigma_{\eta}^{-1} (\eta-M\eta) - \xi \right] = \dots = \\
+    = M(\xi-M\xi)(\xi-M\xi)^T - M\Sigma_{\xi\eta} \Sigma_{\eta}^{-1} (\eta-M\eta)(\xi-M\xi)^T - M(\xi-M\xi)(\Sigma_{\xi\eta} \Sigma_{\eta}^{-1} (\eta-M\eta)^T =
+  \end{multline*}
+  % TODO дописать про ошибку
+\end{proof}
+
+\paragraph{Частный случай $\eta = C\xi + \varepsilon$.} Пусть $\xi \sim N(M\xi; \Sigma_\xi)$,
+$\varepsilon \sim N(M\varepsilon; \Sigma_\varepsilon)$, $\xi$ и $\varepsilon$ -- независимы.
+Пусть мы наблюдаем $\eta$ и необходимо получить оценку для $\xi$.
+
+\[
+  \hat{\xi} = M\xi + \Sigma_{\xi\eta} \Sigma_{\eta}^{-1} (\eta - M\eta)
+\]
+
+Найдём всё что здесь надо: $ M\eta = C M\xi + M\varepsilon$, 
+\begin{multline*}
+  \Sigma_{\xi\eta} = M(\xi-M\xi)(\eta-M\eta)^T = \\
+  M(\xi-M\xi)( C\xi+\varepsilon - CM\xi - M\varepsilon )^T = \\
+  = M(\xi-M\xi)\left( C(\xi-M\xi)+ \varepsilon - M\varepsilon \right)^T = 
+  M(\xi-M\xi)(\xi-M\xi)^T C^T + M(\xi-M\xi)(\varepsilon-M\varepsilon)^T = \Sigma_\xi C^T
+\end{multline*}
+
+\[
+  \Sigma_{\eta} = M( C(\xi-M\xi) + \varepsilon-M\varepsilon )( C(\xi-M\xi) + \varepsilon-M\varepsilon )^T =
+  C \Sigma_\xi C^T + \Sigma_\varepsilon
+\]
+
+Тогда:
+\[
+  \hat{\xi} = M\xi + \Sigma_\xi C^T \left(C \Sigma_\xi C^T + \Sigma_\varepsilon\right)^{-1} \left(\eta-CM\xi - M\varepsilon\right).
+\]
+
+Найдём ошибку:
+\[
+  \hat{p} = \Sigma_\xi - \Sigma_{\xi\eta} \Sigma_{\eta}^{-1} \Sigma_{\eta\xi} =
+  \Sigma_\xi - \Sigma_\xi C^T (C\Sigma_\xi C^T + \Sigma_\varepsilon)^{-1} C \underbrace{\Sigma_\xi^T }_{=\Sigma_\xi}
+\]
+
+\subsection{Рекуррентный фильтр Калмана}
+
+Пусть наблюдается последовательность $\eta_n = C_n \xi_n + v_n, n \geqslant 1$,
+где $v_n \sim N(Mv_n, \Sigma_{v_n})$,
+$\varepsilon_n \sim N(M\varepsilon_n, \Sigma_{\varepsilon_n})$, а про $\xi_n$ мы знаем, что
+$\xi_n = A_n \xi_{n-1} + B_n \varepsilon_n$ -- т.е. модель $ARMA(1, 1)$,
+$\xi_0 = \gamma \sim N(\mu, \Sigma_\gamma)$.
+\[
+  \hat{\xi}_n = \bar{\xi_n} + \bar{P}_n C^T (C\bar{P}_n C^T + \Sigma_\varepsilon)^{-1} (\eta_n - C\bar{\xi}_n - Mv_n)
+\]
+где $\bar{\xi}_n = \widehat{M\xi_n} = A \hat{\xi}_{n-1} + B_n M\varepsilon_n$ -- оценка $M\xi$;
+$\bar{P}_n$ -- оценка $\Sigma_{\xi_n}$:
+\[
+  \bar{P}_n = \widehat{\Sigma_{\xi_n}} =
+  M\left(\mathring{\hat{\xi}}-\mathring{\bar{\xi}}_n\right)\left(\mathring{\hat{\xi}}-\mathring{\bar{\xi}}_n\right)^T =
+  A_n \hat{p}_{n-1} A_n^T + B_n \Sigma_\varepsilon B_n^T
+\]
+
+Ошибка:
+\[
+  \hat{P}_n = \bar{P}_n - \underbrace{\bar{P}_n C_n^T (C_n \bar{P}_n C_n^T + \Sigma_{\varepsilon_n})^{-1}}_\text{$=k_n$ -- коэффициент усиления фильтра} C_n \bar{P}_n
+\]
+\[
+  \bar{\xi}_0 = \mu, \quad
+  \bar{P}_0 = \Sigma_\gamma.
+\]
+
+Если в выражении для $\hat{P}_n$ ввести понятие \emph{коэффициента усиления фильтра} $k_n$, то
+\[
+  \hat{P}_n = \bar{P}_n - k_n C_n \bar{P}_n = (E - k_n C_n) \bar{P}_n, \quad
+  \hat{\xi}_n = \bar{\xi}_n + k_n (\eta_n - C_n \bar{\xi}_n - Mv_n).
+\]
+
+\subsection{Фильтр по спектральному представлению}
+
+Пусть рассматривается похожая задача:
+$\theta_n = \xi_n + v_n, \xi_n = \alpha \xi_{n-1} + \varepsilon_n$, где 
+$ \left\{ v_n \right\} $ -- стационарный белый шум, т.е. $g_v(\lambda) = \dfrac{1}{2\pi}$, 
+тогда:
+\[
+  R_{\xi\theta}(n) = \cov(\xi_{n+m}, \theta_m) = \cov(\xi_{n+m}, \xi_m + v_m) = k_\xi(n)
+  \Rightarrow
+  g_{\xi\theta} (\lambda) = g_\xi(\lambda),
+\]
+$g_\theta(\lambda) = g_\xi(\lambda) + g_v(\lambda)$.
+
+\[
+  \xi_n = \int\limits_{-\pi}^\pi e^{i\lambda n} \dfrac{1/2\pi \left| \sum_{k=0}^\infty \alpha^k e^{-i\lambda k} \right|^2}{1/2\pi \left| \sum_{k=0}^\infty \alpha^k e^{-i\lambda k} \right|^2 + 1/2\pi} Z_\theta(d\lambda) 
+\]
+
+\begin{multline*}
+  \hat{\xi}_n =
+  \int\limits_{-\pi}^\pi e^{i\lambda n} \dfrac{g_{\xi\theta} (\lambda)}{g_\theta(\lambda)} Z_\theta(d\lambda) =
+  \int\limits_{-\pi}^\pi \dfrac{e^{i\lambda n}}{2 + \alpha^2 - \alpha e^{i\lambda} - \alpha e^{-i\lambda}} = \\
+  = \int\limits_{-\pi}^\pi e^{i\lambda n} \left( \sum_{k=0}^\infty A\alpha_2^k e^{-i\lambda k} + B \alpha_1^k e^{- i\lambda k} \right) \, Z_\theta(d\lambda) =
+  \sum_{k=0}^\infty A \alpha_2^k \theta_{n-k} + B \alpha_1^k \theta_{n+k},
+\end{multline*}
+где $A, B$ -- коэффициенты при разложении дроби на сумму простейших.
+
+Такой фильтр зависит от будущего (на практике конечно, считают только часть этой суммы -- в некотором окне).
