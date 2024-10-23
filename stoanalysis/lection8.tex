@@ -1,0 +1,152 @@
+\section{Свойства винеровского процесса}
+
+% TODO написать начало лекции
+
+\paragraph{Свойства винеровского процесса}
+
+\begin{definition}
+  \emph{Винеровский процесс} $\bar{W}_t$ -- это такой процесс, что
+  \begin{enumerate}
+    \item $\bar{W}_0 = 0$;
+    \item $\bar{W}_t$ -- процесс с независимыми приращениями:
+      $\forall t_1 < t_2 < \dots < t_N : \bar{W}_{t_1}, \bar{W}_{t_2} - \bar{W}_{t_1}, \dots, \bar{W}_{t_N} - \bar{W}_{t_{N-1}}$
+      -- независимы;
+    \item $\bar{W}_t - \bar{W}_s \sim N(0, \sigma^2 |t-s| I)$, где $I$--единичная матрица.
+  \end{enumerate}
+\end{definition}
+
+Ковариационная функция винеровского процесса: $K_W (t, s) = \sigma^2 \min(t, s)$.
+
+Конечномерные распределения гауссовские.
+
+$W_t$ -- скалярный винеровский процесс, тогда 
+\[
+  a = t_1, t_2, \dots, t_N = b : 
+  \sum_{k=0}^{N-1} \left( W_{t_{k+1}}^2 - W_{t_k} \right)^2 \overset{\text{ср.кв.}}{\rightarrow} 0
+\]
+
+\[
+  M \sum_{k=0}^{N-1} |W_{t_{k+1}} - W_{t_k}| \overset{k}{\rightarrow} \infty
+\]
+
+\[
+  \sum_{k=0}^{N-1} |W_{t_{k+1}} - W_{t_k}| \toPN \infty
+\]
+
+$W_t$ -- непрерыв. в с.к. + $\exists$ непрерывная модификация.
+
+% TODO пропущено одно свойство (номер 7)
+
+$W_t$ -- кв. инт. мартингал и $\langle W \rangle_t = \sigma^2 t.$
+\begin{proof}
+  \[
+    M(W_t | \mathcal{F}_s) = M(W_t - W_s + W_s | \mathcal{F}_s) = W_s + M(W_t - W_s) = W_s.
+  \]
+
+  $W_t = M_t + \langle W \rangle_t$, докажем, что $M_t = W_t^2 - \sigma^2 t$ -- мартингал, тогда
+  $\sigma^2 t$ будет являтся квадратической характеристикой:
+  \begin{multline*}
+    M( (W_t^2 - \sigma^2 t) | \mathcal{F}_s ) = M( (W_t - W_s + W_s)^2 - \sigma^2 t | \mathcal{F}_s ) = \\
+    = M ( (W_t-W_s)^2 + 2 W_s (W_t - W_s) + W_s^2 - \sigma^2 t | \mathcal{F}_s ) = \\
+    = \dots = \sigma^2 (t-s) + W_s^2 - \sigma^2 t = W_s^2 \sigma^2 s.
+  \end{multline*}
+\end{proof}
+
+
+\section{Конструкция интеграла Ито}
+
+\begin{definition}
+  Случайная функция $f_t = f(t, \omega)$ называется \emph{неупреждающей} (согласованной)
+  относительно потока $\mathcal{F}_t$, если $\forall t$ $f_t$ -- $\mathcal{F}_t$-измерима.
+\end{definition}
+
+\begin{definition}
+  Случайная функция $f_t$ называется \emph{простой}, если
+  $f_t = \sum_{} \f_k(\omega) I_{\Delta_k}(t)$, причём $f_k$ -- $\mathcal{F}_{t_k}$-измерима, 
+  $Mf_k = 0, Df_k = D_k < \infty$, $0 = t_1 < t_2 < \dots < t_{N+1} = T$, $\Delta_k = [t_{k}, t_{k+1})$.
+\end{definition}
+
+\begin{definition}
+  Интеграл Ито:
+  $I(f) = \sum_{k=1}^N f_k [W_{t_{k+1}} - W_{t_k}]$,
+  где $W_t$ -- стандартный скалярный винеровский процесс
+\end{definition}
+
+Свойства интеграла Ито простой функции:
+\begin{enumerate}
+  \item $I(\alpha f + \beta g) = \alpha I(f) + \beta I(g)$;
+  \item $MI(f) = 0$.
+    \begin{proof}
+      \begin{multline*}
+        MI(f) = M \sum_{k=1}^N f_k [W_{t_{k+1}} - W_{t_k}] =
+        \sum_{k=1}^N M M \left( f_k (W_{t_{k+1}} - W_{t_k}) \mathcal{F}_{t_k} \right) = \\
+        = \sum_{k=1}^N M f_k M \left( W_{t_{k+1}} - W_{t_k} \right) = 0.
+      \end{multline*}
+    \end{proof}
+  \item $M \left( I(f) \right)^2 = \int\limits_0^T M (f_s)^2 \, ds$.
+    \begin{proof}
+      \begin{multline*}
+        M (I(f))^2 = M \left[ \sum_{k=1}^N f_k \left( W_{t_{k+1}} - W_{t_k} \right) \right]^2 = \\
+        = M \left[ \sum_{k=1}^n f_k^2 \left( W(t_{k+1}) - W(t_k) \right)^2 +
+        2 \sum_{l < k} f_k f_l \left( W(t_{l+1})-W(t_l) \right) \left( W(t_{k+1})-W(t_k) \right)  \right] = \\
+        = \sum_{k=1}^n MM \left( f_k^2 (W(t_{k+1}-W(t_k))^2 | \mathcal{F}_{t_k} \right) + \\
+        +2 \sum_{l<k} MM \left( f_k f_l \left( W(t_{l+1})-W(t_l) \right) \left( W(t_{k+1})-W(t_k) \right) | \mathcal{F}_{t_k} \right) = \\
+        = \sum_{k=1}^n M f_k^2 M(W(t_{k+1}-W(t_k))^2 =
+        \sum_{k=1}^n M f_k^2 \Delta t_k
+      \end{multline*}
+
+      $M(f_t)^2 = M\left( \sum f_k I_{\Delta_k}(t) \right)^2 = \sum (Mf_k^2) I_{\Delta_k}$
+
+      % TODO в конце не понятно
+    \end{proof}
+\end{enumerate}
+
+$f_n \overset{\text{ср.кв.}}{\rightarrow} f \Rightarrow I(f) \overset{def}{=} \lim_{n\to\infty} I(f_n)$, где $f_n$ -- последовательность простых функций.
+
+\begin{ex}
+  $\int_0^T W_t \, dW_t = ?$
+  \[
+    W_t^{(n, \Delta)} = \sum_{k=1}^N W_{t_k} I_{\Delta_k}
+  \]
+  Покажем, что такая последовательность при любом разбиении $\Delta$ сходится в ср.кв. к $W_t$:
+  \begin{multline*}
+    M \left| W_t^{(n, \Delta)} - W_t \right|^2 = M \left| \sum_{k=1}^n (W(t_{k}) - W_t) I_{\Delta_k} \right|^2 = M \sum \left( W(t_k) - W_t \right)^2 I_{\Delta_k} = \\
+    = \sum |t_k - t| I_{\Delta_k} \leqslant \max_k |\Delta_k| \cdot 1 \to 0
+  \end{multline*}
+
+  Обозначим: $\Delta W_k = W(t_{k+1}) - W(t_k)$, тогда:
+  \begin{multline*}
+    I(W_t^{(n, \Delta)}) = \sum W(t_k) \left( W(t_{k+1} - t_k) \right) = 
+    \sum W(t_k) \Delta W_k =
+    \dfrac{1}{2} \sum \left( 2W(t_k) + W(t_{k+1}) - W(t_k) \right) \Delta W_k = \\
+    = \dfrac{1}{2} \sum \left( -\Delta W_k + W(t_{k+1}) + W(t_k) \right) \Delta W_k = 
+    \dfrac{1}{2} \left[ \sum \left( W(t_{k+1})^2-W(t_k)^2 \right)-\sum\left(\Delta W_k\right)^2  \right] = \dfrac{1}{2} W_T^2 - \dfrac{T}{2}.
+  \end{multline*}
+\end{ex}
+
+\begin{remark}
+  При расширении множества подынтегральных функций свойства 1-3 сохраняются.
+\end{remark}
+
+\subsection{Интеграл Ито с переменным верхним пределом.} 
+\[
+  \int_0^t f_s \, dW_s \overset{def}{=} \int_0^t f_s \cdot I(0 < s < t) \, ds
+\]
+
+\paragraph{Свойства интеграла Ито с переменным верхним пределом.}
+\begin{enumerate}
+  \item $\eta_t$ -- $\mathcal{F}_t$-измерим;
+  \item $M\eta_t = 0$, $D\eta_t = \int_0^t M(f_s)^2 \, ds$;
+  \item $\eta_t$ -- непрерывный квадратично интегрируемый мартингал.
+    \begin{proof}
+      Докажем, что $\eta_t$ -- мартингал. Для любых $s<t$, если они не являются точками разбиения,
+      добавим их в это разбиение -- для точки $s$ ее номер будет $t_l$, для точки $t$ -- $t_k$
+      (это всегда можно сделать). Тогда:
+      \begin{multline*}
+        M(\eta_t | \mathcal{F}_s) =
+        M \left( \sum_{j=0}^n f_j (W(t_{j+1})-W(t_j)) | \mathcal{F}_s \right) = \\
+        = M \left( \sum_{j=1}^l f_j (W(t_{j+1})-W(t_j)) + \sum_{j=l+1}^n f_j (W(t_{j+1})-W(t_j)) | \mathcal{F}_s \right) = \\
+        = \sum_{j=1}^l f_j \left( W(t_{j+1})-W(t_j) \right) + \sum_{j=l+1}^n MM(f_j (W(t_{j+1})-W(t_j) | \mathcal{F}_s) = \eta_s.
+      \end{multline*}
+    \end{proof}
+\end{enumerate}
