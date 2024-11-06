@@ -1,13 +1,16 @@
 \section{Условное математическое ожидание относительно $\sigma$-алгебры и его свойства}
-На данный момент мы знаем, что такое
-\[
+На данный момент мы знаем, что 
+\begin{multline*}
   M(\eta \mid \xi) \equiv M(\eta \mid \xi = x) \Big|_{x = \xi}
   = \int\limits_{-\infty}^{+\infty} y p_{\eta} (y \mid \xi = x) \, dy \bigg|_{x = \xi}
-  = \int\limits_{-\infty}^{+\infty} y \dfrac{p_{\xi\eta} (x, y)}{p_\xi (x)} \, dy,
-\]
+  = \\ =
+  \int\limits_{-\infty}^{+\infty} y \dfrac{p_{\xi\eta} (x, y)}{p_\xi (x)} \,
+  dy\biggl|_{x=\xi} = \frac{\int\limits_{-\infty}^{\infty}y p_{\xi\eta}(x,
+  y)\,dy}{\int\limits_{-\infty}^{\infty}p_{\xi\eta}(x, y)\,dy}\Biggl|_{x=\xi},
+\end{multline*}
 где $p_{\xi\eta} (x, y)$ --- известная плотность.
 
-\paragraph{Гауссовский случай.}
+\paragraph{Частные случаи.} \textsc{Гауссовское распределение.}
 Если $(\xi, \eta)$ --- гауссовский вектор, то
 \begin{align*}
   \hat{\eta} &= M(\eta \mid \xi) = \varphi(\xi) = M\eta + \dfrac{\cov(\xi,
@@ -15,7 +18,7 @@
     \Delta &= M(\eta - M(\eta\mid\xi))^2 = D\eta (1 - r_{\xi\eta}^2).
 \end{align*}
 
-\paragraph{Многомерный гауссовский случай.}
+\textsc{Многомерное гауссовское распределение.}
 Пусть $(\bar{\xi}, \bar{\eta})$ гауссово. Тогда
 \begin{align*}
   \hat{\bar{\eta}} &= M(\bar{\eta} \mid \bar{\xi}) = M\bar{\eta} +
@@ -27,57 +30,112 @@
 \end{align*}
 
 \begin{ex}\label{ex-bernoulli-with-random-parameter}
-  $\xi \sim R(0, 1)$; $\eta$ --- число опытов с вероятностью успеха $\xi$, $\eta
-  \sim \text{Bernoulli}(\xi)$.
+  $\xi \sim \mathscr{R}[0, 1]$; $n$ --- число опытов с вероятностью успеха $\xi$; $\eta
+  \sim \text{Bernoulli}(\xi)$ --- число успехов. Требуется найти $ P(\eta = j)
+  $, $ j = 0, \ldots, n $.
+
   Тогда 
   \[
     P(\eta = j \mid \xi = x) = C_n^j x^j (1-x)^{n-j}
     \Rightarrow
-    P(\eta = j \mid \xi) = C_n^j \xi^j (1-\xi)^{n-j}.
+    P(\eta = j \mid \xi) = C_n^j \xi^j (1-\xi)^{n-j}. 
+    % M(\eta \mid \xi = x) = nx \Rightarrow M(\eta \mid\xi) = n\xi.
   \]
   % Причём интуитивно хотелось бы, чтобы $M(\eta \mid \xi = x) = n\cdot x$.
   % И тогда получим, что $M(\eta \mid \xi) = n \xi$.
-
   Хочется, чтобы $M\eta = MM(\eta \mid \xi)$.
 \end{ex}
 
-\begin{definition}[УМО относительно СВ]
-  Пусть $\xi$ --- простая случайная величина, принимающая конечное множество значений:
+\begin{definition}[условная вероятность относительно разбиения]
+  Пусть дано конечное разбиение $ \mathscr{D} = \{D_j\} $, $ \sum_j D_j = \Omega
+  $. Тогда \textsl{случайная величина}\footnote{Символ зависимости $
+  P(A\mid\mathscr{D}) = P(A\mid\mathscr{D})(\omega) $ опускается.} $ P(A \mid \mathscr{D}) = \sum_j P(A\mid
+  D_j) I(D_j)$ называется \emph{условной вероятностью события $ A $ относительно
+  разбиения $ \mathscr D $}.
+\end{definition}
+
+\begin{definition}[условная вероятность относительно СВ]
+  Пусть $\xi$ --- простая случайная величина (измеримая функция, принимающая
+  конечное множество значений):
   $\xi(\omega) = \sum\limits_{j=1}^k x_j I_{D_j}(\omega)$, где
   $\mathscr{D} = \left\{ D_j \right\} $ -- конечное разбиение пространства элементарных
   исходов ($\sum_j D_j = \Omega$).
 
-  Тогда случайная величина $P(A \mid \xi) \equiv \sum\limits_{j=1}^k P(A\mid D_j) I_{D_j}$.
+Тогда \textsl{случайная величина}
+\[
+  P(A \mid \xi) = P(A \mid \mathscr D) = \sum\limits_{j=1}^k P(A\mid
+  D_j) I_{D_j} = \sum_{j=1}^k P(A\mid \xi = x_j)I_{D_j}
+\]
+называется \emph{условной вероятностью события $ A $
+    относительно случайной
+  величины $ \xi $}.
 \end{definition}
 
-  Заметим, что
+Каждому разбиению $ \mathscr D $ соответствует порождённая им $
+\sigma $-алгебра $ \mathscr A = \sigma(\mathscr D) $. Обратно, по каждой $ \sigma
+$-алгебре $ \mathscr A $
+восстанавливается единственное разбиение $
+\mathscr D$ такое, что $ \sigma(\mathscr D) = \mathscr A $. Иными словами,
+имеется взаимно однозначное соответствие между $ \sigma $-алгебрами и
+разбиениями.
+
+\begin{definition}[условная вероятность относительно конечной $ \sigma
+  $-алгебры]
+  \emph{Условной вероятностью события $ A $ относительно $ \sigma $-алгебры $
+  \mathscr A $} называется \textsl{случайная величина} $ P(A\mid \mathscr A) =
+  P(A\mid \mathscr{D}) $, где разбиение $ \mathscr{D} $ соответствует $ \sigma
+  $-алгебре $ \mathscr A $ ($ \sigma(\mathscr D) = \mathscr A $).
+\end{definition}
+
+\paragraph{Свойства условной вероятности относительно разбиения.} Заметим, что
   \begin{enumerate}
     \item $\mathscr{D} = \Omega \Rightarrow P(A \mid \mathscr{D}) = P(A\mid \Omega) I_\Omega = P(A)$;
     \item $MP(A \mid \mathscr{D}) = \sum\limits_{j=1}^k P(A \mid D_j) M(I_{D_j}) =
-      \sum\limits_{j=1}^k P(A\mid D_j) P(D_j) = P(A)$. Это свойство мы будем пытаться
+      \sum\limits_{j=1}^k P(A\mid D_j) P(D_j) = P(A)$. 
+      Это свойство мы будем пытаться
       сохранить и
-      при определении МО относительно сигма-алгебры.
-    % \item 
+      при определении математического ожидания относительно $\sigma$-алгебры.
   \end{enumerate}
 
 % Согласно второму свойству, в примере \ref{ex-bernoulli-with-random-parameter} теперь несложно
 % получить, что 
 
-\begin{definition}[УМО относительно разбиения]
-  Пусть $\mathscr{D} = \left\{ D_j \right\} $ --- конечное разбиение
-  пространства элементарных
-  исходов ($\sum_j D_j = \Omega$). 
-  % TODO дописать определение
-\end{definition}
+\addtocounter{ex}{-1}
+\begin{ex}[продолжение]
+\begin{multline*}
+  P(\eta = j) = MP(\eta = j \mid \xi) = MC^j_n\xi^j(1-\xi)^{n-j} =
+  \int\limits_{-\infty}^{+\infty}g(x) p_{\xi}(x)\,dx = \\
+  = \int\limits_{0}^{1}C_n^jx^j(1-x)^{n-j}\,dx = C^j_n
+  \int\limits_{0}^{1}x^j(1-x)^{n-j}\,dx
+  = C^j_n B(j+1, n-j+1) = \\
+  = \frac{n!}{j!(n-j)!} \cdot
+  \frac{\Gamma(j+1)}{\Gamma(n+2)} = \frac{n!}{j!(n-j)!}\cdot
+  \frac{j!(n-j)!}{(n+1)!} = \frac{1}{n+1}.
+\end{multline*}
+%TODO: чего-то не хватает там где гамма-функции
+\end{ex}
 
-\begin{definition}[УМО относительно конечной алгебры]
-  Пусть $\mathscr{A}$ --- конечная алгебра. Тогда, согласно теореме из курса
-  функ. анализа, 
-  она порождается конечным разбиением $\mathscr{D}$. Тогда 
-  % TODO дописать определение
-\end{definition}
+Тогда  
+\[
+  M\eta = \sum_{j=0}^n j P(\eta = j) = \frac{1}{n+1}\sum_{j=0}^n j =
+  \frac{1}{n+1} \cdot \frac{n(n+1)}{2} = \frac{n}{2}.
+\]
 
-\begin{definition}
+
+
+% \begin{definition}[УМО относительно разбиения]
+%   Пусть $\mathscr{D} = \left\{ D_j \right\} $ --- конечное разбиение
+%   пространства элементарных
+%   исходов ($\sum_j D_j = \Omega$). 
+% \end{definition}
+
+% \begin{definition}[УМО относительно конечной алгебры]
+%   Пусть $\mathscr{A}$ --- конечная алгебра. Тогда, согласно теореме из курса
+%   функ. анализа, 
+%   она порождается конечным разбиением $\mathscr{D}$. Тогда 
+% \end{definition}
+
+\begin{definition}[УМО относительно случайной величины]
   Пусть теперь $\xi$ и $\eta$ --- простые случайные величины:
   $\xi = \sum_j x_j I_{D_j}$, $\eta = \sum_i y_i I_{A_i}$.
   Тогда УМО равно
@@ -87,27 +145,31 @@
     \sum_j M \bigg( \sum_i y_i I_{A_i} \, \Big| \, D_j \bigg) I_{D_j}
     = \sum_j M(\eta \mid D_j) I_{D_j}.
   \end{multline*}
+  Аналогично, меняя порядок суммирования, получим $ M(\eta\mid\xi)= \sum_i y_i
+  P(A_i \mid \mathscr{D}) $.
 \end{definition}
 
 \paragraph{Свойства.}
 \begin{enumerate}
   \item \textsc{Линейность}. $M(\alpha_1 \eta_1 + \alpha_2 \eta_2 \mid \mathscr{A}) =
       \alpha_1 M(\eta_1 \mid \mathscr{A}) + \alpha_2 M(\eta_2 \mid \mathscr{A})$;
-  \item $M(C \mid \mathscr{A}) = C$ ($ C $ --- константа).
+  \item $M(C \mid \mathscr{A}) = C$ ($ C $ --- константа);
   \item $MM(\eta\mid  \mathscr{A}) = M\eta$.
     \begin{proof}
       Пусть $\mathscr{A}$ порождена разбиением $\mathscr{D} = D_1 + D_2 + \dots
       + D_k$. Тогда
       \[
-        MM(\eta \mid  \mathscr{A}) = M \sum_i y_i P(\eta = y_i \mid  \mathscr{A}) =
-        % TODO дописать док-во
+        MM(\eta \mid  \mathscr{A}) = M \sum_i y_i P(\eta = y_i \mid
+        \mathscr{A}) = \sum_{i=1}^l y_i MP(\eta = y_i \mid \mathscr{A}) =
+        \sum_{i=1}^l y_i P(\eta=y_i) = M\eta.
       \]
     \end{proof}
 
   \item \begin{definition}
-      Говорят, что СВ $\eta$ \emph{измерима относительно $(\mathscr{D},
-      \mathscr{A}, \xi)$}, если
-      $A_{\eta} \subseteq \mathscr{A}$ или $A_\eta \subseteq A_\xi$.
+      Говорят, что СВ $\eta$ \emph{измерима относительно $\mathscr{A}$ ($
+      \xi, \mathscr{D}$}), если
+      $A_{\eta} \subseteq \mathscr{A}$ ($A_\eta \subseteq A_\xi$, $ A_\eta
+      \subseteq A_{\mathscr D}) $.
     \end{definition}
 
     Тогда $M(\eta \mid  \mathscr{A})$ измеримо относительно $\mathscr{A}$:
