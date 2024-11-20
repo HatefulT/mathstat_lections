@@ -1,0 +1,188 @@
+\begin{ex}
+  \[
+    d\xi_t = \beta(\xi_t - \alpha) dt + \sigma dW_t, \, \xi_0 = \nu.
+  \]
+  -- уравнение Ланжевена.
+  Оно линейное неоднородное.
+  \[
+    \xi_t = \alpha + (\xi_0-\alpha) e^{-\beta t} +
+    \sigma \int\limits_0^t e^{-\beta (t-\tau)} \, dW_\tau
+  \]
+
+  Характеристики:
+  $M\xi_t = \alpha + (M\nu - \alpha) e^{-\beta t} \overset{t \to +\infty}{\to} \alpha$;
+  \begin{multline*}
+    k_\xi(t, s) = \cov(\xi_t, \xi_s) = \cov( \mathring{\xi}_t, \mathring{\xi}_s ) = 
+    \left|\, \mathring{\xi}_t = \xi_t - M\xi_t = (\nu - M\nu) e^{-\beta t} + \sigma \int\limits_0^t e^{-\beta (t - \tau)} \, dW_t \,\right| = \\
+    = D\nu e^{-\beta (t+s)} + 0 + 0 + \sigma^2 e^{-\beta (t+s)} \cov \left( \int\limits_0^t e^{\beta \tau} \, d\tau, \int\limits_0^s e^{\beta \tau} \, d\tau \right) = \\
+    = D\nu e^{-\beta (t+s)} + \sigma^2 e^{-\beta (t+s)} \int\limits_0^{\min(t, s)} e^{\beta \tau} \, d\tau =
+    D\nu e^{-\beta (t+s)} + \dfrac{\sigma^2}{2\beta} \left( e^{-\beta |t-s|} - e^{-\beta (t+s)} \right)  
+  \end{multline*}
+
+  При $t, s \to +\infty : k_\xi(t, s) \approx \dfrac{\sigma^2}{2\beta} e^{-\beta |t-s|}$,
+  а $D\xi_t \to \dfrac{\sigma^2}{2\beta}$.
+\end{ex}
+
+\section{Теорема о существовании и едиснтвенности}
+
+Рассматривается уравнение
+\[
+  d\xi_t = A(t, \xi_t) \, dt + B(t, \xi_t) \, dW_t, \, \xi_0 = \nu,
+\]
+где $\xi_t$ -- вектор размерности $n$, $W_t$ -- вектор размерности $m$, тогда $B$ -- матрица $n \times m$, $A$ -- вектор размерности $n$;
+$\nu$ и $W_t$ -- независимы (по крайней мере некоррелированы).
+
+\textit{Нормы. } $|A(t, x)|^2 = \sum_{j=1}^n A_i^2 (t, x)$;
+$\| B(t, x) \|^2 = \sum_{i=1}^n \sum_{j=1}^m B_{ij}^2(t, x)$.
+
+
+\begin{theorem}\label{theorem:existance_1}
+  Пусть в этом уравнении все $A_i(t, x), B_{ij}(t, x)$ непрерывны по $t$ и $x$ на $\Delta \times \mathbb{R}^n, \Delta = [0, T]$ и выполнены условия:
+  \begin{enumerate}
+    \item $|A(t, x)|^2 + \|B(t, x)\|^2 \leqslant k(1 + |x|^2)$;
+    \item $|A(t, x) - A(t, y)|^2 + \| B(t, x) - B(t, y) \|^2 \leqslant C |x-y|^2$.
+  \end{enumerate}
+  тогда на $\Delta \times \mathbb{R}^n$ существует единственное решение уравнения,
+  причём $M|\xi_t|^2 \leqslant L (1 + M|\nu|^2)$, где $L$ -- зависит только от $C$ и $K$.
+\end{theorem}
+
+\begin{ex}
+  Условия теоремы \ref{theorem:existance_1} выполнены для линейного уравнения:
+  \[
+    d\xi_t = (a(t) \xi_t + u(t)) \, dt + s(t) \, dW_t,
+  \]
+  $A(t, x) = a(t) x + u(t)$ -- непрерывна; $s(t)$ -- непрерывна.
+  \begin{enumerate}
+    \item $|A(t, x)|^2 = |a(t) x + u(t)|^2 \leqslant 2( |a(t) x|^2 + |u(t)|^2 )$ (в силу неравенства $(a+b)^2 \leqslant 2(a^2 + b^2)$), обозначим $k_i^u = \max_{t\in\Delta} u_i(t), k_i^a = \max a_i, k_{ij}^b = \max b_{ij}$:
+      \[
+        |A(t, x)|^2 \leqslant 2 |a(t)|^2 \cdot |x|^2 + 2 |u(t)|^2 \leqslant 2 \left(|x|^2 \sum_i (k_i^a)^2 + \sum_i (k_i^u)^2\right);
+      \]
+      А $\| B(t, x) \|^2 \leqslant \sum_{i, j} (k_{ij}^b)^2$;
+
+    \item $\| B(t, x) - B(t, y) \|^2 = 0$, $|A(t, x) - A(t, y)|^2 = |a(t) (x-y)|^2 \leqslant |a|^2 |x-y|^2$.
+  \end{enumerate}
+\end{ex}
+
+
+\begin{theorem}
+  Если $\Theta(t)$ -- решение детерминированной системы
+  \[
+    \Theta'(t) = a(t) \Theta(t), \; \Theta(0) = E,
+  \]
+  (где $E$ -- единичная матрица)
+  то единственное решение уравнения $d\xi_t = \left(a(t)\xi_t + u(t)\right) \, dt + s(t) \, dW_t$
+  можно представить в виде:
+  \[
+    \xi_t = \Theta(t) \left( \nu + \int\limits_0^t \Theta^{-1}(\tau) u(\tau) \, d\tau + \int\limits_0^t \Theta^{-1}(\tau) s(\tau) \, dW_\tau \right).
+  \]
+\end{theorem}
+\begin{proof}
+  \begin{multline*}
+    d\xi_t = \Theta'(t) \nu \, dt +
+    \Theta'(t) \int\limits_0^t \Theta^{-1}(\tau) u(\tau) \, d\tau \cdot dt +
+    \Theta(t) \Theta^{-1}(t) u(t) \, dt + \\ 
+    + \Theta^{-1}(t) \cdot \int\limits_0^t \Theta^{-1}(\tau) s(\tau) \, dW_\tau \cdot dt + 
+    \Theta(t) \Theta^{-1}(t) s(t) \, dW_t
+  \end{multline*}
+  \[
+    d\xi_t = a(t) \theta(t) \left[ \nu + \int\limits_0^t \Theta^{-1}(\tau) u(\tau) \, d\tau + \int\limits_0^t \Theta^{-1}(\tau) s(\tau) \, dW_\tau \right] + u(t) \, dt+ s(t) dW_t
+  \]
+  \[
+    d\xi_t = a(t) \xi_t \, dt + u(t) \, dt + s(t) \, dW_t,
+  \]
+  что и требовалось доказать. Единственность будет следовать из теоремы существования
+  и единственности.
+\end{proof}
+
+
+\begin{theorem}[Уравнение метода моментов]
+  Если $\xi_t$ является решением уравнения
+  $d\xi_t = \left(a(t)\xi_t + u(t)\right) \, dt + s(t) \, dW_t$, то
+  $M\xi_t = m_\xi(t)$, $\gamma_\xi(t) = M\left( ( \xi_t - M\xi_t )( \xi_t - M\xi_t )^T \right)$
+  удовлетворяют уравнениям метода моментов:
+  \[
+    \begin{cases}
+      \dfrac{dm_\xi(t)}{dt} = a(t) m_\xi(t) + u(t), \; m_\xi(0) = M\xi_0, \\
+      \dfrac{d}{dt}\gamma_\xi(t) = a(t) \gamma_\xi(t) + \gamma_\xi(t) (a(t))^T + s(t) s(t)^T, \;
+      \gamma_\xi = \Sigma_\nu
+    \end{cases}
+  \]
+\end{theorem}
+\begin{proof}
+  Согласно предыдущей теореме,
+  $\xi_t = \Theta(t) \left[ \nu + \int\limits_0^t \Theta^{-1}(\tau) u(\tau) \, d\tau + \int\limits_0^t \Theta^{-1}(\tau) s(\tau) \, dW_\tau \right] $,
+  тогда $M\xi_t = \Theta(t) \left[ M\nu + \int\limits_0^t \Theta^{-1}(\tau) u(\tau) \, dt + 0 \right] $
+  и
+  \begin{multline*}
+    \dfrac{dm_\xi(t)}{dt} =
+    \Theta'(t) M\nu + \Theta'(t) \cdot \int\limits_0^t \Theta^{-1}(\tau) u(\tau) \, d\tau + \Theta(t) \Theta^{-1}(t) u(t) = \\
+    = a(t) \Theta(t) \left( M\nu + \int\limits_0^t \Theta^{-1}(\tau) u(\tau) \, d\tau \right) + u(t) =
+    a(t) m_\xi(t) + u(t)
+  \end{multline*}
+
+  В Замечании \ref{remark:ito_covariance} показано, как строются ковариации интегралов Ито
+  в многомерном случае.
+  \[
+    \mathring{\xi}_t = \xi_t - M\xi_t = \Theta(t) \left[ \mathring{\nu} + \int\limits_0^t \Theta^{-1}(\tau) s(\tau) \, dW_\tau \right] 
+  \]
+  \[
+    \mathring{\xi}_t \cdot \left(\mathring{\xi}_t\right)^T = \Theta(t) \mathring{\nu} \mathring{\nu}^T \Theta(t)^T + \dots + \dots + \Theta(t) \int\limits_0^t \Theta^{-1}(\tau) s(\tau) \, dW_\tau + \int\limits_0^t \Theta^{-1}(\tau) s(\tau) \, dW_s)^T \Theta(t)^T
+  \]
+  \begin{multline*}
+    \gamma_\xi(t) = \cov \left( \xi_i(t), \xi_j(t) \right) = M \mathring{\xi}(t) \left( \mathring{\xi} \right)^T = \\
+    = \Theta(t) \Sigma_\nu \Theta(t)^T + 0 + 0 + \Theta(t) \int\limits_0^t \Theta^{-1}(\tau) s(\tau) \, s(\tau)^T \left(\Theta^{-1}\right)^T \, d\tau \cdot \Theta(t)^T
+  \end{multline*}
+
+  \begin{multline*}
+    \dfrac{d\gamma_\xi(t)}{dt} =
+    \Theta'(t) \Sigma_\nu \Theta(t)^T + \Theta(t) \Sigma_\nu (\Theta'(t))^T +
+    \Theta'(t) \int\limits_0^t \Theta^{-1}(\tau) s(\tau) \, s(\tau)^T \left(\Theta^{-1}\right)^T \, d\tau \Theta(t)^T + \\
+    + \Theta(t) \Theta^{-1}(\tau) s(\tau) \, s(\tau)^T \left(\Theta^{-1}\right)^T \Theta(t)^T +
+    \Theta(t) \int\limits_0^t \Theta^{-1}(\tau) s(\tau) \, s(\tau)^T \left(\Theta^{-1}\right)^T \, d\tau \left( \Theta'(t) \right)^T = \\
+    = a(t) \Theta(t) \Sigma_\nu \left( \Theta(t) \right)^T +
+    \Theta(t) \Sigma_\nu \Theta(t)^T a(t)^T +
+    a(t) \Theta(t) \int\limits_0^t \Theta^{-1}(\tau) s(\tau) \, s(\tau)^T \left(\Theta^{-1}\right)^T \, d\tau \Theta(t)^T + \\
+    + \Theta(t) \int\limits_0^t \Theta^{-1}(\tau) s(\tau) \, s(\tau)^T \left(\Theta^{-1}\right)^T \, d\tau \Theta(t)^T a(t)^T + 
+    s(t) s(t)^T = a(t) \gamma_\xi(t) + \gamma_\xi(t) a(t)^T + s(t) s(t)^T
+  \end{multline*}
+\end{proof}
+
+\begin{remark}[Про многомерную ковариацию интегралов Ито]\label{remark:ito_covariance}
+  $\eta_t = \int\limits_0^t f(\tau) \, dW_\tau$, где $\eta_t$ -- вектор-столбец размерности $n$,
+  $f(\tau)$ -- матрица $n\times m$, $W_t$ -- вектор $m$.
+
+  Запишем по компонентам:
+  \[
+    \eta_i (t) = \sum_{k=1}^m \int\limits_0^t f_{ik}(\tau) \, dW_k(\tau)
+  \]
+
+  Тогда ковариационная функция:
+  \[
+    R_\eta(t, s) = \left(\cov(\eta_i(t), \eta_j(s)) \right)_{i, j},
+  \]
+  где $\cov(\eta_i(t), \eta_j(s)) = \sum_{k=1}^m \cov \left( \int_0^t f_{ik}(\tau) \, dW_k(\tau),
+  \int_0^s f_{jk}(\tau) \, d\tau \right) = \sum_{k=1}^m \int\limits_0^{\min(t, s)} f_{ik} f_{jk} \, d\tau$;
+
+  Тогда: $R_\eta(t, s) = \int\limits_0^{\min(t, s)} f(\tau) (f(\tau))^T \, d\tau$.
+\end{remark}
+
+\begin{ex}[Процесс Орнштейна-Уленбека]
+  \[
+    d\xi_t = - \beta (\xi_t - \alpha) \, dt + \sigma dW_t,
+  \]
+  \[
+    \begin{cases}
+      \dfrac{dm_\xi(t)}{dt} = a(t) m_\xi(t) + u(t) = - \beta m_\xi(t) + \alpha\beta \\
+      \dfrac{d\gamma_\xi(t)}{dt} = \dfrac{d D_\xi(t)}{dt} = a(t) \gamma_\xi(t) + \gamma_\xi(t) a(t)^T + s(t) s(t)^T = - 2 \beta \gamma_\xi(t) + \sigma^2, \\
+      m_\xi(0) = M\nu, \\
+      \gamma_\xi(0) = D\nu.
+    \end{cases}
+  \]
+  \[
+    \begin{cases}
+      m_\xi(t) = \alpha + (M\nu - \alpha) e^{-\beta t}, \\
+      \gamma_\xi(t) = D_\xi(t) = \dfrac{\sigma^2}{2\beta} + \left(D\nu - \dfrac{\sigma^2}{2\beta}\right) e^{-2\beta t}
+    \end{cases}
+    
+  \]
+\end{ex}
