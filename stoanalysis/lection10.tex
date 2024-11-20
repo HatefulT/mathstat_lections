@@ -1,0 +1,183 @@
+\section{}
+%TODO 20 минут
+
+\begin{enumerate}
+  \item 
+  \item 
+  \item Для этого интеграла справедлива формула интегрирования по частям,
+    поскольку $ dS_t = s'(t) dt + 0\cdot dW_t $ и $ dW_t = 0\cdot dt + 1 \cdot
+    dW_t $ и $ d(S_tW_t) = W_t dS_t \cdot S_t dW_t = W_t S'_t dt + S_t dW_t $,
+   \[
+     S_tW_t = \cancel{S_0W_0} + \int\limits_{0}^{t}S'_\tau W_\tau\,d\tau +
+       \int\limits_{0}^{t} S_\tau \,dW_\tau.
+   \]
+\end{enumerate}
+
+Простейшее СДУ 
+\[
+  \boxed{
+  \xi_t = \xi_0 + \int\limits_{0}^{t}u(\tau)\,d\tau + W_tS_t -
+  \int\limits_{0}^{t}S(\tau) W_\tau\,d\tau.
+}
+\]
+
+Хотели бы СДУ $ \to $ Простейшее СДУ (задача о подборе функционала). Это не
+всегда возможно.  
+\begin{align*}
+  d\xi_t &= A(t, \xi_t) dt + B(t, \xi_t) dW_t, \\
+  d\eta_t &= u(t)dt + s(t) dW_t, \\
+  \eta_t &= g(t, \xi_t), \\
+  d\eta_t &= \left( \frac{\partial y}{\partial t} + \frac{\partial y}{\partial
+  x}A + \frac{1}{2} \frac{\partial^2 g}{\partial x^2} B^2 \right)
+  \bigg_{x=\xi_t} + \frac{\partial y}{\partial x}\bigg_{x=\xi_t} B dW_t.
+\end{align*}
+Частные производные не должны зависеть от $ x $ (?) Тогда  
+\[
+  S(t) = \frac{\partial y}{\partial x} B(t, x) \to \frac{\partial g}{\partial x}
+  = \frac{S(t)}{B(t,x)} \to \frac{\partial^2 g}{\partial x^2} = -
+  \frac{S(t)}{B^2(t,x)} \frac{\partial B}{\partial x}
+\]
+и  
+\[
+    0 = \frac{\partial u}{\partial x} = \frac{\partial}{\partial x} \left[
+    \frac{\partial g}{\partial t} + \frac{S(t)}{B(t,x)}A(t,x) + \frac{1}{2}
+  \frac{-S(t)}{\cancel{B^2(t,x)}}\frac{\partial B}{\partial x}B^2(t,x) \right]
+  = \frac{\partial}{\partial t} \left[ \frac{S(t)}{B(t, x)} \right] + S(t)
+  \frac{\partial}{\partial x} \frac{A(t, x)}{B(t,x)} - \frac{1}{2} S(t)
+  \frac{\partial^2 B}{\partial x^2}.
+\]
+Условие. Существует функционал  
+\[
+    \boxed{
+      \frac{1}{S(t)} \frac{\partial}{\partial t} \frac{S(t)}{B(t,x)} +
+      \frac{\partial}{\partial x} \frac{A(t, x)}{B(t, x)} -
+      \frac{1}{2}\frac{\partial^2 B(t, x)}{\partial x^2} = 0.
+    }
+\]
+
+Всегда существует для линейных однородных СДУ. 
+\[
+    A(t, x) = a(t) x, \qquad B(t, x) = b(t) x,
+\]
+откуда 
+\[
+    d\xi_t = a(t) \xi_t dt + b(t) \xi_t dW_t
+\]
+и  
+\begin{align*}
+  \frac{\partial}{\partial x} \frac{A}{B} = \frac{\partial}{\partial x} \left(
+    \frac{a(t)}{b(t)}\right) &= 0, \\
+    \frac{\partial^2}{\partial x^2}(b(t)x) &= 0.
+\end{align*}
+Тогда $ S(t) = 0 \Rightarrow \frac{\partial}{\partial t} \frac{S(t)}{B(t, x)}
+\Rightarrow \frac{S(t)}{B(t, x)} \equiv \mathrm{const} $, положим $ S(t) := b(t) x $.
+ 
+\[
+    \frac{\partial g}{\partial x} = \frac{S(t)}{B(t, x)} = \frac{b(t)}{b(t) x} =
+    \frac{1}{x} \Rightarrow \boxed{g(t, x) = \ln x.}
+\]
+Тогда
+\[
+  \frac{\partial g}{\partial x} = \frac{1}{x}, \qquad \frac{\partial^2
+  g}{\partial x^2} = - \frac{1}{x^2} ,\qquad \frac{\partial g}{\partial t} = 0,
+  \]
+  и получаем соответственно
+\begin{align*}
+  d\xi_t &= a(t)\xi_t dt + b(t)\xi_t dW_t, \\
+  d(\ln \xi_t) &= \left( \frac{1}{\cancel{\xi_t}} a(t) \cancel{\xi_t} + \frac{1}{2}
+  \frac{-1}{\cancel{\xi_t^2}}b^2(t) \cancel{\xi^2_t}  \right) dt +
+  \frac{1}{\cancel{\xi_t}}b(t)\cancel{\xi_t} dW_t = (a(t) - \frac{1}{2}b^2(t))dt
+  + b(t)dW_t \quad \text{(простейшее)},\\
+    \ln\xi_t &= \ln\xi_0 + \int\limits_{0}^{t}a(\tau) -
+    \frac{1}{2}b^2(\tau)\,d\tau +
+    \underbrace{\int\limits_{0}^{t}b(\tau)\,dW_\tau}_{\text{можно по частям}}, \\
+    \xi_t &= \xi_0\exp \left\{ \int\limits_{0}^{t}a(\tau) -
+    \frac{1}{2}b^2(\tau)\,d\tau + \int\limits_{0}^{t}b(\tau)\,dW_\tau \right\}.
+\end{align*}
+
+\subsection{Неоднородное линейной СДУ}
+\[
+  d\xi_t = (a(t)\xi_t + u(t))dt + (b(t)\xi_t + s(t))dW_t.
+\]
+Будем искать решение в виде произведения
+\[
+  \xi_t &= \theta_t \cdot \zeta_t,
+\]
+где $ \theta_t $ --- решение ОЛСДУ с начальным условием $ \theta_0 = 1 $.
+
+ 
+\begin{align*}
+  d\zeta_t &= \bigstar dt + \heartsuit dW_t, \\
+  d\theta_t &= a(t) \theta_t dt + b(t) \theta_t dW_t, \\
+  d\xi_t &= \theta_t d\zeta_t + \zeta_t  d\theta_t + b(t)\theta_t \cdot
+  \heartsuit dt, \\
+  d\xi_t &= \zeta_t \left[ a(t) \theta_t dt + b(t) \theta_t dW_t  \right]  +
+  \theta_t d\zeta_t + b(t) \theta_t \cdot \heartsuit dt,\\
+  d\xi_t &= a(t)\xi_t dt + b(t)\xi_tdW_t + \theta_t d\zeta_t + b(t) \theta_t
+  \heartsuit
+  dt, \\
+  u(t) dt + s(t) dW_t &= \theta_tt d\zeta_t + b(t)\theta_t \heartsuit dt, \\
+  d\zeta_ t &= \left[ u(t)\theta^{-1}_t - b(t) \heartsuit \right] dt + \underbrace{s(t)
+  \theta^{-1}_t}_{\heartsuit}
+  dW_t, \\
+    d\zeta_t &= \theta^{-1}_t \left[ u(t) - b(t)s(t) \right] dt +
+  \theta_t^{-1}s(t)dW_t,\\
+    \zeta_t &= \xi_0 + \int\limits_{0}^{t}\theta_\tau^{-1}(u(\tau) -
+    b(\tau)s(\tau)\,d\tau +
+    \int\limits_{0}^{t}\theta_\tau^{-1}s(\tau)\,dW_\tau,\\
+\end{align*}
+Окончательно,  
+\[
+    \boxed{
+      \xi_t &= \theta_t \bigg( \xi_0 + \int\limits_{0}^{t}\theta^{-1}_\tau
+        (u(\tau) - b(\tau))s(\tau)\,d\tau + \int\limits_{0}^{t}\theta^{-1}_\tau
+      s(\tau)\,dW_\tau \bigg).
+}
+\]
+Выше величина $ \theta_t $ может оказаться случайной (чуть хуже ситуация) и
+неслучайной. Общее решение  
+\[
+  \theta_t = \exp \bigg{\{}\int\limits_{0}^{t} a(\tau) - \frac{1}{2}b^2(\tau)\,d\tau
+  + \int\limits_{0}^{1}b(\tau)\,dW_\tau\bigg{\}}.
+\]
+
+\paragraph{Частный случай.} Пусть $ b(t) = 0 $. Тогда  
+\[
+  \theta_t = \exp\bigg\{\int\limits_{0}^{t}a(\tau)\,d\tau\bigg\}.
+\]
+ 
+ Тогда
+ \[
+   \xi_t = \theta_t \left( \xi_0 + \int\limits_{0}^{t}\theta^{-1}_\tau
+   u(\tau)\,d\tau + \int\limits_{0}^{t}\theta_\tau^{-1}s(\tau)\,dW_\tau \right) .
+ \]
+
+ \begin{example}
+   
+  \begin{align*}
+    d\xi_t &= -\beta(\xi_t - \alpha) dt + \sigma dW_t, \\
+    d\xi_t &= (\underbrace{-\beta}_{a} \cdot \xi_t + \underbrace{\alpha\beta}_{u})
+    dt + \underbrace{\sigma}_{s} dW_t, \\
+  \theta_t &= \exp(-\beta t), \qquad \theta^{-1}_t = \exp(\beta t), \\
+  \xi_t &= e^{-\beta t} \left( \nu + \alpha\beta \int\limits_{0}^{t} e^{\beta
+  \tau}\,d\tau + \sigma \int\limits_{0}^{t}e^{\beta \tau}\,dW_\tau \right), \\
+      \xi_t &= e^{-\beta t} \left( \nu + \alpha \cancel{\beta} \frac{e^{\beta t}
+      - 1}{\cancel{\beta}} + \sigma \int\limits_{0}^{t}e^{\beta \tau}\,dW_\tau
+    \right), \\
+          \xi_t &= \alpha + (\nu -\alpha)e^{-\beta t} + \sigma \int\limits_{0}^{t}
+    e^{-\beta(t - \tau)}\,dW_\tau.
+  \end{align*}
+ Найдём характеристики. Поскольку $ \nu $ и $ W_t $ независимы, то  
+ \begin{align*}
+   K_\xi(t, s) &= D\nu e^{-\beta(t+s)} + \sigma^2 \int\limits_{0}^{\min(t, s)}
+   e^{-2\beta(t-\tau)}\,d\tau = D\nu e^{-\beta(t+s)} + \frac{\sigma^2}{2\beta} \left(1
+   - e^{-2\beta\min(t, s)}\right), \\
+   \tilde{\xi}_t &= \nu e^{-\beta t} + \frac{\sigma}{\sqrt{2\beta}} \left( 1 -
+   e^{-\beta t} \right) \widetilde{W}(1 - e^{-2\beta t}).
+ \end{align*}
+ Мы получили \emph{слабое решение}. Оно обладает теми же характеристиками, теми
+ же сечениями, что и сильное решение (решение дифференциального уравнения). 
+ \end{example}
+
+
+
