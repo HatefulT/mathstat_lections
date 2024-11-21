@@ -1,0 +1,191 @@
+\section{Линейные СДУ с постоянными коэффициентами}
+
+\begin{ex}
+  \[
+    d\xi_t = a \xi_t \, dt + b dW_t, \quad \xi_0 = \nu; a < 0
+  \]
+  где $\nu$ и $W_t$ -- независимы.
+
+  Если бы $\nu$ была бы неслучайной, а $b = 0$, то это уравнение было бы обычным дифференциальным,
+  а решение было бы равно
+  \[
+    \xi_t = e^{at} \left( \xi_0 + b \int\limits_0^t e^{-a\tau} \, dW_\tau \right),
+  \]
+  \begin{align*}
+    M\left(e^{at}\nu\right) &= e^{at} M\nu \to 0; \quad D \left( e^{at} \nu \right) = e^{2at} D\nu \to 0 \\
+    M \left( b\int\limits_0^t e^{a(t-\tau)} \, dW_t \right) &= 0; \quad 
+    D \left( b\int\limits_0^t e^{a(t-\tau)} \, dW_t \right) = b^2 \int\limits_0^t e^{2a(t-\tau)} \, d\tau \to \dfrac{- b^2}{2 |a|}
+  \end{align*}
+  т.е. первое слагаемое не вносит вклад на $\infty$.
+\end{ex}
+
+\begin{definition}
+  Система СДУ с постоянными коэффициентами называется асимптотически устойчивой, если все
+  корни характеристического уравнения $|a - \lambda E| = 0$ имеют действительную часть меньше
+  нуля.
+\end{definition}
+
+\[
+  d\xi_t = a \xi_t \, dt + u \, dt + s \, dW_t; \quad \xi_0=\nu,
+\]
+где $\nu$ и $W_t$ -- независимы. Тогда решение выражается в виде:
+\[
+  \xi_t = \Theta(t) \left( \nu + u \int\limits_0^t \Theta^{-1}_\tau \, d\tau + s\int\limits_0^t \Theta^{-1}_\tau dW_\tau \right),
+\]
+где $\Theta_t$ -- решение обыкновенного дифференциального уравнения (матричного)
+\[
+  \Theta_t' = a \Theta_t, \quad \Theta_0 = E
+\]
+
+Характеристики этого решения удовлетворяют уравнениям метода моментов:
+\[
+  \begin{cases}
+    \dfrac{dm_\xi(t)}{dt} = am_\xi(t) + u; \; m_\xi(0) = M\nu \\
+    \dfrac{d\gamma_\xi(t)}{dt} = a \gamma_\xi(t) + \gamma_\xi(t) a^T + ss^T; \; \gamma_\xi(0) = \Sigma_\nu.
+  \end{cases}
+\]
+
+\begin{theorem}
+  Если система СДУ с постоянными коэффициентами асимптотически устойчива, то
+  \[
+    \forall M\nu, \Sigma_\nu :
+    m_\xi(t) \to m_\xi = \operatorname{const}, \;
+    \gamma_\xi(t) \to \gamma_\xi = \operatorname{const},
+  \]
+  при $t \to +\infty$. А также $m_\xi$ и $\gamma_\xi$ удовлетворяет стационарным уравнениям
+  метода моментов:
+  \[
+    \begin{cases}
+      0 = am_\xi + u; \\
+      0 = a \gamma_\xi + \gamma_\xi a^T + ss^T
+    \end{cases}
+  \]
+\end{theorem}
+
+\begin{ex}
+  Найдём стационарные характеристики $m_\xi$ и $\gamma_\xi$ для процесса, заданного СДУ:
+  \[
+    \begin{cases}
+      d\xi_1(t) = \xi_2 \, dt + \delta \, dt, \\
+      d\xi_2(t) = - \omega^2 \xi_1(t) \, dt - 2 \alpha \omega \xi_2(t) \, dt + g dW_t
+    \end{cases}
+  \]
+  Перепишем уравнение в матричной форме:
+  \[
+    d \begin{pmatrix} \xi_1 \\ \xi_2 \end{pmatrix} =
+    \begin{pmatrix} 0 & 1 \\ - \omega^2 & - 2 \alpha \omega \end{pmatrix} \cdot
+    \begin{pmatrix} \xi_1 \\ \xi_2 \end{pmatrix} \, dt + 
+    \begin{pmatrix} \delta \\ 0 \end{pmatrix} \, dt +
+    \begin{pmatrix} 0 \\ g \end{pmatrix} \, dW_t
+  \]
+
+  Проверим асимптотическую устойчивость: составим характеристическое уравнение
+  $|a - \lambda E| = 0$:
+  \[
+    \left| \begin{matrix} - \lambda & 1 \\ - \omega^2 & - 2 \alpha \omega - \lambda \end{matrix} \right| =
+    \lambda^2 + 2\alpha\omega\lambda + \omega^2 =
+    (\lambda + \alpha\omega)^2 + \omega^2 (1 - \alpha^2) = 0,
+  \]
+  и его решения: $\lambda_{1, 2} = - \alpha\omega \pm \sqrt{\omega^2 (\alpha^2 - 1)}$,
+  и с учётом условия $\alpha\omega > 0$ получим следующее:
+  \begin{center}
+    \begin{tabular}{cc}
+      % \hline
+      $\omega^2 (\alpha^2 - 1) > 0$ & 2 действительных корня и оба меньше нуля \\
+      $\omega^2(\alpha^2 - 1) < 0$ & 2 комплексно-сопряжённых корня с отрицательными действительными частями
+      % \hline
+    \end{tabular}
+  \end{center}
+  то есть эта система асимптотически устойчива.
+  
+  Тогда можем найти характеристики:
+  \[
+    \begin{cases}
+      0 = am_\xi + u\\
+      0 = a\gamma_\xi + \gamma_\xi a^T + ss^T
+    \end{cases}
+    \Rightarrow
+    \begin{cases}
+      m_\xi = \begin{pmatrix} \dfrac{2\alpha\delta}{\omega} \\ - \delta \end{pmatrix} , \\
+      \gamma_\xi = \begin{pmatrix}
+        \dfrac{g^2}{4\alpha\omega} & 0 \\
+        0 & \dfrac{g^2}{4\alpha\omega^3}
+      \end{pmatrix} 
+    \end{cases}
+  \]
+\end{ex}
+
+
+\begin{theorem}
+  Если $\xi_t$ удовлетворяет условиям асимптотической устойчивости, $\nu$ не зависит от $W_s$, то
+  характеристическая функция $\xi_t$ имеет вид:
+  \[
+    f_\xi(\lambda) = M e^{i\lambda^T \xi} = f_0 \left( \Theta_t^T \lambda\right) \exp \left\{ i\lambda^T \check{m}_\xi(t) - \dfrac{1}{2} \lambda^T \check{\gamma}_\xi (t) \lambda \right\},
+  \]
+  где $f_0$ -- характеристическая функция $\nu$;
+  $\check{m}_\xi, \check{\gamma}_\xi$ -- характеристики процесса с нулевым начальным условием.
+\end{theorem}
+
+\textit{Пояснение.} Решение дифференциального уравнения:
+\[
+  \xi_t = \Theta_t \nu + \int\limits_0^t \Theta_t \Theta^{-1}_\tau u \, d\tau + \int\limits_0^t \Theta_t \Theta^{-1}_\tau s dW_\tau,
+\]
+характеристическая функция суммы независимых случайных величин равна произведению
+характеристических функций этих случайных величин. Слагаемое посередине -- детерминированная часть,
+и её характеристическая функция равна $e^{i\lambda \dots}$:
+\begin{align*}
+  M e^{i\lambda^T \Theta_t \nu} = f_\nu \left( \Theta_t^T \lambda \right), \\
+  M e^{i\lambda^T \int\limits_0^t \Theta_t \Theta^{-1}_\tau s dW_\tau} = e^{i \lambda^T \Sigma \lambda/2}
+\end{align*}
+
+\begin{ex} Найти закон распределения сечения для процесса $\xi_t$:
+  \[
+    d\xi_t = a \xi_t \, dt + b \, dW_t, \quad \xi_0 \sim R[-\alpha, \alpha]
+  \]
+  
+  \[
+    \begin{cases}
+      \Theta_t' = a \Theta_t, \\
+      \Theta_0 = 1
+    \end{cases}
+    \Rightarrow
+    \Theta_t = e^{at}
+  \]
+  \[
+    f_0 (\lambda) = \int\limits_{-\alpha}^{\alpha} \dfrac{1}{2\alpha} e^{i\lambda x} \, dx = \dfrac{\sin(\alpha \lambda)}{\alpha\lambda}
+  \]
+  \[
+    \begin{cases}
+      \dfrac{d \check{m}_\xi}{dt} = a \check{m}_\xi + 0, \; \check{m}_\xi(0) = 0 \\
+      \dfrac{d \check{\gamma}_\xi}{dt} = 2a \check{\gamma}_\xi + b^2; \; \check{\gamma}_\xi(0) = 0
+    \end{cases}
+    \Rightarrow
+    \begin{cases}
+      \check{m}_\xi(t) = 0, \\
+      \check{\gamma}_\xi(t) = \dfrac{b^2}{2|a|} \left( 1 - e^{2at} \right) 
+    \end{cases}
+  \]
+
+  Тогда:
+  \[
+    f_\xi(\lambda) = \dfrac{\sin\left(\alpha\lambda e^{at}\right)}{\alpha\lambda e^{at}} e^{- \dfrac{\lambda^2 b^2}{4|a|} (1 - e^{2at})}
+  \]
+  при $t \to + \infty$:
+  \[
+    f_{\xi_\infty}(\lambda) = e^{- \dfrac{b^2}{4|a|} \lambda^2} \sim N\left(0; \sqrt{\dfrac{b^2}{2|a|}}\right)
+  \]
+
+  \begin{remark*}
+    Сечения $\xi_t$ при $t \to +\infty$ будут нормальными, если $\Theta_t \to 0$.
+  \end{remark*}
+\end{ex}
+
+
+\section{Задача прогнозирования}
+
+\[
+  d\xi_t = A(t, \xi_t) \, dt + B(t, \xi_t) \, dW_t, \; \xi_0=\nu,
+\]
+$\nu$ и $W_t$ -- независимы.
+
+
