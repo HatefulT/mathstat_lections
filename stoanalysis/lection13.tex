@@ -1,0 +1,104 @@
+\section{Фильтр Калмана-Бьюси}
+
+% \paragraph{Одномерный фильтр Калмана-Бьюси.} Пусть $X_t$ и $Y_t$ -- скалярные СП,
+% \[
+%   \begin{cases}
+%     dX_t = A(t) X_t \, dt + B(t) \, dW_t^{(1)}, \\
+%     dY_t = a(t) X_t \, dt + b(t) \, dW_t^{(2)}, \\
+%     MX_0 = m_0, \Sigma_{X_0} = \Sigma_0, \\
+%     Y_0 = 0
+%   \end{cases}
+%
+% \]
+% Введём обозначения: $dN_t = dY_t - a(t) \hat{X}_t \, dt$ -- гаусс.;
+% $dR_t = \dfrac{1}{b(t)} dN_t$ -- винеровский, где $\hat{X}_t = M(X_t | \mathcal{F}_t)$,
+% причём
+% \[
+%   \hat{X}_t = MX_t + \int\limits_0^t f(s) \, dR_s
+% \]
+% -- линейная комбинация сечений $R_t$.
+%
+% тогда
+% \[
+%   d\hat{X}_t = A(t) \hat{X}_t \, dt + \underbrace{\dfrac{\gamma(t) a(t)}{b^2(t)} \left( dY_t - a(t) \hat{X}_t \, dt \right)}_{\dfrac{\gamma(t)a(t)}{b(t)}dR_t},
+% \]
+% где $\gamma(t) = M(X_t - \hat{X}_t)^2$
+
+\begin{theorem}[Калмана-Бьюси]
+  Если $X_t, Y_t$ удовлетворяют системе СДУ:
+  \[
+    \begin{cases}
+      dX_t = A(t) X_t \, dt + B(t) \, dW_t^{(1)}, \\
+      dY_t = a(t) X_t \, dt + b(t) \, dW_t^{(2)}, \\
+      X_t \sim N(m_0, \Sigma_0) \\
+      Y_0 = 0,
+    \end{cases}
+  \]
+  где матричные функции $A, B, a, b$ -- кусочно-непрерывные и $bb^T$ -- равномерно-невырожденная,
+  т.е. $\exists C>0 : \forall t\in[0, T] \forall \lambda \in \mathbb{R}^n : \lambda^T bb^T \lambda \geqslant C |\lambda|^2$,
+  тогда $\hat{X}_t = M(X_t | \mathcal{F}_t)$ -- единственное решение системы
+  \[
+    \begin{cases}
+      d\hat{X}_t = A(t) \hat{X}_t \, dt + \gamma(t) a(t)^T [b(t) b(t)^T]^{-1} (dY_t - a(t) \hat{X}_t \, dt), \\
+      \dfrac{d\gamma(t)}{dt} = A(t) \gamma(t) + \gamma(t) A(t)^T + B(t) B(t)^T - \gamma(t) a(t)^T [b(t) b(t)^T]^{-1} a(t) \gamma(t), \\
+      \hat{X}_0 = m_0, Y_0 = \Sigma_0,
+    \end{cases}
+  \]
+  при этом:
+  \[
+    N_t = \int\limits_0^t [b(\tau) b(\tau)^T]^{-\dfrac{1}{2}} \left( dY_\tau - a(\tau) X_\tau \, d\tau \right)
+  \]
+  -- обновлённый процесс.
+\end{theorem}
+
+\begin{ex}
+  Пусть $\theta \sim N(m_0, \sigma_0)$. $y_t$ -- наблюдаемый процесс, удовлетворяющий
+  СДУ
+  \[
+    dy_t = \theta \, dt + \sigma_1 \, dW_t \Rightarrow
+    y_t = y_0 + \theta t + \sigma_1 W_t
+  \]
+  Необходимо получить оценку $\hat{\theta}_t$.
+  Считаем, что $\theta_t$ -- постоянный процесс (т.е. $d\theta_t = 0 \, dt + 0 \, dW_t$),
+  тогда:
+  \[
+    \begin{cases}
+      d\theta = 0 \cdot dt + 0 \cdot dW_t^{(1)}, \\
+      d\eta_t = \theta \, dt + \sigma_1 \cdot dW_t^{(2)}
+    \end{cases}
+  \]
+  тогда процесс $\hat{\theta}_t = M(\theta | \mathcal{F}_t)$ удовлетворяет
+  \[
+    \begin{cases}
+      d \hat{\theta}_t = \hat{\theta}_t \, dt + \dfrac{\gamma(t)}{\sigma_1^2} \left( dy_t - \hat{\theta}_t \, dt \right), \hat{\theta}_0 = m_0, \\
+      \dfrac{d\gamma(t)}{dt} = - \dfrac{\gamma^2}{\sigma_1^2}, \gamma_0 = \sigma_0^2
+    \end{cases}
+    \Rightarrow
+    \begin{cases}
+      \gamma(t) = \dfrac{\sigma_0^2 \sigma_1^2}{t \sigma_0^2 + \sigma_1^2}, \\
+      d\hat{\theta}_t = \dfrac{\sigma_0^2 \hat{\theta}_t}{t\sigma_0^2 + \sigma_1^2} \, dt + 
+      \dfrac{\sigma_0^2 \hat{\theta}_t}{t\sigma_0^2 + \sigma_1^2} \, dt + \dfrac{\sigma_0^2 \sigma_1^2}{t \sigma_0^2 + \sigma_1^2} \, dW_t,
+    \end{cases}
+  \]
+  последнее является линейным уравнением, решение которого получается:
+  \[
+    \begin{cases}
+      \Theta_t' = - \dfrac{\sigma_0^2}{t\sigma_0^2 + \sigma_1^2} \Theta_t, \Theta_0 = 1, \\
+      \hat{\theta}_t = \Theta_t \left( \hat{\theta}_0 + \int\limits_0^t \Theta_\tau^{-1} u_\tau \, d\tau + \int\limits_0^t \Theta_\tau^{-1} s(\tau) \, dW_\tau \right) 
+    \end{cases}
+    \Rightarrow
+    \begin{cases}
+      \Theta_t = \dfrac{\sigma_1^2}{t\sigma_0^2 + \sigma_1^2}, \\
+      \hat{\theta}_t = \gamma(t) \left[ \dfrac{m_0}{\sigma_0^2} + \dfrac{y_0}{\sigma_1^2} \right] 
+    \end{cases}
+  \]
+  Причём эта оценка стремиться в среднеквадратическом к $\theta_t$, потому что
+  $\gamma(t) = \left( \hat{\theta}_t - \theta_t \right)^2 \to 0$.
+\end{ex}
+
+
+
+\section{Процесс дискретизации}
+
+
+

@@ -1,0 +1,184 @@
+\section{Решения СДУ как дифференцируемый процесс}
+
+\begin{theorem}[Уравнение Колмогорова-Фокера-Планка]
+  При некоторых условиях $p(s, x, t, y)$ удовлетворяют уравнению:
+  \[
+    \dfrac{\partial p}{\partial t} + \dfrac{\partial }{\partial y} \left( \mu(t, y) p(s, x, t, y) \right) -
+    \dfrac{1}{2} \dfrac{\partial^2}{\partial y^2} \left( \sigma(t, y) \cdot p(s, x, t, y) \right) = 0,
+  \]
+  где $\mu(t, y) = \lim_{\tau \to t+} M \left( \dfrac{\xi_\tau - \xi_t}{\tau - t} | \xi_{t} = y \right) $ -- снос;
+  $\sigma(t, y) = \lim_{\tau \to t+} M \left( \left. \dfrac{(\xi_\tau - \xi_t)^2}{\tau - \tau} \right| \xi_t = y \right) $ -- диффузия.
+\end{theorem}
+
+\begin{theorem}
+  Если $d \xi_t = a(t, \xi_t) \, dt + b(t, \xi_t) \, dW_t, \; \xi_0 = \nu$ и
+  выполнены условия теоремы о существовании и единственности, то:
+  \[
+    \xi_t = \nu + \int\limits_0^t a(s, \xi_s) \, ds + \int\limits_0^t b(s, \xi_s) \, dW_s
+  \]
+  -- является марковским процессом с характеристиками $a(t, y) = \mu(t, y)$, $b^2(t, y) = \sigma(t, y)$.
+\end{theorem}
+\begin{proof}
+  \[
+    \xi_{s, x} (t) = x + \int\limits_s^t a(\tau, \xi_{s, x}(\tau)) \, d\tau + \int\limits_s^t b(\tau, \xi_{s, x}(\tau)) \, dW_\tau
+  \]
+  \[
+    d\xi_{s, x}(t) = a(t, \xi_{s, x}(t)) \, dt + b(t, \xi_{s, x}(t)) \, dW_t,
+  \]
+  а с другой стороны:
+  \[
+    \xi_t = \nu + \int\limits_0^t \dots \, d\tau + \int\limits_0^t \dots \, dW_\tau =
+    \nu + \int\limits_0^s \dots \, d\tau + \int\limits_0^t \dots \, dW_\tau + \int\limits_s^t \dots \, d\tau + \int\limits_s^t \dots \, dW_\tau
+  \]
+  Т.е. процессы $\xi_t$ и $\xi_{s, x}(t)$ -- тождественны на $[s, t]$.
+
+  \[
+    P(\xi_t \in D | \sigma(\xi_\tau, \tau \leqslant s) = P( \xi_{s, \xi_s}(t) \in D | \sigma(\xi_\tau), \tau \leqslant s ), \; t > s
+  \]
+  \[
+    \xi_{s, \xi_s} = \xi_s + \int\limits_s^t a(\tau, \xi_{s, \xi_s}(\tau)) \, d\tau + \int\limits_s^t b(\tau, \xi_{s, \xi_s}(\tau)) \, dW_\tau,
+  \]
+  здесь ни одно слагаемое не зависит от $\xi_\tau, \tau \in [0, s)$,
+  т.е. $\xi_t$ -- марковский процесс. Тогда найдём снос и диффузию (при $t > s$):
+  \begin{multline*}
+    M( \xi_t - \xi_s | \xi_s = x ) = M \left(\int\limits_s^t a(\tau, \xi_{s, \xi_s}(\tau)) \, d\tau + 0 | \xi_s = x\right) = M\left( \int\limits_s^t a(\tau, \xi_{s, x}(\tau)) \, d\tau\right) = \\
+    = a(s, x) (t - s) + o(t-s)
+    \Rightarrow \lim_{\tau \to s+0} M \left( \dfrac{\xi_t - \xi_s}{t - s} | \xi_s = x \right) = a(s, x) = \mu(s, x)
+  \end{multline*}
+
+  При $s$ -- фиксированном: $d \left( \xi_t - \xi_s \right)^2 = 2 (\xi_t - \xi_s) \, \underbrace{d\xi_t}_{a \, dt + b\, dW_t} + \dfrac{1}{2} \cdot 2 \cdot b^2(\xi_t) \, dt $, тогда:
+  \[
+    \left( \xi_t - \xi_s \right)^2 = 0 + \int\limits_s^t 2(\xi_\tau - \xi_s) a(\tau, \xi_\tau) \, d\tau + \int\limits_s^t 2(\xi_\tau - \xi_s) b(\tau, \xi_\tau) \, dW_\tau + \int\limits_s^t b^2 \, d\tau
+  \]
+  \[
+    M \left( \left( \xi_t - \xi_s \right)^2 | \xi_s = x \right) = M \int\limits_s^t b^2 (\tau, \xi_\tau) \, d\tau = \dfrac{b^2(s, x)}{\sigma(s, x)}(t - s) + o(t-s)
+  \]
+\end{proof}
+
+\begin{ex}
+  Попробуем найти плотность $p(s, x, t, y)$ для процесса, заданного СДУ:
+  \[
+    d\xi_t = - a \xi_t \, dt + b dW_t, \; a>0, \xi_0 = x
+  \]
+
+  \[
+    \xi_t = e^{-at} \left( x + b \int\limits_0^t e^{a\tau} \, dW_\tau \right)
+  \]
+  Запишем уравнение Колмогорова-Фокера-Планка:
+  \[
+    \dfrac{\partial p}{\partial t} + \dfrac{\partial }{\partial y}(- a y p) - \dfrac{1}{2} \dfrac{\partial^2}{\partial y^2} (b^2 p) = 0
+  \]
+  \[
+    \dfrac{\partial p}{\partial t} - a \dfrac{\partial }{\partial y} (y p) - \dfrac{1}{2} b^2 \dfrac{\partial^2 p}{\partial y^2} = 0
+  \]
+  -- можно решать с помошью преобразования Лапласа, но можно заметить, что
+  наш процесс будет гауссовским, а значит достаточно только найти его моменты
+  при помощи метода моментов:
+  \[
+    \begin{cases}
+      \dfrac{d m_\xi(t)}{dt} = - a m_\xi(t), \; m_\xi(0) = x \Rightarrow m_\xi(t) = x e^{-at} \\
+      \dfrac{\partial \gamma_\xi(t)}{\partial t} = - 2a \gamma_\xi(t) + b^2, \; \gamma_\xi(0) = 0 = D\xi_0 \Rightarrow \gamma_\xi(t) = \dfrac{b^2}{2a} \left( 1 - e^{-2at} \right)
+    \end{cases}
+  \]
+  Тогда можно записать плотность:
+  \[
+    p(s, x, t, y) = \dfrac{1}{\sqrt{2\pi} \sqrt{ \dfrac{b^2}{2a} \left( 1 - e^{-2a(t-s)} \right)  }} e^{- \dfrac{a(y-x)^2}{b^2 \left( 1 - e^{-2a(t-s)} \right) }}
+  \]
+\end{ex}
+
+\section{Вероятностное решение уравнения теплопроводности}
+
+Задача Коши для уравнения теплопроводности:
+\[
+  \begin{cases}
+    \dfrac{\partial u}{\partial t} = \dfrac{1}{2} B^2 \dfrac{\partial^2 u}{\partial x^2}, \\
+    u |_{t = 0} = \varphi(x)
+  \end{cases}
+\]
+
+Пусть $u(t, x)$ -- решение этой задачи Коши. Рассмотрим СДУ:
+\[
+  d\xi_t = B \, dW_t, \; \xi_0 = x
+\]
+Для процесса $\eta_s = u(t-s, \xi_s)$ по формуле Ито получаем:
+\[
+  d\eta_s = \left. \dfrac{\partial u}{\partial s} \right|_{x=\xi_s} \, ds +
+    \left. \dfrac{\partial u}{\partial x} \right|_{x = \xi_s} \, d\xi_t +
+      \left. \dfrac{1}{2} \dfrac{\partial^2 u}{\partial x^2} \right|_{x = \xi_s} \cdot B^2 \, ds 
+\]
+Его решением является:
+\[
+  \eta_t = \eta_0 + \int\limits_0^t \left( \underbrace{\dfrac{\partial u}{\partial s}}_{ -\dfrac{\partial u}{\partial t}  } +\dfrac{B^2}{2} \dfrac{\partial^2 u}{\partial x^2}  \right) |_{x = \xi_s} \, ds + \int\limits_0^t \dfrac{\partial u}{\partial x} |_{x = \xi_s} \, ds + \int\limits_0^t \dfrac{\partial u}{\partial x} |_{x = \xi_s} B \, dW_s 
+\]
+\[
+  M\eta_t = M\eta_0 = M u(t, \xi_0) = u(t, x),
+\]
+с другой стороны:
+\[
+  M\eta_t = M u(0, \xi_t) = M \varphi(\xi_t) = \int\limits_{-\infty}^{+\infty} \varphi(y) \cdot \dfrac{1}{\sqrt{2\pi} B \sqrt{t}} e^{- \dfrac{(y-x)^2}{2B^2 t}} \, dy
+\]
+
+Таким образом, $u(t, x)$ равен последнему интегралу. Получили выражение решение как свёртку
+начального условия с фундаментальным решением оператора теплопроводности.
+
+
+\begin{theorem}
+  \[
+    d\xi_t &= A(\xi_t) \, dt + B(\xi_t) \, dW_t, \; \xi_0 = x \\
+  \]
+  Свяжем со следующим дифференциальным уравнением:
+  \[
+    \begin{cases}
+      \dfrac{\partial u}{\partial t} = A(t) \dfrac{\partial u}{\partial x} + \dfrac{1}{2}B^2 \dfrac{\partial^2 u}{\partial x^2} - f(x) u, \; a < x < b \\
+      u(0, x) = \varphi(x), \\
+      u(t, a) = \varphi(a), \\
+      u(t, b) = \varphi(b)
+    \end{cases}
+    
+  \]
+
+  Если для первого уравнения выполнены условия теоремы существования и единственности,
+  то решение второй задачи представимо в виде:
+  \[
+    u(t, x) = M \varphi(\xi_{\min(t, H_{a, b})}) \exp \left( - \int\limits_0^{\min(t, H_{a, b})} f(\xi_s) \, ds \right),
+  \]
+  где $H_{a, b} = \min \left\{ t, \xi_t \notin [a, b] \right\} $ -- минимальное время выхода.
+\end{theorem}
+\begin{proof}
+  \[
+    \eta_s = u(t-s, \xi_s) \exp \left( - \int\limits_0^s f(\xi_\tau) \, d\tau \right) 
+  \]
+  При фиксированном $t$:
+  \[
+    d\eta_s = \exp \left( - \int\limits_0^s f(\xi_\tau) \, d\tau \right)
+    \left[ \left.\dfrac{\partial u}{\partial s}\right|_{x=\xi_s} \, ds
+      + \left. \dfrac{\partial u}{\partial x} \right|_{x=\xi_s}\, d\xi_s
+      + \left.\dfrac{1}{2} \dfrac{\partial^2 u}{\partial x^2} B^2 \right|_{x = \xi_s}\, ds
+      - u(t-s, \xi_s) f(\xi_s) \, ds
+    \right] 
+  \]
+  \[
+    \eta_{\min (t, H_{a, b})} =
+    \eta_0 +
+    \int\limits_0^{\min (t, H_{a, b})} \left[ - \dfrac{\partial u}{\partial t} + A \cdot \dfrac{\partial u}{\partial x} + \dfrac{1}{2} B^2 \dfrac{\partial^2 u}{\partial x^2} - f u \right] \, ds
+    + \int\limits_0^{\min (t, H_{a, b})} \dfrac{\partial u}{\partial x} B \, dW_s,
+  \]
+  тогда:
+  \[
+    M(\eta_{\min(t, H_{a, b})})= M\eta_0 = u(t, \xi_0)
+  \]
+  т.к. первый интеграл равен 0 тождественно, а второй интеграл является интегралом Ито.
+  % TODO дописать дальше, там всё плохо
+  И с другой стороны, т.к. $\eta_t = u(t-s, \xi_s) e^{-\int_0^t f_\tau \, d\tau}$:
+  \[
+    M(\eta_{\min(t, H_{a, b})}) = 
+    \begin{cases}
+      M u(0, \xi_t) e^{-\int\limits_0^t f_\tau \, d\tau}, &t < H_{a, b} \\
+      M u(t - H_{a, b}, \xi_{H_{a, b}}) e^{-\int\limits_0^t f_\tau \, d\tau}, &t > H_{a, b}
+    \end{cases}
+  \]
+  Тогда запишем ответ:
+  \[
+    u(t, x) = M \left( \varphi(\xi(\min(t, H_{a, b}))) e^{- \int\limits_0^{\min(t, H_{a, b})} f_\tau \, d\tau} \right) 
+  \]
+\end{proof}
